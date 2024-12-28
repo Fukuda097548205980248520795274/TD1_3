@@ -1,4 +1,5 @@
 #include <Novice.h>
+#include "Constant.h"
 
 const char kWindowTitle[] = "LC1C_20_フクダソウワ_タイトル";
 
@@ -6,7 +7,7 @@ const char kWindowTitle[] = "LC1C_20_フクダソウワ_タイトル";
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 	// ライブラリの初期化
-	Novice::Initialize(kWindowTitle, 1280, 720);
+	Novice::Initialize(kWindowTitle, kScreenWidth, kScreenHeight);
 
 	// キー入力結果を受け取る箱
 	char keys[256] = {0};
