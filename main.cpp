@@ -1,8 +1,12 @@
 #include <Novice.h>
 #include "Constant.h"
+#include "./Class/Map/Map.h"
 #include "./Class/Object/Player/Player.h"
 
 const char kWindowTitle[] = "LC1C_20_フクダソウワ_タイトル";
+
+// マップ
+int Map::map_[kMapRow][kMapColumn];
 
 // Windowsアプリでのエントリーポイント(main関数)
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
@@ -18,6 +22,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	/*---------------
 	    変数を作る
 	---------------*/
+
+	// マップ
+	Map::LoadFile("./TextFiles/Stage/stage1.csv");
 
 	// プレイヤー
 	Player* player = new Player();
@@ -48,6 +55,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		///
 		/// ↓描画処理ここから
 		///
+
+		Map::Draw(ghWhite);
 
 		player->Draw(ghWhite);
 
