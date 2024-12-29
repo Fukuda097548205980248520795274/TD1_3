@@ -155,5 +155,6 @@
     <ClInclude Include="Class\Map\Map.h">
       <Filter>Class\Map</Filter>
     </ClInclude>
+    <ClInclude Include="Enumeration.h" />
   </ItemGroup>
 </Project>
