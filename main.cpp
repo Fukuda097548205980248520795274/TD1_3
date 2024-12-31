@@ -1,12 +1,13 @@
 #include <Novice.h>
 #include "Constant.h"
+#include "Enumeration.h"
 #include "./Class/Map/Map.h"
 #include "./Class/Object/Player/Player.h"
 
 const char kWindowTitle[] = "LC1C_20_フクダソウワ_タイトル";
 
 // マップ
-int Map::map_[kMapRow][kMapColumn];
+TILE Map::map_[kMapRow][kMapColumn];
 
 // Windowsアプリでのエントリーポイント(main関数)
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
@@ -46,6 +47,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		/// ↓更新処理ここから
 		///
 
+		// 操作する
 		player->Operation(keys, preKeys);
 
 		///
@@ -56,8 +58,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		/// ↓描画処理ここから
 		///
 
+		// マップ
 		Map::Draw(ghWhite);
 
+		// プレイヤー
 		player->Draw(ghWhite);
 
 		///
