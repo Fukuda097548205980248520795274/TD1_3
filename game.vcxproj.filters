@@ -32,6 +32,12 @@
     <Filter Include="Class\Map">
       <UniqueIdentifier>{83331152-8df0-4fde-9161-1db9d7556602}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Class\Object\Enemy">
+      <UniqueIdentifier>{4f213125-24f9-4564-b6db-e9168f76b215}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\Object\CarryBlock">
+      <UniqueIdentifier>{b1424d34-088c-40c3-8bd1-8e3f68ecfa6a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="C:\KamataEngine\DirectXGame\base\DirectXCommon.cpp">
@@ -67,6 +73,9 @@
     </ClCompile>
     <ClCompile Include="Class\Map\Map.cpp">
       <Filter>Class\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Class\Object\CarryBlock\CarryBlock.cpp">
+      <Filter>Class\Object\CarryBlock</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -156,5 +165,8 @@
       <Filter>Class\Map</Filter>
     </ClInclude>
     <ClInclude Include="Enumeration.h" />
+    <ClInclude Include="Class\Object\CarryBlock\CarryBlock.h">
+      <Filter>Class\Object\CarryBlock</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

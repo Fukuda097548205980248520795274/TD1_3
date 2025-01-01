@@ -3,6 +3,7 @@
 #include "Enumeration.h"
 #include "./Class/Map/Map.h"
 #include "./Class/Object/Player/Player.h"
+#include "./Class/Object/CarryBlock/CarryBlock.h"
 
 const char kWindowTitle[] = "LC1C_20_フクダソウワ_タイトル";
 
@@ -30,6 +31,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	// プレイヤー
 	Player* player = new Player();
 
+	// ブロック
+	CarryBlock* block1 = new CarryBlock(300.0f , 100.0f);
+	CarryBlock* block2 = new CarryBlock(320.0f, 300.0f);
+
 	// 画像
 	int ghWhite = Novice::LoadTexture("./NoviceResources/white1x1.png");
 
@@ -49,6 +54,16 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 		// 操作する
 		player->Operation(keys, preKeys);
+		player->BlockLanding(block1);
+		player->BlockLanding(block2);
+
+		block1->Move();
+		block2->Move();
+		block1->BlockLanding(block2);
+		block2->BlockLanding(block1);
+
+		player->Carry(block1 , block2);
+		player->Carry(block2, block1);
 
 		///
 		/// ↑更新処理ここまで
@@ -63,6 +78,11 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 		// プレイヤー
 		player->Draw(ghWhite);
+
+		// ブロック
+		block1->Draw(ghWhite);
+		block2->Draw(ghWhite);
+
 
 		///
 		/// ↑描画処理ここまで
@@ -84,6 +104,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 	// プレイヤー
 	delete player;
+
+	// ブロック
+	delete block1;
+	delete block2;
 
 
 	// ライブラリの終了
