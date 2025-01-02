@@ -3,12 +3,20 @@
 #include "Enumeration.h"
 #include "./Class/Map/Map.h"
 #include "./Class/Object/Player/Player.h"
-#include "./Class/Object/CarryBlock/CarryBlock.h"
+#include "./Class/Object/CarryBlock/Plastic/Plastic.h"
+#include "./Class/Object/CarryBlock/Treasure/Treasure.h"
 
 const char kWindowTitle[] = "LC1C_20_フクダソウワ_タイトル";
 
 // マップ
 TILE Map::map_[kMapRow][kMapColumn];
+
+// プラスチック
+int Plastic::countID;
+
+// 宝
+int Treasure::countID;
+
 
 // Windowsアプリでのエントリーポイント(main関数)
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
@@ -31,9 +39,22 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	// プレイヤー
 	Player* player = new Player();
 
-	// ブロック
-	CarryBlock* block1 = new CarryBlock(300.0f , 100.0f);
-	CarryBlock* block2 = new CarryBlock(320.0f, 300.0f);
+	// プラスチック
+	Plastic* plastic[kBlockNum];
+	for (int i = 0; i < kBlockNum; i++)
+	{
+		plastic[i] = new Plastic();
+	}
+
+	// 宝
+	Treasure* treasure[kBlockNum];
+	for (int i = 0; i < kBlockNum; i++)
+	{
+		treasure[i] = new Treasure();
+	}
+
+	plastic[0]->Putting(3, 3);
+	treasure[0]->Putting(3, 6);
 
 	// 画像
 	int ghWhite = Novice::LoadTexture("./NoviceResources/white1x1.png");
@@ -54,16 +75,42 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 		// 操作する
 		player->Operation(keys, preKeys);
-		player->BlockLanding(block1);
-		player->BlockLanding(block2);
 
-		block1->Move();
-		block2->Move();
-		block1->BlockLanding(block2);
-		block2->BlockLanding(block1);
+		for (int i = 0; i < kBlockNum; i++)
+		{
+			player->BlockLanding(plastic[i]);
+			player->BlockLanding(treasure[i]);
+		}
 
-		player->Carry(block1 , block2);
-		player->Carry(block2, block1);
+		for (int i = 0; i < kBlockNum; i++)
+		{
+			plastic[i]->Move();
+			treasure[i]->Move();
+		}
+
+		for (int i = 0; i < kBlockNum; i++)
+		{
+			for (int j = 0; j < kBlockNum; j++)
+			{
+				// 同じ種類のブロック
+				if (i != j)
+				{
+					plastic[i]->BlockLanding(plastic[j]);
+					treasure[i]->BlockLanding(treasure[j]);
+					player->Carry(plastic[i] , plastic[j]);
+					player->Carry(treasure[i], treasure[j]);
+				}
+
+				// 別種類のブロック
+				plastic[i]->BlockLanding(treasure[j]);
+				treasure[i]->BlockLanding(plastic[j]);
+				player->Carry(plastic[i], treasure[j]);
+				player->Carry(treasure[i], plastic[j]);
+
+			}
+		}
+
+
 
 		///
 		/// ↑更新処理ここまで
@@ -80,8 +127,11 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		player->Draw(ghWhite);
 
 		// ブロック
-		block1->Draw(ghWhite);
-		block2->Draw(ghWhite);
+		for (int i = 0; i < kBlockNum; i++)
+		{
+			plastic[i]->Draw(ghWhite);
+			treasure[i]->Draw(ghWhite);
+		}
 
 
 		///
@@ -106,9 +156,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	delete player;
 
 	// ブロック
-	delete block1;
-	delete block2;
-
+	for (int i = 0; i < kBlockNum; i++)
+	{
+		delete plastic[i];
+	}
 
 	// ライブラリの終了
 	Novice::Finalize();

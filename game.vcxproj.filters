@@ -38,6 +38,12 @@
     <Filter Include="Class\Object\CarryBlock">
       <UniqueIdentifier>{b1424d34-088c-40c3-8bd1-8e3f68ecfa6a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Class\Object\CarryBlock\Plastic">
+      <UniqueIdentifier>{7a5ae3f9-5717-4ed9-b2dd-915e140dde9c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\Object\CarryBlock\Treasure">
+      <UniqueIdentifier>{9b6d1678-88b0-4109-bafb-3cab57d1ae15}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="C:\KamataEngine\DirectXGame\base\DirectXCommon.cpp">
@@ -76,6 +82,12 @@
     </ClCompile>
     <ClCompile Include="Class\Object\CarryBlock\CarryBlock.cpp">
       <Filter>Class\Object\CarryBlock</Filter>
+    </ClCompile>
+    <ClCompile Include="Class\Object\CarryBlock\Plastic\Plastic.cpp">
+      <Filter>Class\Object\CarryBlock\Plastic</Filter>
+    </ClCompile>
+    <ClCompile Include="Class\Object\CarryBlock\Treasure\Treasure.cpp">
+      <Filter>Class\Object\CarryBlock\Treasure</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -167,6 +179,12 @@
     <ClInclude Include="Enumeration.h" />
     <ClInclude Include="Class\Object\CarryBlock\CarryBlock.h">
       <Filter>Class\Object\CarryBlock</Filter>
+    </ClInclude>
+    <ClInclude Include="Class\Object\CarryBlock\Plastic\Plastic.h">
+      <Filter>Class\Object\CarryBlock\Plastic</Filter>
+    </ClInclude>
+    <ClInclude Include="Class\Object\CarryBlock\Treasure\Treasure.h">
+      <Filter>Class\Object\CarryBlock\Treasure</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
