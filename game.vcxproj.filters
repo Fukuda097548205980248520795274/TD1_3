@@ -44,6 +44,9 @@
     <Filter Include="Class\Object\CarryBlock\Treasure">
       <UniqueIdentifier>{9b6d1678-88b0-4109-bafb-3cab57d1ae15}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Class\Object\Enemy\Ghost">
+      <UniqueIdentifier>{d9b4220f-b1a2-458f-80c0-b923ac1a2c76}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="C:\KamataEngine\DirectXGame\base\DirectXCommon.cpp">
@@ -88,6 +91,12 @@
     </ClCompile>
     <ClCompile Include="Class\Object\CarryBlock\Treasure\Treasure.cpp">
       <Filter>Class\Object\CarryBlock\Treasure</Filter>
+    </ClCompile>
+    <ClCompile Include="Class\Object\Enemy\Enemy.cpp">
+      <Filter>Class\Object\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Class\Object\Enemy\Ghost\Ghost.cpp">
+      <Filter>Class\Object\Enemy\Ghost</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -185,6 +194,12 @@
     </ClInclude>
     <ClInclude Include="Class\Object\CarryBlock\Treasure\Treasure.h">
       <Filter>Class\Object\CarryBlock\Treasure</Filter>
+    </ClInclude>
+    <ClInclude Include="Class\Object\Enemy\Enemy.h">
+      <Filter>Class\Object\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Class\Object\Enemy\Ghost\Ghost.h">
+      <Filter>Class\Object\Enemy\Ghost</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
