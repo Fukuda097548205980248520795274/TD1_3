@@ -29,20 +29,43 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	Novice::Initialize(kWindowTitle, kScreenWidth, kScreenHeight);
 
 	// キー入力結果を受け取る箱
-	char keys[256] = {0};
-	char preKeys[256] = {0};
+	char keys[256] = { 0 };
+	char preKeys[256] = { 0 };
 
 
 	/*---------------
-	    変数を作る
+		変数を作る
 	---------------*/
-
+#pragma region マップ
 	// マップ
 	Map::LoadFile("./TextFiles/Stage/stage1.csv");
+#pragma endregion
 
+#pragma region シーン
+	int nextStage = 0;
+
+	int scene = TITLE;
+
+	int alpha = 0;
+
+	int active = false;
+#pragma endregion
+
+#pragma region プレイヤー
 	// プレイヤー
 	Player* player = new Player();
+#pragma endregion
 
+#pragma region 敵
+	// ゴースト
+	Ghost* ghost[kBlockNum];
+	for (int i = 0; i < kBlockNum; i++)
+	{
+		ghost[i] = new Ghost();
+	}
+#pragma endregion
+
+#pragma region ブロック
 	// プラスチック
 	Plastic* plastic[kBlockNum];
 	for (int i = 0; i < kBlockNum; i++)
@@ -56,14 +79,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	{
 		treasure[i] = new Treasure();
 	}
+#pragma endregion
 
-	// ゴースト
-	Ghost* ghost[kBlockNum];
-	for (int i = 0; i < kBlockNum; i++)
-	{
-		ghost[i] = new Ghost();
-	}
-
+#pragma region ブロックの配置
 	for (int row = 0; row < kMapRow; row++)
 	{
 		for (int column = 0; column < kMapColumn; column++)
@@ -126,10 +144,13 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			}
 		}
 	}
-	
+
+#pragma endregion
+
+#pragma region 画像の読み込み
 	// 画像
 	int ghWhite = Novice::LoadTexture("./NoviceResources/white1x1.png");
-
+#pragma endregion
 
 	// ウィンドウの×ボタンが押されるまでループ
 	while (Novice::ProcessMessage() == 0) {
@@ -140,103 +161,279 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		memcpy(preKeys, keys, 256);
 		Novice::GetHitKeyStateAll(keys);
 
-		///
-		/// ↓更新処理ここから
-		///
-
-		// 腐らせる
-		Map::Rotten();
-
-		// 操作する
-		player->Operation(keys, preKeys);
-
-		// プレイヤーがブロックに乗る
-		for (int i = 0; i < kBlockNum; i++)
+		switch (scene)
 		{
-			player->BlockLanding(plastic[i]);
-			player->BlockLanding(treasure[i]);
-		}
+		case TITLE:
+#pragma region TITLE
 
-		// ブロックを動かす
-		for (int i = 0; i < kBlockNum; i++)
-		{
-			plastic[i]->Move();
-			treasure[i]->Move();
+			///
+			/// ↓更新処理ここから
+			///
 
-			ghost[i]->Move();
-		}
-
-		// ブロックの当たり判定
-		for (int i = 0; i < kBlockNum; i++)
-		{
-			for (int j = 0; j < kBlockNum; j++)
+			if (keys[DIK_SPACE] && !preKeys[DIK_SPACE])
 			{
-				// 同じ種類のブロック
-				if (i != j)
+				active = true;
+				break;
+			}
+
+			if (active)
+			{
+				alpha += 3;
+				if (alpha >= 255)
 				{
-					plastic[i]->BlockLanding(plastic[j]);
-					treasure[i]->BlockLanding(treasure[j]);
+					alpha = 255;
+					scene = STAGE_SELECT;
+				}
+			}
+
+			///
+			/// ↑更新処理ここまで
+			///
+
+
+			///
+			/// ↓描画処理ここから
+			///
+
+
+			//タイトル名
+			Novice::DrawBox(180, 150, 600, 200, 0.0f, 0xFFFFFFFF, kFillModeSolid);
+
+			//スタートボタン
+			Novice::DrawBox(300, 500, 350, 100, 0.0f, 0xFFFFFFFF, kFillModeSolid);
+
+			//
+			if (active)
+			{
+				Novice::DrawBox(0, 0, kScreenWidth, kScreenHeight, 0.0f, 0x00000000 + alpha, kFillModeSolid);
+			}
+
+			//デバック表示
+			Novice::ScreenPrintf(0, 0, "TITLE");
+			Novice::ScreenPrintf(0, 20, "alpha:%d", alpha);
+
+			///
+			/// ↑描画処理ここまで
+			///
+
+			break;
+#pragma endregion
+		case STAGE_SELECT:
+#pragma region STAGE_SELECT
+			///
+			/// ↓更新処理ここから
+			///
+
+			if (keys[DIK_A] && !preKeys[DIK_A])
+			{
+				if (nextStage > 0)
+				{
+					nextStage--;
+				}
+			}
+
+			if (keys[DIK_D] && !preKeys[DIK_D])
+			{
+				if (nextStage < 5)
+				{
+					nextStage++;
 				}
 
-				// 別種類のブロック
-				plastic[i]->BlockLanding(treasure[j]);
-				treasure[i]->BlockLanding(plastic[j]);
-
-				ghost[i]->BlockLanding(plastic[j]);
-				ghost[i]->BlockLanding(treasure[j]);
-
 			}
-		}
 
-		// ブロックの当たり判定
-		for (int i = 0; i < kBlockNum; i++)
-		{
-			for (int j = 0; j < kBlockNum; j++)
+			if (keys[DIK_SPACE] && !preKeys[DIK_SPACE])
 			{
-				// 同じ種類のブロック
-				if (i != j)
+				scene = GAME;
+			}
+
+			if (keys[DIK_TAB] && !preKeys[DIK_TAB])
+			{
+				scene = TITLE;
+			}
+
+			//フェードアウト
+			if (active)
+			{
+				alpha -= 3;
+
+				if (alpha <= 0)
 				{
-					player->Carry(plastic[i], plastic[j]);
-					player->Carry(treasure[i], treasure[j]);
+					alpha = 255;
+					active = false;
 				}
 
-				// 別種類のブロック
-				player->Carry(plastic[i], treasure[j]);
-				player->Carry(treasure[i], plastic[j]);
-
 			}
+
+			///
+			/// ↑更新処理ここまで
+			///
+
+
+			///
+			/// ↓描画処理ここから
+			///
+
+			if (active)
+			{
+				Novice::DrawBox(0, 0, kScreenWidth, kScreenHeight, 0.0f, 0x00000000 + alpha, kFillModeSolid);
+			}
+
+			//デバック表示
+			Novice::ScreenPrintf(0, 0, "STAGE_SELECT");
+			Novice::ScreenPrintf(0, 20, "alpha:%d", active);
+			Novice::ScreenPrintf(100, 20, "alpha:%d", alpha);
+			Novice::ScreenPrintf(0, 50, "STAGE_SELECT:%d", nextStage);
+
+			///
+			/// ↑描画処理ここまで
+			///
+
+			break;
+#pragma endregion
+		case GAME:
+#pragma region GAME
+
+			///
+			/// ↓更新処理ここから
+			///
+
+			// 腐らせる
+			Map::Rotten();
+
+			// 操作する
+			player->Operation(keys, preKeys);
+
+			// プレイヤーがブロックに乗る
+			for (int i = 0; i < kBlockNum; i++)
+			{
+				player->BlockLanding(plastic[i]);
+				player->BlockLanding(treasure[i]);
+			}
+
+			// ブロックを動かす
+			for (int i = 0; i < kBlockNum; i++)
+			{
+				plastic[i]->Move();
+				treasure[i]->Move();
+
+				ghost[i]->Move();
+			}
+
+			// ブロックの当たり判定
+			for (int i = 0; i < kBlockNum; i++)
+			{
+				for (int j = 0; j < kBlockNum; j++)
+				{
+					// 同じ種類のブロック
+					if (i != j)
+					{
+						plastic[i]->BlockLanding(plastic[j]);
+						treasure[i]->BlockLanding(treasure[j]);
+					}
+
+					// 別種類のブロック
+					plastic[i]->BlockLanding(treasure[j]);
+					treasure[i]->BlockLanding(plastic[j]);
+
+					ghost[i]->BlockLanding(plastic[j]);
+					ghost[i]->BlockLanding(treasure[j]);
+
+				}
+			}
+
+			// ブロックの当たり判定
+			for (int i = 0; i < kBlockNum; i++)
+			{
+				for (int j = 0; j < kBlockNum; j++)
+				{
+					// 同じ種類のブロック
+					if (i != j)
+					{
+						player->Carry(plastic[i], plastic[j]);
+						player->Carry(treasure[i], treasure[j]);
+					}
+
+					// 別種類のブロック
+					player->Carry(plastic[i], treasure[j]);
+					player->Carry(treasure[i], plastic[j]);
+
+				}
+			}
+
+			///
+			/// ↑更新処理ここまで
+			///
+
+			///
+			/// ↓描画処理ここから
+			///
+
+			// マップ
+			Map::Draw(ghWhite);
+
+			// プレイヤー
+			player->Draw(ghWhite);
+
+			// ブロック
+			for (int i = 0; i < kBlockNum; i++)
+			{
+				plastic[i]->Draw(ghWhite);
+				treasure[i]->Draw(ghWhite);
+				ghost[i]->Draw(ghWhite);
+			}
+
+			Novice::ScreenPrintf(8, 8, "%d", treasure[1]->hp_);
+
+			//デバック表示
+			Novice::ScreenPrintf(0, 0, "GAME");
+
+			///
+			/// ↑描画処理ここまで
+			///
+#pragma endregion
+		case GAME_OVER:
+#pragma region GAME_OVER
+			///
+			/// ↓更新処理ここから
+			///
+
+			///
+			/// ↑更新処理ここまで
+			///
+
+
+			///
+			/// ↓描画処理ここから
+			///
+
+			///
+			/// ↑描画処理ここまで
+			///
+
+			break;
+#pragma endregion
+		case CLEAR:
+#pragma region CLEAR
+			///
+			/// ↓更新処理ここから
+			///
+
+			///
+			/// ↑更新処理ここまで
+			///
+
+
+			///
+			/// ↓描画処理ここから
+			///
+
+			///
+			/// ↑描画処理ここまで
+			///
+
+			break;
+#pragma endregion
 		}
-
-
-
-		///
-		/// ↑更新処理ここまで
-		///
-
-		///
-		/// ↓描画処理ここから
-		///
-
-		// マップ
-		Map::Draw(ghWhite);
-
-		// プレイヤー
-		player->Draw(ghWhite);
-
-		// ブロック
-		for (int i = 0; i < kBlockNum; i++)
-		{
-			plastic[i]->Draw(ghWhite);
-			treasure[i]->Draw(ghWhite);
-			ghost[i]->Draw(ghWhite);
-		}
-
-		Novice::ScreenPrintf(8, 8, "%d", treasure[1]->hp_);
-
-
-		///
-		/// ↑描画処理ここまで
-		///
 
 		// フレームの終了
 		Novice::EndFrame();
@@ -249,7 +446,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 
 	/*--------------------------
-	    インスタンスを削除する
+		インスタンスを削除する
 	--------------------------*/
 
 	// プレイヤー
