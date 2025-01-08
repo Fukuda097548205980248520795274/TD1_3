@@ -117,6 +117,7 @@ xcopy C:\KamataEngine\DirectXGame\Resources "$(OutDirFullPath)NoviceResources" /
     <ClCompile Include="C:\KamataEngine\Adapter\Novice.cpp" />
     <ClCompile Include="Class\Map\Map.cpp" />
     <ClCompile Include="Class\Object\CarryBlock\CarryBlock.cpp" />
+    <ClCompile Include="Class\Object\CarryBlock\IceGhost\IceGhost.cpp" />
     <ClCompile Include="Class\Object\CarryBlock\Plastic\Plastic.cpp" />
     <ClCompile Include="Class\Object\CarryBlock\Treasure\Treasure.cpp" />
     <ClCompile Include="Class\Object\Enemy\Enemy.cpp" />
@@ -156,6 +157,7 @@ xcopy C:\KamataEngine\DirectXGame\Resources "$(OutDirFullPath)NoviceResources" /
     <ClInclude Include="C:\KamataEngine\Adapter\Novice.h" />
     <ClInclude Include="Class\Map\Map.h" />
     <ClInclude Include="Class\Object\CarryBlock\CarryBlock.h" />
+    <ClInclude Include="Class\Object\CarryBlock\IceGhost\IceGhost.h" />
     <ClInclude Include="Class\Object\CarryBlock\Plastic\Plastic.h" />
     <ClInclude Include="Class\Object\CarryBlock\Treasure\Treasure.h" />
     <ClInclude Include="Class\Object\Enemy\Enemy.h" />

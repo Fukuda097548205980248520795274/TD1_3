@@ -47,6 +47,9 @@
     <Filter Include="Class\Object\Enemy\Ghost">
       <UniqueIdentifier>{d9b4220f-b1a2-458f-80c0-b923ac1a2c76}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Class\Object\CarryBlock\IceGhost">
+      <UniqueIdentifier>{049dfc18-2091-4205-945e-05ae04640a28}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="C:\KamataEngine\DirectXGame\base\DirectXCommon.cpp">
@@ -97,6 +100,9 @@
     </ClCompile>
     <ClCompile Include="Class\Object\Enemy\Ghost\Ghost.cpp">
       <Filter>Class\Object\Enemy\Ghost</Filter>
+    </ClCompile>
+    <ClCompile Include="Class\Object\CarryBlock\IceGhost\IceGhost.cpp">
+      <Filter>Class\Object\CarryBlock\IceGhost</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -200,6 +206,9 @@
     </ClInclude>
     <ClInclude Include="Class\Object\Enemy\Ghost\Ghost.h">
       <Filter>Class\Object\Enemy\Ghost</Filter>
+    </ClInclude>
+    <ClInclude Include="Class\Object\CarryBlock\IceGhost\IceGhost.h">
+      <Filter>Class\Object\CarryBlock\IceGhost</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
