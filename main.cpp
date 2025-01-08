@@ -91,13 +91,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		iceGhost[i] = new IceGhost();
 	}
 
-	// ゴースト
-	Ghost* ghost[kBlockNum];
-	for (int i = 0; i < kBlockNum; i++)
-	{
-		ghost[i] = new Ghost();
-	}
-
 #pragma region ブロックの配置
 	for (int row = 0; row < kMapRow; row++)
 	{
