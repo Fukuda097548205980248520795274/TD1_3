@@ -2,6 +2,7 @@
 #include "Constant.h"
 #include "Enumeration.h"
 #include "./Class/Map/Map.h"
+#include "./Class/DrawMap/DrawMap.h"
 #include "./Class/Object/Player/Player.h"
 #include "./Class/Object/CarryBlock/Plastic/Plastic.h"
 #include "./Class/Object/CarryBlock/Treasure/Treasure.h"
@@ -13,6 +14,9 @@ const char kWindowTitle[] = "LC1C_20_フクダソウワ_タイトル";
 // マップ
 int Map::map_[kMapRow][kMapColumn];
 int Map::treasureNum;
+
+// 描画用マップ
+int DrawMap::map_[kMapRow][kMapColumn];
 
 // プラスチック
 int Plastic::countID;
