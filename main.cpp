@@ -283,6 +283,198 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			if (keys[DIK_SPACE] && !preKeys[DIK_SPACE])
 			{
 				scene = GAME;
+
+				if (nextStage == 0)
+				{
+					Map::LoadFile("./TextFiles/Stage/stage1.csv");
+					for (int row = 0; row < kMapRow; row++)
+					{
+						for (int column = 0; column < kMapColumn; column++)
+						{
+							switch (Map::map_[row][column])
+							{
+							case TILE_PLAYER:
+								// プレイヤー
+
+								player->Puttting(column, row);
+
+								// タイルを消す
+								Map::map_[row][column] = TILE_NOTHING;
+
+								break;
+
+
+							case TILE_PLASTIC:
+								// プラスチック
+
+								for (int i = 0; i < kBlockNum; i++)
+								{
+									if (plastic[i]->id_ == 0)
+									{
+										plastic[i]->Putting(column, row);
+
+										break;
+									}
+								}
+
+								// タイルを消す
+								Map::map_[row][column] = TILE_NOTHING;
+
+								break;
+
+							case TILE_TREASURE:
+								// 宝
+
+								for (int i = 0; i < kBlockNum; i++)
+								{
+									if (treasure[i]->id_ == 0)
+									{
+										treasure[i]->Putting(column, row);
+
+										break;
+									}
+								}
+
+								// タイルを消す
+								Map::map_[row][column] = TILE_NOTHING;
+
+								break;
+
+							case TILE_ICE_GHOST:
+								// 凍った幽霊
+
+								for (int i = 0; i < kBlockNum; i++)
+								{
+									if (iceGhost[i]->id_ == 0)
+									{
+										iceGhost[i]->Putting(column, row);
+
+										break;
+									}
+								}
+
+								// タイルを消す
+								Map::map_[row][column] = TILE_NOTHING;
+
+								break;
+
+							case TILE_GHOST:
+								// 幽霊
+
+								for (int i = 0; i < kBlockNum; i++)
+								{
+									if (ghost[i]->id_ == 0)
+									{
+										ghost[i]->Arrival(column, row);
+
+										break;
+									}
+								}
+
+								// タイルを消す
+								Map::map_[row][column] = TILE_NOTHING;
+
+								break;
+							}
+						}
+					}
+				}
+				else if (nextStage == 1)
+				{
+					Map::LoadFile("./TextFiles/Stage/stage2.csv");
+					for (int row = 0; row < kMapRow; row++)
+					{
+						for (int column = 0; column < kMapColumn; column++)
+						{
+							switch (Map::map_[row][column])
+							{
+							case TILE_PLAYER:
+								// プレイヤー
+
+								player->Puttting(column, row);
+
+								// タイルを消す
+								Map::map_[row][column] = TILE_NOTHING;
+
+								break;
+
+
+							case TILE_PLASTIC:
+								// プラスチック
+
+								for (int i = 0; i < kBlockNum; i++)
+								{
+									if (plastic[i]->id_ == 0)
+									{
+										plastic[i]->Putting(column, row);
+
+										break;
+									}
+								}
+
+								// タイルを消す
+								Map::map_[row][column] = TILE_NOTHING;
+
+								break;
+
+							case TILE_TREASURE:
+								// 宝
+
+								for (int i = 0; i < kBlockNum; i++)
+								{
+									if (treasure[i]->id_ == 0)
+									{
+										treasure[i]->Putting(column, row);
+
+										break;
+									}
+								}
+
+								// タイルを消す
+								Map::map_[row][column] = TILE_NOTHING;
+
+								break;
+
+							case TILE_ICE_GHOST:
+								// 凍った幽霊
+
+								for (int i = 0; i < kBlockNum; i++)
+								{
+									if (iceGhost[i]->id_ == 0)
+									{
+										iceGhost[i]->Putting(column, row);
+
+										break;
+									}
+								}
+
+								// タイルを消す
+								Map::map_[row][column] = TILE_NOTHING;
+
+								break;
+
+							case TILE_GHOST:
+								// 幽霊
+
+								for (int i = 0; i < kBlockNum; i++)
+								{
+									if (ghost[i]->id_ == 0)
+									{
+										ghost[i]->Arrival(column, row);
+
+										break;
+									}
+								}
+
+								// タイルを消す
+								Map::map_[row][column] = TILE_NOTHING;
+
+								break;
+							}
+						}
+					}
+				}
+
 			}
 
 			if (keys[DIK_TAB] && !preKeys[DIK_TAB])
@@ -342,79 +534,79 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			// 操作する
 			player->Operation(keys, preKeys);
 
-		// プレイヤーがブロックに乗る
-		for (int i = 0; i < kBlockNum; i++)
-		{
-			player->BlockLanding(plastic[i]);
-			player->BlockLanding(treasure[i]);
-			player->BlockLanding(iceGhost[i]);
-		}
+			// プレイヤーがブロックに乗る
+			for (int i = 0; i < kBlockNum; i++)
+			{
+				player->BlockLanding(plastic[i]);
+				player->BlockLanding(treasure[i]);
+				player->BlockLanding(iceGhost[i]);
+			}
 
-		// ブロックを動かす
-		for (int i = 0; i < kBlockNum; i++)
-		{
-			plastic[i]->Move();
-			treasure[i]->Move();
-			iceGhost[i]->Move();
+			// ブロックを動かす
+			for (int i = 0; i < kBlockNum; i++)
+			{
+				plastic[i]->Move();
+				treasure[i]->Move();
+				iceGhost[i]->Move();
 
 				ghost[i]->Move();
 			}
 
-		// ブロックの当たり判定
-		for (int i = 0; i < kBlockNum; i++)
-		{
-			for (int j = 0; j < kBlockNum; j++)
+			// ブロックの当たり判定
+			for (int i = 0; i < kBlockNum; i++)
 			{
-				// 同じ種類のブロック
-				if (i != j)
+				for (int j = 0; j < kBlockNum; j++)
 				{
-					plastic[i]->BlockLanding(plastic[j]);
-					treasure[i]->BlockLanding(treasure[j]);
-					iceGhost[i]->BlockLanding(iceGhost[j]);
-				}
+					// 同じ種類のブロック
+					if (i != j)
+					{
+						plastic[i]->BlockLanding(plastic[j]);
+						treasure[i]->BlockLanding(treasure[j]);
+						iceGhost[i]->BlockLanding(iceGhost[j]);
+					}
 
-				// 別種類のブロック
-				plastic[i]->BlockLanding(treasure[j]);
-				plastic[i]->BlockLanding(iceGhost[j]);
-	
-				treasure[i]->BlockLanding(plastic[j]);
-				treasure[i]->BlockLanding(iceGhost[j]);
+					// 別種類のブロック
+					plastic[i]->BlockLanding(treasure[j]);
+					plastic[i]->BlockLanding(iceGhost[j]);
 
-				iceGhost[i]->BlockLanding(plastic[j]);
-				iceGhost[i]->BlockLanding(treasure[j]);
+					treasure[i]->BlockLanding(plastic[j]);
+					treasure[i]->BlockLanding(iceGhost[j]);
 
-				ghost[i]->BlockLanding(plastic[j]);
-				ghost[i]->BlockLanding(treasure[j]);
-				ghost[i]->BlockLanding(iceGhost[j]);
+					iceGhost[i]->BlockLanding(plastic[j]);
+					iceGhost[i]->BlockLanding(treasure[j]);
+
+					ghost[i]->BlockLanding(plastic[j]);
+					ghost[i]->BlockLanding(treasure[j]);
+					ghost[i]->BlockLanding(iceGhost[j]);
 
 				}
 			}
 
-		// ブロックの当たり判定
-		for (int i = 0; i < kBlockNum; i++)
-		{
-			for (int j = 0; j < kBlockNum; j++)
+			// ブロックの当たり判定
+			for (int i = 0; i < kBlockNum; i++)
 			{
-				// 同じ種類のブロック
-				if (i != j)
+				for (int j = 0; j < kBlockNum; j++)
 				{
-					player->Carry(plastic[i], plastic[j]);
-					player->Carry(treasure[i], treasure[j]);
-					player->Carry(iceGhost[i], iceGhost[j]);
+					// 同じ種類のブロック
+					if (i != j)
+					{
+						player->Carry(plastic[i], plastic[j]);
+						player->Carry(treasure[i], treasure[j]);
+						player->Carry(iceGhost[i], iceGhost[j]);
+					}
+
+					// 別種類のブロック
+					player->Carry(plastic[i], treasure[j]);
+					player->Carry(plastic[i], iceGhost[j]);
+
+					player->Carry(treasure[i], plastic[j]);
+					player->Carry(treasure[i], iceGhost[j]);
+
+					player->Carry(iceGhost[i], plastic[j]);
+					player->Carry(iceGhost[i], treasure[j]);
+
 				}
-
-				// 別種類のブロック
-				player->Carry(plastic[i], treasure[j]);
-				player->Carry(plastic[i], iceGhost[j]);
-
-				player->Carry(treasure[i], plastic[j]);
-				player->Carry(treasure[i], iceGhost[j]);
-
-				player->Carry(iceGhost[i], plastic[j]);
-				player->Carry(iceGhost[i],treasure[j]);
-
 			}
-		}
 
 			///
 			/// ↑更新処理ここまで
@@ -430,14 +622,14 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			// プレイヤー
 			player->Draw(ghWhite);
 
-		// ブロック
-		for (int i = 0; i < kBlockNum; i++)
-		{
-			plastic[i]->Draw(ghWhite);
-			treasure[i]->Draw(ghWhite);
-			iceGhost[i]->Draw(ghWhite);
-			ghost[i]->Draw(ghWhite);
-		}
+			// ブロック
+			for (int i = 0; i < kBlockNum; i++)
+			{
+				plastic[i]->Draw(ghWhite);
+				treasure[i]->Draw(ghWhite);
+				iceGhost[i]->Draw(ghWhite);
+				ghost[i]->Draw(ghWhite);
+			}
 
 			Novice::ScreenPrintf(8, 8, "%d", treasure[1]->hp_);
 
