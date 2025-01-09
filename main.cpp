@@ -98,6 +98,17 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		{
 			switch (Map::map_[row][column])
 			{
+			case TILE_PLAYER:
+				// プレイヤー
+
+				player->Puttting(column, row);
+
+				// タイルを消す
+				Map::map_[row][column] = TILE_NOTHING;
+
+				break;
+
+
 			case TILE_PLASTIC:
 				// プラスチック
 
