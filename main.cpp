@@ -257,7 +257,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 			//デバック表示
 			Novice::ScreenPrintf(0, 0, "TITLE");
-			Novice::ScreenPrintf(0, 20, "alpha:%d", alpha);
 
 			///
 			/// ↑描画処理ここまで
@@ -586,7 +585,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				}
 				else if (nextStage == 3)
 				{
-					Map::LoadFile("./TextFiles/Stage/stage3.csv");
+					Map::LoadFile("./TextFiles/Stage/stage4.csv");
 					for (int row = 0; row < kMapRow; row++)
 					{
 						for (int column = 0; column < kMapColumn; column++)
@@ -684,7 +683,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				}
 				else if (nextStage == 4)
 				{
-					Map::LoadFile("./TextFiles/Stage/stage3.csv");
+					Map::LoadFile("./TextFiles/Stage/stage5.csv");
 					for (int row = 0; row < kMapRow; row++)
 					{
 						for (int column = 0; column < kMapColumn; column++)
@@ -782,7 +781,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				}
 				else if (nextStage == 5)
 				{
-					Map::LoadFile("./TextFiles/Stage/stage3.csv");
+					Map::LoadFile("./TextFiles/Stage/stage6.csv");
 					for (int row = 0; row < kMapRow; row++)
 					{
 						for (int column = 0; column < kMapColumn; column++)
@@ -880,7 +879,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				}
 				else if (nextStage == 6)
 				{
-					Map::LoadFile("./TextFiles/Stage/stage3.csv");
+					Map::LoadFile("./TextFiles/Stage/stage7.csv");
 					for (int row = 0; row < kMapRow; row++)
 					{
 						for (int column = 0; column < kMapColumn; column++)
@@ -978,7 +977,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				}
 				else if (nextStage == 7)
 				{
-					Map::LoadFile("./TextFiles/Stage/stage3.csv");
+					Map::LoadFile("./TextFiles/Stage/stage8.csv");
 					for (int row = 0; row < kMapRow; row++)
 					{
 						for (int column = 0; column < kMapColumn; column++)
@@ -1076,7 +1075,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				}
 				else if (nextStage == 8)
 				{
-					Map::LoadFile("./TextFiles/Stage/stage3.csv");
+					Map::LoadFile("./TextFiles/Stage/stage9.csv");
 					for (int row = 0; row < kMapRow; row++)
 					{
 						for (int column = 0; column < kMapColumn; column++)
@@ -1174,7 +1173,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				}
 				else if (nextStage == 9)
 				{
-					Map::LoadFile("./TextFiles/Stage/stage3.csv");
+					Map::LoadFile("./TextFiles/Stage/stage10.csv");
 					for (int row = 0; row < kMapRow; row++)
 					{
 						for (int column = 0; column < kMapColumn; column++)
@@ -1405,9 +1404,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 			//デバック表示
 			Novice::ScreenPrintf(0, 0, "STAGE_SELECT");
-			Novice::ScreenPrintf(0, 20, "alpha:%d", active);
-			Novice::ScreenPrintf(100, 20, "alpha:%d", alpha);
-			Novice::ScreenPrintf(0, 50, "STAGE_SELECT:%d", nextStage);
+			Novice::ScreenPrintf(0, 50, "STAGE_SELECT:%d", nextStage + 1);
 
 			///
 			/// ↑描画処理ここまで
