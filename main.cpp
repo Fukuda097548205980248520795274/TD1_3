@@ -294,7 +294,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 							switch (Map::map_[row][column])
 							{
 							case TILE_PLAYER:
-								// プレイヤー
+								// プレイヤー!
 
 								player->Puttting(column, row);
 
