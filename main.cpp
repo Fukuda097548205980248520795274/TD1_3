@@ -286,6 +286,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 			if (keys[DIK_SPACE] && !preKeys[DIK_SPACE])
 			{
+				if (nextStage == 0)
+				{
+
+				}
 				scene = GAME;
 			}
 
