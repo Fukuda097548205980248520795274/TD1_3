@@ -12,6 +12,7 @@ const char kWindowTitle[] = "LC1C_20_フクダソウワ_タイトル";
 
 // マップ
 int Map::map_[kMapRow][kMapColumn];
+int Map::treasureNum;
 
 // プラスチック
 int Plastic::countID;
@@ -142,6 +143,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 				// タイルを消す
 				Map::map_[row][column] = TILE_NOTHING;
+
+				// 宝の数をカウントする
+				Map::treasureNum++;
 
 				break;
 
@@ -582,7 +586,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				}
 			}
 
-			// ブロックの当たり判定
+		// ブロックの当たり判定
 			for (int i = 0; i < kBlockNum; i++)
 			{
 				for (int j = 0; j < kBlockNum; j++)
@@ -622,7 +626,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			// プレイヤー
 			player->Draw(ghWhite);
 
-			// ブロック
+
+		// ブロック
 			for (int i = 0; i < kBlockNum; i++)
 			{
 				plastic[i]->Draw(ghWhite);
@@ -635,6 +640,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 			//デバック表示
 			Novice::ScreenPrintf(0, 0, "GAME");
+
+			break;
 
 			///
 			/// ↑描画処理ここまで
