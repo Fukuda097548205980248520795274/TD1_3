@@ -50,6 +50,9 @@
     <Filter Include="Class\Object\CarryBlock\IceGhost">
       <UniqueIdentifier>{049dfc18-2091-4205-945e-05ae04640a28}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Class\DrawMap">
+      <UniqueIdentifier>{da5825c8-c0ed-4f83-ad40-2b66a3854675}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="C:\KamataEngine\DirectXGame\base\DirectXCommon.cpp">
@@ -103,6 +106,9 @@
     </ClCompile>
     <ClCompile Include="Class\Object\CarryBlock\IceGhost\IceGhost.cpp">
       <Filter>Class\Object\CarryBlock\IceGhost</Filter>
+    </ClCompile>
+    <ClCompile Include="Class\DrawMap\DrawMap.cpp">
+      <Filter>Class\DrawMap</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -209,6 +215,9 @@
     </ClInclude>
     <ClInclude Include="Class\Object\CarryBlock\IceGhost\IceGhost.h">
       <Filter>Class\Object\CarryBlock\IceGhost</Filter>
+    </ClInclude>
+    <ClInclude Include="Class\DrawMap\DrawMap.h">
+      <Filter>Class\DrawMap</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
