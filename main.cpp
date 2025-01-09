@@ -293,6 +293,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				if (nextStage == 0)
 				{
 					Map::LoadFile("./TextFiles/Stage/stage1.csv");
+					DrawMap::LoadFile("./TextFiles/Design/design1.csv");
 					for (int row = 0; row < kMapRow; row++)
 					{
 						for (int column = 0; column < kMapColumn; column++)
@@ -1476,7 +1477,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				}
 			}
 
-			// ブロックの当たり判定
+			// ブロックを運ぶための当たり判定
 			for (int i = 0; i < kBlockNum; i++)
 			{
 				for (int j = 0; j < kBlockNum; j++)
@@ -1500,6 +1501,17 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 					player->Carry(iceGhost[i], treasure[j]);
 
 				}
+			}
+
+			// 乗っかり、乗っかかりフラグをfalseに戻す
+			for (int i = 0; i < kBlockNum; i++)
+			{
+				plastic[i]->isRide_ = false;
+				plastic[i]->isUnderRide_ = false;
+				treasure[i]->isRide_ = false;
+				treasure[i]->isUnderRide_ = false;
+				iceGhost[i]->isRide_ = false;
+				iceGhost[i]->isUnderRide_ = false;
 			}
 
 			///
