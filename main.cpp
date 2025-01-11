@@ -18,17 +18,11 @@ int Map::treasureNum;
 // 描画用マップ
 int DrawMap::map_[kMapRow][kMapColumn];
 
-// プラスチック
-int Plastic::countID;
+// 運べるブロック
+int CarryBlock::countID;
 
-// 宝
-int Treasure::countID;
-
-// 凍った幽霊
-int IceGhost::countID;
-
-// 幽霊
-int Ghost::countID;
+// 敵
+int Enemy::countID;
 
 
 // Windowsアプリでのエントリーポイント(main関数)
@@ -66,35 +60,45 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 #pragma endregion
 
 #pragma region 敵
-	// ゴースト
-	Ghost* ghost[kBlockNum];
-	for (int i = 0; i < kBlockNum; i++)
+	
+	Enemy* enemy[kEnemyNum];
+
+	for (int i = 0; i < kEnemyNum; i++)
 	{
-		ghost[i] = new Ghost();
+		// ゴースト
+		if (i < 8)
+		{
+			enemy[i] = new Ghost();
+		}
 	}
+	
+
 #pragma endregion
 
 #pragma region ブロック
-	// プラスチック
-	Plastic* plastic[kBlockNum];
-	for (int i = 0; i < kBlockNum; i++)
-	{
-		plastic[i] = new Plastic();
-	}
 
-	// 宝
-	Treasure* treasure[kBlockNum];
-	for (int i = 0; i < kBlockNum; i++)
-	{
-		treasure[i] = new Treasure();
-	}
+	CarryBlock* block[kBlockNum];
 
-	// 凍っているゴースト
-	IceGhost* iceGhost[kBlockNum];
 	for (int i = 0; i < kBlockNum; i++)
 	{
-		iceGhost[i] = new IceGhost();
+		// プラスチック
+		if (i < 8)
+		{
+			block[i] = new Plastic();
+		}
+		else if (i < 16)
+		{
+			// 宝
+			block[i] = new Treasure();
+		}
+		else if (i < 24)
+		{
+			// 凍った敵
+			block[i] = new IceGhost();
+		}
 	}
+	
+
 
 	/*#pragma region ブロックの配置
 		for (int row = 0; row < kMapRow; row++)
@@ -315,11 +319,14 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 								for (int i = 0; i < kBlockNum; i++)
 								{
-									if (plastic[i]->id_ == 0)
+									if (i < 8)
 									{
-										plastic[i]->Putting(column, row);
+										if (block[i]->id_ == 0)
+										{
+											block[i]->Putting(column, row);
 
-										break;
+											break;
+										}
 									}
 								}
 
@@ -333,11 +340,14 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 								for (int i = 0; i < kBlockNum; i++)
 								{
-									if (treasure[i]->id_ == 0)
+									if (i >= 8 && i < 16)
 									{
-										treasure[i]->Putting(column, row);
+										if (block[i]->id_ == 0)
+										{
+											block[i]->Putting(column, row);
 
-										break;
+											break;
+										}
 									}
 								}
 
@@ -354,11 +364,14 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 								for (int i = 0; i < kBlockNum; i++)
 								{
-									if (iceGhost[i]->id_ == 0)
+									if (i >= 16 && i < 24)
 									{
-										iceGhost[i]->Putting(column, row);
+										if (block[i]->id_ == 0)
+										{
+											block[i]->Putting(column, row);
 
-										break;
+											break;
+										}
 									}
 								}
 
@@ -370,13 +383,16 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 							case TILE_GHOST:
 								// 幽霊
 
-								for (int i = 0; i < kBlockNum; i++)
+								for (int i = 0; i < kEnemyNum; i++)
 								{
-									if (ghost[i]->id_ == 0)
+									if (i < 8)
 									{
-										ghost[i]->Arrival(column, row);
+										if (enemy[i]->id_ == 0)
+										{
+											enemy[i]->Arrival(column, row);
 
-										break;
+											break;
+										}
 									}
 								}
 
@@ -413,11 +429,14 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 								for (int i = 0; i < kBlockNum; i++)
 								{
-									if (plastic[i]->id_ == 0)
+									if (i < 8)
 									{
-										plastic[i]->Putting(column, row);
+										if (block[i]->id_ == 0)
+										{
+											block[i]->Putting(column, row);
 
-										break;
+											break;
+										}
 									}
 								}
 
@@ -431,11 +450,14 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 								for (int i = 0; i < kBlockNum; i++)
 								{
-									if (treasure[i]->id_ == 0)
+									if (i >= 8 && i < 16)
 									{
-										treasure[i]->Putting(column, row);
+										if (block[i]->id_ == 0)
+										{
+											block[i]->Putting(column, row);
 
-										break;
+											break;
+										}
 									}
 								}
 
@@ -452,11 +474,14 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 								for (int i = 0; i < kBlockNum; i++)
 								{
-									if (iceGhost[i]->id_ == 0)
+									if (i >= 16 && i < 24)
 									{
-										iceGhost[i]->Putting(column, row);
+										if (block[i]->id_ == 0)
+										{
+											block[i]->Putting(column, row);
 
-										break;
+											break;
+										}
 									}
 								}
 
@@ -468,13 +493,16 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 							case TILE_GHOST:
 								// 幽霊
 
-								for (int i = 0; i < kBlockNum; i++)
+								for (int i = 0; i < kEnemyNum; i++)
 								{
-									if (ghost[i]->id_ == 0)
+									if (i < 8)
 									{
-										ghost[i]->Arrival(column, row);
+										if (enemy[i]->id_ == 0)
+										{
+											enemy[i]->Arrival(column, row);
 
-										break;
+											break;
+										}
 									}
 								}
 
@@ -511,11 +539,14 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 								for (int i = 0; i < kBlockNum; i++)
 								{
-									if (plastic[i]->id_ == 0)
+									if (i < 8)
 									{
-										plastic[i]->Putting(column, row);
+										if (block[i]->id_ == 0)
+										{
+											block[i]->Putting(column, row);
 
-										break;
+											break;
+										}
 									}
 								}
 
@@ -529,11 +560,14 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 								for (int i = 0; i < kBlockNum; i++)
 								{
-									if (treasure[i]->id_ == 0)
+									if (i >= 8 && i < 16)
 									{
-										treasure[i]->Putting(column, row);
+										if (block[i]->id_ == 0)
+										{
+											block[i]->Putting(column, row);
 
-										break;
+											break;
+										}
 									}
 								}
 
@@ -550,11 +584,14 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 								for (int i = 0; i < kBlockNum; i++)
 								{
-									if (iceGhost[i]->id_ == 0)
+									if (i >= 16 && i < 24)
 									{
-										iceGhost[i]->Putting(column, row);
+										if (block[i]->id_ == 0)
+										{
+											block[i]->Putting(column, row);
 
-										break;
+											break;
+										}
 									}
 								}
 
@@ -566,13 +603,16 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 							case TILE_GHOST:
 								// 幽霊
 
-								for (int i = 0; i < kBlockNum; i++)
+								for (int i = 0; i < kEnemyNum; i++)
 								{
-									if (ghost[i]->id_ == 0)
+									if (i < 8)
 									{
-										ghost[i]->Arrival(column, row);
+										if (enemy[i]->id_ == 0)
+										{
+											enemy[i]->Arrival(column, row);
 
-										break;
+											break;
+										}
 									}
 								}
 
@@ -609,11 +649,14 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 								for (int i = 0; i < kBlockNum; i++)
 								{
-									if (plastic[i]->id_ == 0)
+									if (i < 8)
 									{
-										plastic[i]->Putting(column, row);
+										if (block[i]->id_ == 0)
+										{
+											block[i]->Putting(column, row);
 
-										break;
+											break;
+										}
 									}
 								}
 
@@ -627,11 +670,14 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 								for (int i = 0; i < kBlockNum; i++)
 								{
-									if (treasure[i]->id_ == 0)
+									if (i >= 8 && i < 16)
 									{
-										treasure[i]->Putting(column, row);
+										if (block[i]->id_ == 0)
+										{
+											block[i]->Putting(column, row);
 
-										break;
+											break;
+										}
 									}
 								}
 
@@ -648,11 +694,14 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 								for (int i = 0; i < kBlockNum; i++)
 								{
-									if (iceGhost[i]->id_ == 0)
+									if (i >= 16 && i < 24)
 									{
-										iceGhost[i]->Putting(column, row);
+										if (block[i]->id_ == 0)
+										{
+											block[i]->Putting(column, row);
 
-										break;
+											break;
+										}
 									}
 								}
 
@@ -664,13 +713,16 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 							case TILE_GHOST:
 								// 幽霊
 
-								for (int i = 0; i < kBlockNum; i++)
+								for (int i = 0; i < kEnemyNum; i++)
 								{
-									if (ghost[i]->id_ == 0)
+									if (i < 8)
 									{
-										ghost[i]->Arrival(column, row);
+										if (enemy[i]->id_ == 0)
+										{
+											enemy[i]->Arrival(column, row);
 
-										break;
+											break;
+										}
 									}
 								}
 
@@ -707,11 +759,14 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 								for (int i = 0; i < kBlockNum; i++)
 								{
-									if (plastic[i]->id_ == 0)
+									if (i < 8)
 									{
-										plastic[i]->Putting(column, row);
+										if (block[i]->id_ == 0)
+										{
+											block[i]->Putting(column, row);
 
-										break;
+											break;
+										}
 									}
 								}
 
@@ -725,11 +780,14 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 								for (int i = 0; i < kBlockNum; i++)
 								{
-									if (treasure[i]->id_ == 0)
+									if (i >= 8 && i < 16)
 									{
-										treasure[i]->Putting(column, row);
+										if (block[i]->id_ == 0)
+										{
+											block[i]->Putting(column, row);
 
-										break;
+											break;
+										}
 									}
 								}
 
@@ -746,11 +804,14 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 								for (int i = 0; i < kBlockNum; i++)
 								{
-									if (iceGhost[i]->id_ == 0)
+									if (i >= 16 && i < 24)
 									{
-										iceGhost[i]->Putting(column, row);
+										if (block[i]->id_ == 0)
+										{
+											block[i]->Putting(column, row);
 
-										break;
+											break;
+										}
 									}
 								}
 
@@ -762,13 +823,16 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 							case TILE_GHOST:
 								// 幽霊
 
-								for (int i = 0; i < kBlockNum; i++)
+								for (int i = 0; i < kEnemyNum; i++)
 								{
-									if (ghost[i]->id_ == 0)
+									if (i < 8)
 									{
-										ghost[i]->Arrival(column, row);
+										if (enemy[i]->id_ == 0)
+										{
+											enemy[i]->Arrival(column, row);
 
-										break;
+											break;
+										}
 									}
 								}
 
@@ -805,11 +869,14 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 								for (int i = 0; i < kBlockNum; i++)
 								{
-									if (plastic[i]->id_ == 0)
+									if (i < 8)
 									{
-										plastic[i]->Putting(column, row);
+										if (block[i]->id_ == 0)
+										{
+											block[i]->Putting(column, row);
 
-										break;
+											break;
+										}
 									}
 								}
 
@@ -823,11 +890,14 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 								for (int i = 0; i < kBlockNum; i++)
 								{
-									if (treasure[i]->id_ == 0)
+									if (i >= 8 && i < 16)
 									{
-										treasure[i]->Putting(column, row);
+										if (block[i]->id_ == 0)
+										{
+											block[i]->Putting(column, row);
 
-										break;
+											break;
+										}
 									}
 								}
 
@@ -844,11 +914,14 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 								for (int i = 0; i < kBlockNum; i++)
 								{
-									if (iceGhost[i]->id_ == 0)
+									if (i >= 16 && i < 24)
 									{
-										iceGhost[i]->Putting(column, row);
+										if (block[i]->id_ == 0)
+										{
+											block[i]->Putting(column, row);
 
-										break;
+											break;
+										}
 									}
 								}
 
@@ -860,13 +933,16 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 							case TILE_GHOST:
 								// 幽霊
 
-								for (int i = 0; i < kBlockNum; i++)
+								for (int i = 0; i < kEnemyNum; i++)
 								{
-									if (ghost[i]->id_ == 0)
+									if (i < 8)
 									{
-										ghost[i]->Arrival(column, row);
+										if (enemy[i]->id_ == 0)
+										{
+											enemy[i]->Arrival(column, row);
 
-										break;
+											break;
+										}
 									}
 								}
 
@@ -903,11 +979,14 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 								for (int i = 0; i < kBlockNum; i++)
 								{
-									if (plastic[i]->id_ == 0)
+									if (i < 8)
 									{
-										plastic[i]->Putting(column, row);
+										if (block[i]->id_ == 0)
+										{
+											block[i]->Putting(column, row);
 
-										break;
+											break;
+										}
 									}
 								}
 
@@ -921,11 +1000,14 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 								for (int i = 0; i < kBlockNum; i++)
 								{
-									if (treasure[i]->id_ == 0)
+									if (i >= 8 && i < 16)
 									{
-										treasure[i]->Putting(column, row);
+										if (block[i]->id_ == 0)
+										{
+											block[i]->Putting(column, row);
 
-										break;
+											break;
+										}
 									}
 								}
 
@@ -942,11 +1024,14 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 								for (int i = 0; i < kBlockNum; i++)
 								{
-									if (iceGhost[i]->id_ == 0)
+									if (i >= 16 && i < 24)
 									{
-										iceGhost[i]->Putting(column, row);
+										if (block[i]->id_ == 0)
+										{
+											block[i]->Putting(column, row);
 
-										break;
+											break;
+										}
 									}
 								}
 
@@ -958,13 +1043,16 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 							case TILE_GHOST:
 								// 幽霊
 
-								for (int i = 0; i < kBlockNum; i++)
+								for (int i = 0; i < kEnemyNum; i++)
 								{
-									if (ghost[i]->id_ == 0)
+									if (i < 8)
 									{
-										ghost[i]->Arrival(column, row);
+										if (enemy[i]->id_ == 0)
+										{
+											enemy[i]->Arrival(column, row);
 
-										break;
+											break;
+										}
 									}
 								}
 
@@ -1001,11 +1089,14 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 								for (int i = 0; i < kBlockNum; i++)
 								{
-									if (plastic[i]->id_ == 0)
+									if (i < 8)
 									{
-										plastic[i]->Putting(column, row);
+										if (block[i]->id_ == 0)
+										{
+											block[i]->Putting(column, row);
 
-										break;
+											break;
+										}
 									}
 								}
 
@@ -1019,11 +1110,14 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 								for (int i = 0; i < kBlockNum; i++)
 								{
-									if (treasure[i]->id_ == 0)
+									if (i >= 8 && i < 16)
 									{
-										treasure[i]->Putting(column, row);
+										if (block[i]->id_ == 0)
+										{
+											block[i]->Putting(column, row);
 
-										break;
+											break;
+										}
 									}
 								}
 
@@ -1040,11 +1134,14 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 								for (int i = 0; i < kBlockNum; i++)
 								{
-									if (iceGhost[i]->id_ == 0)
+									if (i >= 16 && i < 24)
 									{
-										iceGhost[i]->Putting(column, row);
+										if (block[i]->id_ == 0)
+										{
+											block[i]->Putting(column, row);
 
-										break;
+											break;
+										}
 									}
 								}
 
@@ -1056,13 +1153,16 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 							case TILE_GHOST:
 								// 幽霊
 
-								for (int i = 0; i < kBlockNum; i++)
+								for (int i = 0; i < kEnemyNum; i++)
 								{
-									if (ghost[i]->id_ == 0)
+									if (i < 8)
 									{
-										ghost[i]->Arrival(column, row);
+										if (enemy[i]->id_ == 0)
+										{
+											enemy[i]->Arrival(column, row);
 
-										break;
+											break;
+										}
 									}
 								}
 
@@ -1099,11 +1199,14 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 								for (int i = 0; i < kBlockNum; i++)
 								{
-									if (plastic[i]->id_ == 0)
+									if (i < 8)
 									{
-										plastic[i]->Putting(column, row);
+										if (block[i]->id_ == 0)
+										{
+											block[i]->Putting(column, row);
 
-										break;
+											break;
+										}
 									}
 								}
 
@@ -1117,11 +1220,14 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 								for (int i = 0; i < kBlockNum; i++)
 								{
-									if (treasure[i]->id_ == 0)
+									if (i >= 8 && i < 16)
 									{
-										treasure[i]->Putting(column, row);
+										if (block[i]->id_ == 0)
+										{
+											block[i]->Putting(column, row);
 
-										break;
+											break;
+										}
 									}
 								}
 
@@ -1138,11 +1244,14 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 								for (int i = 0; i < kBlockNum; i++)
 								{
-									if (iceGhost[i]->id_ == 0)
+									if (i >= 16 && i < 24)
 									{
-										iceGhost[i]->Putting(column, row);
+										if (block[i]->id_ == 0)
+										{
+											block[i]->Putting(column, row);
 
-										break;
+											break;
+										}
 									}
 								}
 
@@ -1154,13 +1263,16 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 							case TILE_GHOST:
 								// 幽霊
 
-								for (int i = 0; i < kBlockNum; i++)
+								for (int i = 0; i < kEnemyNum; i++)
 								{
-									if (ghost[i]->id_ == 0)
+									if (i < 8)
 									{
-										ghost[i]->Arrival(column, row);
+										if (enemy[i]->id_ == 0)
+										{
+											enemy[i]->Arrival(column, row);
 
-										break;
+											break;
+										}
 									}
 								}
 
@@ -1197,11 +1309,14 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 								for (int i = 0; i < kBlockNum; i++)
 								{
-									if (plastic[i]->id_ == 0)
+									if (i < 8)
 									{
-										plastic[i]->Putting(column, row);
+										if (block[i]->id_ == 0)
+										{
+											block[i]->Putting(column, row);
 
-										break;
+											break;
+										}
 									}
 								}
 
@@ -1215,11 +1330,14 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 								for (int i = 0; i < kBlockNum; i++)
 								{
-									if (treasure[i]->id_ == 0)
+									if (i >= 8 && i < 16)
 									{
-										treasure[i]->Putting(column, row);
+										if (block[i]->id_ == 0)
+										{
+											block[i]->Putting(column, row);
 
-										break;
+											break;
+										}
 									}
 								}
 
@@ -1236,11 +1354,14 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 								for (int i = 0; i < kBlockNum; i++)
 								{
-									if (iceGhost[i]->id_ == 0)
+									if (i >= 16 && i < 24)
 									{
-										iceGhost[i]->Putting(column, row);
+										if (block[i]->id_ == 0)
+										{
+											block[i]->Putting(column, row);
 
-										break;
+											break;
+										}
 									}
 								}
 
@@ -1252,13 +1373,16 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 							case TILE_GHOST:
 								// 幽霊
 
-								for (int i = 0; i < kBlockNum; i++)
+								for (int i = 0; i < kEnemyNum; i++)
 								{
-									if (ghost[i]->id_ == 0)
+									if (i < 8)
 									{
-										ghost[i]->Arrival(column, row);
+										if (enemy[i]->id_ == 0)
+										{
+											enemy[i]->Arrival(column, row);
 
-										break;
+											break;
+										}
 									}
 								}
 
@@ -1295,11 +1419,14 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 								for (int i = 0; i < kBlockNum; i++)
 								{
-									if (plastic[i]->id_ == 0)
+									if (i < 8)
 									{
-										plastic[i]->Putting(column, row);
+										if (block[i]->id_ == 0)
+										{
+											block[i]->Putting(column, row);
 
-										break;
+											break;
+										}
 									}
 								}
 
@@ -1313,11 +1440,14 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 								for (int i = 0; i < kBlockNum; i++)
 								{
-									if (treasure[i]->id_ == 0)
+									if (i >= 8 && i < 16)
 									{
-										treasure[i]->Putting(column, row);
+										if (block[i]->id_ == 0)
+										{
+											block[i]->Putting(column, row);
 
-										break;
+											break;
+										}
 									}
 								}
 
@@ -1334,11 +1464,14 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 								for (int i = 0; i < kBlockNum; i++)
 								{
-									if (iceGhost[i]->id_ == 0)
+									if (i >= 16 && i < 24)
 									{
-										iceGhost[i]->Putting(column, row);
+										if (block[i]->id_ == 0)
+										{
+											block[i]->Putting(column, row);
 
-										break;
+											break;
+										}
 									}
 								}
 
@@ -1350,13 +1483,16 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 							case TILE_GHOST:
 								// 幽霊
 
-								for (int i = 0; i < kBlockNum; i++)
+								for (int i = 0; i < kEnemyNum; i++)
 								{
-									if (ghost[i]->id_ == 0)
+									if (i < 8)
 									{
-										ghost[i]->Arrival(column, row);
+										if (enemy[i]->id_ == 0)
+										{
+											enemy[i]->Arrival(column, row);
 
-										break;
+											break;
+										}
 									}
 								}
 
@@ -1423,25 +1559,43 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			// 腐らせる
 			Map::Rotten();
 
+
+			/*   プレイヤー   */
+
 			// 操作する
 			player->Operation(keys, preKeys);
 
 			// プレイヤーがブロックに乗る
 			for (int i = 0; i < kBlockNum; i++)
 			{
-				player->BlockLanding(plastic[i]);
-				player->BlockLanding(treasure[i]);
-				player->BlockLanding(iceGhost[i]);
+				player->BlockLanding(block[i]);
 			}
+
+
+			/*   敵   */
+
+			// 敵を動かす
+			for (int i = 0; i < kEnemyNum; i++)
+			{
+				enemy[i]->Move();
+			}
+
+			// 敵がブロックに乗る
+			for (int i = 0; i < kEnemyNum; i++)
+			{
+				for (int j = 0; j < kBlockNum; j++)
+				{
+					enemy[i]->BlockLanding(block[j]);
+				}
+			}
+
+
+			/*   ブロック   */
 
 			// ブロックを動かす
 			for (int i = 0; i < kBlockNum; i++)
 			{
-				plastic[i]->Move();
-				treasure[i]->Move();
-				iceGhost[i]->Move();
-
-				ghost[i]->Move();
+				block[i]->Move();
 			}
 
 			// ブロックの当たり判定
@@ -1449,28 +1603,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			{
 				for (int j = 0; j < kBlockNum; j++)
 				{
-					// 同じ種類のブロック
-					if (i != j)
-					{
-						plastic[i]->BlockLanding(plastic[j]);
-						treasure[i]->BlockLanding(treasure[j]);
-						iceGhost[i]->BlockLanding(iceGhost[j]);
-					}
-
-					// 別種類のブロック
-					plastic[i]->BlockLanding(treasure[j]);
-					plastic[i]->BlockLanding(iceGhost[j]);
-
-					treasure[i]->BlockLanding(plastic[j]);
-					treasure[i]->BlockLanding(iceGhost[j]);
-
-					iceGhost[i]->BlockLanding(plastic[j]);
-					iceGhost[i]->BlockLanding(treasure[j]);
-
-					ghost[i]->BlockLanding(plastic[j]);
-					ghost[i]->BlockLanding(treasure[j]);
-					ghost[i]->BlockLanding(iceGhost[j]);
-
+					block[i]->BlockLanding(block[j]);
 				}
 			}
 
@@ -1479,23 +1612,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			{
 				for (int j = 0; j < kBlockNum; j++)
 				{
-					// 同じ種類のブロック
-					if (i != j)
-					{
-						player->Carry(plastic[i], plastic[j]);
-						player->Carry(treasure[i], treasure[j]);
-						player->Carry(iceGhost[i], iceGhost[j]);
-					}
-
-					// 別種類のブロック
-					player->Carry(plastic[i], treasure[j]);
-					player->Carry(plastic[i], iceGhost[j]);
-
-					player->Carry(treasure[i], plastic[j]);
-					player->Carry(treasure[i], iceGhost[j]);
-
-					player->Carry(iceGhost[i], plastic[j]);
-					player->Carry(iceGhost[i], treasure[j]);
+					player->Carry(block[i], block[j]);
 
 				}
 			}
@@ -1503,12 +1620,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			// 乗っかり、乗っかかりフラグをfalseに戻す
 			for (int i = 0; i < kBlockNum; i++)
 			{
-				plastic[i]->isRide_ = false;
-				plastic[i]->isUnderRide_ = false;
-				treasure[i]->isRide_ = false;
-				treasure[i]->isUnderRide_ = false;
-				iceGhost[i]->isRide_ = false;
-				iceGhost[i]->isUnderRide_ = false;
+				block[i]->isRide_ = false;
+				block[i]->isUnderRide_ = false;
 			}
 
 			///
@@ -1528,10 +1641,13 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			// ブロック
 			for (int i = 0; i < kBlockNum; i++)
 			{
-				plastic[i]->Draw(ghWhite);
-				treasure[i]->Draw(ghWhite);
-				iceGhost[i]->Draw(ghWhite);
-				ghost[i]->Draw(ghWhite);
+				block[i]->Draw();
+			}
+
+			// 敵
+			for (int i = 0; i < kEnemyNum; i++)
+			{
+				enemy[i]->Draw();
 			}
 
 			//デバック表示
@@ -1607,10 +1723,13 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	// ブロック
 	for (int i = 0; i < kBlockNum; i++)
 	{
-		delete plastic[i];
-		delete treasure[i];
-		delete iceGhost[i];
-		delete ghost[i];
+		delete block[i];
+	}
+
+	// ブロック
+	for (int i = 0; i < kEnemyNum; i++)
+	{
+		delete enemy[i];
 	}
 
 	// ライブラリの終了
