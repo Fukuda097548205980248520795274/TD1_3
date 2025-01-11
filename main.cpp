@@ -1534,8 +1534,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				ghost[i]->Draw(ghWhite);
 			}
 
-			Novice::ScreenPrintf(8, 8, "%d", treasure[1]->hp_);
-
 			//デバック表示
 			Novice::ScreenPrintf(0, 0, "GAME");
 
