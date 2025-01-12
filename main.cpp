@@ -1,6 +1,7 @@
 #include <Novice.h>
 #include "Constant.h"
 #include "Enumeration.h"
+#include "./Class/Scene/Scene.h"
 #include "./Class/Map/Map.h"
 #include "./Class/DrawMap/DrawMap.h"
 #include "./Class/Object/Player/Player.h"
@@ -10,6 +11,11 @@
 #include "./Class/Object/Enemy/Ghost/Ghost.h"
 
 const char kWindowTitle[] = "LC1C_20_フクダソウワ_タイトル";
+
+// シーン
+SCENE Scene::sceneNo_ = SCENE_START;
+int Scene::gameFrame_ = 0;
+int Scene::isOperation_ = false;
 
 // マップ
 int Map::map_[kMapRow][kMapColumn];
@@ -47,19 +53,18 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 #pragma region シーン
 	int nextStage = 0;
 
-	int scene = TITLE;
-
 	int alpha = 0;
 
 	int active = false;
 #pragma endregion
 
-#pragma region プレイヤー
-	// プレイヤー
-	Player* player = new Player();
-#pragma endregion
 
-#pragma region 敵
+	/*   プレイヤー   */
+
+	Player* player = new Player();
+
+
+	/*   敵   */
 	
 	Enemy* enemy[kEnemyNum];
 
@@ -71,11 +76,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			enemy[i] = new Ghost();
 		}
 	}
-	
 
-#pragma endregion
 
-#pragma region ブロック
+	/*   ブロック   */
 
 	CarryBlock* block[kBlockNum];
 
@@ -97,111 +100,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			block[i] = new IceGhost();
 		}
 	}
-	
 
-
-	/*#pragma region ブロックの配置
-		for (int row = 0; row < kMapRow; row++)
-		{
-			for (int column = 0; column < kMapColumn; column++)
-			{
-				switch (Map::map_[row][column])
-				{
-				case TILE_PLAYER:
-					// プレイヤー
-
-					player->Puttting(column, row);
-
-					// タイルを消す
-					Map::map_[row][column] = TILE_NOTHING;
-
-					break;
-
-
-				case TILE_PLASTIC:
-					// プラスチック
-
-					for (int i = 0; i < kBlockNum; i++)
-					{
-						if (plastic[i]->id_ == 0)
-						{
-							plastic[i]->Putting(column, row);
-
-							break;
-						}
-					}
-
-					// タイルを消す
-					Map::map_[row][column] = TILE_NOTHING;
-
-					break;
-
-				case TILE_TREASURE:
-					// 宝
-
-					for (int i = 0; i < kBlockNum; i++)
-					{
-						if (treasure[i]->id_ == 0)
-						{
-							treasure[i]->Putting(column, row);
-
-							break;
-						}
-					}
-
-					// タイルを消す
-					Map::map_[row][column] = TILE_NOTHING;
-
-					// 宝の数をカウントする
-					Map::treasureNum++;
-
-					break;
-
-				case TILE_ICE_GHOST:
-					// 凍った幽霊
-
-					for (int i = 0; i < kBlockNum; i++)
-					{
-						if (iceGhost[i]->id_ == 0)
-						{
-							iceGhost[i]->Putting(column, row);
-
-							break;
-						}
-					}
-
-					// タイルを消す
-					Map::map_[row][column] = TILE_NOTHING;
-
-					break;
-
-				case TILE_GHOST:
-					// 幽霊
-
-					for (int i = 0; i < kBlockNum; i++)
-					{
-						if (ghost[i]->id_ == 0)
-						{
-							ghost[i]->Arrival(column, row);
-
-							break;
-						}
-					}
-
-					// タイルを消す
-					Map::map_[row][column] = TILE_NOTHING;
-
-					break;
-				}
-			}
-		}
-
-	#pragma endregion*/
-
-#pragma region 画像の読み込み
-	// 画像
-	int ghWhite = Novice::LoadTexture("./NoviceResources/white1x1.png");
-#pragma endregion
 
 	// ウィンドウの×ボタンが押されるまでループ
 	while (Novice::ProcessMessage() == 0) {
@@ -212,14 +111,18 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		memcpy(preKeys, keys, 256);
 		Novice::GetHitKeyStateAll(keys);
 
-		switch (scene)
-		{
-		case TITLE:
-#pragma region TITLE
 
-			///
-			/// ↓更新処理ここから
-			///
+		///
+		/// ↓更新処理ここから
+		/// 
+
+		// 画面切り替え
+		Scene::Switch(keys, preKeys);
+
+		switch (Scene::sceneNo_)
+		{
+		case SCENE_START:
+			// スタート画面
 
 			if (keys[DIK_SPACE] && !preKeys[DIK_SPACE])
 			{
@@ -233,46 +136,15 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				if (alpha >= 255)
 				{
 					alpha = 255;
-					scene = STAGE_SELECT;
+					Scene::sceneNo_ = SCENE_STAGE;
 				}
 			}
 
-			///
-			/// ↑更新処理ここまで
-			///
-
-
-			///
-			/// ↓描画処理ここから
-			///
-
-
-			//タイトル名
-			Novice::DrawBox(180, 150, 600, 200, 0.0f, 0xFFFFFFFF, kFillModeSolid);
-
-			//スタートボタン
-			Novice::DrawBox(300, 500, 350, 100, 0.0f, 0xFFFFFFFF, kFillModeSolid);
-
-			//
-			if (active)
-			{
-				Novice::DrawBox(0, 0, kScreenWidth, kScreenHeight, 0.0f, 0x00000000 + alpha, kFillModeSolid);
-			}
-
-			//デバック表示
-			Novice::ScreenPrintf(0, 0, "TITLE");
-
-			///
-			/// ↑描画処理ここまで
-			///
-
 			break;
-#pragma endregion
-		case STAGE_SELECT:
-#pragma region STAGE_SELECT
-			///
-			/// ↓更新処理ここから
-			///
+
+		case SCENE_STAGE:
+			// ステージセレクト画面
+
 
 			if (keys[DIK_A] && !preKeys[DIK_A])
 			{
@@ -403,7 +275,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 							}
 						}
 					}
-				}
+				} 
 				else if (nextStage == 1)
 				{
 					Map::LoadFile("./TextFiles/Stage/stage2.csv");
@@ -513,8 +385,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 							}
 						}
 					}
-				}
-				else if (nextStage == 2)
+				} else if (nextStage == 2)
 				{
 					Map::LoadFile("./TextFiles/Stage/stage3.csv");
 					for (int row = 0; row < kMapRow; row++)
@@ -623,8 +494,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 							}
 						}
 					}
-				}
-				else if (nextStage == 3)
+				} else if (nextStage == 3)
 				{
 					Map::LoadFile("./TextFiles/Stage/stage4.csv");
 					for (int row = 0; row < kMapRow; row++)
@@ -733,8 +603,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 							}
 						}
 					}
-				}
-				else if (nextStage == 4)
+				} else if (nextStage == 4)
 				{
 					Map::LoadFile("./TextFiles/Stage/stage5.csv");
 					for (int row = 0; row < kMapRow; row++)
@@ -843,8 +712,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 							}
 						}
 					}
-				}
-				else if (nextStage == 5)
+				} else if (nextStage == 5)
 				{
 					Map::LoadFile("./TextFiles/Stage/stage6.csv");
 					for (int row = 0; row < kMapRow; row++)
@@ -953,8 +821,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 							}
 						}
 					}
-				}
-				else if (nextStage == 6)
+				} else if (nextStage == 6)
 				{
 					Map::LoadFile("./TextFiles/Stage/stage7.csv");
 					for (int row = 0; row < kMapRow; row++)
@@ -1063,8 +930,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 							}
 						}
 					}
-				}
-				else if (nextStage == 7)
+				} else if (nextStage == 7)
 				{
 					Map::LoadFile("./TextFiles/Stage/stage8.csv");
 					for (int row = 0; row < kMapRow; row++)
@@ -1173,8 +1039,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 							}
 						}
 					}
-				}
-				else if (nextStage == 8)
+				} else if (nextStage == 8)
 				{
 					Map::LoadFile("./TextFiles/Stage/stage9.csv");
 					for (int row = 0; row < kMapRow; row++)
@@ -1283,8 +1148,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 							}
 						}
 					}
-				}
-				else if (nextStage == 9)
+				} else if (nextStage == 9)
 				{
 					Map::LoadFile("./TextFiles/Stage/stage10.csv");
 					for (int row = 0; row < kMapRow; row++)
@@ -1393,8 +1257,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 							}
 						}
 					}
-				}
-				else if (nextStage == 10)
+				} else if (nextStage == 10)
 				{
 					Map::LoadFile("./TextFiles/Stage/stage3.csv");
 					for (int row = 0; row < kMapRow; row++)
@@ -1504,12 +1367,12 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 						}
 					}
 				}
-				scene = GAME;
+				Scene::sceneNo_ = SCENE_GAME;
 			}
 
 			if (keys[DIK_TAB] && !preKeys[DIK_TAB])
 			{
-				scene = TITLE;
+				Scene::sceneNo_ = SCENE_START;
 			}
 
 			//フェードアウト
@@ -1525,36 +1388,12 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 			}
 
-			///
-			/// ↑更新処理ここまで
-			///
-
-
-			///
-			/// ↓描画処理ここから
-			///
-
-			if (active)
-			{
-				Novice::DrawBox(0, 0, kScreenWidth, kScreenHeight, 0.0f, 0x00000000 + alpha, kFillModeSolid);
-			}
-
-			//デバック表示
-			Novice::ScreenPrintf(0, 0, "STAGE_SELECT");
-			Novice::ScreenPrintf(0, 50, "STAGE_SELECT:%d", nextStage + 1);
-
-			///
-			/// ↑描画処理ここまで
-			///
 
 			break;
-#pragma endregion
-		case GAME:
-#pragma region GAME
 
-			///
-			/// ↓更新処理ここから
-			///
+		case SCENE_GAME:
+			// ゲーム画面
+
 
 			// 腐らせる
 			Map::Rotten();
@@ -1624,19 +1463,59 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				block[i]->isUnderRide_ = false;
 			}
 
-			///
-			/// ↑更新処理ここまで
-			///
 
-			///
-			/// ↓描画処理ここから
-			///
+			break;
+		}
+
+		///
+		/// ↑更新処理ここまで
+		/// 
+
+		///
+		/// ↓描画処理ここから
+		///
+
+		switch (Scene::sceneNo_)
+		{
+		case SCENE_START:
+
+			//タイトル名
+			Novice::DrawBox(180, 150, 600, 200, 0.0f, 0xFFFFFFFF, kFillModeSolid);
+
+			//スタートボタン
+			Novice::DrawBox(300, 500, 350, 100, 0.0f, 0xFFFFFFFF, kFillModeSolid);
+
+			//
+			if (active)
+			{
+				Novice::DrawBox(0, 0, kScreenWidth, kScreenHeight, 0.0f, 0x00000000 + alpha, kFillModeSolid);
+			}
+
+			//デバック表示
+			Novice::ScreenPrintf(0, 0, "TITLE");
+
+			break;
+
+		case SCENE_STAGE:
+
+			if (active)
+			{
+				Novice::DrawBox(0, 0, kScreenWidth, kScreenHeight, 0.0f, 0x00000000 + alpha, kFillModeSolid);
+			}
+
+			//デバック表示
+			Novice::ScreenPrintf(0, 0, "STAGE_SELECT");
+			Novice::ScreenPrintf(0, 50, "STAGE_SELECT:%d", nextStage + 1);
+
+			break;
+
+		case SCENE_GAME:
 
 			// マップ
-			Map::Draw(ghWhite);
+			Map::Draw();
 
 			// プレイヤー
-			player->Draw(ghWhite);
+			player->Draw();
 
 			// ブロック
 			for (int i = 0; i < kBlockNum; i++)
@@ -1655,53 +1534,12 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 			break;
 
-			///
-			/// ↑描画処理ここまで
-			///
-#pragma endregion
-		case GAME_OVER:
-#pragma region GAME_OVER
-			///
-			/// ↓更新処理ここから
-			///
-
-			///
-			/// ↑更新処理ここまで
-			///
-
-
-			///
-			/// ↓描画処理ここから
-			///
-
-			///
-			/// ↑描画処理ここまで
-			///
-
-			break;
-#pragma endregion
-		case CLEAR:
-#pragma region CLEAR
-			///
-			/// ↓更新処理ここから
-			///
-
-			///
-			/// ↑更新処理ここまで
-			///
-
-
-			///
-			/// ↓描画処理ここから
-			///
-
-			///
-			/// ↑描画処理ここまで
-			///
-
-			break;
-#pragma endregion
 		}
+
+		///
+		/// ↑描画処理ここまで
+		///
+
 
 		// フレームの終了
 		Novice::EndFrame();
