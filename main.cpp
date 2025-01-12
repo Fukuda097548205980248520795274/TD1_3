@@ -16,6 +16,8 @@ const char kWindowTitle[] = "LC1C_20_フクダソウワ_タイトル";
 SCENE Scene::sceneNo_ = SCENE_START;
 int Scene::gameFrame_ = 0;
 int Scene::isOperation_ = false;
+int Scene::selectStage_ = 0;
+int Scene::isPutPreparation_ = false;
 
 // マップ
 int Map::map_[kMapRow][kMapColumn];
@@ -51,7 +53,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 #pragma endregion
 
 #pragma region シーン
-	int nextStage = 0;
 
 	int alpha = 0;
 
@@ -145,1234 +146,121 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		case SCENE_STAGE:
 			// ステージセレクト画面
 
-
-			if (keys[DIK_A] && !preKeys[DIK_A])
+			// 配置準備ができたら（配置準備フラグがtrueだったら）、ブロックを配置する
+			if (Scene::isPutPreparation_)
 			{
-				if (nextStage > 0)
+				for (int row = 0; row < kMapRow; row++)
 				{
-					nextStage--;
-				}
-			}
-
-			if (keys[DIK_D] && !preKeys[DIK_D])
-			{
-				if (nextStage < 20)
-				{
-					nextStage++;
-				}
-
-			}
-
-			if (keys[DIK_SPACE] && !preKeys[DIK_SPACE])
-			{
-				if (nextStage == 0)
-				{
-					Map::LoadFile("./TextFiles/Stage/stage1.csv");
-					DrawMap::LoadFile("./TextFiles/Design/design1.csv");
-					for (int row = 0; row < kMapRow; row++)
+					for (int column = 0; column < kMapColumn; column++)
 					{
-						for (int column = 0; column < kMapColumn; column++)
+						switch (Map::map_[row][column])
 						{
-							switch (Map::map_[row][column])
+						case TILE_PLAYER:
+							// プレイヤー
+
+							player->Puttting(column, row);
+
+							// タイルを消す
+							Map::map_[row][column] = TILE_NOTHING;
+
+							break;
+
+
+						case TILE_PLASTIC:
+							// プラスチック
+
+							for (int i = 0; i < kBlockNum; i++)
 							{
-							case TILE_PLAYER:
-								// プレイヤー
-
-								player->Puttting(column, row);
-
-								// タイルを消す
-								Map::map_[row][column] = TILE_NOTHING;
-
-								break;
-
-
-							case TILE_PLASTIC:
-								// プラスチック
-
-								for (int i = 0; i < kBlockNum; i++)
+								if (i < 8)
 								{
-									if (i < 8)
+									if (block[i]->id_ == 0)
 									{
-										if (block[i]->id_ == 0)
-										{
-											block[i]->Putting(column, row);
+										block[i]->Putting(column, row);
 
-											break;
-										}
+										break;
 									}
 								}
-
-								// タイルを消す
-								Map::map_[row][column] = TILE_NOTHING;
-
-								break;
-
-							case TILE_TREASURE:
-								// 宝
-
-								for (int i = 0; i < kBlockNum; i++)
-								{
-									if (i >= 8 && i < 16)
-									{
-										if (block[i]->id_ == 0)
-										{
-											block[i]->Putting(column, row);
-
-											break;
-										}
-									}
-								}
-
-								// タイルを消す
-								Map::map_[row][column] = TILE_NOTHING;
-
-								// 宝の数をカウントする
-								Map::treasureNum++;
-
-								break;
-
-							case TILE_ICE_GHOST:
-								// 凍った幽霊
-
-								for (int i = 0; i < kBlockNum; i++)
-								{
-									if (i >= 16 && i < 24)
-									{
-										if (block[i]->id_ == 0)
-										{
-											block[i]->Putting(column, row);
-
-											break;
-										}
-									}
-								}
-
-								// タイルを消す
-								Map::map_[row][column] = TILE_NOTHING;
-
-								break;
-
-							case TILE_GHOST:
-								// 幽霊
-
-								for (int i = 0; i < kEnemyNum; i++)
-								{
-									if (i < 8)
-									{
-										if (enemy[i]->id_ == 0)
-										{
-											enemy[i]->Arrival(column, row);
-
-											break;
-										}
-									}
-								}
-
-								// タイルを消す
-								Map::map_[row][column] = TILE_NOTHING;
-
-								break;
 							}
-						}
-					}
-				} 
-				else if (nextStage == 1)
-				{
-					Map::LoadFile("./TextFiles/Stage/stage2.csv");
-					for (int row = 0; row < kMapRow; row++)
-					{
-						for (int column = 0; column < kMapColumn; column++)
-						{
-							switch (Map::map_[row][column])
+
+							// タイルを消す
+							Map::map_[row][column] = TILE_NOTHING;
+
+							break;
+
+						case TILE_TREASURE:
+							// 宝
+
+							for (int i = 0; i < kBlockNum; i++)
 							{
-							case TILE_PLAYER:
-								// プレイヤー
-
-								player->Puttting(column, row);
-
-								// タイルを消す
-								Map::map_[row][column] = TILE_NOTHING;
-
-								break;
-
-
-							case TILE_PLASTIC:
-								// プラスチック
-
-								for (int i = 0; i < kBlockNum; i++)
+								if (i >= 8 && i < 16)
 								{
-									if (i < 8)
+									if (block[i]->id_ == 0)
 									{
-										if (block[i]->id_ == 0)
-										{
-											block[i]->Putting(column, row);
+										block[i]->Putting(column, row);
 
-											break;
-										}
+										break;
 									}
 								}
-
-								// タイルを消す
-								Map::map_[row][column] = TILE_NOTHING;
-
-								break;
-
-							case TILE_TREASURE:
-								// 宝
-
-								for (int i = 0; i < kBlockNum; i++)
-								{
-									if (i >= 8 && i < 16)
-									{
-										if (block[i]->id_ == 0)
-										{
-											block[i]->Putting(column, row);
-
-											break;
-										}
-									}
-								}
-
-								// タイルを消す
-								Map::map_[row][column] = TILE_NOTHING;
-
-								// 宝の数をカウントする
-								Map::treasureNum++;
-
-								break;
-
-							case TILE_ICE_GHOST:
-								// 凍った幽霊
-
-								for (int i = 0; i < kBlockNum; i++)
-								{
-									if (i >= 16 && i < 24)
-									{
-										if (block[i]->id_ == 0)
-										{
-											block[i]->Putting(column, row);
-
-											break;
-										}
-									}
-								}
-
-								// タイルを消す
-								Map::map_[row][column] = TILE_NOTHING;
-
-								break;
-
-							case TILE_GHOST:
-								// 幽霊
-
-								for (int i = 0; i < kEnemyNum; i++)
-								{
-									if (i < 8)
-									{
-										if (enemy[i]->id_ == 0)
-										{
-											enemy[i]->Arrival(column, row);
-
-											break;
-										}
-									}
-								}
-
-								// タイルを消す
-								Map::map_[row][column] = TILE_NOTHING;
-
-								break;
 							}
-						}
-					}
-				} else if (nextStage == 2)
-				{
-					Map::LoadFile("./TextFiles/Stage/stage3.csv");
-					for (int row = 0; row < kMapRow; row++)
-					{
-						for (int column = 0; column < kMapColumn; column++)
-						{
-							switch (Map::map_[row][column])
+
+							// タイルを消す
+							Map::map_[row][column] = TILE_NOTHING;
+
+							// 宝の数をカウントする
+							Map::treasureNum++;
+
+							break;
+
+						case TILE_ICE_GHOST:
+							// 凍った幽霊
+
+							for (int i = 0; i < kBlockNum; i++)
 							{
-							case TILE_PLAYER:
-								// プレイヤー
-
-								player->Puttting(column, row);
-
-								// タイルを消す
-								Map::map_[row][column] = TILE_NOTHING;
-
-								break;
-
-
-							case TILE_PLASTIC:
-								// プラスチック
-
-								for (int i = 0; i < kBlockNum; i++)
+								if (i >= 16 && i < 24)
 								{
-									if (i < 8)
+									if (block[i]->id_ == 0)
 									{
-										if (block[i]->id_ == 0)
-										{
-											block[i]->Putting(column, row);
+										block[i]->Putting(column, row);
 
-											break;
-										}
+										break;
 									}
 								}
-
-								// タイルを消す
-								Map::map_[row][column] = TILE_NOTHING;
-
-								break;
-
-							case TILE_TREASURE:
-								// 宝
-
-								for (int i = 0; i < kBlockNum; i++)
-								{
-									if (i >= 8 && i < 16)
-									{
-										if (block[i]->id_ == 0)
-										{
-											block[i]->Putting(column, row);
-
-											break;
-										}
-									}
-								}
-
-								// タイルを消す
-								Map::map_[row][column] = TILE_NOTHING;
-
-								// 宝の数をカウントする
-								Map::treasureNum++;
-
-								break;
-
-							case TILE_ICE_GHOST:
-								// 凍った幽霊
-
-								for (int i = 0; i < kBlockNum; i++)
-								{
-									if (i >= 16 && i < 24)
-									{
-										if (block[i]->id_ == 0)
-										{
-											block[i]->Putting(column, row);
-
-											break;
-										}
-									}
-								}
-
-								// タイルを消す
-								Map::map_[row][column] = TILE_NOTHING;
-
-								break;
-
-							case TILE_GHOST:
-								// 幽霊
-
-								for (int i = 0; i < kEnemyNum; i++)
-								{
-									if (i < 8)
-									{
-										if (enemy[i]->id_ == 0)
-										{
-											enemy[i]->Arrival(column, row);
-
-											break;
-										}
-									}
-								}
-
-								// タイルを消す
-								Map::map_[row][column] = TILE_NOTHING;
-
-								break;
 							}
-						}
-					}
-				} else if (nextStage == 3)
-				{
-					Map::LoadFile("./TextFiles/Stage/stage4.csv");
-					for (int row = 0; row < kMapRow; row++)
-					{
-						for (int column = 0; column < kMapColumn; column++)
-						{
-							switch (Map::map_[row][column])
+
+							// タイルを消す
+							Map::map_[row][column] = TILE_NOTHING;
+
+							break;
+
+						case TILE_GHOST:
+							// 幽霊
+
+							for (int i = 0; i < kEnemyNum; i++)
 							{
-							case TILE_PLAYER:
-								// プレイヤー
-
-								player->Puttting(column, row);
-
-								// タイルを消す
-								Map::map_[row][column] = TILE_NOTHING;
-
-								break;
-
-
-							case TILE_PLASTIC:
-								// プラスチック
-
-								for (int i = 0; i < kBlockNum; i++)
+								if (i < 8)
 								{
-									if (i < 8)
+									if (enemy[i]->id_ == 0)
 									{
-										if (block[i]->id_ == 0)
-										{
-											block[i]->Putting(column, row);
+										enemy[i]->Arrival(column, row);
 
-											break;
-										}
+										break;
 									}
 								}
-
-								// タイルを消す
-								Map::map_[row][column] = TILE_NOTHING;
-
-								break;
-
-							case TILE_TREASURE:
-								// 宝
-
-								for (int i = 0; i < kBlockNum; i++)
-								{
-									if (i >= 8 && i < 16)
-									{
-										if (block[i]->id_ == 0)
-										{
-											block[i]->Putting(column, row);
-
-											break;
-										}
-									}
-								}
-
-								// タイルを消す
-								Map::map_[row][column] = TILE_NOTHING;
-
-								// 宝の数をカウントする
-								Map::treasureNum++;
-
-								break;
-
-							case TILE_ICE_GHOST:
-								// 凍った幽霊
-
-								for (int i = 0; i < kBlockNum; i++)
-								{
-									if (i >= 16 && i < 24)
-									{
-										if (block[i]->id_ == 0)
-										{
-											block[i]->Putting(column, row);
-
-											break;
-										}
-									}
-								}
-
-								// タイルを消す
-								Map::map_[row][column] = TILE_NOTHING;
-
-								break;
-
-							case TILE_GHOST:
-								// 幽霊
-
-								for (int i = 0; i < kEnemyNum; i++)
-								{
-									if (i < 8)
-									{
-										if (enemy[i]->id_ == 0)
-										{
-											enemy[i]->Arrival(column, row);
-
-											break;
-										}
-									}
-								}
-
-								// タイルを消す
-								Map::map_[row][column] = TILE_NOTHING;
-
-								break;
 							}
-						}
-					}
-				} else if (nextStage == 4)
-				{
-					Map::LoadFile("./TextFiles/Stage/stage5.csv");
-					for (int row = 0; row < kMapRow; row++)
-					{
-						for (int column = 0; column < kMapColumn; column++)
-						{
-							switch (Map::map_[row][column])
-							{
-							case TILE_PLAYER:
-								// プレイヤー
 
-								player->Puttting(column, row);
+							// タイルを消す
+							Map::map_[row][column] = TILE_NOTHING;
 
-								// タイルを消す
-								Map::map_[row][column] = TILE_NOTHING;
-
-								break;
-
-
-							case TILE_PLASTIC:
-								// プラスチック
-
-								for (int i = 0; i < kBlockNum; i++)
-								{
-									if (i < 8)
-									{
-										if (block[i]->id_ == 0)
-										{
-											block[i]->Putting(column, row);
-
-											break;
-										}
-									}
-								}
-
-								// タイルを消す
-								Map::map_[row][column] = TILE_NOTHING;
-
-								break;
-
-							case TILE_TREASURE:
-								// 宝
-
-								for (int i = 0; i < kBlockNum; i++)
-								{
-									if (i >= 8 && i < 16)
-									{
-										if (block[i]->id_ == 0)
-										{
-											block[i]->Putting(column, row);
-
-											break;
-										}
-									}
-								}
-
-								// タイルを消す
-								Map::map_[row][column] = TILE_NOTHING;
-
-								// 宝の数をカウントする
-								Map::treasureNum++;
-
-								break;
-
-							case TILE_ICE_GHOST:
-								// 凍った幽霊
-
-								for (int i = 0; i < kBlockNum; i++)
-								{
-									if (i >= 16 && i < 24)
-									{
-										if (block[i]->id_ == 0)
-										{
-											block[i]->Putting(column, row);
-
-											break;
-										}
-									}
-								}
-
-								// タイルを消す
-								Map::map_[row][column] = TILE_NOTHING;
-
-								break;
-
-							case TILE_GHOST:
-								// 幽霊
-
-								for (int i = 0; i < kEnemyNum; i++)
-								{
-									if (i < 8)
-									{
-										if (enemy[i]->id_ == 0)
-										{
-											enemy[i]->Arrival(column, row);
-
-											break;
-										}
-									}
-								}
-
-								// タイルを消す
-								Map::map_[row][column] = TILE_NOTHING;
-
-								break;
-							}
-						}
-					}
-				} else if (nextStage == 5)
-				{
-					Map::LoadFile("./TextFiles/Stage/stage6.csv");
-					for (int row = 0; row < kMapRow; row++)
-					{
-						for (int column = 0; column < kMapColumn; column++)
-						{
-							switch (Map::map_[row][column])
-							{
-							case TILE_PLAYER:
-								// プレイヤー
-
-								player->Puttting(column, row);
-
-								// タイルを消す
-								Map::map_[row][column] = TILE_NOTHING;
-
-								break;
-
-
-							case TILE_PLASTIC:
-								// プラスチック
-
-								for (int i = 0; i < kBlockNum; i++)
-								{
-									if (i < 8)
-									{
-										if (block[i]->id_ == 0)
-										{
-											block[i]->Putting(column, row);
-
-											break;
-										}
-									}
-								}
-
-								// タイルを消す
-								Map::map_[row][column] = TILE_NOTHING;
-
-								break;
-
-							case TILE_TREASURE:
-								// 宝
-
-								for (int i = 0; i < kBlockNum; i++)
-								{
-									if (i >= 8 && i < 16)
-									{
-										if (block[i]->id_ == 0)
-										{
-											block[i]->Putting(column, row);
-
-											break;
-										}
-									}
-								}
-
-								// タイルを消す
-								Map::map_[row][column] = TILE_NOTHING;
-
-								// 宝の数をカウントする
-								Map::treasureNum++;
-
-								break;
-
-							case TILE_ICE_GHOST:
-								// 凍った幽霊
-
-								for (int i = 0; i < kBlockNum; i++)
-								{
-									if (i >= 16 && i < 24)
-									{
-										if (block[i]->id_ == 0)
-										{
-											block[i]->Putting(column, row);
-
-											break;
-										}
-									}
-								}
-
-								// タイルを消す
-								Map::map_[row][column] = TILE_NOTHING;
-
-								break;
-
-							case TILE_GHOST:
-								// 幽霊
-
-								for (int i = 0; i < kEnemyNum; i++)
-								{
-									if (i < 8)
-									{
-										if (enemy[i]->id_ == 0)
-										{
-											enemy[i]->Arrival(column, row);
-
-											break;
-										}
-									}
-								}
-
-								// タイルを消す
-								Map::map_[row][column] = TILE_NOTHING;
-
-								break;
-							}
-						}
-					}
-				} else if (nextStage == 6)
-				{
-					Map::LoadFile("./TextFiles/Stage/stage7.csv");
-					for (int row = 0; row < kMapRow; row++)
-					{
-						for (int column = 0; column < kMapColumn; column++)
-						{
-							switch (Map::map_[row][column])
-							{
-							case TILE_PLAYER:
-								// プレイヤー
-
-								player->Puttting(column, row);
-
-								// タイルを消す
-								Map::map_[row][column] = TILE_NOTHING;
-
-								break;
-
-
-							case TILE_PLASTIC:
-								// プラスチック
-
-								for (int i = 0; i < kBlockNum; i++)
-								{
-									if (i < 8)
-									{
-										if (block[i]->id_ == 0)
-										{
-											block[i]->Putting(column, row);
-
-											break;
-										}
-									}
-								}
-
-								// タイルを消す
-								Map::map_[row][column] = TILE_NOTHING;
-
-								break;
-
-							case TILE_TREASURE:
-								// 宝
-
-								for (int i = 0; i < kBlockNum; i++)
-								{
-									if (i >= 8 && i < 16)
-									{
-										if (block[i]->id_ == 0)
-										{
-											block[i]->Putting(column, row);
-
-											break;
-										}
-									}
-								}
-
-								// タイルを消す
-								Map::map_[row][column] = TILE_NOTHING;
-
-								// 宝の数をカウントする
-								Map::treasureNum++;
-
-								break;
-
-							case TILE_ICE_GHOST:
-								// 凍った幽霊
-
-								for (int i = 0; i < kBlockNum; i++)
-								{
-									if (i >= 16 && i < 24)
-									{
-										if (block[i]->id_ == 0)
-										{
-											block[i]->Putting(column, row);
-
-											break;
-										}
-									}
-								}
-
-								// タイルを消す
-								Map::map_[row][column] = TILE_NOTHING;
-
-								break;
-
-							case TILE_GHOST:
-								// 幽霊
-
-								for (int i = 0; i < kEnemyNum; i++)
-								{
-									if (i < 8)
-									{
-										if (enemy[i]->id_ == 0)
-										{
-											enemy[i]->Arrival(column, row);
-
-											break;
-										}
-									}
-								}
-
-								// タイルを消す
-								Map::map_[row][column] = TILE_NOTHING;
-
-								break;
-							}
-						}
-					}
-				} else if (nextStage == 7)
-				{
-					Map::LoadFile("./TextFiles/Stage/stage8.csv");
-					for (int row = 0; row < kMapRow; row++)
-					{
-						for (int column = 0; column < kMapColumn; column++)
-						{
-							switch (Map::map_[row][column])
-							{
-							case TILE_PLAYER:
-								// プレイヤー
-
-								player->Puttting(column, row);
-
-								// タイルを消す
-								Map::map_[row][column] = TILE_NOTHING;
-
-								break;
-
-
-							case TILE_PLASTIC:
-								// プラスチック
-
-								for (int i = 0; i < kBlockNum; i++)
-								{
-									if (i < 8)
-									{
-										if (block[i]->id_ == 0)
-										{
-											block[i]->Putting(column, row);
-
-											break;
-										}
-									}
-								}
-
-								// タイルを消す
-								Map::map_[row][column] = TILE_NOTHING;
-
-								break;
-
-							case TILE_TREASURE:
-								// 宝
-
-								for (int i = 0; i < kBlockNum; i++)
-								{
-									if (i >= 8 && i < 16)
-									{
-										if (block[i]->id_ == 0)
-										{
-											block[i]->Putting(column, row);
-
-											break;
-										}
-									}
-								}
-
-								// タイルを消す
-								Map::map_[row][column] = TILE_NOTHING;
-
-								// 宝の数をカウントする
-								Map::treasureNum++;
-
-								break;
-
-							case TILE_ICE_GHOST:
-								// 凍った幽霊
-
-								for (int i = 0; i < kBlockNum; i++)
-								{
-									if (i >= 16 && i < 24)
-									{
-										if (block[i]->id_ == 0)
-										{
-											block[i]->Putting(column, row);
-
-											break;
-										}
-									}
-								}
-
-								// タイルを消す
-								Map::map_[row][column] = TILE_NOTHING;
-
-								break;
-
-							case TILE_GHOST:
-								// 幽霊
-
-								for (int i = 0; i < kEnemyNum; i++)
-								{
-									if (i < 8)
-									{
-										if (enemy[i]->id_ == 0)
-										{
-											enemy[i]->Arrival(column, row);
-
-											break;
-										}
-									}
-								}
-
-								// タイルを消す
-								Map::map_[row][column] = TILE_NOTHING;
-
-								break;
-							}
-						}
-					}
-				} else if (nextStage == 8)
-				{
-					Map::LoadFile("./TextFiles/Stage/stage9.csv");
-					for (int row = 0; row < kMapRow; row++)
-					{
-						for (int column = 0; column < kMapColumn; column++)
-						{
-							switch (Map::map_[row][column])
-							{
-							case TILE_PLAYER:
-								// プレイヤー
-
-								player->Puttting(column, row);
-
-								// タイルを消す
-								Map::map_[row][column] = TILE_NOTHING;
-
-								break;
-
-
-							case TILE_PLASTIC:
-								// プラスチック
-
-								for (int i = 0; i < kBlockNum; i++)
-								{
-									if (i < 8)
-									{
-										if (block[i]->id_ == 0)
-										{
-											block[i]->Putting(column, row);
-
-											break;
-										}
-									}
-								}
-
-								// タイルを消す
-								Map::map_[row][column] = TILE_NOTHING;
-
-								break;
-
-							case TILE_TREASURE:
-								// 宝
-
-								for (int i = 0; i < kBlockNum; i++)
-								{
-									if (i >= 8 && i < 16)
-									{
-										if (block[i]->id_ == 0)
-										{
-											block[i]->Putting(column, row);
-
-											break;
-										}
-									}
-								}
-
-								// タイルを消す
-								Map::map_[row][column] = TILE_NOTHING;
-
-								// 宝の数をカウントする
-								Map::treasureNum++;
-
-								break;
-
-							case TILE_ICE_GHOST:
-								// 凍った幽霊
-
-								for (int i = 0; i < kBlockNum; i++)
-								{
-									if (i >= 16 && i < 24)
-									{
-										if (block[i]->id_ == 0)
-										{
-											block[i]->Putting(column, row);
-
-											break;
-										}
-									}
-								}
-
-								// タイルを消す
-								Map::map_[row][column] = TILE_NOTHING;
-
-								break;
-
-							case TILE_GHOST:
-								// 幽霊
-
-								for (int i = 0; i < kEnemyNum; i++)
-								{
-									if (i < 8)
-									{
-										if (enemy[i]->id_ == 0)
-										{
-											enemy[i]->Arrival(column, row);
-
-											break;
-										}
-									}
-								}
-
-								// タイルを消す
-								Map::map_[row][column] = TILE_NOTHING;
-
-								break;
-							}
-						}
-					}
-				} else if (nextStage == 9)
-				{
-					Map::LoadFile("./TextFiles/Stage/stage10.csv");
-					for (int row = 0; row < kMapRow; row++)
-					{
-						for (int column = 0; column < kMapColumn; column++)
-						{
-							switch (Map::map_[row][column])
-							{
-							case TILE_PLAYER:
-								// プレイヤー
-
-								player->Puttting(column, row);
-
-								// タイルを消す
-								Map::map_[row][column] = TILE_NOTHING;
-
-								break;
-
-
-							case TILE_PLASTIC:
-								// プラスチック
-
-								for (int i = 0; i < kBlockNum; i++)
-								{
-									if (i < 8)
-									{
-										if (block[i]->id_ == 0)
-										{
-											block[i]->Putting(column, row);
-
-											break;
-										}
-									}
-								}
-
-								// タイルを消す
-								Map::map_[row][column] = TILE_NOTHING;
-
-								break;
-
-							case TILE_TREASURE:
-								// 宝
-
-								for (int i = 0; i < kBlockNum; i++)
-								{
-									if (i >= 8 && i < 16)
-									{
-										if (block[i]->id_ == 0)
-										{
-											block[i]->Putting(column, row);
-
-											break;
-										}
-									}
-								}
-
-								// タイルを消す
-								Map::map_[row][column] = TILE_NOTHING;
-
-								// 宝の数をカウントする
-								Map::treasureNum++;
-
-								break;
-
-							case TILE_ICE_GHOST:
-								// 凍った幽霊
-
-								for (int i = 0; i < kBlockNum; i++)
-								{
-									if (i >= 16 && i < 24)
-									{
-										if (block[i]->id_ == 0)
-										{
-											block[i]->Putting(column, row);
-
-											break;
-										}
-									}
-								}
-
-								// タイルを消す
-								Map::map_[row][column] = TILE_NOTHING;
-
-								break;
-
-							case TILE_GHOST:
-								// 幽霊
-
-								for (int i = 0; i < kEnemyNum; i++)
-								{
-									if (i < 8)
-									{
-										if (enemy[i]->id_ == 0)
-										{
-											enemy[i]->Arrival(column, row);
-
-											break;
-										}
-									}
-								}
-
-								// タイルを消す
-								Map::map_[row][column] = TILE_NOTHING;
-
-								break;
-							}
-						}
-					}
-				} else if (nextStage == 10)
-				{
-					Map::LoadFile("./TextFiles/Stage/stage3.csv");
-					for (int row = 0; row < kMapRow; row++)
-					{
-						for (int column = 0; column < kMapColumn; column++)
-						{
-							switch (Map::map_[row][column])
-							{
-							case TILE_PLAYER:
-								// プレイヤー
-
-								player->Puttting(column, row);
-
-								// タイルを消す
-								Map::map_[row][column] = TILE_NOTHING;
-
-								break;
-
-
-							case TILE_PLASTIC:
-								// プラスチック
-
-								for (int i = 0; i < kBlockNum; i++)
-								{
-									if (i < 8)
-									{
-										if (block[i]->id_ == 0)
-										{
-											block[i]->Putting(column, row);
-
-											break;
-										}
-									}
-								}
-
-								// タイルを消す
-								Map::map_[row][column] = TILE_NOTHING;
-
-								break;
-
-							case TILE_TREASURE:
-								// 宝
-
-								for (int i = 0; i < kBlockNum; i++)
-								{
-									if (i >= 8 && i < 16)
-									{
-										if (block[i]->id_ == 0)
-										{
-											block[i]->Putting(column, row);
-
-											break;
-										}
-									}
-								}
-
-								// タイルを消す
-								Map::map_[row][column] = TILE_NOTHING;
-
-								// 宝の数をカウントする
-								Map::treasureNum++;
-
-								break;
-
-							case TILE_ICE_GHOST:
-								// 凍った幽霊
-
-								for (int i = 0; i < kBlockNum; i++)
-								{
-									if (i >= 16 && i < 24)
-									{
-										if (block[i]->id_ == 0)
-										{
-											block[i]->Putting(column, row);
-
-											break;
-										}
-									}
-								}
-
-								// タイルを消す
-								Map::map_[row][column] = TILE_NOTHING;
-
-								break;
-
-							case TILE_GHOST:
-								// 幽霊
-
-								for (int i = 0; i < kEnemyNum; i++)
-								{
-									if (i < 8)
-									{
-										if (enemy[i]->id_ == 0)
-										{
-											enemy[i]->Arrival(column, row);
-
-											break;
-										}
-									}
-								}
-
-								// タイルを消す
-								Map::map_[row][column] = TILE_NOTHING;
-
-								break;
-							}
+							break;
 						}
 					}
 				}
+
+				// ゲーム画面に切り替える
 				Scene::sceneNo_ = SCENE_GAME;
-			}
 
-			if (keys[DIK_TAB] && !preKeys[DIK_TAB])
-			{
-				Scene::sceneNo_ = SCENE_START;
+				// 配置が完了した（配置準備フラグがfalseになる）
+				Scene::isPutPreparation_ = false;
 			}
 
 			//フェードアウト
@@ -1478,6 +366,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		switch (Scene::sceneNo_)
 		{
 		case SCENE_START:
+			// スタート画面
 
 			//タイトル名
 			Novice::DrawBox(180, 150, 600, 200, 0.0f, 0xFFFFFFFF, kFillModeSolid);
@@ -1497,6 +386,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			break;
 
 		case SCENE_STAGE:
+			// ステージセレクト画面
 
 			if (active)
 			{
@@ -1505,11 +395,12 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 			//デバック表示
 			Novice::ScreenPrintf(0, 0, "STAGE_SELECT");
-			Novice::ScreenPrintf(0, 50, "STAGE_SELECT:%d", nextStage + 1);
+			Novice::ScreenPrintf(0, 50, "STAGE_SELECT:%d", Scene::selectStage_ + 1);
 
 			break;
 
 		case SCENE_GAME:
+			// ゲーム画面
 
 			// マップ
 			Map::Draw();
