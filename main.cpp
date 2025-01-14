@@ -9,6 +9,7 @@
 #include "./Class/Object/CarryBlock/Treasure/Treasure.h"
 #include "./Class/Object/CarryBlock/IceGhost/IceGhost.h"
 #include "./Class/Object/Enemy/Ghost/Ghost.h"
+#include "./Class/Object/Particle/Dust/Dust.h"
 
 const char kWindowTitle[] = "LC1C_20_フクダソウワ_タイトル";
 
