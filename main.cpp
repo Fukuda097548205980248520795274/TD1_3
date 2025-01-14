@@ -12,27 +12,6 @@
 
 const char kWindowTitle[] = "LC1C_20_フクダソウワ_タイトル";
 
-// シーン
-SCENE Scene::sceneNo_ = SCENE_START;
-int Scene::gameFrame_ = 0;
-int Scene::isOperation_ = false;
-int Scene::selectStage_ = 0;
-int Scene::isPutPreparation_ = false;
-
-// マップ
-int Map::map_[kMapRow][kMapColumn];
-int Map::treasureNum = 0;
-
-// 描画用マップ
-int DrawMap::map_[kMapRow][kMapColumn];
-
-// 運べるブロック
-int CarryBlock::countID;
-
-// 敵
-int Enemy::countID;
-
-
 // Windowsアプリでのエントリーポイント(main関数)
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
@@ -117,9 +96,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		/// ↓更新処理ここから
 		/// 
 
-		// 画面切り替え
+		// クラスで画面切り替え
 		Scene::Switch(keys, preKeys);
 
+		// 画面切り替え
 		switch (Scene::sceneNo_)
 		{
 		case SCENE_START:
@@ -338,7 +318,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			{
 				for (int j = 0; j < kBlockNum; j++)
 				{
-					player->Carry(block[i], block[j]);
+					player->Carry(keys , preKeys , block[i], block[j]);
 
 				}
 			}
@@ -383,6 +363,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		/// ↓描画処理ここから
 		///
 
+		// 画面切り替え
 		switch (Scene::sceneNo_)
 		{
 		case SCENE_START:
