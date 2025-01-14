@@ -56,6 +56,9 @@
     <Filter Include="Class\Scene">
       <UniqueIdentifier>{c685d39e-a853-46bb-aae2-7e860c57fd74}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Class\Object\Particle">
+      <UniqueIdentifier>{6979508b-943d-4cb2-82c8-c4d5426a44df}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="C:\KamataEngine\DirectXGame\base\DirectXCommon.cpp">
@@ -113,11 +116,11 @@
     <ClCompile Include="Class\DrawMap\DrawMap.cpp">
       <Filter>Class\DrawMap</Filter>
     </ClCompile>
-    <ClCompile Include="Class\Object\Particle\Particle.cpp">
-      <Filter>KamataEngine</Filter>
-    </ClCompile>
     <ClCompile Include="Class\Scene\Scene.cpp">
       <Filter>Class\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Class\Object\Particle\Particle.cpp">
+      <Filter>Class\Object\Particle</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -228,9 +231,11 @@
     <ClInclude Include="Class\DrawMap\DrawMap.h">
       <Filter>Class\DrawMap</Filter>
     </ClInclude>
-    <ClInclude Include="Class\Object\Particle\Particle.h" />
     <ClInclude Include="Class\Scene\Scene.h">
       <Filter>Class\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Class\Object\Particle\Particle.h">
+      <Filter>Class\Object\Particle</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

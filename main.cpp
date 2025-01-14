@@ -21,7 +21,7 @@ int Scene::isPutPreparation_ = false;
 
 // マップ
 int Map::map_[kMapRow][kMapColumn];
-int Map::treasureNum;
+int Map::treasureNum = 0;
 
 // 描画用マップ
 int DrawMap::map_[kMapRow][kMapColumn];
@@ -286,7 +286,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			// 腐らせる
 			Map::Rotten();
 
-
 			/*   プレイヤー   */
 
 			// 操作する
@@ -349,6 +348,27 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			{
 				block[i]->isRide_ = false;
 				block[i]->isUnderRide_ = false;
+			}
+
+
+			/*   クリア条件   */
+
+			// 残りの宝がなくなったら、スタート画面に戻る
+			if (Map::treasureNum <= 0)
+			{
+				Scene::sceneNo_ = SCENE_START;
+
+				// ブロックを初期化する
+				for (int i = 0; i < kBlockNum; i++)
+				{
+					block[i]->InitialValue();
+				}
+
+				// 敵を初期化する
+				for (int i = 0; i < kEnemyNum; i++)
+				{
+					enemy[i]->InitialValue();
+				}
 			}
 
 
@@ -421,7 +441,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			}
 
 			//デバック表示
-			Novice::ScreenPrintf(0, 0, "GAME");
+			Novice::ScreenPrintf(8, 8, "%d" , Map::treasureNum);
 
 			break;
 
