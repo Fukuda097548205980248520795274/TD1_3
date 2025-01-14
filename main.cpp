@@ -146,6 +146,11 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		case SCENE_STAGE:
 			// ステージセレクト画面
 
+
+		   ///
+		   /// ↓更新処理ここから
+		   /// 
+
 			// 配置準備ができたら（配置準備フラグがtrueだったら）、ブロックを配置する
 			if (Scene::isPutPreparation_)
 			{
@@ -276,7 +281,18 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 			}
 
+			///
+		    /// ↑更新処理ここまで
+		    /// 
 
+		    ///
+		    /// ↓描画処理ここから
+		    ///
+
+
+			///
+		    /// ↑描画処理ここまで
+		    ///
 			break;
 
 		case SCENE_GAME:
