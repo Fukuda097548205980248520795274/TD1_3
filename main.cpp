@@ -332,6 +332,169 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			}
 
 
+			/*   リセット   */
+
+			// Rキーでリセットする
+			if (!preKeys[DIK_R] && keys[DIK_R])
+			{
+				// ブロックを初期化する
+				for (int i = 0; i < kBlockNum; i++)
+				{
+					block[i]->InitialValue();
+				}
+
+				// 敵を初期化する
+				for (int i = 0; i < kEnemyNum; i++)
+				{
+					enemy[i]->InitialValue();
+				}
+
+				// マップを再読み込みする
+				if (Scene::selectStage_ == 0)
+				{
+					Map::LoadFile("./TextFiles/Stage/stage1.csv");
+				} else if (Scene::selectStage_ == 1)
+				{
+					Map::LoadFile("./TextFiles/Stage/stage2.csv");
+				} else if (Scene::selectStage_ == 2)
+				{
+					Map::LoadFile("./TextFiles/Stage/stage3.csv");
+				} else if (Scene::selectStage_ == 3)
+				{
+					Map::LoadFile("./TextFiles/Stage/stage4.csv");
+				} else if (Scene::selectStage_ == 4)
+				{
+					Map::LoadFile("./TextFiles/Stage/stage5.csv");
+				} else if (Scene::selectStage_ == 5)
+				{
+					Map::LoadFile("./TextFiles/Stage/stage6.csv");
+				} else if (Scene::selectStage_ == 6)
+				{
+					Map::LoadFile("./TextFiles/Stage/stage7.csv");
+				} else if (Scene::selectStage_ == 7)
+				{
+					Map::LoadFile("./TextFiles/Stage/stage8.csv");
+				} else if (Scene::selectStage_ == 8)
+				{
+					Map::LoadFile("./TextFiles/Stage/stage9.csv");
+				} else if (Scene::selectStage_ == 9)
+				{
+					Map::LoadFile("./TextFiles/Stage/stage10.csv");
+				} else if (Scene::selectStage_ == 10)
+				{
+					Map::LoadFile("./TextFiles/Stage/stage3.csv");
+				}
+
+				// ブロックや敵を配置する
+				for (int row = 0; row < kMapRow; row++)
+				{
+					for (int column = 0; column < kMapColumn; column++)
+					{
+						switch (Map::map_[row][column])
+						{
+						case TILE_PLAYER:
+							// プレイヤー
+
+							player->Puttting(column, row);
+
+							// タイルを消す
+							Map::map_[row][column] = TILE_NOTHING;
+
+							break;
+
+
+						case TILE_PLASTIC:
+							// プラスチック
+
+							for (int i = 0; i < kBlockNum; i++)
+							{
+								if (i < 8)
+								{
+									if (block[i]->id_ == 0)
+									{
+										block[i]->Putting(column, row);
+
+										break;
+									}
+								}
+							}
+
+							// タイルを消す
+							Map::map_[row][column] = TILE_NOTHING;
+
+							break;
+
+						case TILE_TREASURE:
+							// 宝
+
+							for (int i = 0; i < kBlockNum; i++)
+							{
+								if (i >= 8 && i < 16)
+								{
+									if (block[i]->id_ == 0)
+									{
+										block[i]->Putting(column, row);
+
+										break;
+									}
+								}
+							}
+
+							// タイルを消す
+							Map::map_[row][column] = TILE_NOTHING;
+
+							// 宝の数をカウントする
+							Map::treasureNum++;
+
+							break;
+
+						case TILE_ICE_GHOST:
+							// 凍った幽霊
+
+							for (int i = 0; i < kBlockNum; i++)
+							{
+								if (i >= 16 && i < 24)
+								{
+									if (block[i]->id_ == 0)
+									{
+										block[i]->Putting(column, row);
+
+										break;
+									}
+								}
+							}
+
+							// タイルを消す
+							Map::map_[row][column] = TILE_NOTHING;
+
+							break;
+
+						case TILE_GHOST:
+							// 幽霊
+
+							for (int i = 0; i < kEnemyNum; i++)
+							{
+								if (i < 8)
+								{
+									if (enemy[i]->id_ == 0)
+									{
+										enemy[i]->Arrival(column, row);
+
+										break;
+									}
+								}
+							}
+
+							// タイルを消す
+							Map::map_[row][column] = TILE_NOTHING;
+
+							break;
+						}
+					}
+				}
+			}
+
+
 			/*   クリア条件   */
 
 			// 残りの宝がなくなったら、スタート画面に戻る
