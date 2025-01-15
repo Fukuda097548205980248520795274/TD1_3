@@ -6,6 +6,7 @@
 #include "./Class/DrawMap/DrawMap.h"
 #include "./Class/Object/Player/Player.h"
 #include "./Class/Object/CarryBlock/Plastic/Plastic.h"
+#include "./Class/Object/CarryBlock/Cushion/Cushion.h"
 #include "./Class/Object/CarryBlock/Treasure/Treasure.h"
 #include "./Class/Object/CarryBlock/IceGhost/IceGhost.h"
 #include "./Class/Object/Enemy/Ghost/Ghost.h"
@@ -72,10 +73,15 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		}
 		else if (i < 16)
 		{
+			// クッション
+			block[i] = new Cushion();
+		}
+		else if (i < 24)
+		{
 			// 宝
 			block[i] = new Treasure();
 		}
-		else if (i < 24)
+		else if (i < 32)
 		{
 			// 凍った敵
 			block[i] = new IceGhost();
@@ -130,6 +136,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			// 配置準備ができたら（配置準備フラグがtrueだったら）、ブロックを配置する
 			if (Scene::isPutPreparation_)
 			{
+				// ブロックや敵を配置する
 				for (int row = 0; row < kMapRow; row++)
 				{
 					for (int column = 0; column < kMapColumn; column++)
@@ -168,12 +175,33 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 							break;
 
+						case TILE_CUSHION:
+							// クッション
+
+							for (int i = 0; i < kBlockNum; i++)
+							{
+								if (i >= 8 && i < 16)
+								{
+									if (block[i]->id_ == 0)
+									{
+										block[i]->Putting(column, row);
+
+										break;
+									}
+								}
+							}
+
+							// タイルを消す
+							Map::map_[row][column] = TILE_NOTHING;
+
+							break;
+
 						case TILE_TREASURE:
 							// 宝
 
 							for (int i = 0; i < kBlockNum; i++)
 							{
-								if (i >= 8 && i < 16)
+								if (i >= 16 && i < 24)
 								{
 									if (block[i]->id_ == 0)
 									{
@@ -197,7 +225,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 							for (int i = 0; i < kBlockNum; i++)
 							{
-								if (i >= 16 && i < 24)
+								if (i >= 24 && i < 32)
 								{
 									if (block[i]->id_ == 0)
 									{
@@ -424,12 +452,33 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 							break;
 
+						case TILE_CUSHION:
+							// クッション
+
+							for (int i = 0; i < kBlockNum; i++)
+							{
+								if (i >= 8 && i < 16)
+								{
+									if (block[i]->id_ == 0)
+									{
+										block[i]->Putting(column, row);
+
+										break;
+									}
+								}
+							}
+
+							// タイルを消す
+							Map::map_[row][column] = TILE_NOTHING;
+
+							break;
+
 						case TILE_TREASURE:
 							// 宝
 
 							for (int i = 0; i < kBlockNum; i++)
 							{
-								if (i >= 8 && i < 16)
+								if (i >= 16 && i < 24)
 								{
 									if (block[i]->id_ == 0)
 									{
@@ -453,7 +502,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 							for (int i = 0; i < kBlockNum; i++)
 							{
-								if (i >= 16 && i < 24)
+								if (i >= 24 && i < 32)
 								{
 									if (block[i]->id_ == 0)
 									{
