@@ -27,17 +27,13 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	/*---------------
 		変数を作る
 	---------------*/
-#pragma region マップ
+
 	// マップ
 	Map::LoadFile("./TextFiles/Stage/stage1.csv");
-#pragma endregion
-
-#pragma region シーン
 
 	int alpha = 0;
 
 	int active = false;
-#pragma endregion
 
 
 	/*   プレイヤー   */
@@ -109,18 +105,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			if (keys[DIK_SPACE] && !preKeys[DIK_SPACE])
 			{
 				active = true;
+				Scene::FadeOut(alpha, active);
 				break;
 			}
 
-			if (active)
-			{
-				alpha += 3;
-				if (alpha >= 255)
-				{
-					alpha = 255;
-					Scene::sceneNo_ = SCENE_STAGE;
-				}
-			}
 
 			break;
 
@@ -245,7 +233,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			}
 
 			//フェードアウト
-			if (active)
+
+			/*if (active)
 			{
 				alpha -= 3;
 
@@ -255,7 +244,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 					active = false;
 				}
 
-			}
+			}*/
 
 
 			break;
@@ -500,7 +489,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			// 残りの宝がなくなったら、スタート画面に戻る
 			if (Map::treasureNum <= 0)
 			{
-				Scene::sceneNo_ = SCENE_START;
+				Scene::sceneNo_ = SCENE_STAGE;
 
 				// ブロックを初期化する
 				for (int i = 0; i < kBlockNum; i++)
@@ -545,8 +534,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				Novice::DrawBox(0, 0, kScreenWidth, kScreenHeight, 0.0f, 0x00000000 + alpha, kFillModeSolid);
 			}
 
-			//デバック表示
-			Novice::ScreenPrintf(0, 0, "TITLE");
+			////デバック表示
+			//Novice::ScreenPrintf(0, 0, "TITLE");
 
 			break;
 
