@@ -112,21 +112,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		case SCENE_START:
 			// スタート画面
 
-			if (keys[DIK_SPACE] && !preKeys[DIK_SPACE])
-			{
-				active = true;
-				break;
-			}
-
-			if (active)
-			{
-				alpha += 3;
-				if (alpha >= 255)
-				{
-					alpha = 255;
-					Scene::sceneNo_ = SCENE_STAGE;
-				}
-			}
 
 			break;
 
@@ -271,20 +256,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				// 配置が完了した（配置準備フラグがfalseになる）
 				Scene::isPutPreparation_ = false;
 			}
-
-			//フェードアウト
-			if (active)
-			{
-				alpha -= 3;
-
-				if (alpha <= 0)
-				{
-					alpha = 255;
-					active = false;
-				}
-
-			}
-
 
 			break;
 
