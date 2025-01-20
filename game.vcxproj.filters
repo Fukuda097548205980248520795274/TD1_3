@@ -62,6 +62,15 @@
     <Filter Include="Class\Object\CarryBlock\Cushion">
       <UniqueIdentifier>{2b24659e-fa69-4bdf-b22e-99c34426fc3f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Class\Object\Particle\Dust">
+      <UniqueIdentifier>{a60923d6-af05-4cf8-8401-66579fb3ae41}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\Object\Particle\Snow">
+      <UniqueIdentifier>{078960b1-47ee-4292-ac69-5662585f1a3a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\Object\Particle\Hinoko">
+      <UniqueIdentifier>{136328c9-d53d-4ae9-bc01-c2eebe1d13f8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="C:\KamataEngine\DirectXGame\base\DirectXCommon.cpp">
@@ -125,14 +134,17 @@
     <ClCompile Include="Class\Object\Particle\Particle.cpp">
       <Filter>Class\Object\Particle</Filter>
     </ClCompile>
-    <ClCompile Include="Dust.cpp">
-      <Filter>KamataEngine</Filter>
-    </ClCompile>
-    <ClCompile Include="Hinoko.cpp">
-      <Filter>KamataEngine</Filter>
-    </ClCompile>
     <ClCompile Include="Class\Object\CarryBlock\Cushion\Cushion.cpp">
       <Filter>Class\Object\CarryBlock\Cushion</Filter>
+    </ClCompile>
+    <ClCompile Include="Class\Object\Particle\Dust\Dust.cpp">
+      <Filter>Class\Object\Particle\Dust</Filter>
+    </ClCompile>
+    <ClCompile Include="Class\Object\Particle\Hinoko\Hinoko.cpp">
+      <Filter>Class\Object\Particle\Hinoko</Filter>
+    </ClCompile>
+    <ClCompile Include="Class\Object\Particle\Snow\Snow.cpp">
+      <Filter>Class\Object\Particle\Snow</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -249,10 +261,17 @@
     <ClInclude Include="Class\Object\Particle\Particle.h">
       <Filter>Class\Object\Particle</Filter>
     </ClInclude>
-    <ClInclude Include="Dust.h" />
-    <ClInclude Include="Hinoko.h" />
     <ClInclude Include="Class\Object\CarryBlock\Cushion\Cushion.h">
       <Filter>Class\Object\CarryBlock\Cushion</Filter>
+    </ClInclude>
+    <ClInclude Include="Class\Object\Particle\Dust\Dust.h">
+      <Filter>Class\Object\Particle\Dust</Filter>
+    </ClInclude>
+    <ClInclude Include="Class\Object\Particle\Hinoko\Hinoko.h">
+      <Filter>Class\Object\Particle\Hinoko</Filter>
+    </ClInclude>
+    <ClInclude Include="Snow.h">
+      <Filter>Class\Object\Particle\Snow</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -125,12 +125,13 @@ xcopy C:\KamataEngine\DirectXGame\Resources "$(OutDirFullPath)NoviceResources" /
     <ClCompile Include="Class\Object\Enemy\Enemy.cpp" />
     <ClCompile Include="Class\Object\Enemy\Ghost\Ghost.cpp" />
     <ClCompile Include="Class\Object\Object.cpp" />
+    <ClCompile Include="Class\Object\Particle\Dust\Dust.cpp" />
+    <ClCompile Include="Class\Object\Particle\Hinoko\Hinoko.cpp" />
     <ClCompile Include="Class\Object\Particle\Particle.cpp" />
+    <ClCompile Include="Class\Object\Particle\Snow\Snow.cpp" />
     <ClCompile Include="Class\Object\Player\Player.cpp" />
     <ClCompile Include="Class\Scene\Scene.cpp" />
-    <ClCompile Include="Dust.cpp" />
     <ClCompile Include="Function\Matrix\Matrix.cpp" />
-    <ClCompile Include="Hinoko.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -171,14 +172,15 @@ xcopy C:\KamataEngine\DirectXGame\Resources "$(OutDirFullPath)NoviceResources" /
     <ClInclude Include="Class\Object\Enemy\Enemy.h" />
     <ClInclude Include="Class\Object\Enemy\Ghost\Ghost.h" />
     <ClInclude Include="Class\Object\Object.h" />
+    <ClInclude Include="Class\Object\Particle\Dust\Dust.h" />
+    <ClInclude Include="Class\Object\Particle\Hinoko\Hinoko.h" />
     <ClInclude Include="Class\Object\Particle\Particle.h" />
     <ClInclude Include="Class\Object\Player\Player.h" />
     <ClInclude Include="Class\Scene\Scene.h" />
     <ClInclude Include="Constant.h" />
-    <ClInclude Include="Dust.h" />
     <ClInclude Include="Enumeration.h" />
     <ClInclude Include="Function\Matrix\Matrix.h" />
-    <ClInclude Include="Hinoko.h" />
+    <ClInclude Include="Snow.h" />
     <ClInclude Include="Structure.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
