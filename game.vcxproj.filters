@@ -62,6 +62,9 @@
     <Filter Include="Class\Object\CarryBlock\Cushion">
       <UniqueIdentifier>{2b24659e-fa69-4bdf-b22e-99c34426fc3f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Class\Object\Water">
+      <UniqueIdentifier>{f289da9e-bdd1-4200-9bf1-a8917c367453}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="C:\KamataEngine\DirectXGame\base\DirectXCommon.cpp">
@@ -133,6 +136,9 @@
     </ClCompile>
     <ClCompile Include="Class\Object\CarryBlock\Cushion\Cushion.cpp">
       <Filter>Class\Object\CarryBlock\Cushion</Filter>
+    </ClCompile>
+    <ClCompile Include="Class\Object\Water\Water.cpp">
+      <Filter>Class\Object\Water</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -253,6 +259,9 @@
     <ClInclude Include="Hinoko.h" />
     <ClInclude Include="Class\Object\CarryBlock\Cushion\Cushion.h">
       <Filter>Class\Object\CarryBlock\Cushion</Filter>
+    </ClInclude>
+    <ClInclude Include="Class\Object\Water\Water.h">
+      <Filter>Class\Object\Water</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
