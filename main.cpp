@@ -5,6 +5,7 @@
 #include "./Class/Map/Map.h"
 #include "./Class/DrawMap/DrawMap.h"
 #include "./Class/Object/Player/Player.h"
+#include "./Class/Object/Water/Water.h"
 #include "./Class/Object/CarryBlock/Plastic/Plastic.h"
 #include "./Class/Object/CarryBlock/Cushion/Cushion.h"
 #include "./Class/Object/CarryBlock/Treasure/Treasure.h"
@@ -44,6 +45,15 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	/*   プレイヤー   */
 
 	Player* player = new Player();
+
+
+	/*   水   */
+
+	Water* water[kWaterNum];
+	for (int i = 0; i < kWaterNum; i++)
+	{
+		water[i] = new Water();
+	}
 
 
 	/*   敵   */
@@ -263,8 +273,33 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			// ゲーム画面
 
 
-			// 腐らせる
+			// 溶かす
 			Map::Rotten();
+
+			// しずくを落とす
+			for (int row = 0; row < kMapRow; row++)
+			{
+				for (int column = 0; column < kMapColumn; column++)
+				{
+					// 解けている氷
+					if (Map::map_[row][column] < 0)
+					{
+						if (-Map::map_[row][column] % 120 == 0)
+						{
+							for (int i = 0; i < kWaterNum; i++)
+							{
+								if (water[i]->isEmission_ == false)
+								{
+									water[i]->Emission(column, row);
+
+									break;
+								}
+							}
+						}
+					}
+				}
+			}
+
 
 			/*   プレイヤー   */
 
@@ -275,6 +310,15 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			for (int i = 0; i < kBlockNum; i++)
 			{
 				player->BlockLanding(block[i]);
+			}
+
+
+			/*   水   */
+
+			// 動かす
+			for (int i = 0; i < kWaterNum; i++)
+			{
+				water[i]->Move();
 			}
 
 
@@ -597,6 +641,12 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			for (int i = 0; i < kBlockNum; i++)
 			{
 				block[i]->Draw();
+			}
+
+			// 水
+			for (int i = 0; i < kWaterNum; i++)
+			{
+				water[i]->Draw();
 			}
 
 			// 敵
