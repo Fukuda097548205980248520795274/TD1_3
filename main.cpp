@@ -321,6 +321,15 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				water[i]->Move();
 			}
 
+			// ブロックに触れたらきえる
+			for (int i = 0; i < kWaterNum; i++)
+			{
+				for (int j = 0; j < kBlockNum; j++)
+				{
+					water[i]->Hit(block[j]);
+				}
+			}
+
 
 			/*   敵   */
 
@@ -330,7 +339,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				enemy[i]->Move();
 			}
 
-			// 敵がブロックに乗る
+			// ブロックに乗る
 			for (int i = 0; i < kEnemyNum; i++)
 			{
 				for (int j = 0; j < kBlockNum; j++)
@@ -683,6 +692,12 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 	// プレイヤー
 	delete player;
+
+	// 水
+	for (int i = 0; i < kWaterNum; i++)
+	{
+		delete water[i];
+	}
 
 	// ブロック
 	for (int i = 0; i < kBlockNum; i++)
