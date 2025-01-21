@@ -36,9 +36,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 #pragma region シーン
 
-	int alpha = 0;
+	//int alpha = 0;
 
-	int active = false;
+	//int active = false;
 #pragma endregion
 
 
@@ -120,13 +120,152 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		switch (Scene::sceneNo_)
 		{
 		case SCENE_START:
+#pragma region シーン:タイトル
 			// スタート画面
 
+			Map::LoadFile("./TextFiles/Scene/StageSelect.csv");
 
+			// ブロックや敵を配置する
+			for (int row = 0; row < kMapRow; row++)
+			{
+				for (int column = 0; column < kMapColumn; column++)
+				{
+					switch (Map::map_[row][column])
+					{
+					case TILE_PLAYER:
+						// プレイヤー
+
+						player->Puttting(column, row);
+
+						// タイルを消す
+						Map::map_[row][column] = TILE_NOTHING;
+
+						break;
+
+
+					case TILE_PLASTIC:
+						// プラスチック
+
+						for (int i = 0; i < kBlockNum; i++)
+						{
+							if (i < 8)
+							{
+								if (block[i]->id_ == 0)
+								{
+									block[i]->Putting(column, row);
+
+									break;
+								}
+							}
+						}
+
+						// タイルを消す
+						Map::map_[row][column] = TILE_NOTHING;
+
+						break;
+
+					case TILE_CUSHION:
+						// クッション
+
+						for (int i = 0; i < kBlockNum; i++)
+						{
+							if (i >= 8 && i < 16)
+							{
+								if (block[i]->id_ == 0)
+								{
+									block[i]->Putting(column, row);
+
+									break;
+								}
+							}
+						}
+
+						// タイルを消す
+						Map::map_[row][column] = TILE_NOTHING;
+
+						break;
+
+					case TILE_TREASURE:
+						// 宝
+
+						for (int i = 0; i < kBlockNum; i++)
+						{
+							if (i >= 16 && i < 24)
+							{
+								if (block[i]->id_ == 0)
+								{
+									block[i]->Putting(column, row);
+
+									break;
+								}
+							}
+						}
+
+						// タイルを消す
+						Map::map_[row][column] = TILE_NOTHING;
+
+						// 宝の数をカウントする
+						Map::treasureNum++;
+
+						break;
+
+					case TILE_ICE_GHOST:
+						// 凍った幽霊
+
+						for (int i = 0; i < kBlockNum; i++)
+						{
+							if (i >= 24 && i < 32)
+							{
+								if (block[i]->id_ == 0)
+								{
+									block[i]->Putting(column, row);
+
+									break;
+								}
+							}
+						}
+
+						// タイルを消す
+						Map::map_[row][column] = TILE_NOTHING;
+
+						break;
+
+					case TILE_GHOST:
+						// 幽霊
+
+						for (int i = 0; i < kEnemyNum; i++)
+						{
+							if (i < 8)
+							{
+								if (enemy[i]->id_ == 0)
+								{
+									enemy[i]->Arrival(column, row);
+
+									break;
+								}
+							}
+						}
+
+						// タイルを消す
+						Map::map_[row][column] = TILE_NOTHING;
+
+						break;
+					}
+				}
+			}
 			break;
-
+#pragma endregion
 		case SCENE_STAGE:
+#pragma region シーン:ステージ
 			// ステージセレクト画面
+
+			player->Operation(keys, preKeys);
+
+			// プレイヤーがブロックに乗る
+			for (int i = 0; i < kBlockNum; i++)
+			{
+				player->BlockLanding(block[i]);
+			}
 
 			// 配置準備ができたら（配置準備フラグがtrueだったら）、ブロックを配置する
 			if (Scene::isPutPreparation_)
@@ -269,7 +408,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 			break;
 
+#pragma endregion
 		case SCENE_GAME:
+#pragma region シーン:ゲーム
 			// ゲーム画面
 
 
@@ -590,6 +731,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 
 			break;
+#pragma endregion
 		}
 
 		///
@@ -606,18 +748,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		case SCENE_START:
 			// スタート画面
 
-			//タイトル名
-			Novice::DrawBox(180, 150, 600, 200, 0.0f, 0xFFFFFFFF, kFillModeSolid);
-
-			//スタートボタン
-			Novice::DrawBox(300, 500, 350, 100, 0.0f, 0xFFFFFFFF, kFillModeSolid);
-
-			//
-			if (active)
-			{
-				Novice::DrawBox(0, 0, kScreenWidth, kScreenHeight, 0.0f, 0x00000000 + alpha, kFillModeSolid);
-			}
-
 			//デバック表示
 			Novice::ScreenPrintf(0, 0, "TITLE");
 
@@ -626,10 +756,33 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		case SCENE_STAGE:
 			// ステージセレクト画面
 
-			if (active)
+			Map::Draw();
+
+			// プレイヤー
+			player->Draw();
+
+			// ブロック
+			for (int i = 0; i < kBlockNum; i++)
+			{
+				block[i]->Draw();
+			}
+
+			// 水
+			for (int i = 0; i < kWaterNum; i++)
+			{
+				water[i]->Draw();
+			}
+
+			// 敵
+			for (int i = 0; i < kEnemyNum; i++)
+			{
+				enemy[i]->Draw();
+			}
+
+		/*	if (active)
 			{
 				Novice::DrawBox(0, 0, kScreenWidth, kScreenHeight, 0.0f, 0x00000000 + alpha, kFillModeSolid);
-			}
+			}*/
 
 			//デバック表示
 			Novice::ScreenPrintf(0, 0, "STAGE_SELECT");
