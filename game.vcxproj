@@ -132,6 +132,7 @@ xcopy C:\KamataEngine\DirectXGame\Resources "$(OutDirFullPath)NoviceResources" /
     <ClCompile Include="Function\Matrix\Matrix.cpp" />
     <ClCompile Include="Hinoko.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="StageDoor.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="C:\KamataEngine\DirectXGame\base\StringUtility.h" />
@@ -179,6 +180,7 @@ xcopy C:\KamataEngine\DirectXGame\Resources "$(OutDirFullPath)NoviceResources" /
     <ClInclude Include="Enumeration.h" />
     <ClInclude Include="Function\Matrix\Matrix.h" />
     <ClInclude Include="Hinoko.h" />
+    <ClInclude Include="StageDoor.h" />
     <ClInclude Include="Structure.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
