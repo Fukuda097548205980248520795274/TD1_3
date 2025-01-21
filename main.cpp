@@ -98,6 +98,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		}
 	}
 
+	/*  　デバック表示　  */
+	int isActive = true;
+
 
 	// ウィンドウの×ボタンが押されるまでループ
 	while (Novice::ProcessMessage() == 0) {
@@ -266,6 +269,21 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			{
 				player->BlockLanding(block[i]);
 			}
+
+			/*   デバック表示させる   */
+			if (!preKeys[DIK_4] && keys[DIK_4])
+			{
+				if (!isActive)
+				{
+					isActive = true;
+				}
+				else
+				{
+					isActive = false;
+				}
+
+			}
+
 
 			// 配置準備ができたら（配置準備フラグがtrueだったら）、ブロックを配置する
 			if (Scene::isPutPreparation_)
@@ -451,6 +469,20 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			for (int i = 0; i < kBlockNum; i++)
 			{
 				player->BlockLanding(block[i]);
+			}
+
+			/*   デバック表示させる   */
+			if (!preKeys[DIK_4] && keys[DIK_4])
+			{
+				if (!isActive)
+				{
+					isActive = true;
+				}
+				else
+				{
+					isActive = false;
+				}
+
 			}
 
 
@@ -786,7 +818,14 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 			//デバック表示
 			Novice::ScreenPrintf(0, 0, "STAGE_SELECT");
-			Novice::ScreenPrintf(0, 50, "STAGE_SELECT:%d", Scene::selectStage_ + 1);
+
+			if(isActive)
+			{
+				Novice::ScreenPrintf(0, 20, "Move : AD");
+				Novice::ScreenPrintf(0, 40, "JUMP : J");
+				Novice::ScreenPrintf(0, 60, "Ladder : W");
+				Novice::ScreenPrintf(0, 80, "Interact : SPASE");
+			}
 
 			break;
 
@@ -819,6 +858,13 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 			//デバック表示
 			Novice::ScreenPrintf(8, 8, "%d" , Map::treasureNum);
+
+			if (isActive)
+			{
+				Novice::ScreenPrintf(0, 20, "Move : AD");
+				Novice::ScreenPrintf(0, 40, "JUMP : J");
+				Novice::ScreenPrintf(0, 60, "Ladder : W");
+			}
 
 			break;
 
