@@ -49,11 +49,11 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 	/*   水   */
 
-	Water* water[kWaterNum];
-	for (int i = 0; i < kWaterNum; i++)
-	{
-		water[i] = new Water();
-	}
+	//Water* water[kWaterNum];
+	//for (int i = 0; i < kWaterNum; i++)
+	//{
+	//	water[i] = new Water();
+	//}
 
 
 	/*   敵   */
@@ -277,28 +277,28 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			Map::Rotten();
 
 			// しずくを落とす
-			for (int row = 0; row < kMapRow; row++)
-			{
-				for (int column = 0; column < kMapColumn; column++)
-				{
-					// 解けている氷
-					if (Map::map_[row][column] < 0)
-					{
-						if (-Map::map_[row][column] % 120 == 0)
-						{
-							for (int i = 0; i < kWaterNum; i++)
-							{
-								if (water[i]->isEmission_ == false)
-								{
-									water[i]->Emission(column, row);
-
-									break;
-								}
-							}
-						}
-					}
-				}
-			}
+			//for (int row = 0; row < kMapRow; row++)
+			//{
+			//	for (int column = 0; column < kMapColumn; column++)
+			//	{
+			//		// 解けている氷
+			//		if (Map::map_[row][column] < 0)
+			//		{
+			//			if (-Map::map_[row][column] % 120 == 0)
+			//			{
+			//				for (int i = 0; i < kWaterNum; i++)
+			//				{
+			//					if (water[i]->isEmission_ == false)
+			//					{
+			//						water[i]->Emission(column, row);
+			//
+			//						break;
+			//					}
+			//				}
+			//			}
+			//		}
+			//	}
+			//}
 
 
 			/*   プレイヤー   */
@@ -316,19 +316,19 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			/*   水   */
 
 			// 動かす
-			for (int i = 0; i < kWaterNum; i++)
-			{
-				water[i]->Move();
-			}
+			//for (int i = 0; i < kWaterNum; i++)
+			//{
+			//	water[i]->Move();
+			//}
 
 			// ブロックに触れたらきえる
-			for (int i = 0; i < kWaterNum; i++)
-			{
-				for (int j = 0; j < kBlockNum; j++)
-				{
-					water[i]->Hit(block[j]);
-				}
-			}
+			//for (int i = 0; i < kWaterNum; i++)
+			//{
+			//	for (int j = 0; j < kBlockNum; j++)
+			//	{
+			//		water[i]->Hit(block[j]);
+			//	}
+			//}
 
 
 			/*   敵   */
@@ -653,10 +653,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			}
 
 			// 水
-			for (int i = 0; i < kWaterNum; i++)
-			{
-				water[i]->Draw();
-			}
+			//for (int i = 0; i < kWaterNum; i++)
+			//{
+			//	water[i]->Draw();
+			//}
 
 			// 敵
 			for (int i = 0; i < kEnemyNum; i++)
@@ -689,15 +689,15 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	/*--------------------------
 		インスタンスを削除する
 	--------------------------*/
-
+	
 	// プレイヤー
 	delete player;
 
 	// 水
-	for (int i = 0; i < kWaterNum; i++)
-	{
-		delete water[i];
-	}
+	//for (int i = 0; i < kWaterNum; i++)
+	//{
+	//	delete water[i];
+	//}
 
 	// ブロック
 	for (int i = 0; i < kBlockNum; i++)

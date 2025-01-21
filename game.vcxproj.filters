@@ -65,6 +65,9 @@
     <Filter Include="Class\Object\Water">
       <UniqueIdentifier>{f289da9e-bdd1-4200-9bf1-a8917c367453}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Class\Object\Particle\NewFilter1">
+      <UniqueIdentifier>{667b1a61-5d86-4338-b739-146480bded42}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="C:\KamataEngine\DirectXGame\base\DirectXCommon.cpp">
