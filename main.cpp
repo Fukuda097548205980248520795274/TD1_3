@@ -123,7 +123,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 #pragma region シーン:タイトル
 			// スタート画面
 
-			Map::LoadFile("./TextFiles/Scene/StageSelect.csv");
+			Map::LoadFile("./TextFiles/Scene/StageSelect1.csv");
 
 			// ブロックや敵を配置する
 			for (int row = 0; row < kMapRow; row++)
