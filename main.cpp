@@ -57,7 +57,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 
 	/*   敵   */
-	
+
 	Enemy* enemy[kEnemyNum];
 
 	for (int i = 0; i < kEnemyNum; i++)
@@ -544,7 +544,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			{
 				for (int j = 0; j < kBlockNum; j++)
 				{
-					player->Carry(keys , preKeys , block[i], block[j]);
+					player->Carry(keys, preKeys, block[i], block[j]);
 
 				}
 			}
@@ -578,34 +578,44 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				if (Scene::selectStage_ == 0)
 				{
 					Map::LoadFile("./TextFiles/Stage/stage1.csv");
-				} else if (Scene::selectStage_ == 1)
+				}
+				else if (Scene::selectStage_ == 1)
 				{
 					Map::LoadFile("./TextFiles/Stage/stage2.csv");
-				} else if (Scene::selectStage_ == 2)
+				}
+				else if (Scene::selectStage_ == 2)
 				{
 					Map::LoadFile("./TextFiles/Stage/stage3.csv");
-				} else if (Scene::selectStage_ == 3)
+				}
+				else if (Scene::selectStage_ == 3)
 				{
 					Map::LoadFile("./TextFiles/Stage/stage4.csv");
-				} else if (Scene::selectStage_ == 4)
+				}
+				else if (Scene::selectStage_ == 4)
 				{
 					Map::LoadFile("./TextFiles/Stage/stage5.csv");
-				} else if (Scene::selectStage_ == 5)
+				}
+				else if (Scene::selectStage_ == 5)
 				{
 					Map::LoadFile("./TextFiles/Stage/stage6.csv");
-				} else if (Scene::selectStage_ == 6)
+				}
+				else if (Scene::selectStage_ == 6)
 				{
 					Map::LoadFile("./TextFiles/Stage/stage7.csv");
-				} else if (Scene::selectStage_ == 7)
+				}
+				else if (Scene::selectStage_ == 7)
 				{
 					Map::LoadFile("./TextFiles/Stage/stage8.csv");
-				} else if (Scene::selectStage_ == 8)
+				}
+				else if (Scene::selectStage_ == 8)
 				{
 					Map::LoadFile("./TextFiles/Stage/stage9.csv");
-				} else if (Scene::selectStage_ == 9)
+				}
+				else if (Scene::selectStage_ == 9)
 				{
 					Map::LoadFile("./TextFiles/Stage/stage10.csv");
-				} else if (Scene::selectStage_ == 10)
+				}
+				else if (Scene::selectStage_ == 10)
 				{
 					Map::LoadFile("./TextFiles/Stage/stage3.csv");
 				}
@@ -811,20 +821,15 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				enemy[i]->Draw();
 			}
 
-		/*	if (active)
-			{
-				Novice::DrawBox(0, 0, kScreenWidth, kScreenHeight, 0.0f, 0x00000000 + alpha, kFillModeSolid);
-			}*/
-
 			//デバック表示
-			Novice::ScreenPrintf(0, 0, "STAGE_SELECT");
+			Novice::ScreenPrintf(8, 8, "STAGE_SELECT");
 
-			if(isActive)
+			if (isActive)
 			{
-				Novice::ScreenPrintf(0, 20, "Move : AD");
-				Novice::ScreenPrintf(0, 40, "JUMP : J");
-				Novice::ScreenPrintf(0, 60, "Ladder : W");
-				Novice::ScreenPrintf(0, 80, "Interact : SPASE");
+				Novice::ScreenPrintf(8, 28, "Move : AD");
+				Novice::ScreenPrintf(8, 48, "JUMP : J");
+				Novice::ScreenPrintf(8, 68, "Ladder : W");
+				Novice::ScreenPrintf(8, 88, "Interact : SPASE");
 			}
 
 			break;
@@ -857,13 +862,15 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			}
 
 			//デバック表示
-			Novice::ScreenPrintf(8, 8, "%d" , Map::treasureNum);
+			Novice::ScreenPrintf(8, 8, "GAME");
+
 
 			if (isActive)
 			{
-				Novice::ScreenPrintf(0, 20, "Move : AD");
-				Novice::ScreenPrintf(0, 40, "JUMP : J");
-				Novice::ScreenPrintf(0, 60, "Ladder : W");
+				Novice::ScreenPrintf(8, 28, "Move : AD");
+				Novice::ScreenPrintf(8, 48, "JUMP : J");
+				Novice::ScreenPrintf(8, 68, "Ladder : W");
+				Novice::ScreenPrintf(50, 8, "Tresure :%d", Map::treasureNum);
 			}
 
 			break;
