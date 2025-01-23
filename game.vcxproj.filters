@@ -65,6 +65,9 @@
     <Filter Include="Class\Object\Water">
       <UniqueIdentifier>{f289da9e-bdd1-4200-9bf1-a8917c367453}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Class\Texture">
+      <UniqueIdentifier>{90107dea-be3b-4336-9ec8-243b98a43c6e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="C:\KamataEngine\DirectXGame\base\DirectXCommon.cpp">
@@ -139,6 +142,9 @@
     </ClCompile>
     <ClCompile Include="Class\Object\Water\Water.cpp">
       <Filter>Class\Object\Water</Filter>
+    </ClCompile>
+    <ClCompile Include="..\学校\TD1\TD1_3\game\Class\Texture\Texture.cpp">
+      <Filter>Class\Texture</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -262,6 +268,9 @@
     </ClInclude>
     <ClInclude Include="Class\Object\Water\Water.h">
       <Filter>Class\Object\Water</Filter>
+    </ClInclude>
+    <ClInclude Include="..\学校\TD1\TD1_3\game\Class\Texture\Texture.h">
+      <Filter>Class\Texture</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
