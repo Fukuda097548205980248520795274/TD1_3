@@ -102,7 +102,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	int isActive = true;
 
 
-	/*----------
+	/*-----------
 	    BGM
 	----------*/
 
