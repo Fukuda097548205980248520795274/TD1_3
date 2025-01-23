@@ -140,6 +140,7 @@
     <ClCompile Include="Class\Object\Water\Water.cpp">
       <Filter>Class\Object\Water</Filter>
     </ClCompile>
+    <ClCompile Include="Snow.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="C:\KamataEngine\DirectXGame\audio\Audio.h">
@@ -263,5 +264,6 @@
     <ClInclude Include="Class\Object\Water\Water.h">
       <Filter>Class\Object\Water</Filter>
     </ClInclude>
+    <ClInclude Include="Snow.h" />
   </ItemGroup>
 </Project>
