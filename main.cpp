@@ -12,6 +12,7 @@
 #include "./Class/Object/CarryBlock/IceGhost/IceGhost.h"
 #include "./Class/Object/Enemy/Ghost/Ghost.h"
 #include "./Class/Object/Particle/Dust/Dust.h"
+#include"./Snow.h"
 
 const char kWindowTitle[] = "LC1C_20_フクダソウワ_ゆきどけ～";
 
@@ -46,6 +47,13 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	//	water[i] = new Water();
 	//}
 
+
+	//雪
+	Snow* snow[kSnowNum];
+	for (int i = 0; i < kSnowNum; i++)
+	{
+		snow[i] = new Snow();
+	}
 
 	/*   敵   */
 
@@ -489,6 +497,16 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			// 溶かす
 			Map::Rotten();
 
+			for (int i = 0; i < kSnowNum; i++)
+			{
+				if (snow[i]->isEmission_ == false)
+				{
+					snow[i]->Emission();
+
+					break;
+				}
+			}
+
 			// しずくを落とす
 			//for (int row = 0; row < kMapRow; row++)
 			//{
@@ -512,6 +530,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			//		}
 			//	}
 			//}
+
 
 
 			/*   プレイヤー   */
@@ -556,6 +575,13 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			//		water[i]->Hit(block[j]);
 			//	}
 			//}
+
+					//雪
+			for (int i = 0; i < kSnowNum; i++)
+			{
+				snow[i]->Move();
+			}
+
 
 
 			/*   敵   */
@@ -913,6 +939,13 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			//	water[i]->Draw();
 			//}
 
+			// 雪
+			for (int i = 0; i < kSnowNum; i++)
+			{
+				snow[i]->Draw();
+			}
+
+
 			// 敵
 			for (int i = 0; i < kEnemyNum; i++)
 			{
@@ -963,6 +996,12 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	//{
 	//	delete water[i];
 	//}
+
+	// 雪
+	for (int i = 0; i < kSnowNum; i++)
+	{
+		delete snow[i];
+	}
 
 	// ブロック
 	for (int i = 0; i < kBlockNum; i++)
