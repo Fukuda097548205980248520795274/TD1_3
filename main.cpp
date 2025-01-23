@@ -504,21 +504,21 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				// 溶かす
 				Map::Rotten();
 
-				for (int i = 0; i < kHinokoNum; i++)
-				{
-					for (int j = 0; j < kEnemyNum; j++)
-					{
-						if (enemy[j]->isArrival_)
-						{
-							if (!hinoko[i]->isEmission_)
-							{
-								hinoko[i]->Emission(enemy[j]->pos_.screen.leftTop.x + (enemy[i]->shape_.scale.x * 0.5f),
-									enemy[j]->pos_.screen.leftTop.x + (enemy[i]->shape_.scale.x * 0.5f),
-									0.0f, 0);
-							}
-						}
-					}
-				}
+				//for (int i = 0; i < kHinokoNum; i++)
+				//{
+				//	for (int j = 0; j < kEnemyNum; j++)
+				//	{
+				//		if (enemy[j]->isArrival_)
+				//		{
+				//			if (!hinoko[i]->isEmission_)
+				//			{
+				//				hinoko[i]->Emission(enemy[j]->pos_.screen.leftTop.x + (enemy[i]->shape_.scale.x * 0.5f),
+				//					enemy[j]->pos_.screen.leftTop.x + (enemy[i]->shape_.scale.x * 0.5f),
+				//					0.0f, 0);
+				//			}
+				//		}
+				//	}
+				//}
 
 
 				/*   プレイヤー   */
@@ -1132,6 +1132,11 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	for (int i = 0; i < kSnowNum; i++)
 	{
 		delete snow[i];
+	}
+
+	for (int i = 0; i < kHinokoNum; i++)
+	{
+		delete hinoko[i];
 	}
 
 	// ブロック
