@@ -29,18 +29,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	/*---------------
 		変数を作る
 	---------------*/
-#pragma region マップ
+
 	// マップ
 	Map::LoadFile("./TextFiles/Stage/stage1.csv");
-#pragma endregion
-
-#pragma region シーン
-
-	//int alpha = 0;
-
-	//int active = false;
-#pragma endregion
-
 
 	/*   プレイヤー   */
 
@@ -811,20 +802,17 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				enemy[i]->Draw();
 			}
 
-		/*	if (active)
-			{
-				Novice::DrawBox(0, 0, kScreenWidth, kScreenHeight, 0.0f, 0x00000000 + alpha, kFillModeSolid);
-			}*/
+		
 
 			//デバック表示
-			Novice::ScreenPrintf(0, 0, "STAGE_SELECT");
+			Novice::ScreenPrintf(8, 8, "STAGE_SELECT");
 
 			if(isActive)
 			{
-				Novice::ScreenPrintf(0, 20, "Move : AD");
-				Novice::ScreenPrintf(0, 40, "JUMP : J");
-				Novice::ScreenPrintf(0, 60, "Ladder : W");
-				Novice::ScreenPrintf(0, 80, "Interact : SPASE");
+				Novice::ScreenPrintf(8, 28, "Move : AD");
+				Novice::ScreenPrintf(8, 48, "JUMP : J");
+				Novice::ScreenPrintf(8, 68, "Ladder : W");
+				Novice::ScreenPrintf(8, 88, "Interact : SPASE");
 			}
 
 			break;
@@ -857,13 +845,15 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			}
 
 			//デバック表示
-			Novice::ScreenPrintf(8, 8, "%d" , Map::treasureNum);
+			Novice::ScreenPrintf(8, 8, "GAME");
+			Novice::ScreenPrintf(500, 8, "Remaining treasure:%d", Map::treasureNum);
 
 			if (isActive)
 			{
-				Novice::ScreenPrintf(0, 20, "Move : AD");
-				Novice::ScreenPrintf(0, 40, "JUMP : J");
-				Novice::ScreenPrintf(0, 60, "Ladder : W");
+				Novice::ScreenPrintf(8, 28, "Move : AD");
+				Novice::ScreenPrintf(8, 48, "JUMP : J");
+				Novice::ScreenPrintf(8, 68, "Ladder : W");
+				Novice::ScreenPrintf(8, 88, "CarryBlock : SPACE");
 			}
 
 			break;
