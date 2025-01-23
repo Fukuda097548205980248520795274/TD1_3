@@ -519,8 +519,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				{
 					for (int j = 0; j < kEnemyNum; j++)
 					{
-						if (enemy[j]->isArrival_)
-						{
+						
 							if (!hinoko[i]->isEmission_)
 							{
 								hinoko[i]->Emission(enemy[j]->pos_.screen.leftTop.x + (enemy[j]->shape_.scale.x * 0.5f),
@@ -528,7 +527,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 													0);
 								break;
 							}
-						}
+						
 					}
 				}
 
