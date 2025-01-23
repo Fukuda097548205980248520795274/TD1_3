@@ -563,7 +563,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 
 			/*   プレイヤー   */
-
 			// 操作する
 			player->Operation(keys, preKeys);
 
