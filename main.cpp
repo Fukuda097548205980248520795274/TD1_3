@@ -12,12 +12,15 @@
 #include "./Class/Object/CarryBlock/IceGhost/IceGhost.h"
 #include "./Class/Object/Enemy/Ghost/Ghost.h"
 #include "./Class/Object/Particle/Dust/Dust.h"
+#include "./Hinoko.h"
 #include"./Snow.h"
+
 
 const char kWindowTitle[] = "LC1C_20_フクダソウワ_ゆきどけ～";
 
 // Windowsアプリでのエントリーポイント(main関数)
-int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
+int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
+{
 
 	// ライブラリの初期化
 	Novice::Initialize(kWindowTitle, kScreenWidth, kScreenHeight);
@@ -48,12 +51,20 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	//}
 
 
-	//雪
+	/*   雪   */
 	Snow* snow[kSnowNum];
 	for (int i = 0; i < kSnowNum; i++)
 	{
 		snow[i] = new Snow();
 	}
+
+	/*   炎   */
+	Hinoko* hinoko[kHinokoNum];
+	for (int i = 0; i < kHinokoNum; i++)
+	{
+		hinoko[i] = new Hinoko();
+	}
+
 
 	/*   敵   */
 
@@ -128,7 +139,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 
 	// ウィンドウの×ボタンが押されるまでループ
-	while (Novice::ProcessMessage() == 0) {
+	while (Novice::ProcessMessage() == 0)
+	{
 		// フレームの開始
 		Novice::BeginFrame();
 
@@ -463,7 +475,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				{
 					phYukisora = Novice::PlayAudio(shYukisora, 0, 0.1f);
 				}
-			} 
+			}
 			else if (Scene::selectStage_ == 2)
 			{
 				if (!Novice::IsPlayingAudio(phYukinokioku) || phYukinokioku == -1)
@@ -484,7 +496,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				{
 					phYukigoya = Novice::PlayAudio(shYukigoya, 0, 0.1f);
 				}
-			} 
+			}
 			else if (Scene::selectStage_ == 5)
 			{
 				if (!Novice::IsPlayingAudio(phYukikaze) || phYukikaze == -1)
@@ -504,6 +516,23 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 					snow[i]->Emission();
 
 					break;
+				}
+			}
+
+			
+			for (int i = 0; i < kHinokoNum; i++)
+			{
+				for (int j = 0; j < kEnemyNum; j++)
+				{
+					if (enemy[j]->isArrival_)
+					{
+						if (!hinoko[i]->isEmission_)
+						{
+							hinoko[i]->Emission(enemy[j]->pos_.screen.leftTop.x + (enemy[i]->shape_.scale.x * 0.5f),
+								enemy[j]->pos_.screen.leftTop.x + (enemy[i]->shape_.scale.x * 0.5f),
+								0.0f, 0);
+						}
+					}
 				}
 			}
 
@@ -582,7 +611,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				snow[i]->Move();
 			}
 
-
+			for (int i = 0; i < kHinokoNum; i++)
+			{
+				hinoko[i]->Move();
+			}
 
 			/*   敵   */
 
@@ -902,7 +934,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				enemy[i]->Draw();
 			}
 
-			
+
 
 
 			//デバック表示
@@ -945,6 +977,11 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				snow[i]->Draw();
 			}
 
+			// 炎
+			for (int i = 0; i < kHinokoNum; i++)
+			{
+				hinoko[i]->Draw();
+			}
 
 			// 敵
 			for (int i = 0; i < kEnemyNum; i++)
@@ -952,7 +989,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				enemy[i]->Draw();
 			}
 
-			
+
 			//デバック表示
 			Novice::ScreenPrintf(8, 8, "GAME");
 			Novice::ScreenPrintf(500, 8, "Remaining treasure:%d", Map::treasureNum);
@@ -978,7 +1015,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		Novice::EndFrame();
 
 		// ESCキーが押されたらループを抜ける
-		if (preKeys[DIK_ESCAPE] == 0 && keys[DIK_ESCAPE] != 0) {
+		if (preKeys[DIK_ESCAPE] == 0 && keys[DIK_ESCAPE] != 0)
+		{
 			break;
 		}
 	}
