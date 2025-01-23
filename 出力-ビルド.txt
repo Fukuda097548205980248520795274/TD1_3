@@ -1,0 +1,23 @@
+﻿16:44 でビルドが開始されました...
+1>------ ビルド開始: プロジェクト: game, 構成: Debug x64 ------
+1>CarryBlock.cpp
+1>Cushion.cpp
+1>IceGhost.cpp
+1>Plastic.cpp
+1>Treasure.cpp
+1>Enemy.cpp
+1>Ghost.cpp
+1>Object.cpp
+1>Particle.cpp
+1>Player.cpp
+1>Water.cpp
+1>Scene.cpp
+1>Dust.cpp
+1>Hinoko.cpp
+1>Snow.cpp
+1>main.cpp
+1>game.vcxproj -> C:\Users\k024g\source\repos\Generated\Outputs\Debug\game.exe
+1>0 個のファイルをコピーしました
+1>0 個のファイルをコピーしました
+========== ビルド: 成功 1、失敗 0、最新の状態 0、スキップ 0 ==========
+=========== ビルド は 16:44 で完了し、01.488 秒 掛かりました ==========

@@ -500,6 +500,17 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 					}
 				}
 
+				for (int i = 0; i < kSnowNum; i++)
+				{
+					if (!snow[i]->isEmission_)
+					{
+						snow[i]->Emission();
+
+						break;
+					}
+				}
+
+
 
 				// 溶かす
 				Map::Rotten();
@@ -512,9 +523,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 						{
 							if (!hinoko[i]->isEmission_)
 							{
-								hinoko[i]->Emission(enemy[j]->pos_.screen.leftTop.x + (enemy[i]->shape_.scale.x * 0.5f),
-									enemy[j]->pos_.screen.leftTop.x + (enemy[i]->shape_.scale.x * 0.5f),
-									0.0f, 0);
+								hinoko[i]->Emission(enemy[j]->pos_.screen.leftTop.x + (enemy[j]->shape_.scale.x * 0.5f),
+													enemy[j]->pos_.screen.leftTop.x + (enemy[j]->shape_.scale.x * 0.5f),
+													0);
+								break;
 							}
 						}
 					}
