@@ -24,7 +24,7 @@ public:
 	/// •`‰æ‚·‚é
 	/// </summary>
 	/// <param name="gh">‰æ‘œ</param>
-	void Draw(int gh) override;
+	void Draw(int gh);
 
 	// ID‚ğ”‚¦‚é’l
 	static int countId;
