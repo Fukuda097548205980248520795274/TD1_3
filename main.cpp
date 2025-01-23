@@ -13,7 +13,7 @@
 #include "./Class/Object/Enemy/Ghost/Ghost.h"
 #include "./Class/Object/Particle/Dust/Dust.h"
 
-const char kWindowTitle[] = "LC1C_20_フクダソウワ_タイトル";
+const char kWindowTitle[] = "LC1C_20_フクダソウワ_ゆきどけ～";
 
 // Windowsアプリでのエントリーポイント(main関数)
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
@@ -89,8 +89,34 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		}
 	}
 
+
 	/*  　デバック表示　  */
 	int isActive = true;
+
+
+	/*-----------
+		BGM
+	----------*/
+
+	// 雪空
+	int shYukisora = Novice::LoadAudio("./Resources/Sounds/Bgm/Yukisora.mp3");
+	int phYukisora = -1;
+
+	// 雪の記憶
+	int shYukinokioku = Novice::LoadAudio("./Resources/Sounds/Bgm/Yukinokioku.mp3");
+	int phYukinokioku = -1;
+
+	// 雪風
+	int shYukikaze = Novice::LoadAudio("./Resources/Sounds/Bgm/Yukikaze.mp3");
+	int phYukikaze = -1;
+
+	// 雪の葬列
+	int shYukinosouretu = Novice::LoadAudio("./Resources/Sounds/Bgm/Yukinosouretu.mp3");
+	int phYukinosouretu = -1;
+
+	// 雪小屋
+	int shYukigoya = Novice::LoadAudio("./Resources/Sounds/Bgm/Yukigoya.mp3");
+	int phYukigoya = -1;
 
 
 	// ウィンドウの×ボタンが押されるまでループ
@@ -421,6 +447,43 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		case SCENE_GAME:
 #pragma region シーン:ゲーム
 			// ゲーム画面
+
+
+			if (Scene::selectStage_ == 1)
+			{
+				if (!Novice::IsPlayingAudio(phYukisora) || phYukisora == -1)
+				{
+					phYukisora = Novice::PlayAudio(shYukisora, 0, 0.1f);
+				}
+			} 
+			else if (Scene::selectStage_ == 2)
+			{
+				if (!Novice::IsPlayingAudio(phYukinokioku) || phYukinokioku == -1)
+				{
+					phYukinokioku = Novice::PlayAudio(shYukinokioku, 0, 0.1f);
+				}
+			}
+			else if (Scene::selectStage_ == 3)
+			{
+				if (!Novice::IsPlayingAudio(phYukinosouretu) || phYukinosouretu == -1)
+				{
+					phYukinosouretu = Novice::PlayAudio(shYukinosouretu, 0, 0.1f);
+				}
+			}
+			else if (Scene::selectStage_ == 4)
+			{
+				if (!Novice::IsPlayingAudio(phYukigoya) || phYukigoya == -1)
+				{
+					phYukigoya = Novice::PlayAudio(shYukigoya, 0, 0.1f);
+				}
+			} 
+			else if (Scene::selectStage_ == 5)
+			{
+				if (!Novice::IsPlayingAudio(phYukikaze) || phYukikaze == -1)
+				{
+					phYukikaze = Novice::PlayAudio(shYukikaze, 0, 0.1f);
+				}
+			}
 
 
 			// 溶かす
@@ -894,7 +957,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		delete block[i];
 	}
 
-	// ブロック
+	// 敵
 	for (int i = 0; i < kEnemyNum; i++)
 	{
 		delete enemy[i];
