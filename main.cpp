@@ -521,10 +521,36 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				}
 
 
-				/*   プレイヤー   */
+			// しずくを落とす
+			//for (int row = 0; row < kMapRow; row++)
+			//{
+			//	for (int column = 0; column < kMapColumn; column++)
+			//	{
+			//		// 解けている氷
+			//		if (Map::map_[row][column] < 0)
+			//		{
+			//			if (-Map::map_[row][column] % 120 == 0)
+			//			{
+			//				for (int i = 0; i < kWaterNum; i++)
+			//				{
+			//					if (water[i]->isEmission_ == false)
+			//					{
+			//						water[i]->Emission(column, row);
+			//
+			//						break;
+			//					}
+			//				}
+			//			}
+			//		}
+			//	}
+			//}
 
-				// 操作する
-				player->Operation(keys, preKeys);
+
+
+			/*   プレイヤー   */
+			// 操作する
+			player->Operation(keys, preKeys);
+
 
 				// プレイヤーがブロックに乗る
 				for (int i = 0; i < kBlockNum; i++)
