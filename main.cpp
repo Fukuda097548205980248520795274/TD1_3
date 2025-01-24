@@ -9,7 +9,7 @@
 #include "./Class/Object/CarryBlock/Plastic/Plastic.h"
 #include "./Class/Object/CarryBlock/Cushion/Cushion.h"
 #include "./Class/Object/CarryBlock/Treasure/Treasure.h"
-#include "./Class/Object/CarryBlock/IceGhost/IceGhost.h"
+#include "./Class/Object/CarryBlock/Bomb/Bomb.h"
 #include "./Class/Object/Enemy/Ghost/Ghost.h"
 #include "./Class/Object/Particle/Dust/Dust.h"
 #include "./Hinoko.h"
@@ -72,7 +72,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 		} else if (i < 32)
 		{
 			// 凍った敵
-			block[i] = new IceGhost();
+			block[i] = new Bomb();
 		}
 	}
 	
@@ -241,8 +241,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 						break;
 
-					case TILE_ICE_GHOST:
-						// 凍った幽霊
+					case TILE_BOMB:
+						// 爆弾
 
 						for (int i = 0; i < kBlockNum; i++)
 						{
@@ -406,8 +406,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 							break;
 
-						case TILE_ICE_GHOST:
-							// 凍った幽霊
+						case TILE_BOMB:
+							// 爆弾
 
 							for (int i = 0; i < kBlockNum; i++)
 							{
@@ -468,36 +468,59 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			// クリア、ゲームオーバーになるまで（クリア、ゲームオーバーフラグがfalseのときは）、操作できる
 			if (Scene::isClear_ == false && Scene::isGameOver_ == false)
 			{
-				if (Scene::selectStage_ == 1)
+
+				// エリアごとに曲を変える
+				switch (Scene::areaNo_)
 				{
+				case AREA_HOKKAIDO:
+					// 北海道
+
 					if (!Novice::IsPlayingAudio(phYukisora) || phYukisora == -1)
 					{
 						phYukisora = Novice::PlayAudio(shYukisora, 0, 0.1f);
 					}
-				} else if (Scene::selectStage_ == 2)
-				{
+
+					break;
+
+				case AREA_CANADA:
+					// カナダ
+
 					if (!Novice::IsPlayingAudio(phYukinokioku) || phYukinokioku == -1)
 					{
 						phYukinokioku = Novice::PlayAudio(shYukinokioku, 0, 0.1f);
 					}
-				} else if (Scene::selectStage_ == 3)
-				{
+
+					break;
+
+				case AREA_RUSSIAN:
+					// ロシア
+
 					if (!Novice::IsPlayingAudio(phYukinosouretu) || phYukinosouretu == -1)
 					{
 						phYukinosouretu = Novice::PlayAudio(shYukinosouretu, 0, 0.1f);
 					}
-				} else if (Scene::selectStage_ == 4)
-				{
+
+					break;
+
+				case AREA_ICELAND:
+					// アイスランド
+
 					if (!Novice::IsPlayingAudio(phYukigoya) || phYukigoya == -1)
 					{
 						phYukigoya = Novice::PlayAudio(shYukigoya, 0, 0.1f);
 					}
-				} else if (Scene::selectStage_ == 5)
-				{
+
+					break;
+
+				case AREA_ANTARCTIC:
+					// 南極
+
 					if (!Novice::IsPlayingAudio(phYukikaze) || phYukikaze == -1)
 					{
 						phYukikaze = Novice::PlayAudio(shYukikaze, 0, 0.1f);
 					}
+
+					break;
 				}
 
 				for (int i = 0; i < kSnowNum; i++)
@@ -532,35 +555,11 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				}
 
 
-			// しずくを落とす
-			//for (int row = 0; row < kMapRow; row++)
-			//{
-			//	for (int column = 0; column < kMapColumn; column++)
-			//	{
-			//		// 解けている氷
-			//		if (Map::map_[row][column] < 0)
-			//		{
-			//			if (-Map::map_[row][column] % 120 == 0)
-			//			{
-			//				for (int i = 0; i < kWaterNum; i++)
-			//				{
-			//					if (water[i]->isEmission_ == false)
-			//					{
-			//						water[i]->Emission(column, row);
-			//
-			//						break;
-			//					}
-			//				}
-			//			}
-			//		}
-			//	}
-			//}
 
+				/*   プレイヤー   */
 
-
-			/*   プレイヤー   */
-			// 操作する
-			player->Operation(keys, preKeys);
+				// 操作する
+				player->Operation(keys, preKeys);
 
 
 				// プレイヤーがブロックに乗る
@@ -792,8 +791,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 								break;
 
-							case TILE_ICE_GHOST:
-								// 凍った幽霊
+							case TILE_BOMB:
+								// 爆弾
 
 								for (int i = 0; i < kBlockNum; i++)
 								{
