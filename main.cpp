@@ -472,8 +472,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				// エリアごとに曲を変える
 				switch (Scene::areaNo_)
 				{
-				case AREA_HOKKAIDO:
-					// 北海道
+				case AREA_STAR_LAND:
+					// スター島
 
 					if (!Novice::IsPlayingAudio(phYukisora) || phYukisora == -1)
 					{
@@ -482,8 +482,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 					break;
 
-				case AREA_CANADA:
-					// カナダ
+				case AREA_REI_LAND:
+					// レイ島
 
 					if (!Novice::IsPlayingAudio(phYukinokioku) || phYukinokioku == -1)
 					{
@@ -492,8 +492,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 					break;
 
-				case AREA_RUSSIAN:
-					// ロシア
+				case AREA_TIKUTAKU_LAND:
+					// チクタク島
 
 					if (!Novice::IsPlayingAudio(phYukinosouretu) || phYukinosouretu == -1)
 					{
@@ -502,8 +502,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 					break;
 
-				case AREA_ICELAND:
-					// アイスランド
+				case AREA_HOXTU_LAND:
+					// ホッ島
 
 					if (!Novice::IsPlayingAudio(phYukigoya) || phYukigoya == -1)
 					{
@@ -512,8 +512,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 					break;
 
-				case AREA_ANTARCTIC:
-					// 南極
+				case AREA_RAPIXTU_LAND:
+					// ラピッ島
 
 					if (!Novice::IsPlayingAudio(phYukikaze) || phYukikaze == -1)
 					{
