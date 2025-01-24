@@ -65,6 +65,9 @@
     <Filter Include="Class\Object\Water">
       <UniqueIdentifier>{f289da9e-bdd1-4200-9bf1-a8917c367453}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Class\Object\CarryBlock\Bomb">
+      <UniqueIdentifier>{75677608-08f4-488d-8725-8a64817e9894}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="C:\KamataEngine\DirectXGame\base\DirectXCommon.cpp">
@@ -141,6 +144,9 @@
       <Filter>Class\Object\Water</Filter>
     </ClCompile>
     <ClCompile Include="Snow.cpp" />
+    <ClCompile Include="Class\Object\CarryBlock\Bomb\Bomb.cpp">
+      <Filter>Class\Object\CarryBlock\Bomb</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="C:\KamataEngine\DirectXGame\audio\Audio.h">
@@ -265,5 +271,8 @@
       <Filter>Class\Object\Water</Filter>
     </ClInclude>
     <ClInclude Include="Snow.h" />
+    <ClInclude Include="Class\Object\CarryBlock\Bomb\Bomb.h">
+      <Filter>Class\Object\CarryBlock\Bomb</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
