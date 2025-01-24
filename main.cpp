@@ -1433,6 +1433,12 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 		delete snow[i];
 	}
 
+	// 炎
+	for (int i = 0; i < kHinokoNum; i++)
+	{
+		delete hinoko[i];
+	}
+
 	// ブロック
 	for (int i = 0; i < kBlockNum; i++)
 	{
