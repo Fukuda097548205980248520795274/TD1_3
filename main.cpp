@@ -671,40 +671,303 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 					// 宝の数を初期化する
 					Map::treasureNum = 0;
 
-					// マップを再読み込みする
-					if (Scene::selectStage_ == 1)
+					switch (Scene::selectStage_)
 					{
-						Map::LoadFile("./TextFiles/Stage/stage1.csv");
-					} else if (Scene::selectStage_ == 2)
-					{
-						Map::LoadFile("./TextFiles/Stage/stage2.csv");
-					} else if (Scene::selectStage_ == 3)
-					{
-						Map::LoadFile("./TextFiles/Stage/stage3.csv");
-					} else if (Scene::selectStage_ == 4)
-					{
-						Map::LoadFile("./TextFiles/Stage/stage4.csv");
-					} else if (Scene::selectStage_ == 5)
-					{
-						Map::LoadFile("./TextFiles/Stage/stage5.csv");
-					} else if (Scene::selectStage_ == 6)
-					{
-						Map::LoadFile("./TextFiles/Stage/stage6.csv");
-					} else if (Scene::selectStage_ == 7)
-					{
-						Map::LoadFile("./TextFiles/Stage/stage7.csv");
-					} else if (Scene::selectStage_ == 8)
-					{
-						Map::LoadFile("./TextFiles/Stage/stage8.csv");
-					} else if (Scene::selectStage_ == 9)
-					{
-						Map::LoadFile("./TextFiles/Stage/stage9.csv");
-					} else if (Scene::selectStage_ == 10)
-					{
-						Map::LoadFile("./TextFiles/Stage/stage10.csv");
-					} else if (Scene::selectStage_ == 11)
-					{
-						Map::LoadFile("./TextFiles/Stage/stage3.csv");
+					case 1:
+
+						switch (Scene::areaNo_)
+						{
+						case AREA_STAR_LAND:
+
+							Map::LoadFile("./TextFiles/Stage/area1/stage1.csv");
+
+							break;
+
+						case AREA_REI_LAND:
+
+							Map::LoadFile("./TextFiles/Stage/area2/stage1.csv");
+
+							break;
+
+						case AREA_TIKUTAKU_LAND:
+
+							Map::LoadFile("./TextFiles/Stage/area3/stage1.csv");
+
+							break;
+
+						case AREA_HOXTU_LAND:
+
+							Map::LoadFile("./TextFiles/Stage/area4/stage1.csv");
+
+							break;
+
+						case AREA_RAPIXTU_LAND:
+
+							Map::LoadFile("./TextFiles/Stage/area5/stage1.csv");
+
+							break;
+						}
+
+						break;
+
+					case 2:
+
+						switch (Scene::areaNo_)
+						{
+						case AREA_STAR_LAND:
+
+							Map::LoadFile("./TextFiles/Stage/area1/stage2.csv");
+
+							break;
+
+						case AREA_REI_LAND:
+
+							Map::LoadFile("./TextFiles/Stage/area2/stage2.csv");
+
+							break;
+
+						case AREA_TIKUTAKU_LAND:
+
+							Map::LoadFile("./TextFiles/Stage/area3/stage2.csv");
+
+							break;
+
+						case AREA_HOXTU_LAND:
+
+							Map::LoadFile("./TextFiles/Stage/area4/stage2.csv");
+
+							break;
+
+						case AREA_RAPIXTU_LAND:
+
+							Map::LoadFile("./TextFiles/Stage/area5/stage2.csv");
+
+							break;
+						}
+
+						break;
+
+					case 3:
+
+						switch (Scene::areaNo_)
+						{
+						case AREA_STAR_LAND:
+
+							Map::LoadFile("./TextFiles/Stage/area1/stage3.csv");
+
+							break;
+
+						case AREA_REI_LAND:
+
+							Map::LoadFile("./TextFiles/Stage/area2/stage3.csv");
+
+							break;
+
+						case AREA_TIKUTAKU_LAND:
+
+							Map::LoadFile("./TextFiles/Stage/area3/stage3.csv");
+
+							break;
+
+						case AREA_HOXTU_LAND:
+
+							Map::LoadFile("./TextFiles/Stage/area4/stage3.csv");
+
+							break;
+
+						case AREA_RAPIXTU_LAND:
+
+							Map::LoadFile("./TextFiles/Stage/area5/stage3.csv");
+
+							break;
+						}
+
+						break;
+
+					case 4:
+
+						switch (Scene::areaNo_)
+						{
+						case AREA_STAR_LAND:
+
+							Map::LoadFile("./TextFiles/Stage/area1/stage4.csv");
+
+							break;
+
+						case AREA_REI_LAND:
+
+							Map::LoadFile("./TextFiles/Stage/area2/stage4.csv");
+
+							break;
+
+						case AREA_TIKUTAKU_LAND:
+
+							Map::LoadFile("./TextFiles/Stage/area3/stage4.csv");
+
+							break;
+
+						case AREA_HOXTU_LAND:
+
+							Map::LoadFile("./TextFiles/Stage/area4/stage4.csv");
+
+							break;
+
+						case AREA_RAPIXTU_LAND:
+
+							Map::LoadFile("./TextFiles/Stage/area5/stage4.csv");
+
+							break;
+						}
+
+						break;
+
+					case 5:
+
+						switch (Scene::areaNo_)
+						{
+						case AREA_STAR_LAND:
+
+							Map::LoadFile("./TextFiles/Stage/area1/stage5.csv");
+
+							break;
+
+						case AREA_REI_LAND:
+
+							Map::LoadFile("./TextFiles/Stage/area2/stage5.csv");
+
+							break;
+
+						case AREA_TIKUTAKU_LAND:
+
+							Map::LoadFile("./TextFiles/Stage/area3/stage5.csv");
+
+							break;
+
+						case AREA_HOXTU_LAND:
+
+							Map::LoadFile("./TextFiles/Stage/area4/stage5.csv");
+
+							break;
+
+						case AREA_RAPIXTU_LAND:
+
+							Map::LoadFile("./TextFiles/Stage/area5/stage5.csv");
+
+							break;
+						}
+
+						break;
+
+					case 6:
+
+						switch (Scene::areaNo_)
+						{
+						case AREA_STAR_LAND:
+
+							Map::LoadFile("./TextFiles/Stage/area1/stage6.csv");
+
+							break;
+
+						case AREA_REI_LAND:
+
+							Map::LoadFile("./TextFiles/Stage/area2/stage6.csv");
+
+							break;
+
+						case AREA_TIKUTAKU_LAND:
+
+							Map::LoadFile("./TextFiles/Stage/area3/stage6.csv");
+
+							break;
+
+						case AREA_HOXTU_LAND:
+
+							Map::LoadFile("./TextFiles/Stage/area4/stage6.csv");
+
+							break;
+
+						case AREA_RAPIXTU_LAND:
+
+							Map::LoadFile("./TextFiles/Stage/area5/stage6.csv");
+
+							break;
+						}
+
+						break;
+
+					case 7:
+
+						switch (Scene::areaNo_)
+						{
+						case AREA_STAR_LAND:
+
+							Map::LoadFile("./TextFiles/Stage/area1/stage7.csv");
+
+							break;
+
+						case AREA_REI_LAND:
+
+							Map::LoadFile("./TextFiles/Stage/area2/stage7.csv");
+
+							break;
+
+						case AREA_TIKUTAKU_LAND:
+
+							Map::LoadFile("./TextFiles/Stage/area3/stage7.csv");
+
+							break;
+
+						case AREA_HOXTU_LAND:
+
+							Map::LoadFile("./TextFiles/Stage/area4/stage7.csv");
+
+							break;
+
+						case AREA_RAPIXTU_LAND:
+
+							Map::LoadFile("./TextFiles/Stage/area5/stage7.csv");
+
+							break;
+						}
+
+						break;
+
+					case 8:
+
+						switch (Scene::areaNo_)
+						{
+						case AREA_STAR_LAND:
+
+							Map::LoadFile("./TextFiles/Stage/area1/stage8.csv");
+
+							break;
+
+						case AREA_REI_LAND:
+
+							Map::LoadFile("./TextFiles/Stage/area2/stage8.csv");
+
+							break;
+
+						case AREA_TIKUTAKU_LAND:
+
+							Map::LoadFile("./TextFiles/Stage/area3/stage8.csv");
+
+							break;
+
+						case AREA_HOXTU_LAND:
+
+							Map::LoadFile("./TextFiles/Stage/area4/stage8.csv");
+
+							break;
+
+						case AREA_RAPIXTU_LAND:
+
+							Map::LoadFile("./TextFiles/Stage/area5/stage8.csv");
+
+							break;
+						}
+
+						break;
 					}
 
 					// ブロックや敵を配置する
