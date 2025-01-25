@@ -110,6 +110,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	int shInTheStillnessOfTwilight = Novice::LoadAudio("./Resources/Sounds/Bgm/in_the_stillness_of_twilight.mp3");
 	int phInTheStillnessOfTwilight = -1;
 
+	// 軽井沢の鳥の鳴き声
+	int shBard = Novice::LoadAudio("./Resources/Sounds/Bgm/bard1.mp3");
+	int phBard = -1;
+
 
 	// ウィンドウの×ボタンが押されるまでループ
 	while (Novice::ProcessMessage() == 0)
@@ -125,6 +129,20 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 		///
 		/// ↓更新処理ここから
 		/// 
+
+		if (!Novice::IsPlayingAudio(phBard) || phBard == -1)
+		{
+			if (rand() % 2 == 0)
+			{
+				shBard = Novice::LoadAudio("./Resources/Sounds/Bgm/bard1.mp3");
+			}
+			else
+			{
+				shBard = Novice::LoadAudio("./Resources/Sounds/Bgm/bard2.mp3");
+			}
+
+			phBard = Novice::PlayAudio(shBard , 0 , 0.3f);
+		}
 
 		// クラスで画面切り替え
 		Scene::Switch(keys, preKeys);
