@@ -126,8 +126,10 @@ xcopy C:\KamataEngine\DirectXGame\Resources "$(OutDirFullPath)NoviceResources" /
     <ClCompile Include="Class\Object\Enemy\Enemy.cpp" />
     <ClCompile Include="Class\Object\Enemy\Ghost\Ghost.cpp" />
     <ClCompile Include="Class\Object\Object.cpp" />
+    <ClCompile Include="Class\Object\Particle\Landing\Landing.cpp" />
     <ClCompile Include="Class\Object\Particle\Particle.cpp" />
     <ClCompile Include="Class\Object\Particle\SnowCarry\SnowCarry.cpp" />
+    <ClCompile Include="Class\Object\Particle\SnowShining\SnowShining.cpp" />
     <ClCompile Include="Class\Object\Player\Player.cpp" />
     <ClCompile Include="Class\Object\Water\Water.cpp" />
     <ClCompile Include="Class\Scene\Scene.cpp" />
@@ -173,8 +175,10 @@ xcopy C:\KamataEngine\DirectXGame\Resources "$(OutDirFullPath)NoviceResources" /
     <ClInclude Include="Class\Object\Enemy\Enemy.h" />
     <ClInclude Include="Class\Object\Enemy\Ghost\Ghost.h" />
     <ClInclude Include="Class\Object\Object.h" />
+    <ClInclude Include="Class\Object\Particle\Landing\Landing.h" />
     <ClInclude Include="Class\Object\Particle\Particle.h" />
     <ClInclude Include="Class\Object\Particle\SnowCarry\SnowCarry.h" />
+    <ClInclude Include="Class\Object\Particle\SnowShining\SnowShining.h" />
     <ClInclude Include="Class\Object\Player\Player.h" />
     <ClInclude Include="Class\Object\Water\Water.h" />
     <ClInclude Include="Class\Scene\Scene.h" />
