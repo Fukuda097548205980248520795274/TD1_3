@@ -11,9 +11,6 @@
 #include "./Class/Object/CarryBlock/Treasure/Treasure.h"
 #include "./Class/Object/CarryBlock/Bomb/Bomb.h"
 #include "./Class/Object/Enemy/Ghost/Ghost.h"
-#include "./Class/Object/Particle/Dust/Dust.h"
-#include "./Hinoko.h"
-#include"./Snow.h"
 
 
 const char kWindowTitle[] = "LC1C_20_フクダソウワ_ゆきどけ～";
@@ -74,21 +71,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			// 凍った敵
 			block[i] = new Bomb();
 		}
-	}
-	
-
-	/*   雪   */
-	Snow* snow[kSnowNum];
-	for (int i = 0; i < kSnowNum; i++)
-	{
-		snow[i] = new Snow();
-	}
-
-	/*   炎   */
-	Hinoko* hinoko[kHinokoNum];
-	for (int i = 0; i < kHinokoNum; i++)
-	{
-		hinoko[i] = new Hinoko();
 	}
 
 
@@ -523,36 +505,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 					break;
 				}
 
-				for (int i = 0; i < kSnowNum; i++)
-				{
-					if (!snow[i]->isEmission_)
-					{
-						snow[i]->Emission();
-
-						break;
-					}
-				}
-
 
 
 				// 溶かす
 				Map::Rotten();
-
-				for (int i = 0; i < kHinokoNum; i++)
-				{
-					for (int j = 0; j < kEnemyNum; j++)
-					{
-						
-							if (!hinoko[i]->isEmission_)
-							{
-								hinoko[i]->Emission(enemy[j]->pos_.screen.leftTop.x + (enemy[j]->shape_.scale.x * 0.5f),
-													enemy[j]->pos_.screen.leftTop.x + (enemy[j]->shape_.scale.x * 0.5f),
-													0);
-								break;
-							}
-						
-					}
-				}
 
 
 
@@ -579,18 +535,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 						isActive = false;
 					}
 
-				}
-
-
-				//雪
-				for (int i = 0; i < kSnowNum; i++)
-				{
-					snow[i]->Move();
-				}
-
-				for (int i = 0; i < kHinokoNum; i++)
-				{
-					hinoko[i]->Move();
 				}
 
 
@@ -1360,25 +1304,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			// マップ
 			Map::Draw();
 
-			// プレイヤー
-			player->Draw();
-
 			// ブロック
 			for (int i = 0; i < kBlockNum; i++)
 			{
 				block[i]->Draw();
-			}
-
-			// 雪
-			for (int i = 0; i < kSnowNum; i++)
-			{
-				snow[i]->Draw();
-			}
-
-			// 炎
-			for (int i = 0; i < kHinokoNum; i++)
-			{
-				hinoko[i]->Draw();
 			}
 
 			// 敵
@@ -1386,6 +1315,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			{
 				enemy[i]->Draw();
 			}
+
+			// プレイヤー
+			player->Draw();
 
 
 			//デバック表示
@@ -1426,18 +1358,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 	// プレイヤー
 	delete player;
-
-	// 雪
-	for (int i = 0; i < kSnowNum; i++)
-	{
-		delete snow[i];
-	}
-
-	// 炎
-	for (int i = 0; i < kHinokoNum; i++)
-	{
-		delete hinoko[i];
-	}
 
 	// ブロック
 	for (int i = 0; i < kBlockNum; i++)
