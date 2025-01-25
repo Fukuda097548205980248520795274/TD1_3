@@ -68,6 +68,9 @@
     <Filter Include="Class\Object\CarryBlock\Bomb">
       <UniqueIdentifier>{75677608-08f4-488d-8725-8a64817e9894}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Class\Object\Player\SnowCarry">
+      <UniqueIdentifier>{cab2b6bb-f36b-407e-b6ef-974ad66ea221}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="C:\KamataEngine\DirectXGame\base\DirectXCommon.cpp">
@@ -131,21 +134,17 @@
     <ClCompile Include="Class\Object\Particle\Particle.cpp">
       <Filter>Class\Object\Particle</Filter>
     </ClCompile>
-    <ClCompile Include="Dust.cpp">
-      <Filter>KamataEngine</Filter>
-    </ClCompile>
-    <ClCompile Include="Hinoko.cpp">
-      <Filter>KamataEngine</Filter>
-    </ClCompile>
     <ClCompile Include="Class\Object\CarryBlock\Cushion\Cushion.cpp">
       <Filter>Class\Object\CarryBlock\Cushion</Filter>
     </ClCompile>
     <ClCompile Include="Class\Object\Water\Water.cpp">
       <Filter>Class\Object\Water</Filter>
     </ClCompile>
-    <ClCompile Include="Snow.cpp" />
     <ClCompile Include="Class\Object\CarryBlock\Bomb\Bomb.cpp">
       <Filter>Class\Object\CarryBlock\Bomb</Filter>
+    </ClCompile>
+    <ClCompile Include="Class\Object\Particle\SnowCarry\SnowCarry.cpp">
+      <Filter>Class\Object\Player\SnowCarry</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -262,17 +261,17 @@
     <ClInclude Include="Class\Object\Particle\Particle.h">
       <Filter>Class\Object\Particle</Filter>
     </ClInclude>
-    <ClInclude Include="Dust.h" />
-    <ClInclude Include="Hinoko.h" />
     <ClInclude Include="Class\Object\CarryBlock\Cushion\Cushion.h">
       <Filter>Class\Object\CarryBlock\Cushion</Filter>
     </ClInclude>
     <ClInclude Include="Class\Object\Water\Water.h">
       <Filter>Class\Object\Water</Filter>
     </ClInclude>
-    <ClInclude Include="Snow.h" />
     <ClInclude Include="Class\Object\CarryBlock\Bomb\Bomb.h">
       <Filter>Class\Object\CarryBlock\Bomb</Filter>
+    </ClInclude>
+    <ClInclude Include="Class\Object\Particle\SnowCarry\SnowCarry.h">
+      <Filter>Class\Object\Player\SnowCarry</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
