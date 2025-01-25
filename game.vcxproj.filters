@@ -68,8 +68,14 @@
     <Filter Include="Class\Object\CarryBlock\Bomb">
       <UniqueIdentifier>{75677608-08f4-488d-8725-8a64817e9894}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Class\Object\Player\SnowCarry">
+    <Filter Include="Class\Object\Particle\SnowCarry">
       <UniqueIdentifier>{cab2b6bb-f36b-407e-b6ef-974ad66ea221}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\Object\Particle\Landing">
+      <UniqueIdentifier>{b8c15dce-2529-474e-85c8-5f216a9004d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\Object\Particle\SnowShining">
+      <UniqueIdentifier>{99d7f6c4-e3f7-4b2e-898c-bc0271b4e35e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -144,7 +150,13 @@
       <Filter>Class\Object\CarryBlock\Bomb</Filter>
     </ClCompile>
     <ClCompile Include="Class\Object\Particle\SnowCarry\SnowCarry.cpp">
-      <Filter>Class\Object\Player\SnowCarry</Filter>
+      <Filter>Class\Object\Particle\SnowCarry</Filter>
+    </ClCompile>
+    <ClCompile Include="Class\Object\Particle\Landing\Landing.cpp">
+      <Filter>Class\Object\Particle\Landing</Filter>
+    </ClCompile>
+    <ClCompile Include="Class\Object\Particle\SnowShining\SnowShining.cpp">
+      <Filter>Class\Object\Particle\SnowShining</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -271,7 +283,13 @@
       <Filter>Class\Object\CarryBlock\Bomb</Filter>
     </ClInclude>
     <ClInclude Include="Class\Object\Particle\SnowCarry\SnowCarry.h">
-      <Filter>Class\Object\Player\SnowCarry</Filter>
+      <Filter>Class\Object\Particle\SnowCarry</Filter>
+    </ClInclude>
+    <ClInclude Include="Class\Object\Particle\Landing\Landing.h">
+      <Filter>Class\Object\Particle\Landing</Filter>
+    </ClInclude>
+    <ClInclude Include="Class\Object\Particle\SnowShining\SnowShining.h">
+      <Filter>Class\Object\Particle\SnowShining</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
