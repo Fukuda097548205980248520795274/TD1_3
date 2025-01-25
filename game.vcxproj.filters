@@ -77,6 +77,12 @@
     <Filter Include="Class\Object\Particle\SnowShining">
       <UniqueIdentifier>{99d7f6c4-e3f7-4b2e-898c-bc0271b4e35e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Class\Object\Particle\Snow">
+      <UniqueIdentifier>{585ca220-dd81-4778-b575-2d0a074f5155}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\Object\Particle\Hinoko">
+      <UniqueIdentifier>{8712f798-848c-4134-a0ae-0763498e8407}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="C:\KamataEngine\DirectXGame\base\DirectXCommon.cpp">
@@ -157,6 +163,12 @@
     </ClCompile>
     <ClCompile Include="Class\Object\Particle\SnowShining\SnowShining.cpp">
       <Filter>Class\Object\Particle\SnowShining</Filter>
+    </ClCompile>
+    <ClCompile Include="Class\Object\Particle\Snow\Snow.cpp">
+      <Filter>Class\Object\Particle\Snow</Filter>
+    </ClCompile>
+    <ClCompile Include="Class\Object\Particle\Hinoko\Hinoko.cpp">
+      <Filter>Class\Object\Particle\Hinoko</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -290,6 +302,12 @@
     </ClInclude>
     <ClInclude Include="Class\Object\Particle\SnowShining\SnowShining.h">
       <Filter>Class\Object\Particle\SnowShining</Filter>
+    </ClInclude>
+    <ClInclude Include="Class\Object\Particle\Snow\Snow.h">
+      <Filter>Class\Object\Particle\Snow</Filter>
+    </ClInclude>
+    <ClInclude Include="Class\Object\Particle\Hinoko\Hinoko.h">
+      <Filter>Class\Object\Particle\Hinoko</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

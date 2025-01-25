@@ -11,6 +11,7 @@
 #include "./Class/Object/CarryBlock/Treasure/Treasure.h"
 #include "./Class/Object/CarryBlock/Bomb/Bomb.h"
 #include "./Class/Object/Enemy/Ghost/Ghost.h"
+#include "./Class/Object/Particle/Snow/Snow.h"
 
 
 const char kWindowTitle[] = "LC1C_20_フクダソウワ_ゆきどけ～";
@@ -71,6 +72,14 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			// 凍った敵
 			block[i] = new Bomb();
 		}
+	}
+
+
+	// 雪
+	Snow* snow[kSnowNum];
+	for (int i = 0; i < kSnowNum; i++)
+	{
+		snow[i] = new Snow();
 	}
 
 
@@ -523,11 +532,38 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 					break;
 				}
 
-
-
 				// 溶かす
 				Map::Rotten();
 
+
+				/*   パーティクル   */
+
+				// クールタイム
+				if (Snow::coolTime > 0)
+				{
+					Snow::coolTime--;
+				}
+
+				if (Snow::coolTime <= 0)
+				{
+					for (int i = 0; i < kSnowNum; i++)
+					{
+						if (snow[i]->isEmission_ == false)
+						{
+							Snow::coolTime = 5;
+
+							snow[i]->Emission({ static_cast<float>(rand() % (kScreenWidth + 400)) , static_cast<float>(kScreenHeight + 100) });
+
+							break;
+						}
+					}
+				}
+
+				// 雪
+				for (int i = 0; i < kSnowNum; i++)
+				{
+					snow[i]->Move();
+				}
 
 
 				/*   プレイヤー   */
@@ -1285,9 +1321,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 			Map::Draw();
 
-			// プレイヤー
-			player->Draw();
-
 			// ブロック
 			for (int i = 0; i < kBlockNum; i++)
 			{
@@ -1299,6 +1332,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			{
 				enemy[i]->Draw();
 			}
+
+			// プレイヤー
+			player->Draw();
 
 
 
@@ -1321,6 +1357,12 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 			// マップ
 			Map::Draw();
+
+			// 雪
+			for (int i = 0; i < kSnowNum; i++)
+			{
+				snow[i]->Draw();
+			}
 
 			// ブロック
 			for (int i = 0; i < kBlockNum; i++)
@@ -1387,6 +1429,12 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	for (int i = 0; i < kEnemyNum; i++)
 	{
 		delete enemy[i];
+	}
+
+	// 雪
+	for (int i = 0; i < kSnowNum; i++)
+	{
+		delete snow[i];
 	}
 
 	// ライブラリの終了
