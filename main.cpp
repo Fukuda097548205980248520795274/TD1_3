@@ -160,6 +160,153 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			phBard = Novice::PlayAudio(shBard , 0 , 0.3f);
 		}
 
+
+		/*------------------------
+		    パーティクルを動かす
+		------------------------*/
+		
+		if (Scene::isClear_ == false && Scene::isGameOver_ == false)
+		{
+			/*   放出   */
+
+			// 雪
+			if (Snow::coolTime <= 0)
+			{
+				for (int i = 0; i < kSnowNum; i++)
+				{
+					if (snow[i]->isEmission_ == false)
+					{
+						Snow::coolTime = 5;
+
+						snow[i]->Emission({ static_cast<float>(rand() % (kScreenWidth + 400)) , static_cast<float>(kScreenHeight + 100) });
+
+						break;
+					}
+				}
+			}
+
+			// 水
+			if (Water::coolTime <= 0)
+			{
+				for (int row = 0; row < kMapRow; row++)
+				{
+					for (int column = 0; column < kMapColumn; column++)
+					{
+						if (Map::map_[row][column] < 0)
+						{
+							for (int i = 0; i < kParticleWater; i++)
+							{
+								if (water[i]->isEmission_ == false)
+								{
+									Water::coolTime = 40;
+
+									water[i]->Emission({ static_cast<float>(column * kTileSize + rand() % kTileSize) ,
+										static_cast<float>(kScreenHeight - (row * kTileSize + rand() % kTileSize)) });
+
+									break;
+								}
+							}
+						}
+					}
+				}
+			}
+
+
+			/*   画面   */
+
+			// クールタイム
+			if (Snow::coolTime > 0)
+			{
+				Snow::coolTime--;
+			}
+
+			// 雪
+			for (int i = 0; i < kSnowNum; i++)
+			{
+				snow[i]->Move();
+			}
+
+
+			// クールタイム
+			if (Water::coolTime > 0)
+			{
+				Water::coolTime--;
+			}
+
+			// 水
+			for (int i = 0; i < kParticleWater; i++)
+			{
+				water[i]->Move();
+			}
+
+
+			/*   プレイヤー   */
+
+			// クールタイムを進める
+			if (SnowCarry::coolTime > 0)
+			{
+				SnowCarry::coolTime--;
+			}
+
+			// クールタイムを進める
+			if (SnowShining::coolTime > 0)
+			{
+				SnowShining::coolTime--;
+			}
+
+			// 動かす
+			for (int i = 0; i < kParticleSnowCarry; i++)
+			{
+				player->snowCarry[i]->Move();
+			}
+
+			// 動かす
+			for (int i = 0; i < kParticleLanding; i++)
+			{
+				player->landing[i]->Move();
+			}
+
+			// 動かす
+			for (int i = 0; i < kParticleSnowShining; i++)
+			{
+				player->snowShining[i]->Move();
+			}
+
+
+			/*   ブロック   */
+
+			for (int i = 0; i < kBlockNum; i++)
+			{
+				for (int j = 0; j < kParticleLanding; j++)
+				{
+					block[i]->landing_[j]->Move();
+				}
+			}
+
+			/*   敵   */
+
+			// クールタイム
+			if (Hinoko::coolTime > 0)
+			{
+				Hinoko::coolTime--;
+			}
+
+			// 動かす
+			for (int i = 0; i < kEnemyNum; i++)
+			{
+				for (int j = 0; j < kParticleHinoko; j++)
+				{
+					enemy[i]->hinoko_[j]->Move();
+				}
+
+				for (int j = 0; j < kParticleVapor; j++)
+				{
+					enemy[i]->vapor[j]->Move();
+				}
+			}
+		}
+
+
 		// クラスで画面切り替え
 		Scene::Switch(keys, preKeys);
 
@@ -543,74 +690,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				Map::Rotten();
 
 
-				/*   パーティクル   */
-
-				// クールタイム
-				if (Snow::coolTime > 0)
-				{
-					Snow::coolTime--;
-				}
-
-				if (Snow::coolTime <= 0)
-				{
-					for (int i = 0; i < kSnowNum; i++)
-					{
-						if (snow[i]->isEmission_ == false)
-						{
-							Snow::coolTime = 5;
-
-							snow[i]->Emission({ static_cast<float>(rand() % (kScreenWidth + 400)) , static_cast<float>(kScreenHeight + 100) });
-
-							break;
-						}
-					}
-				}
-
-				// 雪
-				for (int i = 0; i < kSnowNum; i++)
-				{
-					snow[i]->Move();
-				}
-
-
-				// クールタイム
-				if (Water::coolTime > 0)
-				{
-					Water::coolTime--;
-				}
-
-				if (Water::coolTime <= 0)
-				{
-					for (int row = 0; row < kMapRow; row++)
-					{
-						for (int column = 0; column < kMapColumn; column++)
-						{
-							if (Map::map_[row][column] < 0)
-							{
-								for (int i = 0; i < kParticleWater; i++)
-								{
-									if (water[i]->isEmission_ == false)
-									{
-										Water::coolTime = 40;
-
-										water[i]->Emission({ static_cast<float>(column * kTileSize + rand() % kTileSize) ,
-											static_cast<float>(kScreenHeight - (row * kTileSize + rand() % kTileSize)) });
-
-										break;
-									}
-								}
-							}
-						}
-					}
-				}
-
-				// 水
-				for (int i = 0; i < kParticleWater; i++)
-				{
-					water[i]->Move();
-				}
-
-
 				/*   プレイヤー   */
 
 				// 操作する
@@ -716,6 +795,12 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 					for (int i = 0; i < kEnemyNum; i++)
 					{
 						enemy[i]->InitialValue();
+					}
+
+					// パーティクルを初期化する
+					for (int i = 0; i < kParticleWater; i++)
+					{
+						water[i]->isEmission_ = false;
 					}
 
 					// 宝の数を初期化する
@@ -1219,6 +1304,16 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 						enemy[i]->InitialValue();
 					}
 
+					// パーティクルを初期化する
+					for (int i = 0; i < kParticleWater; i++)
+					{
+						water[i]->isEmission_ = false;
+					}
+
+					// クリア、ゲームオーバーを初期化する
+					Scene::isClear_ = false;
+					Scene::isGameOver_ = false;
+
 					// ステージセレクトのマップ
 					Map::LoadFile("./TextFiles/Scene/StageSelect.csv");
 
@@ -1366,6 +1461,71 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 		/// ↓描画処理ここから
 		///
 
+		/*-------------------------
+		    パーティクルを描画する
+		-------------------------*/
+
+		// 雪
+		for (int i = 0; i < kSnowNum; i++)
+		{
+			snow[i]->Draw();
+		}
+
+		// 水
+		for (int i = 0; i < kParticleWater; i++)
+		{
+			water[i]->Draw();
+		}
+
+
+		/*   プレイヤー   */
+
+		for (int i = 0; i < kParticleSnowCarry; i++)
+		{
+			player->snowCarry[i]->Draw();
+		}
+
+		for (int i = 0; i < kParticleLanding; i++)
+		{
+			player->landing[i]->Draw();
+		}
+
+		for (int i = 0; i < kParticleSnowShining; i++)
+		{
+			player->snowShining[i]->Draw();
+		}
+
+
+		/*   ブロック   */
+
+		for (int i = 0; i < kBlockNum; i++)
+		{
+			for (int j = 0; j < kParticleLanding; j++)
+			{
+				block[i]->landing_[j]->Draw();
+			}
+		}
+
+
+		/*   敵   */
+
+		for (int i = 0; i < kEnemyNum; i++)
+		{
+			// 火の粉
+			for (int j = 0; j < kParticleHinoko; j++)
+			{
+				enemy[i]->hinoko_[j]->Draw();
+			}
+
+			// 蒸気
+			for (int j = 0; j < kParticleVapor; j++)
+			{
+				enemy[i]->vapor[j]->Draw();
+			}
+		}
+
+
+
 		// 画面切り替え
 		switch (Scene::sceneNo_)
 		{
@@ -1420,29 +1580,23 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			// マップ
 			Map::Draw();
 
-			// 雪
-			for (int i = 0; i < kSnowNum; i++)
-			{
-				snow[i]->Draw();
-			}
-
-			// 水
-			for (int i = 0; i < kParticleWater; i++)
-			{
-				water[i]->Draw();
-			}
-
 			// ブロック
 			for (int i = 0; i < kBlockNum; i++)
 			{
 				block[i]->Draw();
 			}
 
+
+			/*   敵   */
+
 			// 敵
 			for (int i = 0; i < kEnemyNum; i++)
 			{
 				enemy[i]->Draw();
 			}
+
+
+			/*   プレイヤー   */
 
 			// プレイヤー
 			player->Draw();
