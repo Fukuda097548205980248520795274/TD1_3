@@ -62,9 +62,6 @@
     <Filter Include="Class\Object\CarryBlock\Cushion">
       <UniqueIdentifier>{2b24659e-fa69-4bdf-b22e-99c34426fc3f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Class\Object\Water">
-      <UniqueIdentifier>{f289da9e-bdd1-4200-9bf1-a8917c367453}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Class\Object\CarryBlock\Bomb">
       <UniqueIdentifier>{75677608-08f4-488d-8725-8a64817e9894}</UniqueIdentifier>
     </Filter>
@@ -82,6 +79,12 @@
     </Filter>
     <Filter Include="Class\Object\Particle\Hinoko">
       <UniqueIdentifier>{8712f798-848c-4134-a0ae-0763498e8407}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\Object\Particle\Water">
+      <UniqueIdentifier>{b5a5ffa9-dae0-47fa-966a-12b61a3c49e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\Object\Particle\Vapor">
+      <UniqueIdentifier>{d10e53b0-7827-43f1-b77f-98711711e449}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -149,9 +152,6 @@
     <ClCompile Include="Class\Object\CarryBlock\Cushion\Cushion.cpp">
       <Filter>Class\Object\CarryBlock\Cushion</Filter>
     </ClCompile>
-    <ClCompile Include="Class\Object\Water\Water.cpp">
-      <Filter>Class\Object\Water</Filter>
-    </ClCompile>
     <ClCompile Include="Class\Object\CarryBlock\Bomb\Bomb.cpp">
       <Filter>Class\Object\CarryBlock\Bomb</Filter>
     </ClCompile>
@@ -169,6 +169,12 @@
     </ClCompile>
     <ClCompile Include="Class\Object\Particle\Hinoko\Hinoko.cpp">
       <Filter>Class\Object\Particle\Hinoko</Filter>
+    </ClCompile>
+    <ClCompile Include="Class\Object\Particle\Water\Water.cpp">
+      <Filter>Class\Object\Particle\Water</Filter>
+    </ClCompile>
+    <ClCompile Include="Class\Object\Particle\Vapor\Vapor.cpp">
+      <Filter>Class\Object\Particle\Vapor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -288,9 +294,6 @@
     <ClInclude Include="Class\Object\CarryBlock\Cushion\Cushion.h">
       <Filter>Class\Object\CarryBlock\Cushion</Filter>
     </ClInclude>
-    <ClInclude Include="Class\Object\Water\Water.h">
-      <Filter>Class\Object\Water</Filter>
-    </ClInclude>
     <ClInclude Include="Class\Object\CarryBlock\Bomb\Bomb.h">
       <Filter>Class\Object\CarryBlock\Bomb</Filter>
     </ClInclude>
@@ -308,6 +311,12 @@
     </ClInclude>
     <ClInclude Include="Class\Object\Particle\Hinoko\Hinoko.h">
       <Filter>Class\Object\Particle\Hinoko</Filter>
+    </ClInclude>
+    <ClInclude Include="Class\Object\Particle\Water\Water.h">
+      <Filter>Class\Object\Particle\Water</Filter>
+    </ClInclude>
+    <ClInclude Include="Class\Object\Particle\Vapor\Vapor.h">
+      <Filter>Class\Object\Particle\Vapor</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -5,13 +5,13 @@
 #include "./Class/Map/Map.h"
 #include "./Class/DrawMap/DrawMap.h"
 #include "./Class/Object/Player/Player.h"
-#include "./Class/Object/Water/Water.h"
 #include "./Class/Object/CarryBlock/Plastic/Plastic.h"
 #include "./Class/Object/CarryBlock/Cushion/Cushion.h"
 #include "./Class/Object/CarryBlock/Treasure/Treasure.h"
 #include "./Class/Object/CarryBlock/Bomb/Bomb.h"
 #include "./Class/Object/Enemy/Ghost/Ghost.h"
 #include "./Class/Object/Particle/Snow/Snow.h"
+#include "./Class/Object/Particle/Water/Water.h"
 
 
 const char kWindowTitle[] = "LC1C_20_フクダソウワ_ゆきどけ～";
@@ -80,6 +80,13 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	for (int i = 0; i < kSnowNum; i++)
 	{
 		snow[i] = new Snow();
+	}
+
+	// 水
+	Water* water[kParticleWater];
+	for (int i = 0; i < kParticleWater; i++)
+	{
+		water[i] = new Water();
 	}
 
 
@@ -566,11 +573,48 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				}
 
 
+				// クールタイム
+				if (Water::coolTime > 0)
+				{
+					Water::coolTime--;
+				}
+
+				if (Water::coolTime <= 0)
+				{
+					for (int row = 0; row < kMapRow; row++)
+					{
+						for (int column = 0; column < kMapColumn; column++)
+						{
+							if (Map::map_[row][column] < 0)
+							{
+								for (int i = 0; i < kParticleWater; i++)
+								{
+									if (water[i]->isEmission_ == false)
+									{
+										Water::coolTime = 40;
+
+										water[i]->Emission({ static_cast<float>(column * kTileSize + rand() % kTileSize) ,
+											static_cast<float>(kScreenHeight - (row * kTileSize + rand() % kTileSize)) });
+
+										break;
+									}
+								}
+							}
+						}
+					}
+				}
+
+				// 水
+				for (int i = 0; i < kParticleWater; i++)
+				{
+					water[i]->Move();
+				}
+
+
 				/*   プレイヤー   */
 
 				// 操作する
 				player->Operation(keys, preKeys);
-
 
 				// プレイヤーがブロックに乗る
 				for (int i = 0; i < kBlockNum; i++)
@@ -642,6 +686,14 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				{
 					block[i]->isRide_ = false;
 					block[i]->isUnderRide_ = false;
+				}
+
+
+				/*   当たり判定   */
+
+				for (int i = 0; i < kEnemyNum; i++)
+				{
+					player->Hit(enemy[i]);
 				}
 
 
@@ -1099,6 +1151,15 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				}
 
 
+				/*   敗北条件   */
+
+				// プレイヤーがやられたら（復活フラグがfalseになったら）ゲームオーバー
+				if (player->respawn_.isRespawn == false)
+				{
+					Scene::isGameOver_ = true;
+				}
+
+
 				/*   クリア条件   */
 
 				// 残りの宝がなくなったらクリア（クリアフラグがtrueになる）
@@ -1106,7 +1167,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				{
 					Scene::isClear_ = true;
 				}
-			} else
+			} 
+			else
 			{
 				// Bgmを止める
 				Novice::StopAudio(phYukisora);
@@ -1364,6 +1426,12 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				snow[i]->Draw();
 			}
 
+			// 水
+			for (int i = 0; i < kParticleWater; i++)
+			{
+				water[i]->Draw();
+			}
+
 			// ブロック
 			for (int i = 0; i < kBlockNum; i++)
 			{
@@ -1435,6 +1503,12 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	for (int i = 0; i < kSnowNum; i++)
 	{
 		delete snow[i];
+	}
+
+	// 水
+	for (int i = 0; i < kParticleWater; i++)
+	{
+		delete water[i];
 	}
 
 	// ライブラリの終了
