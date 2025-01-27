@@ -86,6 +86,9 @@
     <Filter Include="Class\Object\Particle\Vapor">
       <UniqueIdentifier>{d10e53b0-7827-43f1-b77f-98711711e449}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Class\Object\Particle\Cold">
+      <UniqueIdentifier>{2309cf5d-a80a-43b5-9a72-7d0a42a0a966}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="C:\KamataEngine\DirectXGame\base\DirectXCommon.cpp">
@@ -175,6 +178,9 @@
     </ClCompile>
     <ClCompile Include="Class\Object\Particle\Vapor\Vapor.cpp">
       <Filter>Class\Object\Particle\Vapor</Filter>
+    </ClCompile>
+    <ClCompile Include="Class\Object\Particle\Cold\Cold.cpp">
+      <Filter>Class\Object\Particle\Cold</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -317,6 +323,9 @@
     </ClInclude>
     <ClInclude Include="Class\Object\Particle\Vapor\Vapor.h">
       <Filter>Class\Object\Particle\Vapor</Filter>
+    </ClInclude>
+    <ClInclude Include="Class\Object\Particle\Cold\Cold.h">
+      <Filter>Class\Object\Particle\Cold</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
