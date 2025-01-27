@@ -1308,6 +1308,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				{
 					Scene::isClear_ = true;
 				}
+
+				/*   マップ   */
+				Map::Update();
 			}
 			else
 			{
