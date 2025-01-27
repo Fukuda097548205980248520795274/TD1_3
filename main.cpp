@@ -278,13 +278,27 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 			/*   ブロック   */
 
+			// クールタイム
+			if (Cold::coolTime > 0)
+			{
+				Cold::coolTime--;
+			}
+
 			for (int i = 0; i < kBlockNum; i++)
 			{
+				// 着地したときの粒子
 				for (int j = 0; j < kParticleLanding; j++)
 				{
 					block[i]->landing_[j]->Move();
 				}
+
+				// 冷気
+				for (int j = 0; j < kParticleCold; j++)
+				{
+					block[i]->cold_[j]->Move();
+				}
 			}
+
 
 			/*   敵   */
 
@@ -1625,6 +1639,12 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			for (int j = 0; j < kParticleLanding; j++)
 			{
 				block[i]->landing_[j]->Draw();
+			}
+
+			// 冷気
+			for (int j = 0; j < kParticleCold; j++)
+			{
+				block[i]->cold_[j]->Draw();
 			}
 		}
 
