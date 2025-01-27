@@ -59,15 +59,18 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 		if (i < 8)
 		{
 			block[i] = new Plastic();
-		} else if (i < 16)
+		}
+		else if (i < 16)
 		{
 			// クッション
 			block[i] = new Cushion();
-		} else if (i < 24)
+		}
+		else if (i < 24)
 		{
 			// 宝
 			block[i] = new Treasure();
-		} else if (i < 32)
+		}
+		else if (i < 32)
 		{
 			// 凍った敵
 			block[i] = new Bomb();
@@ -157,14 +160,14 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				shBard = Novice::LoadAudio("./Resources/Sounds/Bgm/bard2.mp3");
 			}
 
-			phBard = Novice::PlayAudio(shBard , 0 , 0.3f);
+			phBard = Novice::PlayAudio(shBard, 0, 0.3f);
 		}
 
 
 		/*------------------------
-		    パーティクルを動かす
+			パーティクルを動かす
 		------------------------*/
-		
+
 		if (Scene::isClear_ == false && Scene::isGameOver_ == false)
 		{
 			/*   放出   */
@@ -315,7 +318,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 		{
 		case SCENE_START:
 #pragma region シーン:タイトル
-			
+
 			// スタート画面
 
 			Map::LoadFile("./TextFiles/Scene/StageSelect.csv");
@@ -707,7 +710,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 					if (!isActive)
 					{
 						isActive = true;
-					} else
+					}
+					else
 					{
 						isActive = false;
 					}
@@ -1252,7 +1256,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				{
 					Scene::isClear_ = true;
 				}
-			} 
+			}
 			else
 			{
 				// Bgmを止める
@@ -1272,7 +1276,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 					{
 						phADreamOfCat = Novice::PlayAudio(shADreamOfCat, 0, 0.1f);
 					}
-				} else if (Scene::isGameOver_)
+				}
+				else if (Scene::isGameOver_)
 				{
 					// ゲームオーバーの（ゲームオーバーフラグがtrueである）ときのBGM
 
@@ -1448,7 +1453,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				}
 			}
 
-			
+
 			break;
 #pragma endregion
 		}
@@ -1462,8 +1467,125 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 		///
 
 		/*-------------------------
-		    パーティクルを描画する
+			パーティクルを描画する
 		-------------------------*/
+
+
+
+		// 画面切り替え
+		switch (Scene::sceneNo_)
+		{
+		case SCENE_START:
+			// スタート画面
+
+			//デバック表示
+			Novice::ScreenPrintf(0, 0, "TITLE");
+
+			break;
+
+		case SCENE_STAGE:
+			// ステージセレクト画面
+
+
+			Map::Draw();
+
+			// ブロック
+			for (int i = 0; i < kBlockNum; i++)
+			{
+				block[i]->Draw();
+			}
+
+			// 敵
+			for (int i = 0; i < kEnemyNum; i++)
+			{
+				enemy[i]->Draw();
+			}
+
+			// プレイヤー
+			player->Draw();
+
+
+
+
+			//デバック表示
+			Novice::ScreenPrintf(8, 8, "STAGE_SELECT");
+
+			Novice::ScreenPrintf(8, 28, "Debug display:4");
+
+			if (isActive)
+			{
+				Novice::ScreenPrintf(8, 48, "device:keyboard | controller");
+				Novice::ScreenPrintf(8, 68, "Move:  AD       |  leftStick");
+				Novice::ScreenPrintf(8, 88, "JUMP:  J        |      A    ");
+				Novice::ScreenPrintf(8, 108, "Ladder: W       | leftStick(up)");
+				Novice::ScreenPrintf(8, 128, "Interact:SPASE  | leftStick(up)");
+			}
+
+			break;
+
+		case SCENE_GAME:
+			// ゲーム画面
+
+			// マップ
+			Map::Draw();
+
+			// ブロック
+			for (int i = 0; i < kBlockNum; i++)
+			{
+				block[i]->Draw();
+			}
+
+
+			/*   敵   */
+
+			// 敵
+			for (int i = 0; i < kEnemyNum; i++)
+			{
+				enemy[i]->Draw();
+			}
+
+
+			/*   プレイヤー   */
+
+			// プレイヤー
+			player->Draw();
+
+
+			/*   クリア画面   */
+			if (Scene::isClear_)
+			{
+				Novice::ScreenPrintf(600, 350, "GAMECLEAR"); 
+				Novice::ScreenPrintf(580, 390, "Spase to push");
+			}
+
+			/*   ゲームオーバー画面   */
+			if (Scene::isGameOver_)
+			{
+				Novice::ScreenPrintf(600, 350, "GAMEOVER");
+				Novice::ScreenPrintf(580, 390, "Spase to push");
+			}
+
+			//デバック表示
+			Novice::ScreenPrintf(8, 8, "GAME");
+
+			Novice::ScreenPrintf(500, 8, "Remaining treasure:%d", Map::treasureNum);
+
+			Novice::ScreenPrintf(8, 28, "Debug display:4");
+
+			if (isActive)
+			{
+				Novice::ScreenPrintf(8, 48, "device:keyboard   | Controller");
+				Novice::ScreenPrintf(8, 68, "Move:  AD         | LeftStick");
+				Novice::ScreenPrintf(8, 88, "JUMP:  J          |      A    ");
+				Novice::ScreenPrintf(8, 108, "Ladder: W         | LeftStick(up)");
+				Novice::ScreenPrintf(8, 128, "CarryBlock:SPASE  |     R2    ");
+			}
+
+
+			break;
+
+		}
+
 
 		// 雪
 		for (int i = 0; i < kSnowNum; i++)
@@ -1524,99 +1646,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			}
 		}
 
-
-
-		// 画面切り替え
-		switch (Scene::sceneNo_)
-		{
-		case SCENE_START:
-			// スタート画面
-
-			//デバック表示
-			Novice::ScreenPrintf(0, 0, "TITLE");
-
-			break;
-
-		case SCENE_STAGE:
-			// ステージセレクト画面
-
-
-			Map::Draw();
-
-			// ブロック
-			for (int i = 0; i < kBlockNum; i++)
-			{
-				block[i]->Draw();
-			}
-
-			// 敵
-			for (int i = 0; i < kEnemyNum; i++)
-			{
-				enemy[i]->Draw();
-			}
-
-			// プレイヤー
-			player->Draw();
-
-
-
-
-			//デバック表示
-			Novice::ScreenPrintf(8, 8, "STAGE_SELECT");
-
-			if (isActive)
-			{
-				Novice::ScreenPrintf(8, 28, "Move : AD");
-				Novice::ScreenPrintf(8, 48, "JUMP : J");
-				Novice::ScreenPrintf(8, 68, "Ladder : W");
-				Novice::ScreenPrintf(8, 88, "Interact : SPASE");
-			}
-
-			break;
-
-		case SCENE_GAME:
-			// ゲーム画面
-
-			// マップ
-			Map::Draw();
-
-			// ブロック
-			for (int i = 0; i < kBlockNum; i++)
-			{
-				block[i]->Draw();
-			}
-
-
-			/*   敵   */
-
-			// 敵
-			for (int i = 0; i < kEnemyNum; i++)
-			{
-				enemy[i]->Draw();
-			}
-
-
-			/*   プレイヤー   */
-
-			// プレイヤー
-			player->Draw();
-
-
-			//デバック表示
-			Novice::ScreenPrintf(8, 8, "GAME");
-			Novice::ScreenPrintf(500, 8, "Remaining treasure:%d", Map::treasureNum);
-
-			if (isActive)
-			{
-				Novice::ScreenPrintf(8, 28, "Move : AD");
-				Novice::ScreenPrintf(8, 48, "JUMP : J");
-				Novice::ScreenPrintf(8, 68, "Ladder : W");
-				Novice::ScreenPrintf(8, 88, "CarryBlock : SPACE");
-			}
-
-			break;
-
-		}
 
 		///
 		/// ↑描画処理ここまで
