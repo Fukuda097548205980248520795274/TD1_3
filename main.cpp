@@ -12,6 +12,7 @@
 #include "./Class/Object/Enemy/Ghost/Ghost.h"
 #include "./Class/Object/Particle/Snow/Snow.h"
 #include "./Class/Object/Particle/Water/Water.h"
+#include "./Class/Object/Particle/Debris/Debris.h"
 
 
 const char kWindowTitle[] = "LC1C_20_フクダソウワ_ゆきどけ～";
@@ -90,6 +91,13 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	for (int i = 0; i < kParticleWater; i++)
 	{
 		water[i] = new Water();
+	}
+
+	// 欠片
+	Debris* debris[kParticleDebris];
+	for (int i = 0; i < kParticleDebris; i++)
+	{
+		debris[i] = new Debris();
 	}
 
 
@@ -214,6 +222,30 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				}
 			}
 
+			// 欠片
+			for (int row = 0; row < kMapRow; row++)
+			{
+				for (int column = 0; column < kMapColumn; column++)
+				{
+					if (Map::map_[row][column] == -1)
+					{
+						for (int i = 0; i < 8; i++)
+						{
+							for (int j = 0; j < kParticleDebris; j++)
+							{
+								if (debris[j]->isEmission_ == false)
+								{
+									debris[j]->Emission({ static_cast<float>(column * kTileSize + kTileSize / 2) ,
+										static_cast<float>(kScreenHeight - (row * kTileSize + kTileSize / 2)) });
+
+									break;
+								}
+							}
+						}
+					}
+				}
+			}
+
 
 			/*   画面   */
 
@@ -240,6 +272,12 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			for (int i = 0; i < kParticleWater; i++)
 			{
 				water[i]->Move();
+			}
+
+			// 欠片
+			for (int i = 0; i < kParticleDebris; i++)
+			{
+				debris[i]->Move();
 			}
 
 
@@ -1613,6 +1651,12 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			water[i]->Draw();
 		}
 
+		// 欠片
+		for (int i = 0; i < kParticleDebris; i++)
+		{
+			debris[i]->Draw();
+		}
+
 
 		/*   プレイヤー   */
 
@@ -1683,6 +1727,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	}
 
 
+
 	/*--------------------------
 		インスタンスを削除する
 	--------------------------*/
@@ -1713,6 +1758,13 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	{
 		delete water[i];
 	}
+
+	// 欠片
+	for (int i = 0; i < kParticleDebris; i++)
+	{
+		delete debris[i];
+	}
+
 
 	// ライブラリの終了
 	Novice::Finalize();
