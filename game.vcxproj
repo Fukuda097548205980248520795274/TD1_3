@@ -127,6 +127,7 @@ xcopy C:\KamataEngine\DirectXGame\Resources "$(OutDirFullPath)NoviceResources" /
     <ClCompile Include="Class\Object\Enemy\Ghost\Ghost.cpp" />
     <ClCompile Include="Class\Object\Object.cpp" />
     <ClCompile Include="Class\Object\Particle\Cold\Cold.cpp" />
+    <ClCompile Include="Class\Object\Particle\Debris\Debris.cpp" />
     <ClCompile Include="Class\Object\Particle\Hinoko\Hinoko.cpp" />
     <ClCompile Include="Class\Object\Particle\Landing\Landing.cpp" />
     <ClCompile Include="Class\Object\Particle\Particle.cpp" />
@@ -180,6 +181,7 @@ xcopy C:\KamataEngine\DirectXGame\Resources "$(OutDirFullPath)NoviceResources" /
     <ClInclude Include="Class\Object\Enemy\Ghost\Ghost.h" />
     <ClInclude Include="Class\Object\Object.h" />
     <ClInclude Include="Class\Object\Particle\Cold\Cold.h" />
+    <ClInclude Include="Class\Object\Particle\Debris\Debris.h" />
     <ClInclude Include="Class\Object\Particle\Hinoko\Hinoko.h" />
     <ClInclude Include="Class\Object\Particle\Landing\Landing.h" />
     <ClInclude Include="Class\Object\Particle\Particle.h" />
