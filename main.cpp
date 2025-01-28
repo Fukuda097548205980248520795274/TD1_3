@@ -33,6 +33,13 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 		変数を作る
 	---------------*/
 
+	// ゲームフレーム
+	int gameFrame = 0;
+
+	// ロードしているかどうか（ロードフラグ）
+	int isLoad = true;
+
+
 	/*   ゲームシステム   */
 
 	// マップ
@@ -361,9 +368,12 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			}
 		}
 
+		// ロード中にフレームを動かす
+		if (isLoad)
+		{
+			gameFrame++;
+		}
 
-		// クラスで画面切り替え
-		Scene::Switch(keys, preKeys);
 
 		// 画面切り替え
 		switch (Scene::sceneNo_)
@@ -373,139 +383,333 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 			// スタート画面
 
-			Map::LoadFile("./TextFiles/Scene/StageSelect.csv");
+			/*   フレーム   */
 
-			// ブロックや敵を配置する
-			for (int row = 0; row < kMapRow; row++)
+			// 150フレームで、エリアセレクト画面に移る
+			if (gameFrame >= 150)
 			{
-				for (int column = 0; column < kMapColumn; column++)
+				if (isLoad)
 				{
-					switch (Map::map_[row][column])
+					Scene::sceneNo_ = SCENE_AREA;
+				}
+			}
+
+			// 120フレームでロード終了する（ロードフラグがfalseになる）
+			if (gameFrame == 120)
+			{
+				if (isLoad)
+				{
+					isLoad = false;
+				}
+			}
+
+
+			/*   操作   */
+
+			// 120 ~ 150フレーム前で、スペースキーを押すとスキップできる
+			if (!preKeys[DIK_SPACE] && keys[DIK_SPACE])
+			{
+				if (gameFrame < 150 && gameFrame >= 120)
+				{
+					if (isLoad)
 					{
-					case TILE_PLAYER:
-						// プレイヤー
+						// ロード終了（ロードフラグがfalseになる）
+						isLoad = false;
 
-						player->Puttting(column, row);
+						// フレームを飛ばす
+						gameFrame = 180;
+					}
+				}
+			}
 
-						// タイルを消す
-						Map::map_[row][column] = TILE_NOTHING;
+			// 120フレームのときにスペースキーで、エリアセレクト画面に移る
+			if (!preKeys[DIK_SPACE] && keys[DIK_SPACE])
+			{
+				if (gameFrame == 120)
+				{
+					if (isLoad == false)
+					{
+						// ロード開始（ロードフラグがtrueになる）
+						isLoad = true;
+					}
+				}
 
-						break;
+			}
+
+			// 0 ~ 120フレームでスペースキーを押すと、スキップできる
+			if (!preKeys[DIK_SPACE] && keys[DIK_SPACE])
+			{
+				if (gameFrame < 120)
+				{
+					if (isLoad)
+					{
+						// ロード終了（ロードフラグがfalseになる）
+						isLoad = false;
+
+						// フレームを飛ばす
+						gameFrame = 120;
+					}
+				}
+			}
 
 
-					case TILE_PLASTIC:
-						// プラスチック
+			break;
+#pragma endregion
 
-						for (int i = 0; i < kBlockNum; i++)
+		case SCENE_AREA:
+
+			/*   フレーム   */
+
+			// 180フレームで、ロードが終了する（ロードフラグがfalseになる）
+			if (gameFrame == 180)
+			{
+				if (isLoad)
+				{
+					isLoad = false;
+				}
+			}
+
+
+			/*   操作   */
+
+			// エリア切り替え
+			switch (Scene::areaNo_)
+			{
+			case AREA_STAR_LAND:
+				// スター島
+
+				// Dキーで、レイ島を選ぶ
+				if (!preKeys[DIK_D] && keys[DIK_D])
+				{
+					Scene::areaNo_ = AREA_REI_LAND;
+				}
+
+				break;
+
+			case AREA_REI_LAND:
+				// レイ島
+
+				// Aキーで、スター島を選ぶ
+				if (!preKeys[DIK_A] && keys[DIK_A])
+				{
+					Scene::areaNo_ = AREA_STAR_LAND;
+				}
+
+				// Dキーで、チクタク島を選ぶ
+				if (!preKeys[DIK_D] && keys[DIK_D])
+				{
+					Scene::areaNo_ = AREA_TIKUTAKU_LAND;
+				}
+
+				break;
+
+			case AREA_TIKUTAKU_LAND:
+				// チクタク島
+
+				// Aキーで、レイ島を選ぶ
+				if (!preKeys[DIK_A] && keys[DIK_A])
+				{
+					Scene::areaNo_ = AREA_REI_LAND;
+				}
+
+				// Dキーで、ホッ島を選ぶ
+				if (!preKeys[DIK_D] && keys[DIK_D])
+				{
+					Scene::areaNo_ = AREA_HOXTU_LAND;
+				}
+
+				break;
+
+			case AREA_HOXTU_LAND:
+				// ホッ島
+
+				// Aキーで、チクタク島を選ぶ
+				if (!preKeys[DIK_A] && keys[DIK_A])
+				{
+					Scene::areaNo_ = AREA_TIKUTAKU_LAND;
+				}
+
+				// Dキーで、ラピッ島を選ぶ
+				if (!preKeys[DIK_D] && keys[DIK_D])
+				{
+					Scene::areaNo_ = AREA_RAPIXTU_LAND;
+				}
+
+				break;
+
+			case AREA_RAPIXTU_LAND:
+				// ラピッ島
+
+				// Aキーで、ラピッ島を選ぶ
+				if (!preKeys[DIK_A] && keys[DIK_A])
+				{
+					Scene::areaNo_ = AREA_HOXTU_LAND;
+				}
+
+				break;
+			}
+
+			// 180フレームで、スペースキーを押すと、ステージセレクト画面に移る
+			if (!preKeys[DIK_SPACE] && keys[DIK_SPACE])
+			{
+				if (gameFrame == 180)
+				{
+					if (isLoad == false)
+					{
+						Scene::sceneNo_ = SCENE_STAGE;
+
+						Map::LoadFile("./TextFiles/Scene/StageSelect.csv");
+
+						// ブロックや敵を配置する
+						for (int row = 0; row < kMapRow; row++)
 						{
-							if (i < 8)
+							for (int column = 0; column < kMapColumn; column++)
 							{
-								if (block[i]->id_ == 0)
+								switch (Map::map_[row][column])
 								{
-									block[i]->Putting(column, row);
+								case TILE_PLAYER:
+									// プレイヤー
+
+									player->Puttting(column, row);
+
+									// タイルを消す
+									Map::map_[row][column] = TILE_NOTHING;
+
+									break;
+
+
+								case TILE_PLASTIC:
+									// プラスチック
+
+									for (int i = 0; i < kBlockNum; i++)
+									{
+										if (i < 8)
+										{
+											if (block[i]->id_ == 0)
+											{
+												block[i]->Putting(column, row);
+
+												break;
+											}
+										}
+									}
+
+									// タイルを消す
+									Map::map_[row][column] = TILE_NOTHING;
+
+									break;
+
+								case TILE_CUSHION:
+									// クッション
+
+									for (int i = 0; i < kBlockNum; i++)
+									{
+										if (i >= 8 && i < 16)
+										{
+											if (block[i]->id_ == 0)
+											{
+												block[i]->Putting(column, row);
+
+												break;
+											}
+										}
+									}
+
+									// タイルを消す
+									Map::map_[row][column] = TILE_NOTHING;
+
+									break;
+
+								case TILE_TREASURE:
+									// 宝
+
+									for (int i = 0; i < kBlockNum; i++)
+									{
+										if (i >= 16 && i < 24)
+										{
+											if (block[i]->id_ == 0)
+											{
+												block[i]->Putting(column, row);
+
+												break;
+											}
+										}
+									}
+
+									// タイルを消す
+									Map::map_[row][column] = TILE_NOTHING;
+
+									// 宝の数をカウントする
+									Map::treasureNum++;
+
+									break;
+
+								case TILE_BOMB:
+									// 爆弾
+
+									for (int i = 0; i < kBlockNum; i++)
+									{
+										if (i >= 24 && i < 32)
+										{
+											if (block[i]->id_ == 0)
+											{
+												block[i]->Putting(column, row);
+
+												break;
+											}
+										}
+									}
+
+									// タイルを消す
+									Map::map_[row][column] = TILE_NOTHING;
+
+									break;
+
+								case TILE_GHOST:
+									// 幽霊
+
+									for (int i = 0; i < kEnemyNum; i++)
+									{
+										if (i < 8)
+										{
+											if (enemy[i]->id_ == 0)
+											{
+												enemy[i]->Arrival(column, row);
+
+												break;
+											}
+										}
+									}
+
+									// タイルを消す
+									Map::map_[row][column] = TILE_NOTHING;
 
 									break;
 								}
 							}
 						}
+					}
+				}
+			}
 
-						// タイルを消す
-						Map::map_[row][column] = TILE_NOTHING;
+			// 150 ~ 180フレーム前で、スペースキーを押すとスキップできる
+			if (!preKeys[DIK_SPACE] && keys[DIK_SPACE])
+			{
+				if (gameFrame < 180 && gameFrame >= 150)
+				{
+					if (isLoad)
+					{
+						// ロード終了（ロードフラグがfalseになる）
+						isLoad = false;
 
-						break;
-
-					case TILE_CUSHION:
-						// クッション
-
-						for (int i = 0; i < kBlockNum; i++)
-						{
-							if (i >= 8 && i < 16)
-							{
-								if (block[i]->id_ == 0)
-								{
-									block[i]->Putting(column, row);
-
-									break;
-								}
-							}
-						}
-
-						// タイルを消す
-						Map::map_[row][column] = TILE_NOTHING;
-
-						break;
-
-					case TILE_TREASURE:
-						// 宝
-
-						for (int i = 0; i < kBlockNum; i++)
-						{
-							if (i >= 16 && i < 24)
-							{
-								if (block[i]->id_ == 0)
-								{
-									block[i]->Putting(column, row);
-
-									break;
-								}
-							}
-						}
-
-						// タイルを消す
-						Map::map_[row][column] = TILE_NOTHING;
-
-						// 宝の数をカウントする
-						Map::treasureNum++;
-
-						break;
-
-					case TILE_BOMB:
-						// 爆弾
-
-						for (int i = 0; i < kBlockNum; i++)
-						{
-							if (i >= 24 && i < 32)
-							{
-								if (block[i]->id_ == 0)
-								{
-									block[i]->Putting(column, row);
-
-									break;
-								}
-							}
-						}
-
-						// タイルを消す
-						Map::map_[row][column] = TILE_NOTHING;
-
-						break;
-
-					case TILE_GHOST:
-						// 幽霊
-
-						for (int i = 0; i < kEnemyNum; i++)
-						{
-							if (i < 8)
-							{
-								if (enemy[i]->id_ == 0)
-								{
-									enemy[i]->Arrival(column, row);
-
-									break;
-								}
-							}
-						}
-
-						// タイルを消す
-						Map::map_[row][column] = TILE_NOTHING;
-
-						break;
+						// フレームを飛ばす
+						gameFrame = 180;
 					}
 				}
 			}
 
 			break;
-#pragma endregion
+
 		case SCENE_STAGE:
 #pragma region シーン:ステージ
 			// ステージセレクト画面
