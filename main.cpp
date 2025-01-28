@@ -116,6 +116,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 		BGM
 	----------*/
 
+	// LostMemories
+	int shLostMemories = Novice::LoadAudio("./Resources/Sounds/Bgm/lost_memories.mp3");
+	int phLostMemories = -1;
+
 	// 雪空
 	int shYukisora = Novice::LoadAudio("./Resources/Sounds/Bgm/Yukisora.mp3");
 	int phYukisora = -1;
@@ -347,12 +351,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 			/*   敵   */
 
-			// クールタイム
-			if (Hinoko::coolTime > 0)
-			{
-				Hinoko::coolTime--;
-			}
-
 			// 動かす
 			for (int i = 0; i < kEnemyNum; i++)
 			{
@@ -382,6 +380,11 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 #pragma region シーン:タイトル
 
 			// スタート画面
+
+			if (!Novice::IsPlayingAudio(phLostMemories) || phLostMemories == -1)
+			{
+				phLostMemories = Novice::PlayAudio(shLostMemories, 0, 0.1f);
+			}
 
 			/*   フレーム   */
 
@@ -457,6 +460,11 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 #pragma endregion
 
 		case SCENE_AREA:
+
+			if (!Novice::IsPlayingAudio(phLostMemories) || phLostMemories == -1)
+			{
+				phLostMemories = Novice::PlayAudio(shLostMemories, 0, 0.1f);
+			}
 
 			/*   フレーム   */
 
@@ -714,6 +722,13 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 #pragma region シーン:ステージ
 			// ステージセレクト画面
 
+
+			if (!Novice::IsPlayingAudio(phLostMemories) || phLostMemories == -1)
+			{
+				phLostMemories = Novice::PlayAudio(shLostMemories, 0, 0.1f);
+			}
+
+
 			player->Operation(keys, preKeys);
 
 			// プレイヤーがブロックに乗る
@@ -886,6 +901,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 		case SCENE_GAME:
 #pragma region シーン:ゲーム
 			// ゲーム画面
+
+			Novice::StopAudio(phLostMemories);
 
 			// クリア、ゲームオーバーになるまで（クリア、ゲームオーバーフラグがfalseのときは）、操作できる
 			if (Scene::isClear_ == false && Scene::isGameOver_ == false)
