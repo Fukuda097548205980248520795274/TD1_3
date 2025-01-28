@@ -377,27 +377,17 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 		switch (Scene::sceneNo_)
 		{
 		case SCENE_START:
-#pragma region シーン:タイトル
-
 			// スタート画面
 
+			// BGM
 			if (!Novice::IsPlayingAudio(phLostMemories) || phLostMemories == -1)
 			{
 				phLostMemories = Novice::PlayAudio(shLostMemories, 0, 0.1f);
 			}
 
-			/*   フレーム   */
+			/*   操作   */
 
-			// 150フレームで、エリアセレクト画面に移る
-			if (gameFrame >= 150)
-			{
-				if (isLoad)
-				{
-					Scene::sceneNo_ = SCENE_AREA;
-				}
-			}
-
-			// 120フレームでロード終了する（ロードフラグがfalseになる）
+			// 120フレームで、ロードを終了する（ロードフラグをfalseにする）
 			if (gameFrame == 120)
 			{
 				if (isLoad)
@@ -406,67 +396,42 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				}
 			}
 
-
-			/*   操作   */
-
-			// 120 ~ 150フレーム前で、スペースキーを押すとスキップできる
-			if (!preKeys[DIK_SPACE] && keys[DIK_SPACE])
-			{
-				if (gameFrame < 150 && gameFrame >= 120)
-				{
-					if (isLoad)
-					{
-						// ロード終了（ロードフラグがfalseになる）
-						isLoad = false;
-
-						// フレームを飛ばす
-						gameFrame = 180;
-					}
-				}
-			}
-
-			// 120フレームのときにスペースキーで、エリアセレクト画面に移る
+			// 120フレームで、スペースキーを押すと、ロードする（ロードフラグがtrueになる）
 			if (!preKeys[DIK_SPACE] && keys[DIK_SPACE])
 			{
 				if (gameFrame == 120)
 				{
 					if (isLoad == false)
 					{
-						// ロード開始（ロードフラグがtrueになる）
 						isLoad = true;
 					}
 				}
-
 			}
 
-			// 0 ~ 120フレームでスペースキーを押すと、スキップできる
-			if (!preKeys[DIK_SPACE] && keys[DIK_SPACE])
+			// 150フレームで、エリアセレクト画面に移る
+			if (gameFrame == 150)
 			{
-				if (gameFrame < 120)
+				if (isLoad)
 				{
-					if (isLoad)
-					{
-						// ロード終了（ロードフラグがfalseになる）
-						isLoad = false;
-
-						// フレームを飛ばす
-						gameFrame = 120;
-					}
+					Scene::sceneNo_ = SCENE_AREA;
 				}
 			}
 
 
 			break;
-#pragma endregion
+
 
 		case SCENE_AREA:
+			// エリアセレクト画面
 
+			// BGM
 			if (!Novice::IsPlayingAudio(phLostMemories) || phLostMemories == -1)
 			{
 				phLostMemories = Novice::PlayAudio(shLostMemories, 0, 0.1f);
 			}
 
-			/*   フレーム   */
+
+			/*   操作   */
 
 			// 180フレームで、ロードが終了する（ロードフラグがfalseになる）
 			if (gameFrame == 180)
@@ -475,448 +440,17 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				{
 					isLoad = false;
 				}
-			}
 
-
-			/*   操作   */
-
-			// エリア切り替え
-			switch (Scene::areaNo_)
-			{
-			case AREA_STAR_LAND:
-				// スター島
-
-				// Dキーで、レイ島を選ぶ
-				if (!preKeys[DIK_D] && keys[DIK_D])
-				{
-					Scene::areaNo_ = AREA_REI_LAND;
-				}
-
-				break;
-
-			case AREA_REI_LAND:
-				// レイ島
-
-				// Aキーで、スター島を選ぶ
-				if (!preKeys[DIK_A] && keys[DIK_A])
-				{
-					Scene::areaNo_ = AREA_STAR_LAND;
-				}
-
-				// Dキーで、チクタク島を選ぶ
-				if (!preKeys[DIK_D] && keys[DIK_D])
-				{
-					Scene::areaNo_ = AREA_TIKUTAKU_LAND;
-				}
-
-				break;
-
-			case AREA_TIKUTAKU_LAND:
-				// チクタク島
-
-				// Aキーで、レイ島を選ぶ
-				if (!preKeys[DIK_A] && keys[DIK_A])
-				{
-					Scene::areaNo_ = AREA_REI_LAND;
-				}
-
-				// Dキーで、ホッ島を選ぶ
-				if (!preKeys[DIK_D] && keys[DIK_D])
-				{
-					Scene::areaNo_ = AREA_HOXTU_LAND;
-				}
-
-				break;
-
-			case AREA_HOXTU_LAND:
-				// ホッ島
-
-				// Aキーで、チクタク島を選ぶ
-				if (!preKeys[DIK_A] && keys[DIK_A])
-				{
-					Scene::areaNo_ = AREA_TIKUTAKU_LAND;
-				}
-
-				// Dキーで、ラピッ島を選ぶ
-				if (!preKeys[DIK_D] && keys[DIK_D])
-				{
-					Scene::areaNo_ = AREA_RAPIXTU_LAND;
-				}
-
-				break;
-
-			case AREA_RAPIXTU_LAND:
-				// ラピッ島
-
-				// Aキーで、ラピッ島を選ぶ
-				if (!preKeys[DIK_A] && keys[DIK_A])
-				{
-					Scene::areaNo_ = AREA_HOXTU_LAND;
-				}
-
-				break;
-			}
-
-			// 180フレームで、スペースキーを押すと、ステージセレクト画面に移る
-			if (!preKeys[DIK_SPACE] && keys[DIK_SPACE])
-			{
-				if (gameFrame == 180)
-				{
-					if (isLoad == false)
-					{
-						Scene::sceneNo_ = SCENE_STAGE;
-
-						Map::LoadFile("./TextFiles/Scene/StageSelect.csv");
-
-						// ブロックや敵を配置する
-						for (int row = 0; row < kMapRow; row++)
-						{
-							for (int column = 0; column < kMapColumn; column++)
-							{
-								switch (Map::map_[row][column])
-								{
-								case TILE_PLAYER:
-									// プレイヤー
-
-									player->Puttting(column, row);
-
-									// タイルを消す
-									Map::map_[row][column] = TILE_NOTHING;
-
-									break;
-
-
-								case TILE_PLASTIC:
-									// プラスチック
-
-									for (int i = 0; i < kBlockNum; i++)
-									{
-										if (i < 8)
-										{
-											if (block[i]->id_ == 0)
-											{
-												block[i]->Putting(column, row);
-
-												break;
-											}
-										}
-									}
-
-									// タイルを消す
-									Map::map_[row][column] = TILE_NOTHING;
-
-									break;
-
-								case TILE_CUSHION:
-									// クッション
-
-									for (int i = 0; i < kBlockNum; i++)
-									{
-										if (i >= 8 && i < 16)
-										{
-											if (block[i]->id_ == 0)
-											{
-												block[i]->Putting(column, row);
-
-												break;
-											}
-										}
-									}
-
-									// タイルを消す
-									Map::map_[row][column] = TILE_NOTHING;
-
-									break;
-
-								case TILE_TREASURE:
-									// 宝
-
-									for (int i = 0; i < kBlockNum; i++)
-									{
-										if (i >= 16 && i < 24)
-										{
-											if (block[i]->id_ == 0)
-											{
-												block[i]->Putting(column, row);
-
-												break;
-											}
-										}
-									}
-
-									// タイルを消す
-									Map::map_[row][column] = TILE_NOTHING;
-
-									// 宝の数をカウントする
-									Map::treasureNum++;
-
-									break;
-
-								case TILE_BOMB:
-									// 爆弾
-
-									for (int i = 0; i < kBlockNum; i++)
-									{
-										if (i >= 24 && i < 32)
-										{
-											if (block[i]->id_ == 0)
-											{
-												block[i]->Putting(column, row);
-
-												break;
-											}
-										}
-									}
-
-									// タイルを消す
-									Map::map_[row][column] = TILE_NOTHING;
-
-									break;
-
-								case TILE_GHOST:
-									// 幽霊
-
-									for (int i = 0; i < kEnemyNum; i++)
-									{
-										if (i < 8)
-										{
-											if (enemy[i]->id_ == 0)
-											{
-												enemy[i]->Arrival(column, row);
-
-												break;
-											}
-										}
-									}
-
-									// タイルを消す
-									Map::map_[row][column] = TILE_NOTHING;
-
-									break;
-								}
-							}
-						}
-					}
-				}
-			}
-
-			// 150 ~ 180フレーム前で、スペースキーを押すとスキップできる
-			if (!preKeys[DIK_SPACE] && keys[DIK_SPACE])
-			{
-				if (gameFrame < 180 && gameFrame >= 150)
-				{
-					if (isLoad)
-					{
-						// ロード終了（ロードフラグがfalseになる）
-						isLoad = false;
-
-						// フレームを飛ばす
-						gameFrame = 180;
-					}
-				}
-			}
-
-			break;
-
-		case SCENE_STAGE:
-#pragma region シーン:ステージ
-			// ステージセレクト画面
-
-
-			if (!Novice::IsPlayingAudio(phLostMemories) || phLostMemories == -1)
-			{
-				phLostMemories = Novice::PlayAudio(shLostMemories, 0, 0.1f);
-			}
-
-
-			player->Operation(keys, preKeys);
-
-			// プレイヤーがブロックに乗る
-			for (int i = 0; i < kBlockNum; i++)
-			{
-				player->BlockLanding(block[i]);
-			}
-
-			/*   デバック表示させる   */
-			if (!preKeys[DIK_4] && keys[DIK_4])
-			{
-				if (!isActive)
-				{
-					isActive = true;
-				}
-				else
-				{
-					isActive = false;
-				}
-
-			}
-
-
-			// 配置準備ができたら（配置準備フラグがtrueだったら）、ブロックを配置する
-			if (Scene::isPutPreparation_)
-			{
-				// クリア、ゲームオーバーを初期化する
-				Scene::isClear_ = false;
-				Scene::isGameOver_ = false;
-
-				// ブロックや敵を配置する
-				for (int row = 0; row < kMapRow; row++)
-				{
-					for (int column = 0; column < kMapColumn; column++)
-					{
-						switch (Map::map_[row][column])
-						{
-						case TILE_PLAYER:
-							// プレイヤー
-
-							player->Puttting(column, row);
-
-							// タイルを消す
-							Map::map_[row][column] = TILE_NOTHING;
-
-							break;
-
-
-						case TILE_PLASTIC:
-							// プラスチック
-
-							for (int i = 0; i < kBlockNum; i++)
-							{
-								if (i < 8)
-								{
-									if (block[i]->id_ == 0)
-									{
-										block[i]->Putting(column, row);
-
-										break;
-									}
-								}
-							}
-
-							// タイルを消す
-							Map::map_[row][column] = TILE_NOTHING;
-
-							break;
-
-						case TILE_CUSHION:
-							// クッション
-
-							for (int i = 0; i < kBlockNum; i++)
-							{
-								if (i >= 8 && i < 16)
-								{
-									if (block[i]->id_ == 0)
-									{
-										block[i]->Putting(column, row);
-
-										break;
-									}
-								}
-							}
-
-							// タイルを消す
-							Map::map_[row][column] = TILE_NOTHING;
-
-							break;
-
-						case TILE_TREASURE:
-							// 宝
-
-							for (int i = 0; i < kBlockNum; i++)
-							{
-								if (i >= 16 && i < 24)
-								{
-									if (block[i]->id_ == 0)
-									{
-										block[i]->Putting(column, row);
-
-										break;
-									}
-								}
-							}
-
-							// タイルを消す
-							Map::map_[row][column] = TILE_NOTHING;
-
-							// 宝の数をカウントする
-							Map::treasureNum++;
-
-							break;
-
-						case TILE_BOMB:
-							// 爆弾
-
-							for (int i = 0; i < kBlockNum; i++)
-							{
-								if (i >= 24 && i < 32)
-								{
-									if (block[i]->id_ == 0)
-									{
-										block[i]->Putting(column, row);
-
-										break;
-									}
-								}
-							}
-
-							// タイルを消す
-							Map::map_[row][column] = TILE_NOTHING;
-
-							break;
-
-						case TILE_GHOST:
-							// 幽霊
-
-							for (int i = 0; i < kEnemyNum; i++)
-							{
-								if (i < 8)
-								{
-									if (enemy[i]->id_ == 0)
-									{
-										enemy[i]->Arrival(column, row);
-
-										break;
-									}
-								}
-							}
-
-							// タイルを消す
-							Map::map_[row][column] = TILE_NOTHING;
-
-							break;
-						}
-					}
-				}
-
-				// ゲーム画面に切り替える
-				Scene::sceneNo_ = SCENE_GAME;
-
-				// 配置が完了した（配置準備フラグがfalseになる）
-				Scene::isPutPreparation_ = false;
-			}
-
-			break;
-
-#pragma endregion
-		case SCENE_GAME:
-#pragma region シーン:ゲーム
-			// ゲーム画面
-
-			Novice::StopAudio(phLostMemories);
-
-			// クリア、ゲームオーバーになるまで（クリア、ゲームオーバーフラグがfalseのときは）、操作できる
-			if (Scene::isClear_ == false && Scene::isGameOver_ == false)
-			{
-
-				// エリアごとに曲を変える
+				// エリア切り替え
 				switch (Scene::areaNo_)
 				{
 				case AREA_STAR_LAND:
 					// スター島
 
-					if (!Novice::IsPlayingAudio(phYukisora) || phYukisora == -1)
+					// Dキーで、レイ島を選ぶ
+					if (!preKeys[DIK_D] && keys[DIK_D])
 					{
-						phYukisora = Novice::PlayAudio(shYukisora, 0, 0.1f);
+						Scene::areaNo_ = AREA_REI_LAND;
 					}
 
 					break;
@@ -924,9 +458,16 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				case AREA_REI_LAND:
 					// レイ島
 
-					if (!Novice::IsPlayingAudio(phYukinokioku) || phYukinokioku == -1)
+					// Aキーで、スター島を選ぶ
+					if (!preKeys[DIK_A] && keys[DIK_A])
 					{
-						phYukinokioku = Novice::PlayAudio(shYukinokioku, 0, 0.1f);
+						Scene::areaNo_ = AREA_STAR_LAND;
+					}
+
+					// Dキーで、チクタク島を選ぶ
+					if (!preKeys[DIK_D] && keys[DIK_D])
+					{
+						Scene::areaNo_ = AREA_TIKUTAKU_LAND;
 					}
 
 					break;
@@ -934,9 +475,16 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				case AREA_TIKUTAKU_LAND:
 					// チクタク島
 
-					if (!Novice::IsPlayingAudio(phYukinosouretu) || phYukinosouretu == -1)
+					// Aキーで、レイ島を選ぶ
+					if (!preKeys[DIK_A] && keys[DIK_A])
 					{
-						phYukinosouretu = Novice::PlayAudio(shYukinosouretu, 0, 0.1f);
+						Scene::areaNo_ = AREA_REI_LAND;
+					}
+
+					// Dキーで、ホッ島を選ぶ
+					if (!preKeys[DIK_D] && keys[DIK_D])
+					{
+						Scene::areaNo_ = AREA_HOXTU_LAND;
 					}
 
 					break;
@@ -944,9 +492,16 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				case AREA_HOXTU_LAND:
 					// ホッ島
 
-					if (!Novice::IsPlayingAudio(phYukigoya) || phYukigoya == -1)
+					// Aキーで、チクタク島を選ぶ
+					if (!preKeys[DIK_A] && keys[DIK_A])
 					{
-						phYukigoya = Novice::PlayAudio(shYukigoya, 0, 0.1f);
+						Scene::areaNo_ = AREA_TIKUTAKU_LAND;
+					}
+
+					// Dキーで、ラピッ島を選ぶ
+					if (!preKeys[DIK_D] && keys[DIK_D])
+					{
+						Scene::areaNo_ = AREA_RAPIXTU_LAND;
 					}
 
 					break;
@@ -954,433 +509,36 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				case AREA_RAPIXTU_LAND:
 					// ラピッ島
 
-					if (!Novice::IsPlayingAudio(phYukikaze) || phYukikaze == -1)
+					// Aキーで、ラピッ島を選ぶ
+					if (!preKeys[DIK_A] && keys[DIK_A])
 					{
-						phYukikaze = Novice::PlayAudio(shYukikaze, 0, 0.1f);
+						Scene::areaNo_ = AREA_HOXTU_LAND;
 					}
 
 					break;
 				}
+			}
 
-				// 溶かす
-				Map::Rotten();
-
-
-				/*   プレイヤー   */
-
-				// 操作する
-				player->Operation(keys, preKeys);
-
-				// プレイヤーがブロックに乗る
-				for (int i = 0; i < kBlockNum; i++)
+			// 180フレームで、スペースキーを押すと、ロードする（ロードフラグがtrueになる）
+			if (!preKeys[DIK_SPACE] && keys[DIK_SPACE])
+			{
+				if (gameFrame == 180)
 				{
-					player->BlockLanding(block[i]);
-				}
-
-				/*   デバック表示させる   */
-				if (!preKeys[DIK_4] && keys[DIK_4])
-				{
-					if (!isActive)
+					if (isLoad == false)
 					{
-						isActive = true;
-					}
-					else
-					{
-						isActive = false;
-					}
-
-				}
-
-
-				/*   敵   */
-
-				// 敵を動かす
-				for (int i = 0; i < kEnemyNum; i++)
-				{
-					enemy[i]->Move();
-				}
-
-				// ブロックに乗る
-				for (int i = 0; i < kEnemyNum; i++)
-				{
-					for (int j = 0; j < kBlockNum; j++)
-					{
-						enemy[i]->BlockLanding(block[j]);
+						isLoad = true;
 					}
 				}
+			}
 
-
-				/*   ブロック   */
-
-				// ブロックを動かす
-				for (int i = 0; i < kBlockNum; i++)
+			// 210フレームで、ステージセレクトに移る
+			if (gameFrame == 210)
+			{
+				if (isLoad)
 				{
-					block[i]->Move();
-				}
+					Scene::sceneNo_ = SCENE_STAGE;
 
-				// ブロックの当たり判定
-				for (int i = 0; i < kBlockNum; i++)
-				{
-					for (int j = 0; j < kBlockNum; j++)
-					{
-						block[i]->BlockLanding(block[j]);
-					}
-				}
-
-				// ブロックを運ぶための当たり判定
-				for (int i = 0; i < kBlockNum; i++)
-				{
-					for (int j = 0; j < kBlockNum; j++)
-					{
-						player->Carry(keys, preKeys, block[i], block[j]);
-
-					}
-				}
-
-				// 乗っかり、乗っかかりフラグをfalseに戻す
-				for (int i = 0; i < kBlockNum; i++)
-				{
-					block[i]->isRide_ = false;
-					block[i]->isUnderRide_ = false;
-				}
-
-
-				/*   当たり判定   */
-
-				for (int i = 0; i < kEnemyNum; i++)
-				{
-					player->Hit(enemy[i]);
-				}
-
-
-				/*   リセット   */
-
-				// Rキーでリセットする
-				if (!preKeys[DIK_R] && keys[DIK_R])
-				{
-					// クリアを初期化する（クリアフラグをfalseにする）
-					Scene::isClear_ = false;
-					Scene::isGameOver_ = false;
-
-					// ブロックを初期化する
-					for (int i = 0; i < kBlockNum; i++)
-					{
-						block[i]->InitialValue();
-					}
-
-					// 敵を初期化する
-					for (int i = 0; i < kEnemyNum; i++)
-					{
-						enemy[i]->InitialValue();
-					}
-
-					// パーティクルを初期化する
-					for (int i = 0; i < kParticleWater; i++)
-					{
-						water[i]->isEmission_ = false;
-					}
-
-					// 宝の数を初期化する
-					Map::treasureNum = 0;
-
-					switch (Scene::selectStage_)
-					{
-					case 1:
-
-						switch (Scene::areaNo_)
-						{
-						case AREA_STAR_LAND:
-
-							Map::LoadFile("./TextFiles/Stage/area1/stage1.csv");
-
-							break;
-
-						case AREA_REI_LAND:
-
-							Map::LoadFile("./TextFiles/Stage/area2/stage1.csv");
-
-							break;
-
-						case AREA_TIKUTAKU_LAND:
-
-							Map::LoadFile("./TextFiles/Stage/area3/stage1.csv");
-
-							break;
-
-						case AREA_HOXTU_LAND:
-
-							Map::LoadFile("./TextFiles/Stage/area4/stage1.csv");
-
-							break;
-
-						case AREA_RAPIXTU_LAND:
-
-							Map::LoadFile("./TextFiles/Stage/area5/stage1.csv");
-
-							break;
-						}
-
-						break;
-
-					case 2:
-
-						switch (Scene::areaNo_)
-						{
-						case AREA_STAR_LAND:
-
-							Map::LoadFile("./TextFiles/Stage/area1/stage2.csv");
-
-							break;
-
-						case AREA_REI_LAND:
-
-							Map::LoadFile("./TextFiles/Stage/area2/stage2.csv");
-
-							break;
-
-						case AREA_TIKUTAKU_LAND:
-
-							Map::LoadFile("./TextFiles/Stage/area3/stage2.csv");
-
-							break;
-
-						case AREA_HOXTU_LAND:
-
-							Map::LoadFile("./TextFiles/Stage/area4/stage2.csv");
-
-							break;
-
-						case AREA_RAPIXTU_LAND:
-
-							Map::LoadFile("./TextFiles/Stage/area5/stage2.csv");
-
-							break;
-						}
-
-						break;
-
-					case 3:
-
-						switch (Scene::areaNo_)
-						{
-						case AREA_STAR_LAND:
-
-							Map::LoadFile("./TextFiles/Stage/area1/stage3.csv");
-
-							break;
-
-						case AREA_REI_LAND:
-
-							Map::LoadFile("./TextFiles/Stage/area2/stage3.csv");
-
-							break;
-
-						case AREA_TIKUTAKU_LAND:
-
-							Map::LoadFile("./TextFiles/Stage/area3/stage3.csv");
-
-							break;
-
-						case AREA_HOXTU_LAND:
-
-							Map::LoadFile("./TextFiles/Stage/area4/stage3.csv");
-
-							break;
-
-						case AREA_RAPIXTU_LAND:
-
-							Map::LoadFile("./TextFiles/Stage/area5/stage3.csv");
-
-							break;
-						}
-
-						break;
-
-					case 4:
-
-						switch (Scene::areaNo_)
-						{
-						case AREA_STAR_LAND:
-
-							Map::LoadFile("./TextFiles/Stage/area1/stage4.csv");
-
-							break;
-
-						case AREA_REI_LAND:
-
-							Map::LoadFile("./TextFiles/Stage/area2/stage4.csv");
-
-							break;
-
-						case AREA_TIKUTAKU_LAND:
-
-							Map::LoadFile("./TextFiles/Stage/area3/stage4.csv");
-
-							break;
-
-						case AREA_HOXTU_LAND:
-
-							Map::LoadFile("./TextFiles/Stage/area4/stage4.csv");
-
-							break;
-
-						case AREA_RAPIXTU_LAND:
-
-							Map::LoadFile("./TextFiles/Stage/area5/stage4.csv");
-
-							break;
-						}
-
-						break;
-
-					case 5:
-
-						switch (Scene::areaNo_)
-						{
-						case AREA_STAR_LAND:
-
-							Map::LoadFile("./TextFiles/Stage/area1/stage5.csv");
-
-							break;
-
-						case AREA_REI_LAND:
-
-							Map::LoadFile("./TextFiles/Stage/area2/stage5.csv");
-
-							break;
-
-						case AREA_TIKUTAKU_LAND:
-
-							Map::LoadFile("./TextFiles/Stage/area3/stage5.csv");
-
-							break;
-
-						case AREA_HOXTU_LAND:
-
-							Map::LoadFile("./TextFiles/Stage/area4/stage5.csv");
-
-							break;
-
-						case AREA_RAPIXTU_LAND:
-
-							Map::LoadFile("./TextFiles/Stage/area5/stage5.csv");
-
-							break;
-						}
-
-						break;
-
-					case 6:
-
-						switch (Scene::areaNo_)
-						{
-						case AREA_STAR_LAND:
-
-							Map::LoadFile("./TextFiles/Stage/area1/stage6.csv");
-
-							break;
-
-						case AREA_REI_LAND:
-
-							Map::LoadFile("./TextFiles/Stage/area2/stage6.csv");
-
-							break;
-
-						case AREA_TIKUTAKU_LAND:
-
-							Map::LoadFile("./TextFiles/Stage/area3/stage6.csv");
-
-							break;
-
-						case AREA_HOXTU_LAND:
-
-							Map::LoadFile("./TextFiles/Stage/area4/stage6.csv");
-
-							break;
-
-						case AREA_RAPIXTU_LAND:
-
-							Map::LoadFile("./TextFiles/Stage/area5/stage6.csv");
-
-							break;
-						}
-
-						break;
-
-					case 7:
-
-						switch (Scene::areaNo_)
-						{
-						case AREA_STAR_LAND:
-
-							Map::LoadFile("./TextFiles/Stage/area1/stage7.csv");
-
-							break;
-
-						case AREA_REI_LAND:
-
-							Map::LoadFile("./TextFiles/Stage/area2/stage7.csv");
-
-							break;
-
-						case AREA_TIKUTAKU_LAND:
-
-							Map::LoadFile("./TextFiles/Stage/area3/stage7.csv");
-
-							break;
-
-						case AREA_HOXTU_LAND:
-
-							Map::LoadFile("./TextFiles/Stage/area4/stage7.csv");
-
-							break;
-
-						case AREA_RAPIXTU_LAND:
-
-							Map::LoadFile("./TextFiles/Stage/area5/stage7.csv");
-
-							break;
-						}
-
-						break;
-
-					case 8:
-
-						switch (Scene::areaNo_)
-						{
-						case AREA_STAR_LAND:
-
-							Map::LoadFile("./TextFiles/Stage/area1/stage8.csv");
-
-							break;
-
-						case AREA_REI_LAND:
-
-							Map::LoadFile("./TextFiles/Stage/area2/stage8.csv");
-
-							break;
-
-						case AREA_TIKUTAKU_LAND:
-
-							Map::LoadFile("./TextFiles/Stage/area3/stage8.csv");
-
-							break;
-
-						case AREA_HOXTU_LAND:
-
-							Map::LoadFile("./TextFiles/Stage/area4/stage8.csv");
-
-							break;
-
-						case AREA_RAPIXTU_LAND:
-
-							Map::LoadFile("./TextFiles/Stage/area5/stage8.csv");
-
-							break;
-						}
-
-						break;
-					}
+					Map::LoadFile("./TextFiles/Scene/StageSelect.csv");
 
 					// ブロックや敵を配置する
 					for (int row = 0; row < kMapRow; row++)
@@ -1511,28 +669,892 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 						}
 					}
 				}
-
-
-				/*   敗北条件   */
-
-				// プレイヤーがやられたら（復活フラグがfalseになったら）ゲームオーバー
-				if (player->respawn_.isRespawn == false)
-				{
-					Scene::isGameOver_ = true;
-				}
-
-
-				/*   クリア条件   */
-
-				// 残りの宝がなくなったらクリア（クリアフラグがtrueになる）
-				if (Map::treasureNum <= 0)
-				{
-					Scene::isClear_ = true;
-				}
-
-				/*   マップ   */
-				Map::Update();
 			}
+
+
+			break;
+
+		case SCENE_STAGE:
+			// ステージセレクト画面
+
+			// BGM
+			if (!Novice::IsPlayingAudio(phLostMemories) || phLostMemories == -1)
+			{
+				phLostMemories = Novice::PlayAudio(shLostMemories, 0, 0.1f);
+			}
+
+
+			/*   操作   */
+
+			// 240フレームで、ロードが終了する（ロードフラグがfalseになる）
+			if (gameFrame == 240)
+			{
+				if (isLoad)
+				{
+					isLoad = false;
+				}
+
+				// プレイヤーの操作
+				player->Operation(keys, preKeys);
+
+				// プレイヤーがブロックに乗る
+				for (int i = 0; i < kBlockNum; i++)
+				{
+					player->BlockLanding(block[i]);
+				}
+
+				// 配置準備ができたら、ロードを開始する（ロードフラグをtrueにする）
+				if (isLoad == false)
+				{
+					if (Scene::isPutPreparation_)
+					{
+						isLoad = true;
+					}
+				}
+			}
+
+			// 270フレームで、ブロックを配置し、ゲーム画面に切り替える
+			if (gameFrame == 270)
+			{
+				// 配置準備ができたら（配置準備フラグがtrueだったら）、ブロックを配置する
+				if (Scene::isPutPreparation_)
+				{
+					// クリア、ゲームオーバーを初期化する
+					Scene::isClear_ = false;
+					Scene::isGameOver_ = false;
+
+					// ブロックや敵を配置する
+					for (int row = 0; row < kMapRow; row++)
+					{
+						for (int column = 0; column < kMapColumn; column++)
+						{
+							switch (Map::map_[row][column])
+							{
+							case TILE_PLAYER:
+								// プレイヤー
+
+								player->Puttting(column, row);
+
+								// タイルを消す
+								Map::map_[row][column] = TILE_NOTHING;
+
+								break;
+
+
+							case TILE_PLASTIC:
+								// プラスチック
+
+								for (int i = 0; i < kBlockNum; i++)
+								{
+									if (i < 8)
+									{
+										if (block[i]->id_ == 0)
+										{
+											block[i]->Putting(column, row);
+
+											break;
+										}
+									}
+								}
+
+								// タイルを消す
+								Map::map_[row][column] = TILE_NOTHING;
+
+								break;
+
+							case TILE_CUSHION:
+								// クッション
+
+								for (int i = 0; i < kBlockNum; i++)
+								{
+									if (i >= 8 && i < 16)
+									{
+										if (block[i]->id_ == 0)
+										{
+											block[i]->Putting(column, row);
+
+											break;
+										}
+									}
+								}
+
+								// タイルを消す
+								Map::map_[row][column] = TILE_NOTHING;
+
+								break;
+
+							case TILE_TREASURE:
+								// 宝
+
+								for (int i = 0; i < kBlockNum; i++)
+								{
+									if (i >= 16 && i < 24)
+									{
+										if (block[i]->id_ == 0)
+										{
+											block[i]->Putting(column, row);
+
+											break;
+										}
+									}
+								}
+
+								// タイルを消す
+								Map::map_[row][column] = TILE_NOTHING;
+
+								// 宝の数をカウントする
+								Map::treasureNum++;
+
+								break;
+
+							case TILE_BOMB:
+								// 爆弾
+
+								for (int i = 0; i < kBlockNum; i++)
+								{
+									if (i >= 24 && i < 32)
+									{
+										if (block[i]->id_ == 0)
+										{
+											block[i]->Putting(column, row);
+
+											break;
+										}
+									}
+								}
+
+								// タイルを消す
+								Map::map_[row][column] = TILE_NOTHING;
+
+								break;
+
+							case TILE_GHOST:
+								// 幽霊
+
+								for (int i = 0; i < kEnemyNum; i++)
+								{
+									if (i < 8)
+									{
+										if (enemy[i]->id_ == 0)
+										{
+											enemy[i]->Arrival(column, row);
+
+											break;
+										}
+									}
+								}
+
+								// タイルを消す
+								Map::map_[row][column] = TILE_NOTHING;
+
+								break;
+							}
+						}
+					}
+
+					// ゲーム画面に切り替える
+					Scene::sceneNo_ = SCENE_GAME;
+
+					// 配置が完了した（配置準備フラグがfalseになる）
+					Scene::isPutPreparation_ = false;
+
+					// bgmを止める
+					Novice::StopAudio(phLostMemories);
+
+					// 鈴を鳴らす
+					int shBell = Novice::LoadAudio("./Resources/Sounds/Se/bell.mp3");
+					Novice::PlayAudio(shBell, 0, 0.5f);
+				}
+			}
+
+
+			/*   デバック表示させる   */
+			if (!preKeys[DIK_4] && keys[DIK_4])
+			{
+				if (!isActive)
+				{
+					isActive = true;
+				}
+				else
+				{
+					isActive = false;
+				}
+
+			}
+
+			break;
+
+#pragma endregion
+		case SCENE_GAME:
+#pragma region シーン:ゲーム
+			// ゲーム画面
+
+
+			// 360フレームで、ロードを終了し、ゲームを開始する（ロードフラグをfalseにする）
+			if (gameFrame == 360)
+			{
+				if (isLoad)
+				{
+					isLoad = false;
+				}
+			}
+
+			// 420フレームで、ロードを終了し、ゲーム後の操作を可能にする（ロードフラグをfalseにする）
+			if (gameFrame == 420)
+			{
+				if (isLoad)
+				{
+					isLoad = false;
+				}
+			}
+
+
+			// クリア、ゲームオーバーになるまで（クリア、ゲームオーバーフラグがfalseのときは）、操作できる
+			if (Scene::isClear_ == false && Scene::isGameOver_ == false)
+			{
+				// 360フレームで操作できる
+				if (gameFrame == 360)
+				{
+					// エリアごとに曲を変える
+					switch (Scene::areaNo_)
+					{
+					case AREA_STAR_LAND:
+						// スター島
+
+						if (!Novice::IsPlayingAudio(phYukisora) || phYukisora == -1)
+						{
+							phYukisora = Novice::PlayAudio(shYukisora, 0, 0.1f);
+						}
+
+						break;
+
+					case AREA_REI_LAND:
+						// レイ島
+
+						if (!Novice::IsPlayingAudio(phYukinokioku) || phYukinokioku == -1)
+						{
+							phYukinokioku = Novice::PlayAudio(shYukinokioku, 0, 0.1f);
+						}
+
+						break;
+
+					case AREA_TIKUTAKU_LAND:
+						// チクタク島
+
+						if (!Novice::IsPlayingAudio(phYukinosouretu) || phYukinosouretu == -1)
+						{
+							phYukinosouretu = Novice::PlayAudio(shYukinosouretu, 0, 0.1f);
+						}
+
+						break;
+
+					case AREA_HOXTU_LAND:
+						// ホッ島
+
+						if (!Novice::IsPlayingAudio(phYukigoya) || phYukigoya == -1)
+						{
+							phYukigoya = Novice::PlayAudio(shYukigoya, 0, 0.1f);
+						}
+
+						break;
+
+					case AREA_RAPIXTU_LAND:
+						// ラピッ島
+
+						if (!Novice::IsPlayingAudio(phYukikaze) || phYukikaze == -1)
+						{
+							phYukikaze = Novice::PlayAudio(shYukikaze, 0, 0.1f);
+						}
+
+						break;
+					}
+
+					// 溶かす
+					Map::Rotten();
+
+
+					/*   マップ   */
+
+					Map::Update();
+
+
+					/*   プレイヤー   */
+
+					// 操作する
+					player->Operation(keys, preKeys);
+
+					// プレイヤーがブロックに乗る
+					for (int i = 0; i < kBlockNum; i++)
+					{
+						player->BlockLanding(block[i]);
+					}
+
+
+					/*   デバック表示させる   */
+
+					if (!preKeys[DIK_4] && keys[DIK_4])
+					{
+						if (!isActive)
+						{
+							isActive = true;
+						}
+						else
+						{
+							isActive = false;
+						}
+
+					}
+
+
+					/*   敵   */
+
+					// 敵を動かす
+					for (int i = 0; i < kEnemyNum; i++)
+					{
+						enemy[i]->Move();
+					}
+
+					// ブロックに乗る
+					for (int i = 0; i < kEnemyNum; i++)
+					{
+						for (int j = 0; j < kBlockNum; j++)
+						{
+							enemy[i]->BlockLanding(block[j]);
+						}
+					}
+
+
+					/*   ブロック   */
+
+					// ブロックを動かす
+					for (int i = 0; i < kBlockNum; i++)
+					{
+						block[i]->Move();
+					}
+
+					// ブロックの当たり判定
+					for (int i = 0; i < kBlockNum; i++)
+					{
+						for (int j = 0; j < kBlockNum; j++)
+						{
+							block[i]->BlockLanding(block[j]);
+						}
+					}
+
+					// ブロックを運ぶための当たり判定
+					for (int i = 0; i < kBlockNum; i++)
+					{
+						for (int j = 0; j < kBlockNum; j++)
+						{
+							player->Carry(keys, preKeys, block[i], block[j]);
+
+						}
+					}
+
+					// 乗っかり、乗っかかりフラグをfalseに戻す
+					for (int i = 0; i < kBlockNum; i++)
+					{
+						block[i]->isRide_ = false;
+						block[i]->isUnderRide_ = false;
+					}
+
+
+					/*   当たり判定   */
+
+					for (int i = 0; i < kEnemyNum; i++)
+					{
+						player->Hit(enemy[i]);
+					}
+
+
+					/*   リセット   */
+
+					// Rキーでリセットする
+					if (!preKeys[DIK_R] && keys[DIK_R])
+					{
+						// クリアを初期化する（クリアフラグをfalseにする）
+						Scene::isClear_ = false;
+						Scene::isGameOver_ = false;
+
+						// ブロックを初期化する
+						for (int i = 0; i < kBlockNum; i++)
+						{
+							block[i]->InitialValue();
+						}
+
+						// 敵を初期化する
+						for (int i = 0; i < kEnemyNum; i++)
+						{
+							enemy[i]->InitialValue();
+						}
+
+						// パーティクルを初期化する
+						for (int i = 0; i < kParticleWater; i++)
+						{
+							water[i]->isEmission_ = false;
+						}
+
+						// 宝の数を初期化する
+						Map::treasureNum = 0;
+
+						switch (Scene::selectStage_)
+						{
+						case 1:
+
+							switch (Scene::areaNo_)
+							{
+							case AREA_STAR_LAND:
+
+								Map::LoadFile("./TextFiles/Stage/area1/stage1.csv");
+
+								break;
+
+							case AREA_REI_LAND:
+
+								Map::LoadFile("./TextFiles/Stage/area2/stage1.csv");
+
+								break;
+
+							case AREA_TIKUTAKU_LAND:
+
+								Map::LoadFile("./TextFiles/Stage/area3/stage1.csv");
+
+								break;
+
+							case AREA_HOXTU_LAND:
+
+								Map::LoadFile("./TextFiles/Stage/area4/stage1.csv");
+
+								break;
+
+							case AREA_RAPIXTU_LAND:
+
+								Map::LoadFile("./TextFiles/Stage/area5/stage1.csv");
+
+								break;
+							}
+
+							break;
+
+						case 2:
+
+							switch (Scene::areaNo_)
+							{
+							case AREA_STAR_LAND:
+
+								Map::LoadFile("./TextFiles/Stage/area1/stage2.csv");
+
+								break;
+
+							case AREA_REI_LAND:
+
+								Map::LoadFile("./TextFiles/Stage/area2/stage2.csv");
+
+								break;
+
+							case AREA_TIKUTAKU_LAND:
+
+								Map::LoadFile("./TextFiles/Stage/area3/stage2.csv");
+
+								break;
+
+							case AREA_HOXTU_LAND:
+
+								Map::LoadFile("./TextFiles/Stage/area4/stage2.csv");
+
+								break;
+
+							case AREA_RAPIXTU_LAND:
+
+								Map::LoadFile("./TextFiles/Stage/area5/stage2.csv");
+
+								break;
+							}
+
+							break;
+
+						case 3:
+
+							switch (Scene::areaNo_)
+							{
+							case AREA_STAR_LAND:
+
+								Map::LoadFile("./TextFiles/Stage/area1/stage3.csv");
+
+								break;
+
+							case AREA_REI_LAND:
+
+								Map::LoadFile("./TextFiles/Stage/area2/stage3.csv");
+
+								break;
+
+							case AREA_TIKUTAKU_LAND:
+
+								Map::LoadFile("./TextFiles/Stage/area3/stage3.csv");
+
+								break;
+
+							case AREA_HOXTU_LAND:
+
+								Map::LoadFile("./TextFiles/Stage/area4/stage3.csv");
+
+								break;
+
+							case AREA_RAPIXTU_LAND:
+
+								Map::LoadFile("./TextFiles/Stage/area5/stage3.csv");
+
+								break;
+							}
+
+							break;
+
+						case 4:
+
+							switch (Scene::areaNo_)
+							{
+							case AREA_STAR_LAND:
+
+								Map::LoadFile("./TextFiles/Stage/area1/stage4.csv");
+
+								break;
+
+							case AREA_REI_LAND:
+
+								Map::LoadFile("./TextFiles/Stage/area2/stage4.csv");
+
+								break;
+
+							case AREA_TIKUTAKU_LAND:
+
+								Map::LoadFile("./TextFiles/Stage/area3/stage4.csv");
+
+								break;
+
+							case AREA_HOXTU_LAND:
+
+								Map::LoadFile("./TextFiles/Stage/area4/stage4.csv");
+
+								break;
+
+							case AREA_RAPIXTU_LAND:
+
+								Map::LoadFile("./TextFiles/Stage/area5/stage4.csv");
+
+								break;
+							}
+
+							break;
+
+						case 5:
+
+							switch (Scene::areaNo_)
+							{
+							case AREA_STAR_LAND:
+
+								Map::LoadFile("./TextFiles/Stage/area1/stage5.csv");
+
+								break;
+
+							case AREA_REI_LAND:
+
+								Map::LoadFile("./TextFiles/Stage/area2/stage5.csv");
+
+								break;
+
+							case AREA_TIKUTAKU_LAND:
+
+								Map::LoadFile("./TextFiles/Stage/area3/stage5.csv");
+
+								break;
+
+							case AREA_HOXTU_LAND:
+
+								Map::LoadFile("./TextFiles/Stage/area4/stage5.csv");
+
+								break;
+
+							case AREA_RAPIXTU_LAND:
+
+								Map::LoadFile("./TextFiles/Stage/area5/stage5.csv");
+
+								break;
+							}
+
+							break;
+
+						case 6:
+
+							switch (Scene::areaNo_)
+							{
+							case AREA_STAR_LAND:
+
+								Map::LoadFile("./TextFiles/Stage/area1/stage6.csv");
+
+								break;
+
+							case AREA_REI_LAND:
+
+								Map::LoadFile("./TextFiles/Stage/area2/stage6.csv");
+
+								break;
+
+							case AREA_TIKUTAKU_LAND:
+
+								Map::LoadFile("./TextFiles/Stage/area3/stage6.csv");
+
+								break;
+
+							case AREA_HOXTU_LAND:
+
+								Map::LoadFile("./TextFiles/Stage/area4/stage6.csv");
+
+								break;
+
+							case AREA_RAPIXTU_LAND:
+
+								Map::LoadFile("./TextFiles/Stage/area5/stage6.csv");
+
+								break;
+							}
+
+							break;
+
+						case 7:
+
+							switch (Scene::areaNo_)
+							{
+							case AREA_STAR_LAND:
+
+								Map::LoadFile("./TextFiles/Stage/area1/stage7.csv");
+
+								break;
+
+							case AREA_REI_LAND:
+
+								Map::LoadFile("./TextFiles/Stage/area2/stage7.csv");
+
+								break;
+
+							case AREA_TIKUTAKU_LAND:
+
+								Map::LoadFile("./TextFiles/Stage/area3/stage7.csv");
+
+								break;
+
+							case AREA_HOXTU_LAND:
+
+								Map::LoadFile("./TextFiles/Stage/area4/stage7.csv");
+
+								break;
+
+							case AREA_RAPIXTU_LAND:
+
+								Map::LoadFile("./TextFiles/Stage/area5/stage7.csv");
+
+								break;
+							}
+
+							break;
+
+						case 8:
+
+							switch (Scene::areaNo_)
+							{
+							case AREA_STAR_LAND:
+
+								Map::LoadFile("./TextFiles/Stage/area1/stage8.csv");
+
+								break;
+
+							case AREA_REI_LAND:
+
+								Map::LoadFile("./TextFiles/Stage/area2/stage8.csv");
+
+								break;
+
+							case AREA_TIKUTAKU_LAND:
+
+								Map::LoadFile("./TextFiles/Stage/area3/stage8.csv");
+
+								break;
+
+							case AREA_HOXTU_LAND:
+
+								Map::LoadFile("./TextFiles/Stage/area4/stage8.csv");
+
+								break;
+
+							case AREA_RAPIXTU_LAND:
+
+								Map::LoadFile("./TextFiles/Stage/area5/stage8.csv");
+
+								break;
+							}
+
+							break;
+						}
+
+						// ブロックや敵を配置する
+						for (int row = 0; row < kMapRow; row++)
+						{
+							for (int column = 0; column < kMapColumn; column++)
+							{
+								switch (Map::map_[row][column])
+								{
+								case TILE_PLAYER:
+									// プレイヤー
+
+									player->Puttting(column, row);
+
+									// タイルを消す
+									Map::map_[row][column] = TILE_NOTHING;
+
+									break;
+
+
+								case TILE_PLASTIC:
+									// プラスチック
+
+									for (int i = 0; i < kBlockNum; i++)
+									{
+										if (i < 8)
+										{
+											if (block[i]->id_ == 0)
+											{
+												block[i]->Putting(column, row);
+
+												break;
+											}
+										}
+									}
+
+									// タイルを消す
+									Map::map_[row][column] = TILE_NOTHING;
+
+									break;
+
+								case TILE_CUSHION:
+									// クッション
+
+									for (int i = 0; i < kBlockNum; i++)
+									{
+										if (i >= 8 && i < 16)
+										{
+											if (block[i]->id_ == 0)
+											{
+												block[i]->Putting(column, row);
+
+												break;
+											}
+										}
+									}
+
+									// タイルを消す
+									Map::map_[row][column] = TILE_NOTHING;
+
+									break;
+
+								case TILE_TREASURE:
+									// 宝
+
+									for (int i = 0; i < kBlockNum; i++)
+									{
+										if (i >= 16 && i < 24)
+										{
+											if (block[i]->id_ == 0)
+											{
+												block[i]->Putting(column, row);
+
+												break;
+											}
+										}
+									}
+
+									// タイルを消す
+									Map::map_[row][column] = TILE_NOTHING;
+
+									// 宝の数をカウントする
+									Map::treasureNum++;
+
+									break;
+
+								case TILE_BOMB:
+									// 爆弾
+
+									for (int i = 0; i < kBlockNum; i++)
+									{
+										if (i >= 24 && i < 32)
+										{
+											if (block[i]->id_ == 0)
+											{
+												block[i]->Putting(column, row);
+
+												break;
+											}
+										}
+									}
+
+									// タイルを消す
+									Map::map_[row][column] = TILE_NOTHING;
+
+									break;
+
+								case TILE_GHOST:
+									// 幽霊
+
+									for (int i = 0; i < kEnemyNum; i++)
+									{
+										if (i < 8)
+										{
+											if (enemy[i]->id_ == 0)
+											{
+												enemy[i]->Arrival(column, row);
+
+												break;
+											}
+										}
+									}
+
+									// タイルを消す
+									Map::map_[row][column] = TILE_NOTHING;
+
+									break;
+								}
+							}
+						}
+					}
+
+
+					/*   敗北条件   */
+
+					// プレイヤーがやられたら（復活フラグがfalseになったら）ゲームオーバー
+					if (player->respawn_.isRespawn == false)
+					{
+						Scene::isGameOver_ = true;
+					}
+
+
+					/*   クリア条件   */
+
+					// 残りの宝がなくなったらクリア（クリアフラグがtrueになる）
+					if (Map::treasureNum <= 0)
+					{
+						Scene::isClear_ = true;
+					}
+
+
+					// クリア、またはゲームオーバーになると、ロードが開始される（ロードフラグがtrueになる）
+					if (Scene::isClear_ || Scene::isGameOver_)
+					{
+						if (isLoad == false)
+						{
+							isLoad = true;
+						}
+					}
+				}
+			} 
 			else
 			{
 				// Bgmを止める
@@ -1552,7 +1574,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 					{
 						phADreamOfCat = Novice::PlayAudio(shADreamOfCat, 0, 0.1f);
 					}
-				}
+				} 
 				else if (Scene::isGameOver_)
 				{
 					// ゲームオーバーの（ゲームオーバーフラグがtrueである）ときのBGM
@@ -1563,10 +1585,28 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 					}
 				}
 
-				// スペースキーで、ステージセレクトに戻る
-				if (!preKeys[DIK_SPACE] && keys[DIK_SPACE] || Novice::IsTriggerButton(0, kPadButton10))
+
+				// 420フレームで、ゲーム後の操作ができる
+				if (gameFrame == 420)
+				{
+					// スペースキーで、ロードする（ロードフラグがtrueになる）
+					if (!preKeys[DIK_SPACE] && keys[DIK_SPACE] || Novice::IsTriggerButton(0, kPadButton10))
+					{
+						if (isLoad == false)
+						{
+							isLoad = true;
+						}
+					}
+				}
+			}
+
+			// 450フレームで、初期化され、ステージセレクトに移る
+			if (gameFrame == 450)
+			{
+				if (isLoad)
 				{
 					Scene::sceneNo_ = SCENE_STAGE;
+					gameFrame = 210;
 
 
 					// Bgmを止める
