@@ -410,7 +410,16 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			/*   操作   */
 
 			// `timer_` を増加させる
-			switching->timer_ += 0.01f;
+			if (!preKeys[DIK_SPACE] && keys[DIK_SPACE])
+			{
+				switching->isSizeUp_ = true;
+			}
+
+			if (switching->isSizeUp_ || switching->isTrigger_)
+			{
+				switching->timer_ += 0.01f;
+			}
+
 			if (switching->isSizeUp_)
 			{
 				// 描画
@@ -432,14 +441,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				if (switching->timer_ >= 1.0f)
 				{
 					Scene::sceneNo_ = SCENE_AREA;
+					gameFrame = 180;
 				}
 			}
-
-
-			
-
-
-			
 
 
 			//// 120フレームで、ロードを終了する（ロードフラグをfalseにする）
@@ -1846,6 +1850,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			//デバック表示
 			Novice::ScreenPrintf(0, 0, "TITLE");
 
+			break;
+
+		case SCENE_AREA:
+			Novice::ScreenPrintf(0, 0, "AREA");
 			break;
 
 		case SCENE_STAGE:
