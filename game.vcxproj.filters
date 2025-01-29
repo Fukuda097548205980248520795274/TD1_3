@@ -89,6 +89,15 @@
     <Filter Include="Class\Object\Particle\Cold">
       <UniqueIdentifier>{2309cf5d-a80a-43b5-9a72-7d0a42a0a966}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Class\Texture">
+      <UniqueIdentifier>{574ff928-be54-487d-9336-65de5c91b10e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\Texture\Title">
+      <UniqueIdentifier>{f528f6b0-b8ac-4483-8c0d-beead2674de3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Function\Vector">
+      <UniqueIdentifier>{3984f5cc-7246-45b3-ab90-29a73072fe58}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="C:\KamataEngine\DirectXGame\base\DirectXCommon.cpp">
@@ -181,6 +190,18 @@
     </ClCompile>
     <ClCompile Include="Class\Object\Particle\Cold\Cold.cpp">
       <Filter>Class\Object\Particle\Cold</Filter>
+    </ClCompile>
+    <ClCompile Include="Class\Object\Particle\Debris\Debris.cpp">
+      <Filter>KamataEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="Class\Texture\Texture.cpp">
+      <Filter>Class\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="Class\Texture\Title\Title.cpp">
+      <Filter>Class\Texture\Title</Filter>
+    </ClCompile>
+    <ClCompile Include="Function\Vector\Vector.cpp">
+      <Filter>Function\Vector</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -326,6 +347,16 @@
     </ClInclude>
     <ClInclude Include="Class\Object\Particle\Cold\Cold.h">
       <Filter>Class\Object\Particle\Cold</Filter>
+    </ClInclude>
+    <ClInclude Include="Class\Object\Particle\Debris\Debris.h" />
+    <ClInclude Include="Class\Texture\Texture.h">
+      <Filter>Class\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="Class\Texture\Title\Title.h">
+      <Filter>Class\Texture\Title</Filter>
+    </ClInclude>
+    <ClInclude Include="Function\Vector\Vector.h">
+      <Filter>Function\Vector</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
