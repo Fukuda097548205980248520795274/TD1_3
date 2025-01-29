@@ -13,7 +13,11 @@
 #include "./Class/Object/Particle/Snow/Snow.h"
 #include "./Class/Object/Particle/Water/Water.h"
 #include "./Class/Object/Particle/Debris/Debris.h"
+
 #include "Switching.h"
+#include "./Class/Texture/Texture.h"
+#include "./Class/Texture/Title/Title.h"
+
 
 const char kWindowTitle[] = "LC1C_20_フクダソウワ_ゆきどけ～";
 
@@ -108,6 +112,12 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	{
 		debris[i] = new Debris();
 	}
+
+
+	/*   画像   */
+
+	Texture* texture[kTexutreNum];
+	texture[0] = new Title();
 
 
 	/*  　デバック表示　  */
@@ -368,12 +378,22 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			}
 		}
 
+
+		/*------------------
+		    ゲームシステム
+		------------------*/
+
 		// ロード中にフレームを動かす
 		if (isLoad)
 		{
 			gameFrame++;
 		}
 
+		// 画像
+		for (int i = 0; i < kTexutreNum; i++)
+		{
+			texture[i]->Move(gameFrame);
+		}
 
 		// 画面切り替え
 		switch (Scene::sceneNo_)
@@ -1817,12 +1837,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 		/// ↓描画処理ここから
 		///
 
-		/*-------------------------
-			パーティクルを描画する
-		-------------------------*/
-
-
-
 		// 画面切り替え
 		switch (Scene::sceneNo_)
 		{
@@ -1876,6 +1890,45 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 		case SCENE_GAME:
 			// ゲーム画面
+
+			// エリアごとに曲を変える
+			switch (Scene::areaNo_)
+			{
+			case AREA_STAR_LAND:
+				// スター島
+
+				Novice::DrawBox(0 , 0 , kScreenWidth , kScreenHeight , 0.0f , 0x000044FF , kFillModeSolid);
+
+				break;
+
+			case AREA_REI_LAND:
+				// レイ島
+
+				Novice::DrawBox(0, 0, kScreenWidth, kScreenHeight, 0.0f, 0x000044FF, kFillModeSolid);
+
+				break;
+
+			case AREA_TIKUTAKU_LAND:
+				// チクタク島
+
+				Novice::DrawBox(0, 0, kScreenWidth, kScreenHeight, 0.0f, 0x000044FF, kFillModeSolid);
+
+				break;
+
+			case AREA_HOXTU_LAND:
+				// ホッ島
+
+				Novice::DrawBox(0, 0, kScreenWidth, kScreenHeight, 0.0f, 0x000044FF, kFillModeSolid);
+
+				break;
+
+			case AREA_RAPIXTU_LAND:
+				// ラピッ島
+
+				Novice::DrawBox(0, 0, kScreenWidth, kScreenHeight, 0.0f, 0x000044FF, kFillModeSolid);
+
+				break;
+			}
 
 			// マップ
 			Map::Draw();
@@ -1937,6 +1990,16 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 		}
 
+		// 画像
+		for (int i = 0; i < kTexutreNum; i++)
+		{
+			texture[i]->Draw(gameFrame);
+		}
+
+
+		/*-------------------------
+			パーティクルを描画する
+		-------------------------*/
 
 		// 雪
 		for (int i = 0; i < kSnowNum; i++)
@@ -2062,6 +2125,13 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	for (int i = 0; i < kParticleDebris; i++)
 	{
 		delete debris[i];
+	}
+
+
+	// 画像
+	for (int i = 0; i < kTexutreNum; i++)
+	{
+		delete texture[i];
 	}
 
 
