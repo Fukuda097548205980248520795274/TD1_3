@@ -1854,6 +1854,45 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 		case SCENE_GAME:
 			// ゲーム画面
 
+			// エリアごとに曲を変える
+			switch (Scene::areaNo_)
+			{
+			case AREA_STAR_LAND:
+				// スター島
+
+				Novice::DrawBox(0 , 0 , kScreenWidth , kScreenHeight , 0.0f , 0x000044FF , kFillModeSolid);
+
+				break;
+
+			case AREA_REI_LAND:
+				// レイ島
+
+				Novice::DrawBox(0, 0, kScreenWidth, kScreenHeight, 0.0f, 0x000044FF, kFillModeSolid);
+
+				break;
+
+			case AREA_TIKUTAKU_LAND:
+				// チクタク島
+
+				Novice::DrawBox(0, 0, kScreenWidth, kScreenHeight, 0.0f, 0x000044FF, kFillModeSolid);
+
+				break;
+
+			case AREA_HOXTU_LAND:
+				// ホッ島
+
+				Novice::DrawBox(0, 0, kScreenWidth, kScreenHeight, 0.0f, 0x000044FF, kFillModeSolid);
+
+				break;
+
+			case AREA_RAPIXTU_LAND:
+				// ラピッ島
+
+				Novice::DrawBox(0, 0, kScreenWidth, kScreenHeight, 0.0f, 0x000044FF, kFillModeSolid);
+
+				break;
+			}
+
 			// マップ
 			Map::Draw();
 
