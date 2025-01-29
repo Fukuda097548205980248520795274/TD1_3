@@ -13,7 +13,7 @@
 #include "./Class/Object/Particle/Snow/Snow.h"
 #include "./Class/Object/Particle/Water/Water.h"
 #include "./Class/Object/Particle/Debris/Debris.h"
-
+#include "Switching.h"
 
 const char kWindowTitle[] = "LC1C_20_フクダソウワ_ゆきどけ～";
 
@@ -47,6 +47,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 	// プレイヤー
 	Player* player = new Player();
+
+	Switching* switching = new Switching;
 
 	// 敵
 	Enemy* enemy[kEnemyNum];
@@ -387,35 +389,68 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 			/*   操作   */
 
-			// 120フレームで、ロードを終了する（ロードフラグをfalseにする）
-			if (gameFrame == 120)
+			// `timer_` を増加させる
+			switching->timer_ += 0.01f;
+			if (switching->isSizeUp_)
 			{
-				if (isLoad)
-				{
-					isLoad = false;
-				}
+				// 描画
+				switching->DrawEasingTriangle(switching->TrianglePos_, 30, switching->timer_);
 			}
-
-			// 120フレームで、スペースキーを押すと、ロードする（ロードフラグがtrueになる）
-			if (!preKeys[DIK_SPACE] && keys[DIK_SPACE])
+			if (switching->timer_ > 1.0f && switching->isSizeUp_)
 			{
-				if (gameFrame == 120)
-				{
-					if (isLoad == false)
-					{
-						isLoad = true;
-					}
-				}
+				switching->isTrigger_ = true;
+				switching->timer_ = 0.0f;
+				switching->isSizeUp_ = false;
 			}
-
-			// 150フレームで、エリアセレクト画面に移る
-			if (gameFrame == 150)
+			
+			if (switching->isTrigger_)
 			{
-				if (isLoad)
+				// `Easing` の結果を `TrianglePos_` に適用
+				switching->TrianglePos_ = switching->Easing(switching->TrianglePos_, { 1200, 384 }, switching->timer_);
+
+				// `t` が 1.0f になったらシーン切り替え
+				if (switching->timer_ >= 1.0f)
 				{
 					Scene::sceneNo_ = SCENE_AREA;
 				}
 			}
+
+
+			
+
+
+			
+
+
+			//// 120フレームで、ロードを終了する（ロードフラグをfalseにする）
+			//if (gameFrame == 120)
+			//{
+			//	if (isLoad)
+			//	{
+			//		isLoad = false;
+			//	}
+			//}
+
+			//// 120フレームで、スペースキーを押すと、ロードする（ロードフラグがtrueになる）
+			//if (!preKeys[DIK_SPACE] && keys[DIK_SPACE])
+			//{
+			//	if (gameFrame == 120)
+			//	{
+			//		if (isLoad == false)
+			//		{
+			//			isLoad = true;
+			//		}
+			//	}
+			//}
+
+			//// 150フレームで、エリアセレクト画面に移る
+			//if (gameFrame == 150)
+			//{
+			//	if (isLoad)
+			//	{
+			//		Scene::sceneNo_ = SCENE_AREA;
+			//	}
+			//}
 
 
 			break;
