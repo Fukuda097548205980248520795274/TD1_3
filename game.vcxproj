@@ -143,6 +143,8 @@ xcopy C:\KamataEngine\DirectXGame\Resources "$(OutDirFullPath)NoviceResources" /
     <ClCompile Include="Function\Matrix\Matrix.cpp" />
     <ClCompile Include="Function\Vector\Vector.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Switching.cpp" />
+    <ClCompile Include="Triangle.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Class\Object\CarryBlock\Bomb\Bomb.h" />
@@ -202,6 +204,8 @@ xcopy C:\KamataEngine\DirectXGame\Resources "$(OutDirFullPath)NoviceResources" /
     <ClInclude Include="Function\Matrix\Matrix.h" />
     <ClInclude Include="Function\Vector\Vector.h" />
     <ClInclude Include="Structure.h" />
+    <ClInclude Include="Switching.h" />
+    <ClInclude Include="Triangle.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
