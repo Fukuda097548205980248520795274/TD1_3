@@ -138,7 +138,10 @@ xcopy C:\KamataEngine\DirectXGame\Resources "$(OutDirFullPath)NoviceResources" /
     <ClCompile Include="Class\Object\Particle\Water\Water.cpp" />
     <ClCompile Include="Class\Object\Player\Player.cpp" />
     <ClCompile Include="Class\Scene\Scene.cpp" />
+    <ClCompile Include="Class\Texture\Texture.cpp" />
+    <ClCompile Include="Class\Texture\Title\Title.cpp" />
     <ClCompile Include="Function\Matrix\Matrix.cpp" />
+    <ClCompile Include="Function\Vector\Vector.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -192,9 +195,12 @@ xcopy C:\KamataEngine\DirectXGame\Resources "$(OutDirFullPath)NoviceResources" /
     <ClInclude Include="Class\Object\Particle\Water\Water.h" />
     <ClInclude Include="Class\Object\Player\Player.h" />
     <ClInclude Include="Class\Scene\Scene.h" />
+    <ClInclude Include="Class\Texture\Texture.h" />
+    <ClInclude Include="Class\Texture\Title\Title.h" />
     <ClInclude Include="Constant.h" />
     <ClInclude Include="Enumeration.h" />
     <ClInclude Include="Function\Matrix\Matrix.h" />
+    <ClInclude Include="Function\Vector\Vector.h" />
     <ClInclude Include="Structure.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -13,6 +13,8 @@
 #include "./Class/Object/Particle/Snow/Snow.h"
 #include "./Class/Object/Particle/Water/Water.h"
 #include "./Class/Object/Particle/Debris/Debris.h"
+#include "./Class/Texture/Texture.h"
+#include "./Class/Texture/Title/Title.h"
 
 
 const char kWindowTitle[] = "LC1C_20_フクダソウワ_ゆきどけ～";
@@ -106,6 +108,12 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	{
 		debris[i] = new Debris();
 	}
+
+
+	/*   画像   */
+
+	Texture* texture[kTexutreNum];
+	texture[0] = new Title();
 
 
 	/*  　デバック表示　  */
@@ -366,12 +374,22 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			}
 		}
 
+
+		/*------------------
+		    ゲームシステム
+		------------------*/
+
 		// ロード中にフレームを動かす
 		if (isLoad)
 		{
 			gameFrame++;
 		}
 
+		// 画像
+		for (int i = 0; i < kTexutreNum; i++)
+		{
+			texture[i]->Move(gameFrame);
+		}
 
 		// 画面切り替え
 		switch (Scene::sceneNo_)
@@ -1782,12 +1800,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 		/// ↓描画処理ここから
 		///
 
-		/*-------------------------
-			パーティクルを描画する
-		-------------------------*/
-
-
-
 		// 画面切り替え
 		switch (Scene::sceneNo_)
 		{
@@ -1902,6 +1914,16 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 		}
 
+		// 画像
+		for (int i = 0; i < kTexutreNum; i++)
+		{
+			texture[i]->Draw(gameFrame);
+		}
+
+
+		/*-------------------------
+			パーティクルを描画する
+		-------------------------*/
 
 		// 雪
 		for (int i = 0; i < kSnowNum; i++)
@@ -2027,6 +2049,13 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	for (int i = 0; i < kParticleDebris; i++)
 	{
 		delete debris[i];
+	}
+
+
+	// 画像
+	for (int i = 0; i < kTexutreNum; i++)
+	{
+		delete texture[i];
 	}
 
 
