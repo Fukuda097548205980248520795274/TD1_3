@@ -17,6 +17,7 @@
 #include "Switching.h"
 #include "./Class/Texture/Texture.h"
 #include "./Class/Texture/Title/Title.h"
+#include "./Class/Texture/Transition/Transition.h"
 
 
 const char kWindowTitle[] = "LC1C_20_フクダソウワ_ゆきどけ～";
@@ -118,6 +119,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 	Texture* texture[kTexutreNum];
 	texture[0] = new Title();
+	texture[1] = new Transition();
 
 
 	/*  　デバック表示　  */
@@ -409,72 +411,72 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 			/*   操作   */
 
-			// `timer_` を増加させる
-			if (!preKeys[DIK_SPACE] && keys[DIK_SPACE])
-			{
-				switching->isSizeUp_ = true;
-			}
+			//// `timer_` を増加させる
+			//if (!preKeys[DIK_SPACE] && keys[DIK_SPACE])
+			//{
+			//	switching->isSizeUp_ = true;
+			//}
+			//
+			//if (switching->isSizeUp_ || switching->isTrigger_)
+			//{
+			//	switching->timer_ += 0.01f;
+			//}
+			//
+			//if (switching->isSizeUp_)
+			//{
+			//	// 描画
+			//	switching->DrawEasingTriangle(switching->TrianglePos_, 30, switching->timer_);
+			//}
+			//if (switching->timer_ > 1.0f && switching->isSizeUp_)
+			//{
+			//	switching->isTrigger_ = true;
+			//	switching->timer_ = 0.0f;
+			//	switching->isSizeUp_ = false;
+			//}
+			//
+			//if (switching->isTrigger_)
+			//{
+			//	// `Easing` の結果を `TrianglePos_` に適用
+			//	switching->TrianglePos_ = switching->Easing(switching->TrianglePos_, { 1200, 384 }, switching->timer_);
+			//
+			//	// `t` が 1.0f になったらシーン切り替え
+			//	if (switching->timer_ >= 1.0f)
+			//	{
+			//		Scene::sceneNo_ = SCENE_AREA;
+			//		gameFrame = 180;
+			//	}
+			//}
 
-			if (switching->isSizeUp_ || switching->isTrigger_)
-			{
-				switching->timer_ += 0.01f;
-			}
 
-			if (switching->isSizeUp_)
+			// 240フレームで、ロードを終了する（ロードフラグをfalseにする）
+			if (gameFrame == 240)
 			{
-				// 描画
-				switching->DrawEasingTriangle(switching->TrianglePos_, 30, switching->timer_);
-			}
-			if (switching->timer_ > 1.0f && switching->isSizeUp_)
-			{
-				switching->isTrigger_ = true;
-				switching->timer_ = 0.0f;
-				switching->isSizeUp_ = false;
-			}
-			
-			if (switching->isTrigger_)
-			{
-				// `Easing` の結果を `TrianglePos_` に適用
-				switching->TrianglePos_ = switching->Easing(switching->TrianglePos_, { 1200, 384 }, switching->timer_);
-
-				// `t` が 1.0f になったらシーン切り替え
-				if (switching->timer_ >= 1.0f)
+				if (isLoad)
 				{
-					Scene::sceneNo_ = SCENE_AREA;
-					gameFrame = 180;
+					isLoad = false;
 				}
 			}
 
+			// 240フレームで、スペースキーを押すと、ロードする（ロードフラグがtrueになる）
+			if (!preKeys[DIK_SPACE] && keys[DIK_SPACE])
+			{
+				if (gameFrame == 240)
+				{
+					if (isLoad == false)
+					{
+						isLoad = true;
+					}
+				}
+			}
 
-			//// 120フレームで、ロードを終了する（ロードフラグをfalseにする）
-			//if (gameFrame == 120)
-			//{
-			//	if (isLoad)
-			//	{
-			//		isLoad = false;
-			//	}
-			//}
-
-			//// 120フレームで、スペースキーを押すと、ロードする（ロードフラグがtrueになる）
-			//if (!preKeys[DIK_SPACE] && keys[DIK_SPACE])
-			//{
-			//	if (gameFrame == 120)
-			//	{
-			//		if (isLoad == false)
-			//		{
-			//			isLoad = true;
-			//		}
-			//	}
-			//}
-
-			//// 150フレームで、エリアセレクト画面に移る
-			//if (gameFrame == 150)
-			//{
-			//	if (isLoad)
-			//	{
-			//		Scene::sceneNo_ = SCENE_AREA;
-			//	}
-			//}
+			// 360フレームで、エリアセレクト画面に移る
+			if (gameFrame == 360)
+			{
+				if (isLoad)
+				{
+					Scene::sceneNo_ = SCENE_AREA;
+				}
+			}
 
 
 			break;
@@ -492,8 +494,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 			/*   操作   */
 
-			// 180フレームで、ロードが終了する（ロードフラグがfalseになる）
-			if (gameFrame == 180)
+			// 420フレームで、ロードが終了する（ロードフラグがfalseになる）
+			if (gameFrame == 420)
 			{
 				if (isLoad)
 				{
@@ -578,10 +580,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				}
 			}
 
-			// 180フレームで、スペースキーを押すと、ロードする（ロードフラグがtrueになる）
+			// 420フレームで、スペースキーを押すと、ロードする（ロードフラグがtrueになる）
 			if (!preKeys[DIK_SPACE] && keys[DIK_SPACE])
 			{
-				if (gameFrame == 180)
+				if (gameFrame == 420)
 				{
 					if (isLoad == false)
 					{
@@ -590,8 +592,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				}
 			}
 
-			// 210フレームで、ステージセレクトに移る
-			if (gameFrame == 210)
+			// 480フレームで、ステージセレクトに移る
+			if (gameFrame == 480)
 			{
 				if (isLoad)
 				{
@@ -745,8 +747,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 			/*   操作   */
 
-			// 240フレームで、ロードが終了する（ロードフラグがfalseになる）
-			if (gameFrame == 240)
+			// 540フレームで、ロードが終了する（ロードフラグがfalseになる）
+			if (gameFrame == 540)
 			{
 				if (isLoad)
 				{
@@ -772,8 +774,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				}
 			}
 
-			// 270フレームで、ブロックを配置し、ゲーム画面に切り替える
-			if (gameFrame == 270)
+			// 600フレームで、ブロックを配置し、ゲーム画面に切り替える
+			if (gameFrame == 600)
 			{
 				// 配置準備ができたら（配置準備フラグがtrueだったら）、ブロックを配置する
 				if (Scene::isPutPreparation_)
@@ -949,8 +951,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			// ゲーム画面
 
 
-			// 360フレームで、ロードを終了し、ゲームを開始する（ロードフラグをfalseにする）
-			if (gameFrame == 360)
+			// 660フレームで、ロードを終了し、ゲームを開始する（ロードフラグをfalseにする）
+			if (gameFrame == 660)
 			{
 				if (isLoad)
 				{
@@ -958,8 +960,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				}
 			}
 
-			// 420フレームで、ロードを終了し、ゲーム後の操作を可能にする（ロードフラグをfalseにする）
-			if (gameFrame == 420)
+			// 720フレームで、ロードを終了し、ゲーム後の操作を可能にする（ロードフラグをfalseにする）
+			if (gameFrame == 720)
 			{
 				if (isLoad)
 				{
@@ -971,8 +973,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			// クリア、ゲームオーバーになるまで（クリア、ゲームオーバーフラグがfalseのときは）、操作できる
 			if (Scene::isClear_ == false && Scene::isGameOver_ == false)
 			{
-				// 360フレームで操作できる
-				if (gameFrame == 360)
+				// 660フレームで操作できる
+				if (gameFrame == 660)
 				{
 					// エリアごとに曲を変える
 					switch (Scene::areaNo_)
@@ -1645,8 +1647,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				}
 
 
-				// 420フレームで、ゲーム後の操作ができる
-				if (gameFrame == 420)
+				// 720フレームで、ゲーム後の操作ができる
+				if (gameFrame == 720)
 				{
 					// スペースキーで、ロードする（ロードフラグがtrueになる）
 					if (!preKeys[DIK_SPACE] && keys[DIK_SPACE] || Novice::IsTriggerButton(0, kPadButton10))
@@ -1659,13 +1661,13 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				}
 			}
 
-			// 450フレームで、初期化され、ステージセレクトに移る
-			if (gameFrame == 450)
+			// 780フレームで、初期化され、ステージセレクトに移る
+			if (gameFrame == 780)
 			{
 				if (isLoad)
 				{
 					Scene::sceneNo_ = SCENE_STAGE;
-					gameFrame = 210;
+					gameFrame = 480;
 
 
 					// Bgmを止める
@@ -2141,6 +2143,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	{
 		delete texture[i];
 	}
+
+	delete switching;
 
 
 	// ライブラリの終了
