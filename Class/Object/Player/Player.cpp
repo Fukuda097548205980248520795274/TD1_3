@@ -1637,8 +1637,8 @@ void Player::Carry(const char* keys, const char* preKeys, CarryBlock* block1, Ca
 					if (block1->shape_.translate.x - block1->shape_.scale.x < block2->shape_.translate.x + block2->shape_.scale.x &&
 						block1->shape_.translate.x - block1->shape_.scale.x > block2->shape_.translate.x - block2->shape_.scale.x)
 					{
-						if (block1->shape_.translate.y + block1->shape_.scale.y - 1.0f > block2->shape_.translate.y - block2->shape_.scale.y &&
-							block1->shape_.translate.y - block1->shape_.scale.y + 1.0f < block2->shape_.translate.y + block2->shape_.scale.y)
+						if (block1->shape_.translate.y + block1->shape_.scale.y - 1.0f > block2->shape_.translate.y - block2->shape_.scale.y + 1.0f &&
+							block1->shape_.translate.y - block1->shape_.scale.y + 1.0f < block2->shape_.translate.y + block2->shape_.scale.y - 1.0f)
 						{
 							block1->vel_.x = 0.0f;
 
