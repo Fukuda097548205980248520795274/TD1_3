@@ -280,9 +280,7 @@ void Player::Operation(const char* keys, const char* preKeys)
 						Map::map_[map_.leftBottom.row][map_.leftBottom.column] = TILE_ROTTED;
 					}
 
-					walk_.isWalk = false;
-
-					vel_.x = 0.0f;
+ 					vel_.x = 0.0f;
 
 					// 押し込み処理
 					shape_.translate.x = static_cast<float>(map_.leftTop.column * kTileSize + kTileSize) + shape_.scale.x;
@@ -709,12 +707,12 @@ void Player::Operation(const char* keys, const char* preKeys)
 			vel_.y += jump_.fallingVel;
 		}
 
-		// マップを一時的に更新する
-		MapUpdate(0.0f, vel_.y);
-
 		// 上に飛んでいるとき
 		if (vel_.y > 0.0f)
 		{
+			// マップを一時的に更新する
+			MapUpdate(0.0f, vel_.y);
+
 			// 飛んだ先に天井があったら、天井にぶつかる
 			if (Map::map_[map_.leftTop.row][map_.leftTop.column] == TILE_GROUND ||
 				Map::map_[map_.rightTop.row][map_.rightTop.column] == TILE_GROUND ||
@@ -753,6 +751,9 @@ void Player::Operation(const char* keys, const char* preKeys)
 		else
 		{
 			// 下に落下しているとき
+
+			// マップを一時的に更新する
+			MapUpdate(0.0f, vel_.y);
 
 			// 着地したときの効果音
 			int shLanding = Novice::LoadAudio("./Resources/Sounds/Se/playerLanding.mp3");
@@ -975,6 +976,10 @@ void Player::Operation(const char* keys, const char* preKeys)
 			}
 		}
 	}
+
+	// 動かす
+	shape_.translate.y += vel_.y;
+	LocalToScreen();
 
 
 	/*   ステージドア   */
@@ -1322,10 +1327,6 @@ void Player::Operation(const char* keys, const char* preKeys)
 		}
 	}
 
-	// 動かす
-	shape_.translate.y += vel_.y;
-	LocalToScreen();
-
 
 	/*   フレーム   */
 
@@ -1636,8 +1637,8 @@ void Player::Carry(const char* keys, const char* preKeys, CarryBlock* block1, Ca
 					if (block1->shape_.translate.x - block1->shape_.scale.x < block2->shape_.translate.x + block2->shape_.scale.x &&
 						block1->shape_.translate.x - block1->shape_.scale.x > block2->shape_.translate.x - block2->shape_.scale.x)
 					{
-						if (block1->shape_.translate.y + block1->shape_.scale.y > block2->shape_.translate.y - block2->shape_.scale.y &&
-							block1->shape_.translate.y - block1->shape_.scale.y < block2->shape_.translate.y + block2->shape_.scale.y)
+						if (block1->shape_.translate.y + block1->shape_.scale.y - 1.0f > block2->shape_.translate.y - block2->shape_.scale.y &&
+							block1->shape_.translate.y - block1->shape_.scale.y + 1.0f < block2->shape_.translate.y + block2->shape_.scale.y)
 						{
 							block1->vel_.x = 0.0f;
 
@@ -1687,8 +1688,8 @@ void Player::Carry(const char* keys, const char* preKeys, CarryBlock* block1, Ca
 					if (shape_.translate.x + shape_.scale.x > block1->shape_.translate.x - block1->shape_.scale.x &&
 						shape_.translate.x + shape_.scale.x < block1->shape_.translate.x + block1->shape_.scale.x)
 					{
-						if (shape_.translate.y + shape_.scale.y > block1->shape_.translate.y - block1->shape_.scale.y &&
-							shape_.translate.y - shape_.scale.y < block1->shape_.translate.y + block1->shape_.scale.y)
+						if (shape_.translate.y + shape_.scale.y - 1.0f > block1->shape_.translate.y - block1->shape_.scale.y &&
+							shape_.translate.y - shape_.scale.y + 1.0f < block1->shape_.translate.y + block1->shape_.scale.y)
 						{
 							shape_.translate.x = block1->shape_.translate.x - block1->shape_.scale.x - shape_.scale.x;
 							LocalToScreen();
@@ -1704,8 +1705,8 @@ void Player::Carry(const char* keys, const char* preKeys, CarryBlock* block1, Ca
 					if (shape_.translate.x - shape_.scale.x < block1->shape_.translate.x + block1->shape_.scale.x &&
 						shape_.translate.x - shape_.scale.x > block1->shape_.translate.x - block1->shape_.scale.x)
 					{
-						if (shape_.translate.y + shape_.scale.y > block1->shape_.translate.y - block1->shape_.scale.y &&
-							shape_.translate.y - shape_.scale.y < block1->shape_.translate.y + block1->shape_.scale.y)
+						if (shape_.translate.y + shape_.scale.y - 1.0f > block1->shape_.translate.y - block1->shape_.scale.y &&
+							shape_.translate.y - shape_.scale.y + 1.0f < block1->shape_.translate.y + block1->shape_.scale.y)
 						{
 							shape_.translate.x = block1->shape_.translate.x + block1->shape_.scale.x + shape_.scale.x;
 							LocalToScreen();
