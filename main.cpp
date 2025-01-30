@@ -18,6 +18,9 @@
 #include "./Class/Texture/Texture.h"
 #include "./Class/Texture/Title/Title.h"
 #include "./Class/Texture/Transition/Transition.h"
+#include "./Class/Texture/SignboardWaremono/SignboardWaremono.h"
+#include "./Class/Texture/SignboardKonayuki/SignboardKonayuki.h"
+#include "./Class/Texture/SignboardScaffold/SignboardScaffold.h"
 
 
 const char kWindowTitle[] = "LC1C_20_フクダソウワ_ゆきどけ～";
@@ -119,7 +122,11 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 	Texture* texture[kTexutreNum];
 	texture[0] = new Title();
-	texture[1] = new Transition();
+	texture[1] = new SignboardWaremono();
+	texture[2] = new SignboardKonayuki();
+	texture[3] = new SignboardScaffold();
+	texture[4] = new Transition();
+
 
 
 	/*  　デバック表示　  */
@@ -448,6 +455,18 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			//}
 
 
+			// 0 ~ 239フレームで、スペースキーを押すと、スキップできる
+			if (!preKeys[DIK_SPACE] && keys[DIK_SPACE])
+			{
+				if (gameFrame > 0 && gameFrame < 240)
+				{
+					if (isLoad)
+					{
+						gameFrame = 239;
+					}
+				}
+			}
+
 			// 240フレームで、ロードを終了する（ロードフラグをfalseにする）
 			if (gameFrame == 240)
 			{
@@ -465,6 +484,18 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 					if (isLoad == false)
 					{
 						isLoad = true;
+					}
+				}
+			}
+
+			// 241 ~ 259フレームで、スペースキーを押すと、スキップできる
+			if (!preKeys[DIK_SPACE] && keys[DIK_SPACE])
+			{
+				if (gameFrame > 240 && gameFrame < 360)
+				{
+					if (isLoad)
+					{
+						gameFrame = 359;
 					}
 				}
 			}
@@ -580,20 +611,22 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				}
 			}
 
-			// 420フレームで、スペースキーを押すと、ロードする（ロードフラグがtrueになる）
+			// 420フレームで、スペースキーを押すと、640フレームからロードする（ロードフラグがtrueになる）
 			if (!preKeys[DIK_SPACE] && keys[DIK_SPACE])
 			{
 				if (gameFrame == 420)
 				{
 					if (isLoad == false)
 					{
+						gameFrame = 640;
+
 						isLoad = true;
 					}
 				}
 			}
 
-			// 480フレームで、ステージセレクトに移る
-			if (gameFrame == 480)
+			// 700フレームで、ステージセレクトに移る
+			if (gameFrame == 700)
 			{
 				if (isLoad)
 				{
@@ -747,8 +780,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 			/*   操作   */
 
-			// 540フレームで、ロードが終了する（ロードフラグがfalseになる）
-			if (gameFrame == 540)
+			// 760フレームで、ロードが終了する（ロードフラグがfalseになる）
+			if (gameFrame == 760)
 			{
 				if (isLoad)
 				{
@@ -774,8 +807,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				}
 			}
 
-			// 600フレームで、ブロックを配置し、ゲーム画面に切り替える
-			if (gameFrame == 600)
+			// 820フレームで、ブロックを配置し、ゲーム画面に切り替える
+			if (gameFrame == 820)
 			{
 				// 配置準備ができたら（配置準備フラグがtrueだったら）、ブロックを配置する
 				if (Scene::isPutPreparation_)
@@ -940,7 +973,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				{
 					isActive = false;
 				}
-
 			}
 
 			break;
@@ -951,8 +983,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			// ゲーム画面
 
 
-			// 660フレームで、ロードを終了し、ゲームを開始する（ロードフラグをfalseにする）
-			if (gameFrame == 660)
+			// 880フレームで、ロードを終了し、ゲームを開始する（ロードフラグをfalseにする）
+			if (gameFrame == 880)
 			{
 				if (isLoad)
 				{
@@ -960,8 +992,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				}
 			}
 
-			// 720フレームで、ロードを終了し、ゲーム後の操作を可能にする（ロードフラグをfalseにする）
-			if (gameFrame == 720)
+			// 940フレームで、ロードを終了し、ゲーム後の操作を可能にする（ロードフラグをfalseにする）
+			if (gameFrame == 940)
 			{
 				if (isLoad)
 				{
@@ -973,8 +1005,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			// クリア、ゲームオーバーになるまで（クリア、ゲームオーバーフラグがfalseのときは）、操作できる
 			if (Scene::isClear_ == false && Scene::isGameOver_ == false)
 			{
-				// 660フレームで操作できる
-				if (gameFrame == 660)
+				// 880フレームで操作できる
+				if (gameFrame == 880)
 				{
 					// エリアごとに曲を変える
 					switch (Scene::areaNo_)
@@ -1647,8 +1679,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				}
 
 
-				// 720フレームで、ゲーム後の操作ができる
-				if (gameFrame == 720)
+				// 940フレームで、ゲーム後の操作ができる
+				if (gameFrame == 940)
 				{
 					// スペースキーで、ロードする（ロードフラグがtrueになる）
 					if (!preKeys[DIK_SPACE] && keys[DIK_SPACE] || Novice::IsTriggerButton(0, kPadButton10))
@@ -1661,13 +1693,13 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				}
 			}
 
-			// 780フレームで、初期化され、ステージセレクトに移る
-			if (gameFrame == 780)
+			// 1000フレームで、初期化され、ステージセレクトに移る
+			if (gameFrame == 1000)
 			{
 				if (isLoad)
 				{
 					Scene::sceneNo_ = SCENE_STAGE;
-					gameFrame = 480;
+					gameFrame = 700;
 
 
 					// Bgmを止める
@@ -1852,6 +1884,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			//デバック表示
 			Novice::ScreenPrintf(0, 0, "TITLE");
 
+			texture[0]->Draw(gameFrame);
+
 			break;
 
 		case SCENE_AREA:
@@ -1940,6 +1974,11 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				break;
 			}
 
+			// 看板
+			texture[1]->Draw(gameFrame);
+			texture[2]->Draw(gameFrame);
+			texture[3]->Draw(gameFrame);
+
 			// マップ
 			Map::Draw();
 
@@ -2000,11 +2039,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 		}
 
-		// 画像
-		for (int i = 0; i < kTexutreNum; i++)
-		{
-			texture[i]->Draw(gameFrame);
-		}
+		texture[kTexutreNum - 1]->Draw(gameFrame);
 
 
 		/*-------------------------
