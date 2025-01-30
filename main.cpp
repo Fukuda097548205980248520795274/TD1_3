@@ -389,7 +389,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 
 		/*------------------
-		    ゲームシステム
+			ゲームシステム
 		------------------*/
 
 		// ロード中にフレームを動かす
@@ -1647,7 +1647,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 						}
 					}
 				}
-			} 
+			}
 			else
 			{
 				// Bgmを止める
@@ -1667,7 +1667,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 					{
 						phADreamOfCat = Novice::PlayAudio(shADreamOfCat, 0, 0.1f);
 					}
-				} 
+				}
 				else if (Scene::isGameOver_)
 				{
 					// ゲームオーバーの（ゲームオーバーフラグがtrueである）ときのBGM
@@ -1890,6 +1890,30 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 		case SCENE_AREA:
 			Novice::ScreenPrintf(0, 0, "AREA");
+
+			Novice::ScreenPrintf(8, 20, "STAGE_AREA:");
+
+			if (Scene::areaNo_ == AREA_STAR_LAND)
+			{
+				Novice::ScreenPrintf(108, 20, "AREA1");
+			}
+			else if (Scene::areaNo_ == AREA_REI_LAND)
+			{
+				Novice::ScreenPrintf(108, 20, "AREA2");
+			}
+			else if (Scene::areaNo_ == AREA_TIKUTAKU_LAND)
+			{
+				Novice::ScreenPrintf(108, 20, "AREA3");
+			}
+			else if (Scene::areaNo_ == AREA_HOXTU_LAND)
+			{
+				Novice::ScreenPrintf(108, 20, "AREA4");
+			}
+			else if (Scene::areaNo_ == AREA_RAPIXTU_LAND)
+			{
+				Novice::ScreenPrintf(108, 20, "AREA5");
+			}
+
 			break;
 
 		case SCENE_STAGE:
@@ -1941,7 +1965,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			case AREA_STAR_LAND:
 				// スター島
 
-				Novice::DrawBox(0 , 0 , kScreenWidth , kScreenHeight , 0.0f , 0x000044FF , kFillModeSolid);
+				Novice::DrawBox(0, 0, kScreenWidth, kScreenHeight, 0.0f, 0x000044FF, kFillModeSolid);
 
 				break;
 
@@ -2007,7 +2031,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			/*   クリア画面   */
 			if (Scene::isClear_)
 			{
-				Novice::ScreenPrintf(600, 350, "GAMECLEAR"); 
+				Novice::ScreenPrintf(600, 350, "GAMECLEAR");
 				Novice::ScreenPrintf(580, 390, "Spase to push");
 			}
 
@@ -2032,6 +2056,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				Novice::ScreenPrintf(8, 88, "JUMP:  J          |      A    ");
 				Novice::ScreenPrintf(8, 108, "Ladder: W         | LeftStick(up)");
 				Novice::ScreenPrintf(8, 128, "CarryBlock:SPASE  |     R2    ");
+				Novice::ScreenPrintf(8, 148, "player.pos.x:%d",);
+				Novice::ScreenPrintf(8, 168, "CarryBlock:SPASE  |     R2    ");
 			}
 
 
