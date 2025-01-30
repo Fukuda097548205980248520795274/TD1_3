@@ -456,7 +456,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 
 			// 0 ~ 239フレームで、スペースキーを押すと、スキップできる
-			if (!preKeys[DIK_SPACE] && keys[DIK_SPACE])
+			if (!preKeys[DIK_SPACE] && keys[DIK_SPACE] || Novice::IsTriggerButton(0, kPadButton10))
 			{
 				if (gameFrame > 0 && gameFrame < 240)
 				{
@@ -477,7 +477,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			}
 
 			// 240フレームで、スペースキーを押すと、ロードする（ロードフラグがtrueになる）
-			if (!preKeys[DIK_SPACE] && keys[DIK_SPACE])
+			if (!preKeys[DIK_SPACE] && keys[DIK_SPACE] || Novice::IsTriggerButton(0, kPadButton10))
 			{
 				if (gameFrame == 240)
 				{
@@ -489,7 +489,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			}
 
 			// 241 ~ 259フレームで、スペースキーを押すと、スキップできる
-			if (!preKeys[DIK_SPACE] && keys[DIK_SPACE])
+			if (!preKeys[DIK_SPACE] && keys[DIK_SPACE] || Novice::IsTriggerButton(0, kPadButton10))
 			{
 				if (gameFrame > 240 && gameFrame < 360)
 				{
@@ -612,7 +612,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			}
 
 			// 420フレームで、スペースキーを押すと、640フレームからロードする（ロードフラグがtrueになる）
-			if (!preKeys[DIK_SPACE] && keys[DIK_SPACE])
+			if (!preKeys[DIK_SPACE] && keys[DIK_SPACE] || Novice::IsTriggerButton(0, kPadButton10))
 			{
 				if (gameFrame == 420)
 				{
