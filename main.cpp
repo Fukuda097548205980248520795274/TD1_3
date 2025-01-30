@@ -1151,6 +1151,11 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 						block[i]->isUnderRide_ = false;
 					}
 
+					for (int i = 0; i < kEnemyNum; i++)
+					{
+						enemy[i]->isRide_ = false;
+					}
+
 
 					/*   当たり判定   */
 
