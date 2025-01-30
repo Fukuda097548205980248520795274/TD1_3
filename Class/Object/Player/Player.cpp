@@ -1397,8 +1397,8 @@ void Player::BlockLanding(CarryBlock* block)
 				shape_.translate.x - shape_.scale.x < block->shape_.translate.x + block->shape_.scale.x)
 			{
 				// 進む直前
-				if (shape_.translate.y - 1.0f + shape_.scale.y > block->shape_.translate.y - block->shape_.scale.y ||
-					shape_.translate.y - 1.0f + shape_.scale.y < block->shape_.translate.y + block->shape_.scale.y)
+				if (shape_.translate.y - 1.0f + shape_.scale.y < block->shape_.translate.y - block->shape_.scale.y ||
+					shape_.translate.y - 1.0f + shape_.scale.y > block->shape_.translate.y + block->shape_.scale.y)
 				{
 					// 押し込み処理
 					shape_.translate.y = block->shape_.translate.y - block->shape_.scale.y - shape_.scale.y;

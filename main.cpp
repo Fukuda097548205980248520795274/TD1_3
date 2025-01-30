@@ -77,18 +77,15 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 		if (i < 8)
 		{
 			block[i] = new Plastic();
-		}
-		else if (i < 16)
+		} else if (i < 16)
 		{
 			// クッション
 			block[i] = new Cushion();
-		}
-		else if (i < 24)
+		} else if (i < 24)
 		{
 			// 宝
 			block[i] = new Treasure();
-		}
-		else if (i < 32)
+		} else if (i < 32)
 		{
 			// 凍った敵
 			block[i] = new Bomb();
@@ -133,6 +130,15 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	int isActive = true;
 
 
+	/*--------
+	    SE
+	--------*/
+
+	// 鈴の音
+	int shBell = Novice::LoadAudio("./Resources/Sounds/Se/bell.mp3");
+	int shBell2 = Novice::LoadAudio("./Resources/Sounds/Se/bell2.mp3");
+
+
 	/*-----------
 		BGM
 	----------*/
@@ -173,6 +179,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	int shBard = Novice::LoadAudio("./Resources/Sounds/Bgm/bard1.mp3");
 	int phBard = -1;
 
+	// 風
+	int shWind = Novice::LoadAudio("./Resources/Sounds/Bgm/wind.mp3");
+	int phWind = -1;
+
 
 	// ウィンドウの×ボタンが押されるまでループ
 	while (Novice::ProcessMessage() == 0)
@@ -189,6 +199,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 		/// ↓更新処理ここから
 		/// 
 
+		// 鳥の鳴き声
 		if (!Novice::IsPlayingAudio(phBard) || phBard == -1)
 		{
 			if (rand() % 2 == 0)
@@ -201,6 +212,12 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			}
 
 			phBard = Novice::PlayAudio(shBard, 0, 0.3f);
+		}
+
+		// 風
+		if (!Novice::IsPlayingAudio(phWind) || phWind == -1)
+		{
+			phWind = Novice::PlayAudio(shWind, 0, 0.02f);
 		}
 
 
@@ -484,6 +501,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 					if (isLoad == false)
 					{
 						isLoad = true;
+
+						// 鈴の音
+						Novice::PlayAudio(shBell2 , 0 , 0.3f);
 					}
 				}
 			}
@@ -956,7 +976,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 					Novice::StopAudio(phLostMemories);
 
 					// 鈴を鳴らす
-					int shBell = Novice::LoadAudio("./Resources/Sounds/Se/bell.mp3");
 					Novice::PlayAudio(shBell, 0, 0.5f);
 				}
 			}
