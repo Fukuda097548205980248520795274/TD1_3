@@ -109,6 +109,15 @@
     <ClCompile Include="Class\Texture\Transition\Transition.cpp">
       <Filter>Class\Texture\Transition</Filter>
     </ClCompile>
+    <ClCompile Include="Class\Texture\SignboardWaremono\SignboardWaremono.cpp">
+      <Filter>Class\Texture\SignboardWaremono</Filter>
+    </ClCompile>
+    <ClCompile Include="Class\Texture\SignboardKonayuki\SignboardKonayuki.cpp">
+      <Filter>Class\Texture\SignboardKonayuki</Filter>
+    </ClCompile>
+    <ClCompile Include="Class\Texture\SignboardScaffold\SignboardScaffold.cpp">
+      <Filter>Class\Texture\SignboardScaffold</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Constant.h" />
@@ -281,6 +290,15 @@
     <ClInclude Include="Class\Texture\Transition\Transition.h">
       <Filter>Class\Texture\Transition</Filter>
     </ClInclude>
+    <ClInclude Include="Class\Texture\SignboardWaremono\SignboardWaremono.h">
+      <Filter>Class\Texture\SignboardWaremono</Filter>
+    </ClInclude>
+    <ClInclude Include="Class\Texture\SignboardKonayuki\SignboardKonayuki.h">
+      <Filter>Class\Texture\SignboardKonayuki</Filter>
+    </ClInclude>
+    <ClInclude Include="Class\Texture\SignboardScaffold\SignboardScaffold.h">
+      <Filter>Class\Texture\SignboardScaffold</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Class">
@@ -375,6 +393,15 @@
     </Filter>
     <Filter Include="Class\Texture\Transition">
       <UniqueIdentifier>{e19b8db0-fe0c-43ea-a626-d2c0fe744370}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\Texture\SignboardWaremono">
+      <UniqueIdentifier>{d9c862a3-1c71-45de-bede-2eff4009077f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\Texture\SignboardKonayuki">
+      <UniqueIdentifier>{0447b2c6-e3c6-4f85-a122-e035aa1e4068}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\Texture\SignboardScaffold">
+      <UniqueIdentifier>{ea8ed47a-51de-4d34-b22d-2738c4dd6132}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
