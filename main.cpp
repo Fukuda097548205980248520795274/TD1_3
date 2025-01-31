@@ -1098,7 +1098,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 					}
 
-
 					/*   敵   */
 
 					// 敵を動かす
@@ -1928,11 +1927,13 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 			if (isActive)
 			{
-				Novice::ScreenPrintf(8, 48, "device:keyboard | controller");
-				Novice::ScreenPrintf(8, 68, "Move:  AD       |  leftStick");
-				Novice::ScreenPrintf(8, 88, "JUMP:  J        |      A    ");
-				Novice::ScreenPrintf(8, 108, "Ladder: W       | leftStick(up)");
-				Novice::ScreenPrintf(8, 128, "Interact:SPASE  | leftStick(up)");
+				Novice::ScreenPrintf(8, 48, "device:keyboard   | Controller");
+				Novice::ScreenPrintf(8, 68, "Move:  AD         | LeftStick");
+				Novice::ScreenPrintf(8, 88, "JUMP:  J          |      A    ");
+				Novice::ScreenPrintf(8, 108, "Ladder: W         | LeftStick(up)");
+				Novice::ScreenPrintf(8, 128, "CarryBlock:SPASE  |     R2    ");
+				Novice::ScreenPrintf(1180, 8, "player.pos.x:%d", static_cast<int>(player->shape_.translate.x));
+				Novice::ScreenPrintf(1180, 28, "player.pos.y:%d", static_cast<int>(player->shape_.translate.y));
 			}
 
 			break;
@@ -2037,6 +2038,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				Novice::ScreenPrintf(8, 88, "JUMP:  J          |      A    ");
 				Novice::ScreenPrintf(8, 108, "Ladder: W         | LeftStick(up)");
 				Novice::ScreenPrintf(8, 128, "CarryBlock:SPASE  |     R2    ");
+				Novice::ScreenPrintf(1180, 8, "player.pos.x:%d",static_cast<int>(player->shape_.translate.x));
+				Novice::ScreenPrintf(1180, 28, "player.pos.y:%d", static_cast<int>(player->shape_.translate.y));
 			}
 
 

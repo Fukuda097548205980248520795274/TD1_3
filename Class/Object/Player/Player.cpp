@@ -213,17 +213,17 @@ void Player::Operation(const char* keys, const char* preKeys)
 
 						vel_.x = 4.0f * slopeVec.x;
 						slopeVelY = 4.0f * slopeVec.y;
-					} 
+					}
 					else
 					{
 						vel_.x = -4.0f;
 					}
-				} 
+				}
 				else
 				{
 					vel_.x = -4.0f;
 				}
-			} 
+			}
 			else
 			{
 				// ジャンプ中（ジャンプフラグがtrueであるとき）は、通常移動
@@ -317,7 +317,7 @@ void Player::Operation(const char* keys, const char* preKeys)
 
 						vel_.x = 4.0f * slopeVec.x;
 						slopeVelY = 4.0f * slopeVec.y;
-					} 
+					}
 					else if (Map::map_[map_.rightBottom.row][map_.rightBottom.column] == TILE_SLOPE_RIGHT_BOTTOM ||
 						Map::map_[map_.rightBottom.row][map_.rightBottom.column] == TILE_SLOPE_RIGHT_TOP)
 					{
@@ -327,7 +327,7 @@ void Player::Operation(const char* keys, const char* preKeys)
 
 						vel_.x = 4.0f * slopeVec.x;
 						slopeVelY = 4.0f * slopeVec.y;
-					} 
+					}
 					else
 					{
 						vel_.x = 4.0f;
@@ -1322,6 +1322,14 @@ void Player::Operation(const char* keys, const char* preKeys)
 		}
 	}
 
+	/*   奈落に落ちた時の処理   */
+
+	if ( shape_.translate.y <= -40)
+	{
+		//奈落に落ちたら、フラグをfalseにする
+		respawn_.isRespawn = false;
+	}
+
 	// 動かす
 	shape_.translate.y += vel_.y;
 	LocalToScreen();
@@ -1965,295 +1973,352 @@ void Player::Draw()
 	ghplayerCarry[8] = Novice::LoadTexture("./Resources/Images/Player/Carry/player_Carry9.png");
 	ghplayerCarry[9] = Novice::LoadTexture("./Resources/Images/Player/Carry/player_Carry10.png");
 
+	int ghPlayerLadderClimd[2];
+	ghPlayerLadderClimd[0] = Novice::LoadTexture("./Resources/Images/Player/ladder/player_ladder1.png");
+	ghPlayerLadderClimd[1] = Novice::LoadTexture("./Resources/Images/Player/ladder/player_ladder2.png");
+
 	if (!walk_.isWalk)
 	{
-		//待機中
-		if (directionNo == DIRECTION_RIGHT)
+		if (!isLadderClimd_)
 		{
-			Novice::DrawSprite
-			(static_cast<int>(pos_.screen.leftTop.x - 16.0f), static_cast<int>(pos_.screen.leftTop.y - 24.0f),
-				ghplayer, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF
-			);
-		}
-		else if (directionNo == DIRECTION_LEFT)
-		{
-			Novice::DrawSprite
-			(static_cast<int>(pos_.screen.rightTop.x + 16.0f), static_cast<int>(pos_.screen.rightTop.y - 24.0f),
-				ghplayer, -1.0f, 1.0f, 0.0f, 0xFFFFFFFF
-			);
-		}
-	}
-	else
-	{
-		if (!carry_.isCarry)
-		{
-			//歩きモーション
+			//待機中
 			if (directionNo == DIRECTION_RIGHT)
 			{
-				if (walk_.frame <= 6)
-				{
-					Novice::DrawSprite
-					(static_cast<int>(pos_.screen.leftTop.x - 16.0f), static_cast<int>(pos_.screen.leftTop.y - 24.0f),
-						ghPlayerWalk[0], 1.0f, 1.0f, 0.0f, 0xFFFFFFFF
-					);
-				} else if (walk_.frame <= 12)
-				{
-					Novice::DrawSprite
-					(static_cast<int>(pos_.screen.leftTop.x - 16.0f), static_cast<int>(pos_.screen.leftTop.y - 24.0f),
-						ghPlayerWalk[1], 1.0f, 1.0f, 0.0f, 0xFFFFFFFF
-					);
-				} else if (walk_.frame <= 18)
-				{
-					Novice::DrawSprite
-					(static_cast<int>(pos_.screen.leftTop.x - 16.0f), static_cast<int>(pos_.screen.leftTop.y - 24.0f),
-						ghPlayerWalk[2], 1.0f, 1.0f, 0.0f, 0xFFFFFFFF
-					);
-				} else if (walk_.frame <= 24)
-				{
-					Novice::DrawSprite
-					(static_cast<int>(pos_.screen.leftTop.x - 16.0f), static_cast<int>(pos_.screen.leftTop.y - 24.0f),
-						ghPlayerWalk[3], 1.0f, 1.0f, 0.0f, 0xFFFFFFFF
-					);
-				} else if (walk_.frame <= 30)
-				{
-					Novice::DrawSprite
-					(static_cast<int>(pos_.screen.leftTop.x - 16.0f), static_cast<int>(pos_.screen.leftTop.y - 24.0f),
-						ghPlayerWalk[4], 1.0f, 1.0f, 0.0f, 0xFFFFFFFF
-					);
-				} else if (walk_.frame <= 36)
-				{
-					Novice::DrawSprite
-					(static_cast<int>(pos_.screen.leftTop.x - 16.0f), static_cast<int>(pos_.screen.leftTop.y - 24.0f),
-						ghPlayerWalk[5], 1.0f, 1.0f, 0.0f, 0xFFFFFFFF
-					);
-				} else if (walk_.frame <= 42)
-				{
-					Novice::DrawSprite
-					(static_cast<int>(pos_.screen.leftTop.x - 16.0f), static_cast<int>(pos_.screen.leftTop.y - 24.0f),
-						ghPlayerWalk[6], 1.0f, 1.0f, 0.0f, 0xFFFFFFFF
-					);
-				} else if (walk_.frame <= 48)
-				{
-					Novice::DrawSprite
-					(static_cast<int>(pos_.screen.leftTop.x - 16.0f), static_cast<int>(pos_.screen.leftTop.y - 24.0f),
-						ghPlayerWalk[7], 1.0f, 1.0f, 0.0f, 0xFFFFFFFF
-					);
-				} else if (walk_.frame <= 54)
-				{
-					Novice::DrawSprite
-					(static_cast<int>(pos_.screen.leftTop.x - 16.0f), static_cast<int>(pos_.screen.leftTop.y - 24.0f),
-						ghPlayerWalk[8], 1.0f, 1.0f, 0.0f, 0xFFFFFFFF
-					);
-				} else if (walk_.frame <= 60)
-				{
-					Novice::DrawSprite
-					(static_cast<int>(pos_.screen.leftTop.x - 16.0f), static_cast<int>(pos_.screen.leftTop.y - 24.0f),
-						ghPlayerWalk[9], 1.0f, 1.0f, 0.0f, 0xFFFFFFFF
-					);
-				}
+				Novice::DrawSprite
+				(static_cast<int>(pos_.screen.leftTop.x - 16.0f), static_cast<int>(pos_.screen.leftTop.y - 24.0f),
+					ghplayer, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF
+				);
 			}
 			else if (directionNo == DIRECTION_LEFT)
 			{
-				if (walk_.frame <= 6)
+				Novice::DrawSprite
+				(static_cast<int>(pos_.screen.rightTop.x + 16.0f), static_cast<int>(pos_.screen.rightTop.y - 24.0f),
+					ghplayer, -1.0f, 1.0f, 0.0f, 0xFFFFFFFF
+				);
+			}
+		}
+		else
+		{
+			if (walk_.frame <= 30)
+			{
+				Novice::DrawSprite
+				(static_cast<int>(pos_.screen.leftTop.x - 16.0f), static_cast<int>(pos_.screen.leftTop.y - 24.0f),
+					ghPlayerLadderClimd[0], 1.0f, 1.0f, 0.0f, 0xFFFFFFFF
+				);
+			}
+			else if (walk_.frame <= 60)
+			{
+				Novice::DrawSprite
+				(static_cast<int>(pos_.screen.leftTop.x - 16.0f), static_cast<int>(pos_.screen.leftTop.y - 24.0f),
+					ghPlayerLadderClimd[1], 1.0f, 1.0f, 0.0f, 0xFFFFFFFF
+				);
+			}
+		}
+
+	}
+	else
+	{
+		if (!isLadderClimd_)
+		{
+			if (!carry_.isCarry)
+			{
+				//歩きモーション
+				if (directionNo == DIRECTION_RIGHT)
 				{
-					Novice::DrawSprite
-					(static_cast<int>(pos_.screen.rightTop.x + 16.0f), static_cast<int>(pos_.screen.rightTop.y - 24.0f),
-						ghPlayerWalk[0], -1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
+					if (walk_.frame <= 6)
+					{
+						Novice::DrawSprite
+						(static_cast<int>(pos_.screen.leftTop.x - 16.0f), static_cast<int>(pos_.screen.leftTop.y - 24.0f),
+							ghPlayerWalk[0], 1.0f, 1.0f, 0.0f, 0xFFFFFFFF
+						);
+					}
+					else if (walk_.frame <= 12)
+					{
+						Novice::DrawSprite
+						(static_cast<int>(pos_.screen.leftTop.x - 16.0f), static_cast<int>(pos_.screen.leftTop.y - 24.0f),
+							ghPlayerWalk[1], 1.0f, 1.0f, 0.0f, 0xFFFFFFFF
+						);
+					}
+					else if (walk_.frame <= 18)
+					{
+						Novice::DrawSprite
+						(static_cast<int>(pos_.screen.leftTop.x - 16.0f), static_cast<int>(pos_.screen.leftTop.y - 24.0f),
+							ghPlayerWalk[2], 1.0f, 1.0f, 0.0f, 0xFFFFFFFF
+						);
+					}
+					else if (walk_.frame <= 24)
+					{
+						Novice::DrawSprite
+						(static_cast<int>(pos_.screen.leftTop.x - 16.0f), static_cast<int>(pos_.screen.leftTop.y - 24.0f),
+							ghPlayerWalk[3], 1.0f, 1.0f, 0.0f, 0xFFFFFFFF
+						);
+					}
+					else if (walk_.frame <= 30)
+					{
+						Novice::DrawSprite
+						(static_cast<int>(pos_.screen.leftTop.x - 16.0f), static_cast<int>(pos_.screen.leftTop.y - 24.0f),
+							ghPlayerWalk[4], 1.0f, 1.0f, 0.0f, 0xFFFFFFFF
+						);
+					}
+					else if (walk_.frame <= 36)
+					{
+						Novice::DrawSprite
+						(static_cast<int>(pos_.screen.leftTop.x - 16.0f), static_cast<int>(pos_.screen.leftTop.y - 24.0f),
+							ghPlayerWalk[5], 1.0f, 1.0f, 0.0f, 0xFFFFFFFF
+						);
+					}
+					else if (walk_.frame <= 42)
+					{
+						Novice::DrawSprite
+						(static_cast<int>(pos_.screen.leftTop.x - 16.0f), static_cast<int>(pos_.screen.leftTop.y - 24.0f),
+							ghPlayerWalk[6], 1.0f, 1.0f, 0.0f, 0xFFFFFFFF
+						);
+					}
+					else if (walk_.frame <= 48)
+					{
+						Novice::DrawSprite
+						(static_cast<int>(pos_.screen.leftTop.x - 16.0f), static_cast<int>(pos_.screen.leftTop.y - 24.0f),
+							ghPlayerWalk[7], 1.0f, 1.0f, 0.0f, 0xFFFFFFFF
+						);
+					}
+					else if (walk_.frame <= 54)
+					{
+						Novice::DrawSprite
+						(static_cast<int>(pos_.screen.leftTop.x - 16.0f), static_cast<int>(pos_.screen.leftTop.y - 24.0f),
+							ghPlayerWalk[8], 1.0f, 1.0f, 0.0f, 0xFFFFFFFF
+						);
+					}
+					else if (walk_.frame <= 60)
+					{
+						Novice::DrawSprite
+						(static_cast<int>(pos_.screen.leftTop.x - 16.0f), static_cast<int>(pos_.screen.leftTop.y - 24.0f),
+							ghPlayerWalk[9], 1.0f, 1.0f, 0.0f, 0xFFFFFFFF
+						);
+					}
 				}
-				else if (walk_.frame <= 12)
+				else if (directionNo == DIRECTION_LEFT)
 				{
-					Novice::DrawSprite
-					(static_cast<int>(pos_.screen.rightTop.x + 16.0f), static_cast<int>(pos_.screen.rightTop.y - 24.0f),
-						ghPlayerWalk[1], -1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
+					if (walk_.frame <= 6)
+					{
+						Novice::DrawSprite
+						(static_cast<int>(pos_.screen.rightTop.x + 16.0f), static_cast<int>(pos_.screen.rightTop.y - 24.0f),
+							ghPlayerWalk[0], -1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
+					}
+					else if (walk_.frame <= 12)
+					{
+						Novice::DrawSprite
+						(static_cast<int>(pos_.screen.rightTop.x + 16.0f), static_cast<int>(pos_.screen.rightTop.y - 24.0f),
+							ghPlayerWalk[1], -1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
+					}
+					else if (walk_.frame <= 18)
+					{
+						Novice::DrawSprite
+						(static_cast<int>(pos_.screen.rightTop.x + 16.0f), static_cast<int>(pos_.screen.rightTop.y - 24.0f),
+							ghPlayerWalk[2], -1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
+					}
+					else if (walk_.frame <= 24)
+					{
+						Novice::DrawSprite
+						(static_cast<int>(pos_.screen.rightTop.x + 16.0f), static_cast<int>(pos_.screen.rightTop.y - 24.0f),
+							ghPlayerWalk[3], -1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
+					}
+					else if (walk_.frame <= 30)
+					{
+						Novice::DrawSprite
+						(static_cast<int>(pos_.screen.rightTop.x + 16.0f), static_cast<int>(pos_.screen.rightTop.y - 24.0f),
+							ghPlayerWalk[4], -1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
+					}
+					else if (walk_.frame <= 36)
+					{
+						Novice::DrawSprite
+						(static_cast<int>(pos_.screen.rightTop.x + 16.0f), static_cast<int>(pos_.screen.rightTop.y - 24.0f),
+							ghPlayerWalk[5], -1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
+					}
+					else if (walk_.frame <= 42)
+					{
+						Novice::DrawSprite
+						(static_cast<int>(pos_.screen.rightTop.x + 16.0f), static_cast<int>(pos_.screen.rightTop.y - 24.0f),
+							ghPlayerWalk[6], -1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
+					}
+					else if (walk_.frame <= 48)
+					{
+						Novice::DrawSprite
+						(static_cast<int>(pos_.screen.rightTop.x + 16.0f), static_cast<int>(pos_.screen.rightTop.y - 24.0f),
+							ghPlayerWalk[7], -1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
+					}
+					else if (walk_.frame <= 54)
+					{
+						Novice::DrawSprite
+						(static_cast<int>(pos_.screen.rightTop.x + 16.0f), static_cast<int>(pos_.screen.rightTop.y - 24.0f),
+							ghPlayerWalk[8], -1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
+					}
+					else if (walk_.frame <= 60)
+					{
+						Novice::DrawSprite
+						(static_cast<int>(pos_.screen.rightTop.x + 16.0f), static_cast<int>(pos_.screen.rightTop.y - 24.0f),
+							ghPlayerWalk[9], -1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
+					}
 				}
-				else if (walk_.frame <= 18)
+			}
+			else
+			{
+				//運ぶモーション
+				if (directionNo == DIRECTION_RIGHT)
 				{
-					Novice::DrawSprite
-					(static_cast<int>(pos_.screen.rightTop.x + 16.0f), static_cast<int>(pos_.screen.rightTop.y - 24.0f),
-						ghPlayerWalk[2], -1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
+					if (walk_.frame <= 6)
+					{
+						Novice::DrawSprite
+						(static_cast<int>(pos_.screen.leftTop.x - 16.0f), static_cast<int>(pos_.screen.leftTop.y - 24.0f),
+							ghplayerCarry[0], 1.0f, 1.0f, 0.0f, 0xFFFFFFFF
+						);
+					}
+					else if (walk_.frame <= 12)
+					{
+						Novice::DrawSprite
+						(static_cast<int>(pos_.screen.leftTop.x - 16.0f), static_cast<int>(pos_.screen.leftTop.y - 24.0f),
+							ghplayerCarry[1], 1.0f, 1.0f, 0.0f, 0xFFFFFFFF
+						);
+					}
+					else if (walk_.frame <= 18)
+					{
+						Novice::DrawSprite
+						(static_cast<int>(pos_.screen.leftTop.x - 16.0f), static_cast<int>(pos_.screen.leftTop.y - 24.0f),
+							ghplayerCarry[2], 1.0f, 1.0f, 0.0f, 0xFFFFFFFF
+						);
+					}
+					else if (walk_.frame <= 24)
+					{
+						Novice::DrawSprite
+						(static_cast<int>(pos_.screen.leftTop.x - 16.0f), static_cast<int>(pos_.screen.leftTop.y - 24.0f),
+							ghplayerCarry[3], 1.0f, 1.0f, 0.0f, 0xFFFFFFFF
+						);
+					}
+					else if (walk_.frame <= 30)
+					{
+						Novice::DrawSprite
+						(static_cast<int>(pos_.screen.leftTop.x - 16.0f), static_cast<int>(pos_.screen.leftTop.y - 24.0f),
+							ghplayerCarry[4], 1.0f, 1.0f, 0.0f, 0xFFFFFFFF
+						);
+					}
+					else if (walk_.frame <= 36)
+					{
+						Novice::DrawSprite
+						(static_cast<int>(pos_.screen.leftTop.x - 16.0f), static_cast<int>(pos_.screen.leftTop.y - 24.0f),
+							ghplayerCarry[5], 1.0f, 1.0f, 0.0f, 0xFFFFFFFF
+						);
+					}
+					else if (walk_.frame <= 42)
+					{
+						Novice::DrawSprite
+						(static_cast<int>(pos_.screen.leftTop.x - 16.0f), static_cast<int>(pos_.screen.leftTop.y - 24.0f),
+							ghplayerCarry[6], 1.0f, 1.0f, 0.0f, 0xFFFFFFFF
+						);
+					}
+					else if (walk_.frame <= 48)
+					{
+						Novice::DrawSprite
+						(static_cast<int>(pos_.screen.leftTop.x - 16.0f), static_cast<int>(pos_.screen.leftTop.y - 24.0f),
+							ghplayerCarry[7], 1.0f, 1.0f, 0.0f, 0xFFFFFFFF
+						);
+					}
+					else if (walk_.frame <= 54)
+					{
+						Novice::DrawSprite
+						(static_cast<int>(pos_.screen.leftTop.x - 16.0f), static_cast<int>(pos_.screen.leftTop.y - 24.0f),
+							ghplayerCarry[8], 1.0f, 1.0f, 0.0f, 0xFFFFFFFF
+						);
+					}
+					else if (walk_.frame <= 60)
+					{
+						Novice::DrawSprite
+						(static_cast<int>(pos_.screen.leftTop.x - 16.0f), static_cast<int>(pos_.screen.leftTop.y - 24.0f),
+							ghplayerCarry[9], 1.0f, 1.0f, 0.0f, 0xFFFFFFFF
+						);
+					}
 				}
-				else if (walk_.frame <= 24)
+				else if (directionNo == DIRECTION_LEFT)
 				{
-					Novice::DrawSprite
-					(static_cast<int>(pos_.screen.rightTop.x + 16.0f), static_cast<int>(pos_.screen.rightTop.y - 24.0f),
-						ghPlayerWalk[3], -1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
-				}
-				else if (walk_.frame <= 30)
-				{
-					Novice::DrawSprite
-					(static_cast<int>(pos_.screen.rightTop.x + 16.0f), static_cast<int>(pos_.screen.rightTop.y - 24.0f),
-						ghPlayerWalk[4], -1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
-				}
-				else if (walk_.frame <= 36)
-				{
-					Novice::DrawSprite
-					(static_cast<int>(pos_.screen.rightTop.x + 16.0f), static_cast<int>(pos_.screen.rightTop.y - 24.0f),
-						ghPlayerWalk[5], -1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
-				}
-				else if (walk_.frame <= 42)
-				{
-					Novice::DrawSprite
-					(static_cast<int>(pos_.screen.rightTop.x + 16.0f), static_cast<int>(pos_.screen.rightTop.y - 24.0f),
-						ghPlayerWalk[6], -1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
-				}
-				else if (walk_.frame <= 48)
-				{
-					Novice::DrawSprite
-					(static_cast<int>(pos_.screen.rightTop.x + 16.0f), static_cast<int>(pos_.screen.rightTop.y - 24.0f),
-						ghPlayerWalk[7], -1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
-				}
-				else if (walk_.frame <= 54)
-				{
-					Novice::DrawSprite
-					(static_cast<int>(pos_.screen.rightTop.x + 16.0f), static_cast<int>(pos_.screen.rightTop.y - 24.0f),
-						ghPlayerWalk[8], -1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
-				}
-				else if (walk_.frame <= 60)
-				{
-					Novice::DrawSprite
-					(static_cast<int>(pos_.screen.rightTop.x + 16.0f), static_cast<int>(pos_.screen.rightTop.y - 24.0f),
-						ghPlayerWalk[9], -1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
+					if (walk_.frame <= 6)
+					{
+						Novice::DrawSprite
+						(static_cast<int>(pos_.screen.rightTop.x + 16.0f), static_cast<int>(pos_.screen.rightTop.y - 24.0f),
+							ghplayerCarry[0], -1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
+					}
+					else if (walk_.frame <= 12)
+					{
+						Novice::DrawSprite
+						(static_cast<int>(pos_.screen.rightTop.x + 16.0f), static_cast<int>(pos_.screen.rightTop.y - 24.0f),
+							ghplayerCarry[1], -1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
+					}
+					else if (walk_.frame <= 18)
+					{
+						Novice::DrawSprite
+						(static_cast<int>(pos_.screen.rightTop.x + 16.0f), static_cast<int>(pos_.screen.rightTop.y - 24.0f),
+							ghplayerCarry[2], -1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
+					}
+					else if (walk_.frame <= 24)
+					{
+						Novice::DrawSprite
+						(static_cast<int>(pos_.screen.rightTop.x + 16.0f), static_cast<int>(pos_.screen.rightTop.y - 24.0f),
+							ghplayerCarry[3], -1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
+					}
+					else if (walk_.frame <= 30)
+					{
+						Novice::DrawSprite
+						(static_cast<int>(pos_.screen.rightTop.x + 16.0f), static_cast<int>(pos_.screen.rightTop.y - 24.0f),
+							ghplayerCarry[4], -1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
+					}
+					else if (walk_.frame <= 36)
+					{
+						Novice::DrawSprite
+						(static_cast<int>(pos_.screen.rightTop.x + 16.0f), static_cast<int>(pos_.screen.rightTop.y - 24.0f),
+							ghplayerCarry[5], -1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
+					}
+					else if (walk_.frame <= 42)
+					{
+						Novice::DrawSprite
+						(static_cast<int>(pos_.screen.rightTop.x + 16.0f), static_cast<int>(pos_.screen.rightTop.y - 24.0f),
+							ghplayerCarry[6], -1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
+					}
+					else if (walk_.frame <= 48)
+					{
+						Novice::DrawSprite
+						(static_cast<int>(pos_.screen.rightTop.x + 16.0f), static_cast<int>(pos_.screen.rightTop.y - 24.0f),
+							ghplayerCarry[7], -1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
+					}
+					else if (walk_.frame <= 54)
+					{
+						Novice::DrawSprite
+						(static_cast<int>(pos_.screen.rightTop.x + 16.0f), static_cast<int>(pos_.screen.rightTop.y - 24.0f),
+							ghplayerCarry[8], -1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
+					}
+					else if (walk_.frame <= 60)
+					{
+						Novice::DrawSprite
+						(static_cast<int>(pos_.screen.rightTop.x + 16.0f), static_cast<int>(pos_.screen.rightTop.y - 24.0f),
+							ghplayerCarry[9], -1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
+					}
 				}
 			}
 		}
 		else
 		{
-			if (directionNo == DIRECTION_RIGHT)
+			//梯子登るモーション
+			if (walk_.frame <= 30)
 			{
-				if (walk_.frame <= 6)
-				{
-					Novice::DrawSprite
-					(static_cast<int>(pos_.screen.leftTop.x - 16.0f), static_cast<int>(pos_.screen.leftTop.y - 24.0f),
-						ghplayerCarry[0], 1.0f, 1.0f, 0.0f, 0xFFFFFFFF
-					);
-				}
-				else if (walk_.frame <= 12)
-				{
-					Novice::DrawSprite
-					(static_cast<int>(pos_.screen.leftTop.x - 16.0f), static_cast<int>(pos_.screen.leftTop.y - 24.0f),
-						ghplayerCarry[1], 1.0f, 1.0f, 0.0f, 0xFFFFFFFF
-					);
-				}
-				else if (walk_.frame <= 18)
-				{
-					Novice::DrawSprite
-					(static_cast<int>(pos_.screen.leftTop.x - 16.0f), static_cast<int>(pos_.screen.leftTop.y - 24.0f),
-						ghplayerCarry[2], 1.0f, 1.0f, 0.0f, 0xFFFFFFFF
-					);
-				}
-				else if (walk_.frame <= 24)
-				{
-					Novice::DrawSprite
-					(static_cast<int>(pos_.screen.leftTop.x - 16.0f), static_cast<int>(pos_.screen.leftTop.y - 24.0f),
-						ghplayerCarry[3], 1.0f, 1.0f, 0.0f, 0xFFFFFFFF
-					);
-				}
-				else if (walk_.frame <= 30)
-				{
-					Novice::DrawSprite
-					(static_cast<int>(pos_.screen.leftTop.x - 16.0f), static_cast<int>(pos_.screen.leftTop.y - 24.0f),
-						ghplayerCarry[4], 1.0f, 1.0f, 0.0f, 0xFFFFFFFF
-					);
-				}
-				else if (walk_.frame <= 36)
-				{
-					Novice::DrawSprite
-					(static_cast<int>(pos_.screen.leftTop.x - 16.0f), static_cast<int>(pos_.screen.leftTop.y - 24.0f),
-						ghplayerCarry[5], 1.0f, 1.0f, 0.0f, 0xFFFFFFFF
-					);
-				}
-				else if (walk_.frame <= 42)
-				{
-					Novice::DrawSprite
-					(static_cast<int>(pos_.screen.leftTop.x - 16.0f), static_cast<int>(pos_.screen.leftTop.y - 24.0f),
-						ghplayerCarry[6], 1.0f, 1.0f, 0.0f, 0xFFFFFFFF
-					);
-				}
-				else if (walk_.frame <= 48)
-				{
-					Novice::DrawSprite
-					(static_cast<int>(pos_.screen.leftTop.x - 16.0f), static_cast<int>(pos_.screen.leftTop.y - 24.0f),
-						ghplayerCarry[7], 1.0f, 1.0f, 0.0f, 0xFFFFFFFF
-					);
-				}
-				else if (walk_.frame <= 54)
-				{
-					Novice::DrawSprite
-					(static_cast<int>(pos_.screen.leftTop.x - 16.0f), static_cast<int>(pos_.screen.leftTop.y - 24.0f),
-						ghplayerCarry[8], 1.0f, 1.0f, 0.0f, 0xFFFFFFFF
-					);
-				}
-				else if (walk_.frame <= 60)
-				{
-					Novice::DrawSprite
-					(static_cast<int>(pos_.screen.leftTop.x - 16.0f), static_cast<int>(pos_.screen.leftTop.y - 24.0f),
-						ghplayerCarry[9], 1.0f, 1.0f, 0.0f, 0xFFFFFFFF
-					);
-				}
+				Novice::DrawSprite
+				(static_cast<int>(pos_.screen.leftTop.x - 16.0f), static_cast<int>(pos_.screen.leftTop.y - 24.0f),
+					ghPlayerLadderClimd[0], 1.0f, 1.0f, 0.0f, 0xFFFFFFFF
+				);
 			}
-			else if (directionNo == DIRECTION_LEFT)
+			else if (walk_.frame <= 60)
 			{
-				if (walk_.frame <= 6)
-				{
-					Novice::DrawSprite
-					(static_cast<int>(pos_.screen.rightTop.x + 16.0f), static_cast<int>(pos_.screen.rightTop.y - 24.0f),
-						ghplayerCarry[0], -1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
-				}
-				else if (walk_.frame <= 12)
-				{
-					Novice::DrawSprite
-					(static_cast<int>(pos_.screen.rightTop.x + 16.0f), static_cast<int>(pos_.screen.rightTop.y - 24.0f),
-						ghplayerCarry[1], -1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
-				}
-				else if (walk_.frame <= 18)
-				{
-					Novice::DrawSprite
-					(static_cast<int>(pos_.screen.rightTop.x + 16.0f), static_cast<int>(pos_.screen.rightTop.y - 24.0f),
-						ghplayerCarry[2], -1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
-				}
-				else if (walk_.frame <= 24)
-				{
-					Novice::DrawSprite
-					(static_cast<int>(pos_.screen.rightTop.x + 16.0f), static_cast<int>(pos_.screen.rightTop.y - 24.0f),
-						ghplayerCarry[3], -1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
-				}
-				else if (walk_.frame <= 30)
-				{
-					Novice::DrawSprite
-					(static_cast<int>(pos_.screen.rightTop.x + 16.0f), static_cast<int>(pos_.screen.rightTop.y - 24.0f),
-						ghplayerCarry[4], -1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
-				}
-				else if (walk_.frame <= 36)
-				{
-					Novice::DrawSprite
-					(static_cast<int>(pos_.screen.rightTop.x + 16.0f), static_cast<int>(pos_.screen.rightTop.y - 24.0f),
-						ghplayerCarry[5], -1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
-				}
-				else if (walk_.frame <= 42)
-				{
-					Novice::DrawSprite
-					(static_cast<int>(pos_.screen.rightTop.x + 16.0f), static_cast<int>(pos_.screen.rightTop.y - 24.0f),
-						ghplayerCarry[6], -1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
-				}
-				else if (walk_.frame <= 48)
-				{
-					Novice::DrawSprite
-					(static_cast<int>(pos_.screen.rightTop.x + 16.0f), static_cast<int>(pos_.screen.rightTop.y - 24.0f),
-						ghplayerCarry[7], -1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
-				}
-				else if (walk_.frame <= 54)
-				{
-					Novice::DrawSprite
-					(static_cast<int>(pos_.screen.rightTop.x + 16.0f), static_cast<int>(pos_.screen.rightTop.y - 24.0f),
-						ghplayerCarry[8], -1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
-				}
-				else if (walk_.frame <= 60)
-				{
-					Novice::DrawSprite
-					(static_cast<int>(pos_.screen.rightTop.x + 16.0f), static_cast<int>(pos_.screen.rightTop.y - 24.0f),
-						ghplayerCarry[9], -1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
-				}
+				Novice::DrawSprite
+				(static_cast<int>(pos_.screen.leftTop.x - 16.0f), static_cast<int>(pos_.screen.leftTop.y - 24.0f),
+					ghPlayerLadderClimd[1], 1.0f, 1.0f, 0.0f, 0xFFFFFFFF
+				);
 			}
 		}
+
 	}
 }
