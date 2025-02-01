@@ -97,6 +97,7 @@ void Map::Rotten()
 /// </summary>
 void Map::Draw()
 {
+	int ghMap = Novice::LoadTexture("./Resources/Images/Map/mapbgground.png");
 	int ghWhite = Novice::LoadTexture("./NoviceResources/white1x1.png");
 
 	int ghLadder = Novice::LoadTexture("./Resources/Images/Map/ladder.png");
@@ -137,7 +138,7 @@ void Map::Draw()
 						column * kTileSize + kTileSize, row * kTileSize,
 						column * kTileSize, row * kTileSize + kTileSize,
 						column * kTileSize + kTileSize, row * kTileSize + kTileSize,
-						0, 0, 1, 1, ghWhite, 0xFFFFFFFF
+						0, 0, 48, 48, ghMap, 0xFFFFFFFF
 					);
 
 					break;
