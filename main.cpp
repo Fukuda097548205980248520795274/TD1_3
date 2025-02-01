@@ -699,6 +699,15 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 							Novice::PlayAudio(shPick, 0, 0.3f);
 						}
 
+						if (!preKeys[DIK_D] && keys[DIK_D])
+						{
+							Scene::areaNo_ = AREA_2;
+							Scene::stageNo_ = STAGE_1;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
 						if (!preKeys[DIK_S] && keys[DIK_S])
 						{
 							Scene::stageNo_ = STAGE_12;
@@ -723,15 +732,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 						if (!preKeys[DIK_W] && keys[DIK_W])
 						{
-							Scene::stageNo_ = STAGE_1;
-
-							// 効果音
-							Novice::PlayAudio(shPick, 0, 0.3f);
-						}
-
-						if (!preKeys[DIK_S] && keys[DIK_S])
-						{
-							Scene::areaNo_ = AREA_2;
 							Scene::stageNo_ = STAGE_1;
 
 							// 効果音
@@ -768,15 +768,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 							Novice::PlayAudio(shPick, 0, 0.3f);
 						}
 
-						if (!preKeys[DIK_S] && keys[DIK_S])
-						{
-							Scene::areaNo_ = AREA_2;
-							Scene::stageNo_ = STAGE_2;
-
-							// 効果音
-							Novice::PlayAudio(shPick, 0, 0.3f);
-						}
-
 						break;
 
 					case STAGE_9:
@@ -801,15 +792,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 						if (!preKeys[DIK_W] && keys[DIK_W])
 						{
-							Scene::stageNo_ = STAGE_3;
-
-							// 効果音
-							Novice::PlayAudio(shPick, 0, 0.3f);
-						}
-
-						if (!preKeys[DIK_S] && keys[DIK_S])
-						{
-							Scene::areaNo_ = AREA_2;
 							Scene::stageNo_ = STAGE_3;
 
 							// 効果音
@@ -846,15 +828,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 							Novice::PlayAudio(shPick, 0, 0.3f);
 						}
 
-						if (!preKeys[DIK_S] && keys[DIK_S])
-						{
-							Scene::areaNo_ = AREA_2;
-							Scene::stageNo_ = STAGE_4;
-
-							// 効果音
-							Novice::PlayAudio(shPick, 0, 0.3f);
-						}
-
 						break;
 
 					case STAGE_11:
@@ -885,15 +858,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 							Novice::PlayAudio(shPick, 0, 0.3f);
 						}
 
-						if (!preKeys[DIK_S] && keys[DIK_S])
-						{
-							Scene::areaNo_ = AREA_2;
-							Scene::stageNo_ = STAGE_5;
-
-							// 効果音
-							Novice::PlayAudio(shPick, 0, 0.3f);
-						}
-
 						break;
 
 					case STAGE_12:
@@ -908,17 +872,17 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 							Novice::PlayAudio(shPick, 0, 0.3f);
 						}
 
-						if (!preKeys[DIK_W] && keys[DIK_W])
+						if (!preKeys[DIK_D] && keys[DIK_D])
 						{
-							Scene::stageNo_ = STAGE_6;
+							Scene::areaNo_ = AREA_2;
+							Scene::stageNo_ = STAGE_7;
 
 							// 効果音
 							Novice::PlayAudio(shPick, 0, 0.3f);
 						}
 
-						if (!preKeys[DIK_S] && keys[DIK_S])
+						if (!preKeys[DIK_W] && keys[DIK_W])
 						{
-							Scene::areaNo_ = AREA_2;
 							Scene::stageNo_ = STAGE_6;
 
 							// 効果音
@@ -938,18 +902,18 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 						Map::LoadFile("./TextFiles/Stage/area2/stage1.csv");
 
-						if (!preKeys[DIK_D] && keys[DIK_D])
+						if (!preKeys[DIK_A] && keys[DIK_A])
 						{
-							Scene::stageNo_ = STAGE_2;
+							Scene::areaNo_ = AREA_1;
+							Scene::stageNo_ = STAGE_6;
 
 							// 効果音
 							Novice::PlayAudio(shPick, 0, 0.3f);
 						}
 
-						if (!preKeys[DIK_W] && keys[DIK_W])
+						if (!preKeys[DIK_D] && keys[DIK_D])
 						{
-							Scene::areaNo_ = AREA_1;
-							Scene::stageNo_ = STAGE_7;
+							Scene::stageNo_ = STAGE_2;
 
 							// 効果音
 							Novice::PlayAudio(shPick, 0, 0.3f);
@@ -985,15 +949,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 							Novice::PlayAudio(shPick, 0, 0.3f);
 						}
 
-						if (!preKeys[DIK_W] && keys[DIK_W])
-						{
-							Scene::areaNo_ = AREA_1;
-							Scene::stageNo_ = STAGE_8;
-
-							// 効果音
-							Novice::PlayAudio(shPick, 0, 0.3f);
-						}
-
 						if (!preKeys[DIK_S] && keys[DIK_S])
 						{
 							Scene::stageNo_ = STAGE_8;
@@ -1019,15 +974,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 						if (!preKeys[DIK_A] && keys[DIK_A])
 						{
 							Scene::stageNo_ = STAGE_2;
-
-							// 効果音
-							Novice::PlayAudio(shPick, 0, 0.3f);
-						}
-
-						if (!preKeys[DIK_W] && keys[DIK_W])
-						{
-							Scene::areaNo_ = AREA_1;
-							Scene::stageNo_ = STAGE_9;
 
 							// 効果音
 							Novice::PlayAudio(shPick, 0, 0.3f);
@@ -1063,15 +1009,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 							Novice::PlayAudio(shPick, 0, 0.3f);
 						}
 
-						if (!preKeys[DIK_W] && keys[DIK_W])
-						{
-							Scene::areaNo_ = AREA_1;
-							Scene::stageNo_ = STAGE_10;
-
-							// 効果音
-							Novice::PlayAudio(shPick, 0, 0.3f);
-						}
-
 						if (!preKeys[DIK_S] && keys[DIK_S])
 						{
 							Scene::stageNo_ = STAGE_10;
@@ -1102,15 +1039,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 							Novice::PlayAudio(shPick, 0, 0.3f);
 						}
 
-						if (!preKeys[DIK_W] && keys[DIK_W])
-						{
-							Scene::areaNo_ = AREA_1;
-							Scene::stageNo_ = STAGE_11;
-
-							// 効果音
-							Novice::PlayAudio(shPick, 0, 0.3f);
-						}
-
 						if (!preKeys[DIK_S] && keys[DIK_S])
 						{
 							Scene::stageNo_ = STAGE_11;
@@ -1133,10 +1061,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 							Novice::PlayAudio(shPick, 0, 0.3f);
 						}
 
-						if (!preKeys[DIK_W] && keys[DIK_W])
+						if (!preKeys[DIK_D] && keys[DIK_D])
 						{
-							Scene::areaNo_ = AREA_1;
-							Scene::stageNo_ = STAGE_12;
+							Scene::areaNo_ = AREA_3;
+							Scene::stageNo_ = STAGE_1;
 
 							// 効果音
 							Novice::PlayAudio(shPick, 0, 0.3f);
@@ -1156,6 +1084,15 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 						Map::LoadFile("./TextFiles/Stage/area2/stage7.csv");
 
+						if (!preKeys[DIK_A] && keys[DIK_A])
+						{
+							Scene::areaNo_ = AREA_1;
+							Scene::stageNo_ = STAGE_12;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
 						if (!preKeys[DIK_D] && keys[DIK_D])
 						{
 							Scene::stageNo_ = STAGE_8;
@@ -1166,15 +1103,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 						if (!preKeys[DIK_W] && keys[DIK_W])
 						{
-							Scene::stageNo_ = STAGE_1;
-
-							// 効果音
-							Novice::PlayAudio(shPick, 0, 0.3f);
-						}
-
-						if (!preKeys[DIK_S] && keys[DIK_S])
-						{
-							Scene::areaNo_ = AREA_3;
 							Scene::stageNo_ = STAGE_1;
 
 							// 効果音
@@ -1211,15 +1139,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 							Novice::PlayAudio(shPick, 0, 0.3f);
 						}
 
-						if (!preKeys[DIK_S] && keys[DIK_S])
-						{
-							Scene::areaNo_ = AREA_3;
-							Scene::stageNo_ = STAGE_2;
-
-							// 効果音
-							Novice::PlayAudio(shPick, 0, 0.3f);
-						}
-
 						break;
 
 					case STAGE_9:
@@ -1244,15 +1163,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 						if (!preKeys[DIK_W] && keys[DIK_W])
 						{
-							Scene::stageNo_ = STAGE_3;
-
-							// 効果音
-							Novice::PlayAudio(shPick, 0, 0.3f);
-						}
-
-						if (!preKeys[DIK_S] && keys[DIK_S])
-						{
-							Scene::areaNo_ = AREA_3;
 							Scene::stageNo_ = STAGE_3;
 
 							// 効果音
@@ -1289,15 +1199,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 							Novice::PlayAudio(shPick, 0, 0.3f);
 						}
 
-						if (!preKeys[DIK_S] && keys[DIK_S])
-						{
-							Scene::areaNo_ = AREA_3;
-							Scene::stageNo_ = STAGE_4;
-
-							// 効果音
-							Novice::PlayAudio(shPick, 0, 0.3f);
-						}
-
 						break;
 
 					case STAGE_11:
@@ -1328,15 +1229,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 							Novice::PlayAudio(shPick, 0, 0.3f);
 						}
 
-						if (!preKeys[DIK_S] && keys[DIK_S])
-						{
-							Scene::areaNo_ = AREA_3;
-							Scene::stageNo_ = STAGE_5;
-
-							// 効果音
-							Novice::PlayAudio(shPick, 0, 0.3f);
-						}
-
 						break;
 
 					case STAGE_12:
@@ -1351,17 +1243,17 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 							Novice::PlayAudio(shPick, 0, 0.3f);
 						}
 
-						if (!preKeys[DIK_W] && keys[DIK_W])
+						if (!preKeys[DIK_D] && keys[DIK_D])
 						{
-							Scene::stageNo_ = STAGE_6;
+							Scene::areaNo_ = AREA_3;
+							Scene::stageNo_ = STAGE_7;
 
 							// 効果音
 							Novice::PlayAudio(shPick, 0, 0.3f);
 						}
 
-						if (!preKeys[DIK_S] && keys[DIK_S])
+						if (!preKeys[DIK_W] && keys[DIK_W])
 						{
-							Scene::areaNo_ = AREA_3;
 							Scene::stageNo_ = STAGE_6;
 
 							// 効果音
@@ -1381,18 +1273,18 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 						Map::LoadFile("./TextFiles/Stage/area3/stage1.csv");
 
-						if (!preKeys[DIK_D] && keys[DIK_D])
+						if (!preKeys[DIK_A] && keys[DIK_A])
 						{
-							Scene::stageNo_ = STAGE_2;
+							Scene::areaNo_ = AREA_2;
+							Scene::stageNo_ = STAGE_6;
 
 							// 効果音
 							Novice::PlayAudio(shPick, 0, 0.3f);
 						}
 
-						if (!preKeys[DIK_W] && keys[DIK_W])
+						if (!preKeys[DIK_D] && keys[DIK_D])
 						{
-							Scene::areaNo_ = AREA_2;
-							Scene::stageNo_ = STAGE_7;
+							Scene::stageNo_ = STAGE_2;
 
 							// 効果音
 							Novice::PlayAudio(shPick, 0, 0.3f);
@@ -1428,15 +1320,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 							Novice::PlayAudio(shPick, 0, 0.3f);
 						}
 
-						if (!preKeys[DIK_W] && keys[DIK_W])
-						{
-							Scene::areaNo_ = AREA_2;
-							Scene::stageNo_ = STAGE_8;
-
-							// 効果音
-							Novice::PlayAudio(shPick, 0, 0.3f);
-						}
-
 						if (!preKeys[DIK_S] && keys[DIK_S])
 						{
 							Scene::stageNo_ = STAGE_8;
@@ -1462,15 +1345,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 						if (!preKeys[DIK_A] && keys[DIK_A])
 						{
 							Scene::stageNo_ = STAGE_2;
-
-							// 効果音
-							Novice::PlayAudio(shPick, 0, 0.3f);
-						}
-
-						if (!preKeys[DIK_W] && keys[DIK_W])
-						{
-							Scene::areaNo_ = AREA_2;
-							Scene::stageNo_ = STAGE_9;
 
 							// 効果音
 							Novice::PlayAudio(shPick, 0, 0.3f);
@@ -1506,15 +1380,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 							Novice::PlayAudio(shPick, 0, 0.3f);
 						}
 
-						if (!preKeys[DIK_W] && keys[DIK_W])
-						{
-							Scene::areaNo_ = AREA_2;
-							Scene::stageNo_ = STAGE_10;
-
-							// 効果音
-							Novice::PlayAudio(shPick, 0, 0.3f);
-						}
-
 						if (!preKeys[DIK_S] && keys[DIK_S])
 						{
 							Scene::stageNo_ = STAGE_10;
@@ -1545,15 +1410,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 							Novice::PlayAudio(shPick, 0, 0.3f);
 						}
 
-						if (!preKeys[DIK_W] && keys[DIK_W])
-						{
-							Scene::areaNo_ = AREA_2;
-							Scene::stageNo_ = STAGE_11;
-
-							// 効果音
-							Novice::PlayAudio(shPick, 0, 0.3f);
-						}
-
 						if (!preKeys[DIK_S] && keys[DIK_S])
 						{
 							Scene::stageNo_ = STAGE_11;
@@ -1576,15 +1432,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 							Novice::PlayAudio(shPick, 0, 0.3f);
 						}
 
-						if (!preKeys[DIK_W] && keys[DIK_W])
-						{
-							Scene::areaNo_ = AREA_2;
-							Scene::stageNo_ = STAGE_12;
-
-							// 効果音
-							Novice::PlayAudio(shPick, 0, 0.3f);
-						}
-
 						if (!preKeys[DIK_S] && keys[DIK_S])
 						{
 							Scene::stageNo_ = STAGE_12;
@@ -1598,6 +1445,15 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 					case STAGE_7:
 
 						Map::LoadFile("./TextFiles/Stage/area3/stage7.csv");
+
+						if (!preKeys[DIK_A] && keys[DIK_A])
+						{
+							Scene::areaNo_ = AREA_2;
+							Scene::stageNo_ = STAGE_12;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
 
 						if (!preKeys[DIK_D] && keys[DIK_D])
 						{
@@ -2699,6 +2555,27 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 			// 背景
 			Novice::DrawBox(0, 0, kScreenWidth, kScreenHeight, 0.0f, 0x000044FF, kFillModeSolid);
+
+			switch (Scene::areaNo_)
+			{
+			case AREA_1:
+
+				Novice::DrawBox(128 + Scene::stageNo_ % 6 * 200, 128 + (Scene::stageNo_ / 6) * 200, 128, 128, 0.0f, 0xFFFFFFFF, kFillModeWireFrame);
+
+				break;
+
+			case AREA_2:
+
+				Novice::DrawBox(128 + Scene::stageNo_ % 6 * 200, 128 + (Scene::stageNo_ / 6) * 200, 128, 128, 0.0f, 0xFFFFFFFF, kFillModeWireFrame);
+
+				break;
+
+			case AREA_3:
+
+				Novice::DrawBox(128 + Scene::stageNo_ % 6 * 200, 128 + (Scene::stageNo_ / 6) * 200, 128, 128, 0.0f, 0xFFFFFFFF, kFillModeWireFrame);
+
+				break;
+			}
 
 
 			//デバック表示
