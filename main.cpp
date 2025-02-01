@@ -138,6 +138,12 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	int shBell = Novice::LoadAudio("./Resources/Sounds/Se/bell.mp3");
 	int shBell2 = Novice::LoadAudio("./Resources/Sounds/Se/bell2.mp3");
 
+	// 凍結の音
+	int shFrozen = Novice::LoadAudio("./Resources/Sounds/Se/frozen.mp3");
+
+	// 選ぶときの音
+	int shPick = Novice::LoadAudio("./Resources/Sounds/Se/pick.mp3");
+
 
 	/*-----------
 		BGM
@@ -162,10 +168,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	// 雪の葬列
 	int shYukinosouretu = Novice::LoadAudio("./Resources/Sounds/Bgm/Yukinosouretu.mp3");
 	int phYukinosouretu = -1;
-
-	// 雪小屋
-	int shYukigoya = Novice::LoadAudio("./Resources/Sounds/Bgm/Yukigoya.mp3");
-	int phYukigoya = -1;
 
 	// A Dream of Cat
 	int shADreamOfCat = Novice::LoadAudio("./Resources/Sounds/Bgm/A_Dream_of_a_Cat.mp3");
@@ -435,43 +437,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 			/*   操作   */
 
-			//// `timer_` を増加させる
-			//if (!preKeys[DIK_SPACE] && keys[DIK_SPACE])
-			//{
-			//	switching->isSizeUp_ = true;
-			//}
-			//
-			//if (switching->isSizeUp_ || switching->isTrigger_)
-			//{
-			//	switching->timer_ += 0.01f;
-			//}
-			//
-			//if (switching->isSizeUp_)
-			//{
-			//	// 描画
-			//	switching->DrawEasingTriangle(switching->TrianglePos_, 30, switching->timer_);
-			//}
-			//if (switching->timer_ > 1.0f && switching->isSizeUp_)
-			//{
-			//	switching->isTrigger_ = true;
-			//	switching->timer_ = 0.0f;
-			//	switching->isSizeUp_ = false;
-			//}
-			//
-			//if (switching->isTrigger_)
-			//{
-			//	// `Easing` の結果を `TrianglePos_` に適用
-			//	switching->TrianglePos_ = switching->Easing(switching->TrianglePos_, { 1200, 384 }, switching->timer_);
-			//
-			//	// `t` が 1.0f になったらシーン切り替え
-			//	if (switching->timer_ >= 1.0f)
-			//	{
-			//		Scene::sceneNo_ = SCENE_AREA;
-			//		gameFrame = 180;
-			//	}
-			//}
-
-
 			// 0 ~ 239フレームで、スペースキーを押すと、スキップできる
 			if (!preKeys[DIK_SPACE] && keys[DIK_SPACE] || Novice::IsTriggerButton(0, kPadButton10))
 			{
@@ -525,7 +490,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			{
 				if (isLoad)
 				{
-					Scene::sceneNo_ = SCENE_AREA;
+					Scene::sceneNo_ = SCENE_STAGE;
 				}
 			}
 
@@ -533,8 +498,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			break;
 
 
-		case SCENE_AREA:
-			// エリアセレクト画面
+		case SCENE_STAGE:
+			// ステージセレクト画面
 
 			// BGM
 			if (!Novice::IsPlayingAudio(phLostMemories) || phLostMemories == -1)
@@ -553,268 +518,1238 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 					isLoad = false;
 				}
 
-				// エリア切り替え
+				// ステージを選ぶ
 				switch (Scene::areaNo_)
 				{
-				case AREA_STAR_LAND:
-					// スター島
+				case AREA_1:
 
-					// Dキーで、レイ島を選ぶ
-					if (!preKeys[DIK_D] && keys[DIK_D])
+					switch (Scene::stageNo_)
 					{
-						Scene::areaNo_ = AREA_REI_LAND;
-					}
+					case STAGE_1:
 
-					break;
+						Map::LoadFile("./TextFiles/Stage/area1/stage1.csv");
 
-				case AREA_REI_LAND:
-					// レイ島
-
-					// Aキーで、スター島を選ぶ
-					if (!preKeys[DIK_A] && keys[DIK_A])
-					{
-						Scene::areaNo_ = AREA_STAR_LAND;
-					}
-
-					// Dキーで、チクタク島を選ぶ
-					if (!preKeys[DIK_D] && keys[DIK_D])
-					{
-						Scene::areaNo_ = AREA_TIKUTAKU_LAND;
-					}
-
-					break;
-
-				case AREA_TIKUTAKU_LAND:
-					// チクタク島
-
-					// Aキーで、レイ島を選ぶ
-					if (!preKeys[DIK_A] && keys[DIK_A])
-					{
-						Scene::areaNo_ = AREA_REI_LAND;
-					}
-
-					// Dキーで、ホッ島を選ぶ
-					if (!preKeys[DIK_D] && keys[DIK_D])
-					{
-						Scene::areaNo_ = AREA_HOXTU_LAND;
-					}
-
-					break;
-
-				case AREA_HOXTU_LAND:
-					// ホッ島
-
-					// Aキーで、チクタク島を選ぶ
-					if (!preKeys[DIK_A] && keys[DIK_A])
-					{
-						Scene::areaNo_ = AREA_TIKUTAKU_LAND;
-					}
-
-					// Dキーで、ラピッ島を選ぶ
-					if (!preKeys[DIK_D] && keys[DIK_D])
-					{
-						Scene::areaNo_ = AREA_RAPIXTU_LAND;
-					}
-
-					break;
-
-				case AREA_RAPIXTU_LAND:
-					// ラピッ島
-
-					// Aキーで、ラピッ島を選ぶ
-					if (!preKeys[DIK_A] && keys[DIK_A])
-					{
-						Scene::areaNo_ = AREA_HOXTU_LAND;
-					}
-
-					break;
-				}
-			}
-
-			// 420フレームで、スペースキーを押すと、640フレームからロードする（ロードフラグがtrueになる）
-			if (!preKeys[DIK_SPACE] && keys[DIK_SPACE] || Novice::IsTriggerButton(0, kPadButton10))
-			{
-				if (gameFrame == 420)
-				{
-					if (isLoad == false)
-					{
-						gameFrame = 640;
-
-						isLoad = true;
-					}
-				}
-			}
-
-			// 700フレームで、ステージセレクトに移る
-			if (gameFrame == 700)
-			{
-				if (isLoad)
-				{
-					Scene::sceneNo_ = SCENE_STAGE;
-
-					Map::LoadFile("./TextFiles/Scene/StageSelect.csv");
-
-					// ブロックや敵を配置する
-					for (int row = 0; row < kMapRow; row++)
-					{
-						for (int column = 0; column < kMapColumn; column++)
+						if (!preKeys[DIK_D] && keys[DIK_D])
 						{
-							switch (Map::map_[row][column])
-							{
-							case TILE_PLAYER:
-								// プレイヤー
+							Scene::stageNo_ = STAGE_2;
 
-								player->Puttting(column, row);
-
-								// タイルを消す
-								Map::map_[row][column] = TILE_NOTHING;
-
-								break;
-
-
-							case TILE_PLASTIC:
-								// プラスチック
-
-								for (int i = 0; i < kBlockNum; i++)
-								{
-									if (i < 8)
-									{
-										if (block[i]->id_ == 0)
-										{
-											block[i]->Putting(column, row);
-
-											break;
-										}
-									}
-								}
-
-								// タイルを消す
-								Map::map_[row][column] = TILE_NOTHING;
-
-								break;
-
-							case TILE_CUSHION:
-								// クッション
-
-								for (int i = 0; i < kBlockNum; i++)
-								{
-									if (i >= 8 && i < 16)
-									{
-										if (block[i]->id_ == 0)
-										{
-											block[i]->Putting(column, row);
-
-											break;
-										}
-									}
-								}
-
-								// タイルを消す
-								Map::map_[row][column] = TILE_NOTHING;
-
-								break;
-
-							case TILE_TREASURE:
-								// 宝
-
-								for (int i = 0; i < kBlockNum; i++)
-								{
-									if (i >= 16 && i < 24)
-									{
-										if (block[i]->id_ == 0)
-										{
-											block[i]->Putting(column, row);
-
-											break;
-										}
-									}
-								}
-
-								// タイルを消す
-								Map::map_[row][column] = TILE_NOTHING;
-
-								// 宝の数をカウントする
-								Map::treasureNum++;
-
-								break;
-
-							case TILE_BOMB:
-								// 爆弾
-
-								for (int i = 0; i < kBlockNum; i++)
-								{
-									if (i >= 24 && i < 32)
-									{
-										if (block[i]->id_ == 0)
-										{
-											block[i]->Putting(column, row);
-
-											break;
-										}
-									}
-								}
-
-								// タイルを消す
-								Map::map_[row][column] = TILE_NOTHING;
-
-								break;
-
-							case TILE_GHOST:
-								// 幽霊
-
-								for (int i = 0; i < kEnemyNum; i++)
-								{
-									if (i < 8)
-									{
-										if (enemy[i]->id_ == 0)
-										{
-											enemy[i]->Arrival(column, row);
-
-											break;
-										}
-									}
-								}
-
-								// タイルを消す
-								Map::map_[row][column] = TILE_NOTHING;
-
-								break;
-							}
+							// 効果音
+							Novice::PlayAudio(shPick , 0 , 0.3f);
 						}
+
+						if (!preKeys[DIK_S] && keys[DIK_S])
+						{
+							Scene::stageNo_ = STAGE_7;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						break;
+
+					case STAGE_2:
+
+						Map::LoadFile("./TextFiles/Stage/area1/stage2.csv");
+
+						if (!preKeys[DIK_D] && keys[DIK_D])
+						{
+							Scene::stageNo_ = STAGE_3;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						if (!preKeys[DIK_A] && keys[DIK_A])
+						{
+							Scene::stageNo_ = STAGE_1;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						if (!preKeys[DIK_S] && keys[DIK_S])
+						{
+							Scene::stageNo_ = STAGE_8;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						break;
+
+					case STAGE_3:
+
+						Map::LoadFile("./TextFiles/Stage/area1/stage3.csv");
+
+						if (!preKeys[DIK_D] && keys[DIK_D])
+						{
+							Scene::stageNo_ = STAGE_4;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						if (!preKeys[DIK_A] && keys[DIK_A])
+						{
+							Scene::stageNo_ = STAGE_2;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						if (!preKeys[DIK_S] && keys[DIK_S])
+						{
+							Scene::stageNo_ = STAGE_9;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						break;
+
+					case STAGE_4:
+
+						Map::LoadFile("./TextFiles/Stage/area1/stage4.csv");
+
+						if (!preKeys[DIK_D] && keys[DIK_D])
+						{
+							Scene::stageNo_ = STAGE_5;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						if (!preKeys[DIK_A] && keys[DIK_A])
+						{
+							Scene::stageNo_ = STAGE_3;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						if (!preKeys[DIK_S] && keys[DIK_S])
+						{
+							Scene::stageNo_ = STAGE_10;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						break;
+
+					case STAGE_5:
+
+						Map::LoadFile("./TextFiles/Stage/area1/stage5.csv");
+
+						if (!preKeys[DIK_D] && keys[DIK_D])
+						{
+							Scene::stageNo_ = STAGE_6;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						if (!preKeys[DIK_A] && keys[DIK_A])
+						{
+							Scene::stageNo_ = STAGE_4;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						if (!preKeys[DIK_S] && keys[DIK_S])
+						{
+							Scene::stageNo_ = STAGE_11;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						break;
+
+					case STAGE_6:
+
+						Map::LoadFile("./TextFiles/Stage/area1/stage6.csv");
+
+						if (!preKeys[DIK_A] && keys[DIK_A])
+						{
+							Scene::stageNo_ = STAGE_5;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						if (!preKeys[DIK_S] && keys[DIK_S])
+						{
+							Scene::stageNo_ = STAGE_12;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						break;
+
+					case STAGE_7:
+
+						Map::LoadFile("./TextFiles/Stage/area1/stage7.csv");
+
+						if (!preKeys[DIK_D] && keys[DIK_D])
+						{
+							Scene::stageNo_ = STAGE_8;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						if (!preKeys[DIK_W] && keys[DIK_W])
+						{
+							Scene::stageNo_ = STAGE_1;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						if (!preKeys[DIK_S] && keys[DIK_S])
+						{
+							Scene::areaNo_ = AREA_2;
+							Scene::stageNo_ = STAGE_1;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						break;
+
+					case STAGE_8:
+
+						Map::LoadFile("./TextFiles/Stage/area1/stage8.csv");
+
+						if (!preKeys[DIK_D] && keys[DIK_D])
+						{
+							Scene::stageNo_ = STAGE_9;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						if (!preKeys[DIK_A] && keys[DIK_A])
+						{
+							Scene::stageNo_ = STAGE_7;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						if (!preKeys[DIK_W] && keys[DIK_W])
+						{
+							Scene::stageNo_ = STAGE_2;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						if (!preKeys[DIK_S] && keys[DIK_S])
+						{
+							Scene::areaNo_ = AREA_2;
+							Scene::stageNo_ = STAGE_2;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						break;
+
+					case STAGE_9:
+
+						Map::LoadFile("./TextFiles/Stage/area1/stage9.csv");
+
+						if (!preKeys[DIK_D] && keys[DIK_D])
+						{
+							Scene::stageNo_ = STAGE_10;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						if (!preKeys[DIK_A] && keys[DIK_A])
+						{
+							Scene::stageNo_ = STAGE_8;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						if (!preKeys[DIK_W] && keys[DIK_W])
+						{
+							Scene::stageNo_ = STAGE_3;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						if (!preKeys[DIK_S] && keys[DIK_S])
+						{
+							Scene::areaNo_ = AREA_2;
+							Scene::stageNo_ = STAGE_3;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						break;
+
+					case STAGE_10:
+
+						Map::LoadFile("./TextFiles/Stage/area1/stage10.csv");
+
+						if (!preKeys[DIK_D] && keys[DIK_D])
+						{
+							Scene::stageNo_ = STAGE_11;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						if (!preKeys[DIK_A] && keys[DIK_A])
+						{
+							Scene::stageNo_ = STAGE_9;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						if (!preKeys[DIK_W] && keys[DIK_W])
+						{
+							Scene::stageNo_ = STAGE_4;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						if (!preKeys[DIK_S] && keys[DIK_S])
+						{
+							Scene::areaNo_ = AREA_2;
+							Scene::stageNo_ = STAGE_4;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						break;
+
+					case STAGE_11:
+
+						Map::LoadFile("./TextFiles/Stage/area1/stage11.csv");
+
+						if (!preKeys[DIK_D] && keys[DIK_D])
+						{
+							Scene::stageNo_ = STAGE_12;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						if (!preKeys[DIK_A] && keys[DIK_A])
+						{
+							Scene::stageNo_ = STAGE_10;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						if (!preKeys[DIK_W] && keys[DIK_W])
+						{
+							Scene::stageNo_ = STAGE_5;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						if (!preKeys[DIK_S] && keys[DIK_S])
+						{
+							Scene::areaNo_ = AREA_2;
+							Scene::stageNo_ = STAGE_5;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						break;
+
+					case STAGE_12:
+
+						Map::LoadFile("./TextFiles/Stage/area1/stage12.csv");
+
+						if (!preKeys[DIK_A] && keys[DIK_A])
+						{
+							Scene::stageNo_ = STAGE_11;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						if (!preKeys[DIK_W] && keys[DIK_W])
+						{
+							Scene::stageNo_ = STAGE_6;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						if (!preKeys[DIK_S] && keys[DIK_S])
+						{
+							Scene::areaNo_ = AREA_2;
+							Scene::stageNo_ = STAGE_6;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						break;
 					}
+
+					break;
+					
+				case AREA_2:
+
+					switch (Scene::stageNo_)
+					{
+					case STAGE_1:
+
+						Map::LoadFile("./TextFiles/Stage/area2/stage1.csv");
+
+						if (!preKeys[DIK_D] && keys[DIK_D])
+						{
+							Scene::stageNo_ = STAGE_2;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						if (!preKeys[DIK_W] && keys[DIK_W])
+						{
+							Scene::areaNo_ = AREA_1;
+							Scene::stageNo_ = STAGE_7;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						if (!preKeys[DIK_S] && keys[DIK_S])
+						{
+							Scene::stageNo_ = STAGE_7;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						break;
+
+					case STAGE_2:
+
+						Map::LoadFile("./TextFiles/Stage/area2/stage2.csv");
+
+						if (!preKeys[DIK_D] && keys[DIK_D])
+						{
+							Scene::stageNo_ = STAGE_3;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						if (!preKeys[DIK_A] && keys[DIK_A])
+						{
+							Scene::stageNo_ = STAGE_1;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						if (!preKeys[DIK_W] && keys[DIK_W])
+						{
+							Scene::areaNo_ = AREA_1;
+							Scene::stageNo_ = STAGE_8;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						if (!preKeys[DIK_S] && keys[DIK_S])
+						{
+							Scene::stageNo_ = STAGE_8;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						break;
+
+					case STAGE_3:
+
+						Map::LoadFile("./TextFiles/Stage/area2/stage3.csv");
+
+						if (!preKeys[DIK_D] && keys[DIK_D])
+						{
+							Scene::stageNo_ = STAGE_4;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						if (!preKeys[DIK_A] && keys[DIK_A])
+						{
+							Scene::stageNo_ = STAGE_2;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						if (!preKeys[DIK_W] && keys[DIK_W])
+						{
+							Scene::areaNo_ = AREA_1;
+							Scene::stageNo_ = STAGE_9;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						if (!preKeys[DIK_S] && keys[DIK_S])
+						{
+							Scene::stageNo_ = STAGE_9;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						break;
+
+					case STAGE_4:
+
+						Map::LoadFile("./TextFiles/Stage/area2/stage4.csv");
+
+						if (!preKeys[DIK_D] && keys[DIK_D])
+						{
+							Scene::stageNo_ = STAGE_5;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						if (!preKeys[DIK_A] && keys[DIK_A])
+						{
+							Scene::stageNo_ = STAGE_3;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						if (!preKeys[DIK_W] && keys[DIK_W])
+						{
+							Scene::areaNo_ = AREA_1;
+							Scene::stageNo_ = STAGE_10;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						if (!preKeys[DIK_S] && keys[DIK_S])
+						{
+							Scene::stageNo_ = STAGE_10;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						break;
+
+					case STAGE_5:
+
+						Map::LoadFile("./TextFiles/Stage/area2/stage5.csv");
+
+						if (!preKeys[DIK_D] && keys[DIK_D])
+						{
+							Scene::stageNo_ = STAGE_6;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						if (!preKeys[DIK_A] && keys[DIK_A])
+						{
+							Scene::stageNo_ = STAGE_4;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						if (!preKeys[DIK_W] && keys[DIK_W])
+						{
+							Scene::areaNo_ = AREA_1;
+							Scene::stageNo_ = STAGE_11;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						if (!preKeys[DIK_S] && keys[DIK_S])
+						{
+							Scene::stageNo_ = STAGE_11;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						break;
+
+					case STAGE_6:
+
+						Map::LoadFile("./TextFiles/Stage/area2/stage6.csv");
+
+						if (!preKeys[DIK_A] && keys[DIK_A])
+						{
+							Scene::stageNo_ = STAGE_5;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						if (!preKeys[DIK_W] && keys[DIK_W])
+						{
+							Scene::areaNo_ = AREA_1;
+							Scene::stageNo_ = STAGE_12;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						if (!preKeys[DIK_S] && keys[DIK_S])
+						{
+							Scene::stageNo_ = STAGE_12;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						break;
+
+					case STAGE_7:
+
+						Map::LoadFile("./TextFiles/Stage/area2/stage7.csv");
+
+						if (!preKeys[DIK_D] && keys[DIK_D])
+						{
+							Scene::stageNo_ = STAGE_8;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						if (!preKeys[DIK_W] && keys[DIK_W])
+						{
+							Scene::stageNo_ = STAGE_1;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						if (!preKeys[DIK_S] && keys[DIK_S])
+						{
+							Scene::areaNo_ = AREA_3;
+							Scene::stageNo_ = STAGE_1;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						break;
+
+					case STAGE_8:
+
+						Map::LoadFile("./TextFiles/Stage/area2/stage8.csv");
+
+						if (!preKeys[DIK_D] && keys[DIK_D])
+						{
+							Scene::stageNo_ = STAGE_9;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						if (!preKeys[DIK_A] && keys[DIK_A])
+						{
+							Scene::stageNo_ = STAGE_7;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						if (!preKeys[DIK_W] && keys[DIK_W])
+						{
+							Scene::stageNo_ = STAGE_2;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						if (!preKeys[DIK_S] && keys[DIK_S])
+						{
+							Scene::areaNo_ = AREA_3;
+							Scene::stageNo_ = STAGE_2;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						break;
+
+					case STAGE_9:
+
+						Map::LoadFile("./TextFiles/Stage/area2/stage9.csv");
+
+						if (!preKeys[DIK_D] && keys[DIK_D])
+						{
+							Scene::stageNo_ = STAGE_10;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						if (!preKeys[DIK_A] && keys[DIK_A])
+						{
+							Scene::stageNo_ = STAGE_8;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						if (!preKeys[DIK_W] && keys[DIK_W])
+						{
+							Scene::stageNo_ = STAGE_3;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						if (!preKeys[DIK_S] && keys[DIK_S])
+						{
+							Scene::areaNo_ = AREA_3;
+							Scene::stageNo_ = STAGE_3;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						break;
+
+					case STAGE_10:
+
+						Map::LoadFile("./TextFiles/Stage/area2/stage10.csv");
+
+						if (!preKeys[DIK_D] && keys[DIK_D])
+						{
+							Scene::stageNo_ = STAGE_11;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						if (!preKeys[DIK_A] && keys[DIK_A])
+						{
+							Scene::stageNo_ = STAGE_9;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						if (!preKeys[DIK_W] && keys[DIK_W])
+						{
+							Scene::stageNo_ = STAGE_4;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						if (!preKeys[DIK_S] && keys[DIK_S])
+						{
+							Scene::areaNo_ = AREA_3;
+							Scene::stageNo_ = STAGE_4;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						break;
+
+					case STAGE_11:
+
+						Map::LoadFile("./TextFiles/Stage/area2/stage11.csv");
+
+						if (!preKeys[DIK_D] && keys[DIK_D])
+						{
+							Scene::stageNo_ = STAGE_12;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						if (!preKeys[DIK_A] && keys[DIK_A])
+						{
+							Scene::stageNo_ = STAGE_10;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						if (!preKeys[DIK_W] && keys[DIK_W])
+						{
+							Scene::stageNo_ = STAGE_5;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						if (!preKeys[DIK_S] && keys[DIK_S])
+						{
+							Scene::areaNo_ = AREA_3;
+							Scene::stageNo_ = STAGE_5;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						break;
+
+					case STAGE_12:
+
+						Map::LoadFile("./TextFiles/Stage/area2/stage12.csv");
+
+						if (!preKeys[DIK_A] && keys[DIK_A])
+						{
+							Scene::stageNo_ = STAGE_11;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						if (!preKeys[DIK_W] && keys[DIK_W])
+						{
+							Scene::stageNo_ = STAGE_6;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						if (!preKeys[DIK_S] && keys[DIK_S])
+						{
+							Scene::areaNo_ = AREA_3;
+							Scene::stageNo_ = STAGE_6;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						break;
+					}
+
+					break;
+
+				case AREA_3:
+
+					switch (Scene::stageNo_)
+					{
+					case STAGE_1:
+
+						Map::LoadFile("./TextFiles/Stage/area3/stage1.csv");
+
+						if (!preKeys[DIK_D] && keys[DIK_D])
+						{
+							Scene::stageNo_ = STAGE_2;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						if (!preKeys[DIK_W] && keys[DIK_W])
+						{
+							Scene::areaNo_ = AREA_2;
+							Scene::stageNo_ = STAGE_7;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						if (!preKeys[DIK_S] && keys[DIK_S])
+						{
+							Scene::stageNo_ = STAGE_7;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						break;
+
+					case STAGE_2:
+
+						Map::LoadFile("./TextFiles/Stage/area3/stage2.csv");
+
+						if (!preKeys[DIK_D] && keys[DIK_D])
+						{
+							Scene::stageNo_ = STAGE_3;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						if (!preKeys[DIK_A] && keys[DIK_A])
+						{
+							Scene::stageNo_ = STAGE_1;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						if (!preKeys[DIK_W] && keys[DIK_W])
+						{
+							Scene::areaNo_ = AREA_2;
+							Scene::stageNo_ = STAGE_8;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						if (!preKeys[DIK_S] && keys[DIK_S])
+						{
+							Scene::stageNo_ = STAGE_8;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						break;
+
+					case STAGE_3:
+
+						Map::LoadFile("./TextFiles/Stage/area3/stage3.csv");
+
+						if (!preKeys[DIK_D] && keys[DIK_D])
+						{
+							Scene::stageNo_ = STAGE_4;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						if (!preKeys[DIK_A] && keys[DIK_A])
+						{
+							Scene::stageNo_ = STAGE_2;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						if (!preKeys[DIK_W] && keys[DIK_W])
+						{
+							Scene::areaNo_ = AREA_2;
+							Scene::stageNo_ = STAGE_9;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						if (!preKeys[DIK_S] && keys[DIK_S])
+						{
+							Scene::stageNo_ = STAGE_9;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						break;
+
+					case STAGE_4:
+
+						Map::LoadFile("./TextFiles/Stage/area3/stage4.csv");
+
+						if (!preKeys[DIK_D] && keys[DIK_D])
+						{
+							Scene::stageNo_ = STAGE_5;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						if (!preKeys[DIK_A] && keys[DIK_A])
+						{
+							Scene::stageNo_ = STAGE_3;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						if (!preKeys[DIK_W] && keys[DIK_W])
+						{
+							Scene::areaNo_ = AREA_2;
+							Scene::stageNo_ = STAGE_10;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						if (!preKeys[DIK_S] && keys[DIK_S])
+						{
+							Scene::stageNo_ = STAGE_10;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						break;
+
+					case STAGE_5:
+
+						Map::LoadFile("./TextFiles/Stage/area3/stage5.csv");
+
+						if (!preKeys[DIK_D] && keys[DIK_D])
+						{
+							Scene::stageNo_ = STAGE_6;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						if (!preKeys[DIK_A] && keys[DIK_A])
+						{
+							Scene::stageNo_ = STAGE_4;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						if (!preKeys[DIK_W] && keys[DIK_W])
+						{
+							Scene::areaNo_ = AREA_2;
+							Scene::stageNo_ = STAGE_11;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						if (!preKeys[DIK_S] && keys[DIK_S])
+						{
+							Scene::stageNo_ = STAGE_11;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						break;
+
+					case STAGE_6:
+
+						Map::LoadFile("./TextFiles/Stage/area3/stage6.csv");
+
+						if (!preKeys[DIK_A] && keys[DIK_A])
+						{
+							Scene::stageNo_ = STAGE_5;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						if (!preKeys[DIK_W] && keys[DIK_W])
+						{
+							Scene::areaNo_ = AREA_2;
+							Scene::stageNo_ = STAGE_12;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						if (!preKeys[DIK_S] && keys[DIK_S])
+						{
+							Scene::stageNo_ = STAGE_12;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						break;
+
+					case STAGE_7:
+
+						Map::LoadFile("./TextFiles/Stage/area3/stage7.csv");
+
+						if (!preKeys[DIK_D] && keys[DIK_D])
+						{
+							Scene::stageNo_ = STAGE_8;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						if (!preKeys[DIK_W] && keys[DIK_W])
+						{
+							Scene::stageNo_ = STAGE_1;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						break;
+
+					case STAGE_8:
+
+						Map::LoadFile("./TextFiles/Stage/area3/stage8.csv");
+
+						if (!preKeys[DIK_D] && keys[DIK_D])
+						{
+							Scene::stageNo_ = STAGE_9;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						if (!preKeys[DIK_A] && keys[DIK_A])
+						{
+							Scene::stageNo_ = STAGE_7;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						if (!preKeys[DIK_W] && keys[DIK_W])
+						{
+							Scene::stageNo_ = STAGE_2;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						break;
+
+					case STAGE_9:
+
+						Map::LoadFile("./TextFiles/Stage/area3/stage9.csv");
+
+						if (!preKeys[DIK_D] && keys[DIK_D])
+						{
+							Scene::stageNo_ = STAGE_10;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						if (!preKeys[DIK_A] && keys[DIK_A])
+						{
+							Scene::stageNo_ = STAGE_8;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						if (!preKeys[DIK_W] && keys[DIK_W])
+						{
+							Scene::stageNo_ = STAGE_3;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						break;
+
+					case STAGE_10:
+
+						Map::LoadFile("./TextFiles/Stage/area3/stage10.csv");
+
+						if (!preKeys[DIK_D] && keys[DIK_D])
+						{
+							Scene::stageNo_ = STAGE_11;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						if (!preKeys[DIK_A] && keys[DIK_A])
+						{
+							Scene::stageNo_ = STAGE_9;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						if (!preKeys[DIK_W] && keys[DIK_W])
+						{
+							Scene::stageNo_ = STAGE_4;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						break;
+
+					case STAGE_11:
+
+						Map::LoadFile("./TextFiles/Stage/area3/stage11.csv");
+
+						if (!preKeys[DIK_D] && keys[DIK_D])
+						{
+							Scene::stageNo_ = STAGE_12;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						if (!preKeys[DIK_A] && keys[DIK_A])
+						{
+							Scene::stageNo_ = STAGE_10;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						if (!preKeys[DIK_W] && keys[DIK_W])
+						{
+							Scene::stageNo_ = STAGE_5;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						break;
+
+					case STAGE_12:
+
+						Map::LoadFile("./TextFiles/Stage/area3/stage12.csv");
+
+						if (!preKeys[DIK_A] && keys[DIK_A])
+						{
+							Scene::stageNo_ = STAGE_11;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						if (!preKeys[DIK_W] && keys[DIK_W])
+						{
+							Scene::stageNo_ = STAGE_6;
+
+							// 効果音
+							Novice::PlayAudio(shPick, 0, 0.3f);
+						}
+
+						break;
+					}
+
+					break;
 				}
-			}
 
-
-			break;
-
-		case SCENE_STAGE:
-			// ステージセレクト画面
-
-			// BGM
-			if (!Novice::IsPlayingAudio(phLostMemories) || phLostMemories == -1)
-			{
-				phLostMemories = Novice::PlayAudio(shLostMemories, 0, 0.1f);
-			}
-
-
-			/*   操作   */
-
-			// 760フレームで、ロードが終了する（ロードフラグがfalseになる）
-			if (gameFrame == 760)
-			{
-				if (isLoad)
+				// スペースキーで、配置準備する（配置準備フラグがtrueになる）
+				if (!preKeys[DIK_SPACE] && keys[DIK_SPACE])
 				{
-					isLoad = false;
-				}
+					// 凍結の音
+					Novice::PlayAudio(shFrozen , 0 , 0.3f);
 
-				// プレイヤーの操作
-				player->Operation(keys, preKeys);
-
-				// プレイヤーがブロックに乗る
-				for (int i = 0; i < kBlockNum; i++)
-				{
-					player->BlockLanding(block[i]);
+					Scene::isPutPreparation_ = true;
 				}
 
 				// 配置準備ができたら、ロードを開始する（ロードフラグをtrueにする）
@@ -827,8 +1762,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				}
 			}
 
-			// 820フレームで、ブロックを配置し、ゲーム画面に切り替える
-			if (gameFrame == 820)
+			// 480フレームで、ブロックを配置し、ゲーム画面に切り替える
+			if (gameFrame == 480)
 			{
 				// 配置準備ができたら（配置準備フラグがtrueだったら）、ブロックを配置する
 				if (Scene::isPutPreparation_)
@@ -1002,8 +1937,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			// ゲーム画面
 
 
-			// 880フレームで、ロードを終了し、ゲームを開始する（ロードフラグをfalseにする）
-			if (gameFrame == 880)
+			// 540フレームで、ロードを終了し、ゲームを開始する（ロードフラグをfalseにする）
+			if (gameFrame == 540)
 			{
 				if (isLoad)
 				{
@@ -1011,8 +1946,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				}
 			}
 
-			// 940フレームで、ロードを終了し、ゲーム後の操作を可能にする（ロードフラグをfalseにする）
-			if (gameFrame == 940)
+			// 600フレームで、ロードを終了し、ゲーム後の操作を可能にする（ロードフラグをfalseにする）
+			if (gameFrame == 600)
 			{
 				if (isLoad)
 				{
@@ -1024,14 +1959,14 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			// クリア、ゲームオーバーになるまで（クリア、ゲームオーバーフラグがfalseのときは）、操作できる
 			if (Scene::isClear_ == false && Scene::isGameOver_ == false)
 			{
-				// 880フレームで操作できる
-				if (gameFrame == 880)
+				// 540フレームで操作できる
+				if (gameFrame == 540)
 				{
 					// エリアごとに曲を変える
 					switch (Scene::areaNo_)
 					{
-					case AREA_STAR_LAND:
-						// スター島
+					case AREA_1:
+						// エリア1
 
 						if (!Novice::IsPlayingAudio(phYukisora) || phYukisora == -1)
 						{
@@ -1040,8 +1975,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 						break;
 
-					case AREA_REI_LAND:
-						// レイ島
+					case AREA_2:
+						// エリア2
 
 						if (!Novice::IsPlayingAudio(phYukinokioku) || phYukinokioku == -1)
 						{
@@ -1050,8 +1985,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 						break;
 
-					case AREA_TIKUTAKU_LAND:
-						// チクタク島
+					case AREA_3:
+						// エリア3
 
 						if (!Novice::IsPlayingAudio(phYukinosouretu) || phYukinosouretu == -1)
 						{
@@ -1060,19 +1995,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 						break;
 
-					case AREA_HOXTU_LAND:
-						// ホッ島
-
-						if (!Novice::IsPlayingAudio(phYukigoya) || phYukigoya == -1)
-						{
-							phYukigoya = Novice::PlayAudio(shYukigoya, 0, 0.1f);
-						}
-
-						break;
-
-					case AREA_RAPIXTU_LAND:
-						// ラピッ島
-
+					case AREA_4:
+						// エリア4
+						
 						if (!Novice::IsPlayingAudio(phYukikaze) || phYukikaze == -1)
 						{
 							phYukikaze = Novice::PlayAudio(shYukikaze, 0, 0.1f);
@@ -1214,298 +2139,240 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 						// 宝の数を初期化する
 						Map::treasureNum = 0;
 
-						switch (Scene::selectStage_)
+						// マップの値を初期化する
+						switch (Scene::areaNo_)
 						{
-						case 1:
+						case AREA_1:
 
-							switch (Scene::areaNo_)
+							switch (Scene::stageNo_)
 							{
-							case AREA_STAR_LAND:
+							case STAGE_1:
 
 								Map::LoadFile("./TextFiles/Stage/area1/stage1.csv");
 
 								break;
 
-							case AREA_REI_LAND:
-
-								Map::LoadFile("./TextFiles/Stage/area2/stage1.csv");
-
-								break;
-
-							case AREA_TIKUTAKU_LAND:
-
-								Map::LoadFile("./TextFiles/Stage/area3/stage1.csv");
-
-								break;
-
-							case AREA_HOXTU_LAND:
-
-								Map::LoadFile("./TextFiles/Stage/area4/stage1.csv");
-
-								break;
-
-							case AREA_RAPIXTU_LAND:
-
-								Map::LoadFile("./TextFiles/Stage/area5/stage1.csv");
-
-								break;
-							}
-
-							break;
-
-						case 2:
-
-							switch (Scene::areaNo_)
-							{
-							case AREA_STAR_LAND:
+							case STAGE_2:
 
 								Map::LoadFile("./TextFiles/Stage/area1/stage2.csv");
 
 								break;
 
-							case AREA_REI_LAND:
-
-								Map::LoadFile("./TextFiles/Stage/area2/stage2.csv");
-
-								break;
-
-							case AREA_TIKUTAKU_LAND:
-
-								Map::LoadFile("./TextFiles/Stage/area3/stage2.csv");
-
-								break;
-
-							case AREA_HOXTU_LAND:
-
-								Map::LoadFile("./TextFiles/Stage/area4/stage2.csv");
-
-								break;
-
-							case AREA_RAPIXTU_LAND:
-
-								Map::LoadFile("./TextFiles/Stage/area5/stage2.csv");
-
-								break;
-							}
-
-							break;
-
-						case 3:
-
-							switch (Scene::areaNo_)
-							{
-							case AREA_STAR_LAND:
+							case STAGE_3:
 
 								Map::LoadFile("./TextFiles/Stage/area1/stage3.csv");
 
 								break;
 
-							case AREA_REI_LAND:
-
-								Map::LoadFile("./TextFiles/Stage/area2/stage3.csv");
-
-								break;
-
-							case AREA_TIKUTAKU_LAND:
-
-								Map::LoadFile("./TextFiles/Stage/area3/stage3.csv");
-
-								break;
-
-							case AREA_HOXTU_LAND:
-
-								Map::LoadFile("./TextFiles/Stage/area4/stage3.csv");
-
-								break;
-
-							case AREA_RAPIXTU_LAND:
-
-								Map::LoadFile("./TextFiles/Stage/area5/stage3.csv");
-
-								break;
-							}
-
-							break;
-
-						case 4:
-
-							switch (Scene::areaNo_)
-							{
-							case AREA_STAR_LAND:
+							case STAGE_4:
 
 								Map::LoadFile("./TextFiles/Stage/area1/stage4.csv");
 
 								break;
 
-							case AREA_REI_LAND:
-
-								Map::LoadFile("./TextFiles/Stage/area2/stage4.csv");
-
-								break;
-
-							case AREA_TIKUTAKU_LAND:
-
-								Map::LoadFile("./TextFiles/Stage/area3/stage4.csv");
-
-								break;
-
-							case AREA_HOXTU_LAND:
-
-								Map::LoadFile("./TextFiles/Stage/area4/stage4.csv");
-
-								break;
-
-							case AREA_RAPIXTU_LAND:
-
-								Map::LoadFile("./TextFiles/Stage/area5/stage4.csv");
-
-								break;
-							}
-
-							break;
-
-						case 5:
-
-							switch (Scene::areaNo_)
-							{
-							case AREA_STAR_LAND:
+							case STAGE_5:
 
 								Map::LoadFile("./TextFiles/Stage/area1/stage5.csv");
 
 								break;
 
-							case AREA_REI_LAND:
-
-								Map::LoadFile("./TextFiles/Stage/area2/stage5.csv");
-
-								break;
-
-							case AREA_TIKUTAKU_LAND:
-
-								Map::LoadFile("./TextFiles/Stage/area3/stage5.csv");
-
-								break;
-
-							case AREA_HOXTU_LAND:
-
-								Map::LoadFile("./TextFiles/Stage/area4/stage5.csv");
-
-								break;
-
-							case AREA_RAPIXTU_LAND:
-
-								Map::LoadFile("./TextFiles/Stage/area5/stage5.csv");
-
-								break;
-							}
-
-							break;
-
-						case 6:
-
-							switch (Scene::areaNo_)
-							{
-							case AREA_STAR_LAND:
+							case STAGE_6:
 
 								Map::LoadFile("./TextFiles/Stage/area1/stage6.csv");
 
 								break;
 
-							case AREA_REI_LAND:
-
-								Map::LoadFile("./TextFiles/Stage/area2/stage6.csv");
-
-								break;
-
-							case AREA_TIKUTAKU_LAND:
-
-								Map::LoadFile("./TextFiles/Stage/area3/stage6.csv");
-
-								break;
-
-							case AREA_HOXTU_LAND:
-
-								Map::LoadFile("./TextFiles/Stage/area4/stage6.csv");
-
-								break;
-
-							case AREA_RAPIXTU_LAND:
-
-								Map::LoadFile("./TextFiles/Stage/area5/stage6.csv");
-
-								break;
-							}
-
-							break;
-
-						case 7:
-
-							switch (Scene::areaNo_)
-							{
-							case AREA_STAR_LAND:
+							case STAGE_7:
 
 								Map::LoadFile("./TextFiles/Stage/area1/stage7.csv");
 
 								break;
 
-							case AREA_REI_LAND:
+							case STAGE_8:
 
-								Map::LoadFile("./TextFiles/Stage/area2/stage7.csv");
-
-								break;
-
-							case AREA_TIKUTAKU_LAND:
-
-								Map::LoadFile("./TextFiles/Stage/area3/stage7.csv");
+								Map::LoadFile("./TextFiles/Stage/area1/stage8.csv");
 
 								break;
 
-							case AREA_HOXTU_LAND:
+							case STAGE_9:
 
-								Map::LoadFile("./TextFiles/Stage/area4/stage7.csv");
+								Map::LoadFile("./TextFiles/Stage/area1/stage9.csv");
 
 								break;
 
-							case AREA_RAPIXTU_LAND:
+							case STAGE_10:
 
-								Map::LoadFile("./TextFiles/Stage/area5/stage7.csv");
+								Map::LoadFile("./TextFiles/Stage/area1/stage10.csv");
+
+								break;
+
+							case STAGE_11:
+
+								Map::LoadFile("./TextFiles/Stage/area1/stage11.csv");
+
+								break;
+
+							case STAGE_12:
+
+								Map::LoadFile("./TextFiles/Stage/area1/stage12.csv");
 
 								break;
 							}
 
 							break;
 
-						case 8:
+						case AREA_2:
 
-							switch (Scene::areaNo_)
+							switch (Scene::stageNo_)
 							{
-							case AREA_STAR_LAND:
+							case STAGE_1:
 
-								Map::LoadFile("./TextFiles/Stage/area1/stage8.csv");
+								Map::LoadFile("./TextFiles/Stage/area2/stage1.csv");
 
 								break;
 
-							case AREA_REI_LAND:
+							case STAGE_2:
+
+								Map::LoadFile("./TextFiles/Stage/area2/stage2.csv");
+
+								break;
+
+							case STAGE_3:
+
+								Map::LoadFile("./TextFiles/Stage/area2/stage3.csv");
+
+								break;
+
+							case STAGE_4:
+
+								Map::LoadFile("./TextFiles/Stage/area2/stage4.csv");
+
+								break;
+
+							case STAGE_5:
+
+								Map::LoadFile("./TextFiles/Stage/area2/stage5.csv");
+
+								break;
+
+							case STAGE_6:
+
+								Map::LoadFile("./TextFiles/Stage/area2/stage6.csv");
+
+								break;
+
+							case STAGE_7:
+
+								Map::LoadFile("./TextFiles/Stage/area2/stage7.csv");
+
+								break;
+
+							case STAGE_8:
 
 								Map::LoadFile("./TextFiles/Stage/area2/stage8.csv");
 
 								break;
 
-							case AREA_TIKUTAKU_LAND:
+							case STAGE_9:
+
+								Map::LoadFile("./TextFiles/Stage/area2/stage9.csv");
+
+								break;
+
+							case STAGE_10:
+
+								Map::LoadFile("./TextFiles/Stage/area2/stage10.csv");
+
+								break;
+
+							case STAGE_11:
+
+								Map::LoadFile("./TextFiles/Stage/area2/stage11.csv");
+
+								break;
+
+							case STAGE_12:
+
+								Map::LoadFile("./TextFiles/Stage/area2/stage12.csv");
+
+								break;
+							}
+
+							break;
+
+						case AREA_3:
+
+							switch (Scene::stageNo_)
+							{
+							case STAGE_1:
+
+								Map::LoadFile("./TextFiles/Stage/area3/stage1.csv");
+
+								break;
+
+							case STAGE_2:
+
+								Map::LoadFile("./TextFiles/Stage/area3/stage2.csv");
+
+								break;
+
+							case STAGE_3:
+
+								Map::LoadFile("./TextFiles/Stage/area3/stage3.csv");
+
+								break;
+
+							case STAGE_4:
+
+								Map::LoadFile("./TextFiles/Stage/area3/stage4.csv");
+
+								break;
+
+							case STAGE_5:
+
+								Map::LoadFile("./TextFiles/Stage/area3/stage5.csv");
+
+								break;
+
+							case STAGE_6:
+
+								Map::LoadFile("./TextFiles/Stage/area3/stage6.csv");
+
+								break;
+
+							case STAGE_7:
+
+								Map::LoadFile("./TextFiles/Stage/area3/stage7.csv");
+
+								break;
+
+							case STAGE_8:
 
 								Map::LoadFile("./TextFiles/Stage/area3/stage8.csv");
 
 								break;
 
-							case AREA_HOXTU_LAND:
+							case STAGE_9:
 
-								Map::LoadFile("./TextFiles/Stage/area4/stage8.csv");
+								Map::LoadFile("./TextFiles/Stage/area3/stage9.csv");
 
 								break;
 
-							case AREA_RAPIXTU_LAND:
+							case STAGE_10:
 
-								Map::LoadFile("./TextFiles/Stage/area5/stage8.csv");
+								Map::LoadFile("./TextFiles/Stage/area3/stage10.csv");
+
+								break;
+
+							case STAGE_11:
+
+								Map::LoadFile("./TextFiles/Stage/area3/stage11.csv");
+
+								break;
+
+							case STAGE_12:
+
+								Map::LoadFile("./TextFiles/Stage/area3/stage12.csv");
 
 								break;
 							}
@@ -1679,7 +2546,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				Novice::StopAudio(phYukinokioku);
 				Novice::StopAudio(phYukikaze);
 				Novice::StopAudio(phYukinosouretu);
-				Novice::StopAudio(phYukigoya);
 
 				// 宝の数を初期化する
 				Map::treasureNum = 0;
@@ -1703,8 +2569,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				}
 
 
-				// 940フレームで、ゲーム後の操作ができる
-				if (gameFrame == 940)
+				// 600フレームで、ゲーム後の操作ができる
+				if (gameFrame == 600)
 				{
 					// スペースキーで、ロードする（ロードフラグがtrueになる）
 					if (!preKeys[DIK_SPACE] && keys[DIK_SPACE] || Novice::IsTriggerButton(0, kPadButton10))
@@ -1717,13 +2583,13 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				}
 			}
 
-			// 1000フレームで、初期化され、ステージセレクトに移る
-			if (gameFrame == 1000)
+			// 660フレームで、初期化され、ステージセレクトに移る
+			if (gameFrame == 660)
 			{
 				if (isLoad)
 				{
 					Scene::sceneNo_ = SCENE_STAGE;
-					gameFrame = 700;
+					gameFrame = 360;
 
 
 					// Bgmを止める
@@ -1751,138 +2617,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 					// クリア、ゲームオーバーを初期化する
 					Scene::isClear_ = false;
 					Scene::isGameOver_ = false;
-
-					// ステージセレクトのマップ
-					Map::LoadFile("./TextFiles/Scene/StageSelect.csv");
-
-					// ブロックや敵を配置する
-					for (int row = 0; row < kMapRow; row++)
-					{
-						for (int column = 0; column < kMapColumn; column++)
-						{
-							switch (Map::map_[row][column])
-							{
-							case TILE_PLAYER:
-								// プレイヤー
-
-								player->Puttting(column, row);
-
-								// タイルを消す
-								Map::map_[row][column] = TILE_NOTHING;
-
-								break;
-
-
-							case TILE_PLASTIC:
-								// プラスチック
-
-								for (int i = 0; i < kBlockNum; i++)
-								{
-									if (i < 8)
-									{
-										if (block[i]->id_ == 0)
-										{
-											block[i]->Putting(column, row);
-
-											break;
-										}
-									}
-								}
-
-								// タイルを消す
-								Map::map_[row][column] = TILE_NOTHING;
-
-								break;
-
-							case TILE_CUSHION:
-								// クッション
-
-								for (int i = 0; i < kBlockNum; i++)
-								{
-									if (i >= 8 && i < 16)
-									{
-										if (block[i]->id_ == 0)
-										{
-											block[i]->Putting(column, row);
-
-											break;
-										}
-									}
-								}
-
-								// タイルを消す
-								Map::map_[row][column] = TILE_NOTHING;
-
-								break;
-
-							case TILE_TREASURE:
-								// 宝
-
-								for (int i = 0; i < kBlockNum; i++)
-								{
-									if (i >= 16 && i < 24)
-									{
-										if (block[i]->id_ == 0)
-										{
-											block[i]->Putting(column, row);
-
-											break;
-										}
-									}
-								}
-
-								// タイルを消す
-								Map::map_[row][column] = TILE_NOTHING;
-
-								// 宝の数をカウントする
-								Map::treasureNum++;
-
-								break;
-
-							case TILE_ICE_GHOST:
-								// 凍った幽霊
-
-								for (int i = 0; i < kBlockNum; i++)
-								{
-									if (i >= 24 && i < 32)
-									{
-										if (block[i]->id_ == 0)
-										{
-											block[i]->Putting(column, row);
-
-											break;
-										}
-									}
-								}
-
-								// タイルを消す
-								Map::map_[row][column] = TILE_NOTHING;
-
-								break;
-
-							case TILE_GHOST:
-								// 幽霊
-
-								for (int i = 0; i < kEnemyNum; i++)
-								{
-									if (i < 8)
-									{
-										if (enemy[i]->id_ == 0)
-										{
-											enemy[i]->Arrival(column, row);
-
-											break;
-										}
-									}
-								}
-
-								// タイルを消す
-								Map::map_[row][column] = TILE_NOTHING;
-
-								break;
-							}
-						}
-					}
 				}
 			}
 
@@ -1912,32 +2646,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 			break;
 
-		case SCENE_AREA:
-			Novice::ScreenPrintf(0, 0, "AREA");
-			break;
 
 		case SCENE_STAGE:
 			// ステージセレクト画面
-
-
-			Map::Draw();
-
-			// ブロック
-			for (int i = 0; i < kBlockNum; i++)
-			{
-				block[i]->Draw();
-			}
-
-			// 敵
-			for (int i = 0; i < kEnemyNum; i++)
-			{
-				enemy[i]->Draw();
-			}
-
-			// プレイヤー
-			player->Draw();
-
-
 
 
 			//デバック表示
@@ -1959,39 +2670,32 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 		case SCENE_GAME:
 			// ゲーム画面
 
-			// エリアごとに曲を変える
+			// エリアごとに背景
 			switch (Scene::areaNo_)
 			{
-			case AREA_STAR_LAND:
-				// スター島
+			case AREA_1:
+				// エリア1
 
 				Novice::DrawBox(0 , 0 , kScreenWidth , kScreenHeight , 0.0f , 0x000044FF , kFillModeSolid);
 
 				break;
 
-			case AREA_REI_LAND:
-				// レイ島
+			case AREA_2:
+				// エリア2
 
 				Novice::DrawBox(0, 0, kScreenWidth, kScreenHeight, 0.0f, 0x000044FF, kFillModeSolid);
 
 				break;
 
-			case AREA_TIKUTAKU_LAND:
-				// チクタク島
+			case AREA_3:
+				// エリア3
 
 				Novice::DrawBox(0, 0, kScreenWidth, kScreenHeight, 0.0f, 0x000044FF, kFillModeSolid);
 
 				break;
 
-			case AREA_HOXTU_LAND:
-				// ホッ島
-
-				Novice::DrawBox(0, 0, kScreenWidth, kScreenHeight, 0.0f, 0x000044FF, kFillModeSolid);
-
-				break;
-
-			case AREA_RAPIXTU_LAND:
-				// ラピッ島
+			case AREA_4:
+				// エリア4
 
 				Novice::DrawBox(0, 0, kScreenWidth, kScreenHeight, 0.0f, 0x000044FF, kFillModeSolid);
 
