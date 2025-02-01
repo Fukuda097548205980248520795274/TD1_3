@@ -136,7 +136,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 	/*  　デバック表示　  */
 	int isActive = true;
-
+	/*--------
+	   背景
+    --------*/
+	int ghArea1 = Novice::LoadTexture("./Resources/Images/BackGround/area1_bg.png");
 
 	/*--------
 		SE
@@ -2711,8 +2714,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			case AREA_1:
 				// エリア1
 
-				Novice::DrawBox(0, 0, kScreenWidth, kScreenHeight, 0.0f, 0x000044FF, kFillModeSolid);
-
+				Novice::DrawSprite(0, 0, ghArea1, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
 				break;
 
 			case AREA_2:
