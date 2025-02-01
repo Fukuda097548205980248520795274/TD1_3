@@ -720,7 +720,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 						{
 							Scene::areaNo_ = AREA_2;
 							Scene::stageNo_ = STAGE_1;
-			break;
 
 							// 効果音
 							Novice::PlayAudio(shPick, 0, 0.3f);
