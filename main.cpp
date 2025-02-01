@@ -21,6 +21,7 @@
 #include "./Class/Texture/SignboardWaremono/SignboardWaremono.h"
 #include "./Class/Texture/SignboardKonayuki/SignboardKonayuki.h"
 #include "./Class/Texture/SignboardScaffold/SignboardScaffold.h"
+#include "./Class/Texture/SpaceOrA/SpaceOrA.h"
 
 
 const char kWindowTitle[] = "LC1C_20_フクダソウワ_ゆきどけ～";
@@ -130,12 +131,21 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	texture[1] = new SignboardWaremono();
 	texture[2] = new SignboardKonayuki();
 	texture[3] = new SignboardScaffold();
-	texture[4] = new Transition();
+	texture[4] = new SpaceOrA();
+	texture[5] = new Transition();
 
 
 
 	/*  　デバック表示　  */
 	int isActive = true;
+
+
+	/*----------
+	    画像
+	----------*/
+
+	// タイトルの背景
+	int ghTitleBg = Novice::LoadTexture("./Resources/Images/Scene/title_bg.png");
 
 
 	/*--------
@@ -2669,16 +2679,23 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 		case SCENE_START:
 			// スタート画面
 
-			//デバック表示
-			Novice::ScreenPrintf(0, 0, "TITLE");
+			// 背景
+			Novice::DrawBox(0, 0, kScreenWidth, kScreenHeight, 0.0f, 0x000022FF, kFillModeSolid);
+			Novice::DrawSprite(0,-100, ghTitleBg, 0.87f, 0.87f, 0.0f, 0xFFFFFF55);
 
+			// タイトル
 			texture[0]->Draw(gameFrame);
+
+			texture[4]->Draw(gameFrame);
 
 			break;
 
 
 		case SCENE_STAGE:
 			// ステージセレクト画面
+
+			// 背景
+			Novice::DrawBox(0, 0, kScreenWidth, kScreenHeight, 0.0f, 0x000044FF, kFillModeSolid);
 
 
 			//デバック表示

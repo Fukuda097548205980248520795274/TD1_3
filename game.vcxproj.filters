@@ -118,6 +118,9 @@
     <ClCompile Include="Class\Texture\SignboardScaffold\SignboardScaffold.cpp">
       <Filter>Class\Texture\SignboardScaffold</Filter>
     </ClCompile>
+    <ClCompile Include="Class\Texture\SpaceOrA\SpaceOrA.cpp">
+      <Filter>Class\Texture\SpaceOrA</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Constant.h" />
@@ -299,6 +302,9 @@
     <ClInclude Include="Class\Texture\SignboardScaffold\SignboardScaffold.h">
       <Filter>Class\Texture\SignboardScaffold</Filter>
     </ClInclude>
+    <ClInclude Include="Class\Texture\SpaceOrA\SpaceOrA.h">
+      <Filter>Class\Texture\SpaceOrA</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Class">
@@ -336,9 +342,6 @@
     </Filter>
     <Filter Include="Class\Texture">
       <UniqueIdentifier>{ac55a1e3-6895-4c5c-a634-5406b5b8dd87}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Class\Texture\Title">
-      <UniqueIdentifier>{b86823d1-b572-48c3-910c-c701b6744254}</UniqueIdentifier>
     </Filter>
     <Filter Include="Class\Map">
       <UniqueIdentifier>{7b81949b-1434-41db-ac76-c402d6a31291}</UniqueIdentifier>
@@ -402,6 +405,12 @@
     </Filter>
     <Filter Include="Class\Texture\SignboardScaffold">
       <UniqueIdentifier>{ea8ed47a-51de-4d34-b22d-2738c4dd6132}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\Texture\Title">
+      <UniqueIdentifier>{b86823d1-b572-48c3-910c-c701b6744254}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\Texture\SpaceOrA">
+      <UniqueIdentifier>{f8aee316-a19e-4e6e-a342-55bf7164f960}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
