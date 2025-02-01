@@ -47,6 +47,11 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	// ロードしているかどうか（ロードフラグ）
 	int isLoad = true;
 
+	//ゲームオーバー時、ステージ選択画面に戻る為のフラグ
+	int isStageStop = false;
+
+	//ゲームオーバー時、リスタートさせる為のフラグ
+	int isRestart = false;
 
 	/*   ゲームシステム   */
 
@@ -77,15 +82,18 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 		if (i < 8)
 		{
 			block[i] = new Plastic();
-		} else if (i < 16)
+		}
+		else if (i < 16)
 		{
 			// クッション
 			block[i] = new Cushion();
-		} else if (i < 24)
+		}
+		else if (i < 24)
 		{
 			// 宝
 			block[i] = new Treasure();
-		} else if (i < 32)
+		}
+		else if (i < 32)
 		{
 			// 凍った敵
 			block[i] = new Bomb();
@@ -131,7 +139,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 
 	/*--------
-	    SE
+		SE
 	--------*/
 
 	// 鈴の音
@@ -406,7 +414,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 
 		/*------------------
-		    ゲームシステム
+			ゲームシステム
 		------------------*/
 
 		// ロード中にフレームを動かす
@@ -503,7 +511,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 						isLoad = true;
 
 						// 鈴の音
-						Novice::PlayAudio(shBell2 , 0 , 0.3f);
+						Novice::PlayAudio(shBell2, 0, 0.3f);
 					}
 				}
 			}
@@ -534,6 +542,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 
 		case SCENE_AREA:
+#pragma region シーン:エリア選択
 			// エリアセレクト画面
 
 			// BGM
@@ -787,7 +796,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 
 			break;
-
+#pragma endregion
 		case SCENE_STAGE:
 			// ステージセレクト画面
 
@@ -1671,7 +1680,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 						}
 					}
 				}
-			} 
+			}
 			else
 			{
 				// Bgmを止める
@@ -1691,7 +1700,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 					{
 						phADreamOfCat = Novice::PlayAudio(shADreamOfCat, 0, 0.1f);
 					}
-				} 
+				}
 				else if (Scene::isGameOver_)
 				{
 					// ゲームオーバーの（ゲームオーバーフラグがtrueである）ときのBGM
@@ -1709,10 +1718,34 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 					// スペースキーで、ロードする（ロードフラグがtrueになる）
 					if (!preKeys[DIK_SPACE] && keys[DIK_SPACE] || Novice::IsTriggerButton(0, kPadButton10))
 					{
+						//ロードフラグをtrueにする
 						if (isLoad == false)
 						{
 							isLoad = true;
 						}
+
+						//ステージ選択に戻る為のフラグをtrueにする
+						if (isStageStop == false)
+						{
+							isStageStop = true;
+						}
+					}
+
+					//Rキーで、リスタートする(ロードフラグがtrueになる）
+					if (!preKeys[DIK_R] && keys[DIK_R])
+					{
+						//ロードフラグをtrueにする
+						if (isLoad == false)
+						{
+							isLoad = true;
+						}
+
+						//ステージをリスタートする為のフラグをtrueにする
+						if (isRestart == false)
+						{
+							isRestart = true;
+						}
+
 					}
 				}
 			}
@@ -1722,10 +1755,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			{
 				if (isLoad)
 				{
-					Scene::sceneNo_ = SCENE_STAGE;
-					gameFrame = 700;
-
-
 					// Bgmを止める
 					Novice::StopAudio(phADreamOfCat);
 					Novice::StopAudio(phInTheStillnessOfTwilight);
@@ -1752,8 +1781,331 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 					Scene::isClear_ = false;
 					Scene::isGameOver_ = false;
 
-					// ステージセレクトのマップ
-					Map::LoadFile("./TextFiles/Scene/StageSelect.csv");
+					if (isStageStop)
+					{
+						Scene::sceneNo_ = SCENE_STAGE;
+						gameFrame = 700;
+						// ステージセレクトのマップ
+						Map::LoadFile("./TextFiles/Scene/StageSelect.csv");
+
+						if (isStageStop)
+						{
+							isStageStop = false;
+						}
+					}
+
+					if (isRestart)
+					{
+						gameFrame = 820;
+
+						if (isRestart)
+						{
+							isRestart = false;
+						}
+
+						// 宝の数を初期化する
+						Map::treasureNum = 0;
+
+						switch (Scene::selectStage_)
+						{
+						case 1:
+
+							switch (Scene::areaNo_)
+							{
+							case AREA_STAR_LAND:
+
+								Map::LoadFile("./TextFiles/Stage/area1/stage1.csv");
+
+								break;
+
+							case AREA_REI_LAND:
+
+								Map::LoadFile("./TextFiles/Stage/area2/stage1.csv");
+
+								break;
+
+							case AREA_TIKUTAKU_LAND:
+
+								Map::LoadFile("./TextFiles/Stage/area3/stage1.csv");
+
+								break;
+
+							case AREA_HOXTU_LAND:
+
+								Map::LoadFile("./TextFiles/Stage/area4/stage1.csv");
+
+								break;
+
+							case AREA_RAPIXTU_LAND:
+
+								Map::LoadFile("./TextFiles/Stage/area5/stage1.csv");
+
+								break;
+							}
+
+							break;
+
+						case 2:
+
+							switch (Scene::areaNo_)
+							{
+							case AREA_STAR_LAND:
+
+								Map::LoadFile("./TextFiles/Stage/area1/stage2.csv");
+
+								break;
+
+							case AREA_REI_LAND:
+
+								Map::LoadFile("./TextFiles/Stage/area2/stage2.csv");
+
+								break;
+
+							case AREA_TIKUTAKU_LAND:
+
+								Map::LoadFile("./TextFiles/Stage/area3/stage2.csv");
+
+								break;
+
+							case AREA_HOXTU_LAND:
+
+								Map::LoadFile("./TextFiles/Stage/area4/stage2.csv");
+
+								break;
+
+							case AREA_RAPIXTU_LAND:
+
+								Map::LoadFile("./TextFiles/Stage/area5/stage2.csv");
+
+								break;
+							}
+
+							break;
+
+						case 3:
+
+							switch (Scene::areaNo_)
+							{
+							case AREA_STAR_LAND:
+
+								Map::LoadFile("./TextFiles/Stage/area1/stage3.csv");
+
+								break;
+
+							case AREA_REI_LAND:
+
+								Map::LoadFile("./TextFiles/Stage/area2/stage3.csv");
+
+								break;
+
+							case AREA_TIKUTAKU_LAND:
+
+								Map::LoadFile("./TextFiles/Stage/area3/stage3.csv");
+
+								break;
+
+							case AREA_HOXTU_LAND:
+
+								Map::LoadFile("./TextFiles/Stage/area4/stage3.csv");
+
+								break;
+
+							case AREA_RAPIXTU_LAND:
+
+								Map::LoadFile("./TextFiles/Stage/area5/stage3.csv");
+
+								break;
+							}
+
+							break;
+
+						case 4:
+
+							switch (Scene::areaNo_)
+							{
+							case AREA_STAR_LAND:
+
+								Map::LoadFile("./TextFiles/Stage/area1/stage4.csv");
+
+								break;
+
+							case AREA_REI_LAND:
+
+								Map::LoadFile("./TextFiles/Stage/area2/stage4.csv");
+
+								break;
+
+							case AREA_TIKUTAKU_LAND:
+
+								Map::LoadFile("./TextFiles/Stage/area3/stage4.csv");
+
+								break;
+
+							case AREA_HOXTU_LAND:
+
+								Map::LoadFile("./TextFiles/Stage/area4/stage4.csv");
+
+								break;
+
+							case AREA_RAPIXTU_LAND:
+
+								Map::LoadFile("./TextFiles/Stage/area5/stage4.csv");
+
+								break;
+							}
+
+							break;
+
+						case 5:
+
+							switch (Scene::areaNo_)
+							{
+							case AREA_STAR_LAND:
+
+								Map::LoadFile("./TextFiles/Stage/area1/stage5.csv");
+
+								break;
+
+							case AREA_REI_LAND:
+
+								Map::LoadFile("./TextFiles/Stage/area2/stage5.csv");
+
+								break;
+
+							case AREA_TIKUTAKU_LAND:
+
+								Map::LoadFile("./TextFiles/Stage/area3/stage5.csv");
+
+								break;
+
+							case AREA_HOXTU_LAND:
+
+								Map::LoadFile("./TextFiles/Stage/area4/stage5.csv");
+
+								break;
+
+							case AREA_RAPIXTU_LAND:
+
+								Map::LoadFile("./TextFiles/Stage/area5/stage5.csv");
+
+								break;
+							}
+
+							break;
+
+						case 6:
+
+							switch (Scene::areaNo_)
+							{
+							case AREA_STAR_LAND:
+
+								Map::LoadFile("./TextFiles/Stage/area1/stage6.csv");
+
+								break;
+
+							case AREA_REI_LAND:
+
+								Map::LoadFile("./TextFiles/Stage/area2/stage6.csv");
+
+								break;
+
+							case AREA_TIKUTAKU_LAND:
+
+								Map::LoadFile("./TextFiles/Stage/area3/stage6.csv");
+
+								break;
+
+							case AREA_HOXTU_LAND:
+
+								Map::LoadFile("./TextFiles/Stage/area4/stage6.csv");
+
+								break;
+
+							case AREA_RAPIXTU_LAND:
+
+								Map::LoadFile("./TextFiles/Stage/area5/stage6.csv");
+
+								break;
+							}
+
+							break;
+
+						case 7:
+
+							switch (Scene::areaNo_)
+							{
+							case AREA_STAR_LAND:
+
+								Map::LoadFile("./TextFiles/Stage/area1/stage7.csv");
+
+								break;
+
+							case AREA_REI_LAND:
+
+								Map::LoadFile("./TextFiles/Stage/area2/stage7.csv");
+
+								break;
+
+							case AREA_TIKUTAKU_LAND:
+
+								Map::LoadFile("./TextFiles/Stage/area3/stage7.csv");
+
+								break;
+
+							case AREA_HOXTU_LAND:
+
+								Map::LoadFile("./TextFiles/Stage/area4/stage7.csv");
+
+								break;
+
+							case AREA_RAPIXTU_LAND:
+
+								Map::LoadFile("./TextFiles/Stage/area5/stage7.csv");
+
+								break;
+							}
+
+							break;
+
+						case 8:
+
+							switch (Scene::areaNo_)
+							{
+							case AREA_STAR_LAND:
+
+								Map::LoadFile("./TextFiles/Stage/area1/stage8.csv");
+
+								break;
+
+							case AREA_REI_LAND:
+
+								Map::LoadFile("./TextFiles/Stage/area2/stage8.csv");
+
+								break;
+
+							case AREA_TIKUTAKU_LAND:
+
+								Map::LoadFile("./TextFiles/Stage/area3/stage8.csv");
+
+								break;
+
+							case AREA_HOXTU_LAND:
+
+								Map::LoadFile("./TextFiles/Stage/area4/stage8.csv");
+
+								break;
+
+							case AREA_RAPIXTU_LAND:
+
+								Map::LoadFile("./TextFiles/Stage/area5/stage8.csv");
+
+								break;
+							}
+
+							break;
+						}
+
+					}
 
 					// ブロックや敵を配置する
 					for (int row = 0; row < kMapRow; row++)
@@ -1965,7 +2317,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			case AREA_STAR_LAND:
 				// スター島
 
-				Novice::DrawBox(0 , 0 , kScreenWidth , kScreenHeight , 0.0f , 0x000044FF , kFillModeSolid);
+				Novice::DrawBox(0, 0, kScreenWidth, kScreenHeight, 0.0f, 0x000044FF, kFillModeSolid);
 
 				break;
 
@@ -2031,7 +2383,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			/*   クリア画面   */
 			if (Scene::isClear_)
 			{
-				Novice::ScreenPrintf(600, 350, "GAMECLEAR"); 
+				Novice::ScreenPrintf(600, 350, "GAMECLEAR");
 				Novice::ScreenPrintf(580, 390, "Spase to push");
 			}
 
@@ -2039,7 +2391,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			if (Scene::isGameOver_)
 			{
 				Novice::ScreenPrintf(600, 350, "GAMEOVER");
-				Novice::ScreenPrintf(580, 390, "Spase to push");
+				Novice::ScreenPrintf(580, 390, "Spase or R");
 			}
 
 			//デバック表示
