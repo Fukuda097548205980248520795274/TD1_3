@@ -1640,7 +1640,7 @@ void Player::Draw()
 			if (directionNo == DIRECTION_RIGHT)
 			{
 				Novice::DrawSprite
-				(static_cast<int>(pos_.screen.leftTop.x - 16.0f), static_cast<int>(pos_.screen.leftTop.y - 24.0f),
+				(static_cast<int>(pos_.screen.leftTop.x - 15.5f), static_cast<int>(pos_.screen.leftTop.y - 24.0f),
 					ghplayer, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF
 				);
 			}

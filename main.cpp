@@ -2684,16 +2684,21 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			//デバック表示
 			Novice::ScreenPrintf(8, 8, "STAGE_SELECT");
 
-			Novice::ScreenPrintf(8, 28, "Debug display:4");
-
-			if (isActive)
+			Novice::ScreenPrintf(8, 28, "AREA:");
+			if (Scene::areaNo_ == AREA_1)
 			{
-				Novice::ScreenPrintf(8, 48, "device:keyboard | controller");
-				Novice::ScreenPrintf(8, 68, "Move:  AD       |  leftStick");
-				Novice::ScreenPrintf(8, 88, "JUMP:  J        |      A    ");
-				Novice::ScreenPrintf(8, 108, "Ladder: W       | leftStick(up)");
-				Novice::ScreenPrintf(8, 128, "Interact:SPASE  | leftStick(up)");
+				Novice::ScreenPrintf(58, 28, "AREA_1");
 			}
+			else if (Scene::areaNo_ == AREA_2)
+			{
+				Novice::ScreenPrintf(58, 28, "AREA_2");
+			}
+			else if (Scene::areaNo_ == AREA_3)
+			{
+				Novice::ScreenPrintf(58, 28, "AREA_3");
+			}
+
+			Novice::ScreenPrintf(8, 48, "STAGE:%d", Scene::stageNo_ +1);
 
 			break;
 
