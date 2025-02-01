@@ -141,6 +141,7 @@ xcopy C:\KamataEngine\DirectXGame\Resources "$(OutDirFullPath)NoviceResources" /
     <ClCompile Include="Class\Texture\SignboardKonayuki\SignboardKonayuki.cpp" />
     <ClCompile Include="Class\Texture\SignboardScaffold\SignboardScaffold.cpp" />
     <ClCompile Include="Class\Texture\SignboardWaremono\SignboardWaremono.cpp" />
+    <ClCompile Include="Class\Texture\SpaceOrA\SpaceOrA.cpp" />
     <ClCompile Include="Class\Texture\Texture.cpp" />
     <ClCompile Include="Class\Texture\Title\Title.cpp" />
     <ClCompile Include="Class\Texture\Transition\Transition.cpp" />
@@ -204,6 +205,7 @@ xcopy C:\KamataEngine\DirectXGame\Resources "$(OutDirFullPath)NoviceResources" /
     <ClInclude Include="Class\Texture\SignboardKonayuki\SignboardKonayuki.h" />
     <ClInclude Include="Class\Texture\SignboardScaffold\SignboardScaffold.h" />
     <ClInclude Include="Class\Texture\SignboardWaremono\SignboardWaremono.h" />
+    <ClInclude Include="Class\Texture\SpaceOrA\SpaceOrA.h" />
     <ClInclude Include="Class\Texture\Texture.h" />
     <ClInclude Include="Class\Texture\Title\Title.h" />
     <ClInclude Include="Class\Texture\Transition\Transition.h" />
