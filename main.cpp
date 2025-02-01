@@ -47,6 +47,11 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	// ロードしているかどうか（ロードフラグ）
 	int isLoad = true;
 
+	//ゲームオーバー時、ステージ選択画面に戻る為のフラグ
+	int isStageStop = false;
+
+	//ゲームオーバー時、リスタートさせる為のフラグ
+	int isRestart = false;
 
 	/*   ゲームシステム   */
 
@@ -77,15 +82,18 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 		if (i < 8)
 		{
 			block[i] = new Plastic();
-		} else if (i < 16)
+		}
+		else if (i < 16)
 		{
 			// クッション
 			block[i] = new Cushion();
-		} else if (i < 24)
+		}
+		else if (i < 24)
 		{
 			// 宝
 			block[i] = new Treasure();
-		} else if (i < 32)
+		}
+		else if (i < 32)
 		{
 			// 凍った敵
 			block[i] = new Bomb();
@@ -131,7 +139,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 
 	/*--------
-	    SE
+		SE
 	--------*/
 
 	// 鈴の音
@@ -408,7 +416,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 
 		/*------------------
-		    ゲームシステム
+			ゲームシステム
 		------------------*/
 
 		// ロード中にフレームを動かす
@@ -468,7 +476,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 						isLoad = true;
 
 						// 鈴の音
-						Novice::PlayAudio(shBell2 , 0 , 0.3f);
+						Novice::PlayAudio(shBell2, 0, 0.3f);
 					}
 				}
 			}
@@ -496,7 +504,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 
 			break;
-
 
 		case SCENE_STAGE:
 			// ステージセレクト画面
@@ -713,6 +720,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 						{
 							Scene::areaNo_ = AREA_2;
 							Scene::stageNo_ = STAGE_1;
+			break;
 
 							// 効果音
 							Novice::PlayAudio(shPick, 0, 0.3f);
@@ -2538,7 +2546,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 						}
 					}
 				}
-			} 
+			}
 			else
 			{
 				// Bgmを止める
@@ -2557,7 +2565,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 					{
 						phADreamOfCat = Novice::PlayAudio(shADreamOfCat, 0, 0.1f);
 					}
-				} 
+				}
 				else if (Scene::isGameOver_)
 				{
 					// ゲームオーバーの（ゲームオーバーフラグがtrueである）ときのBGM
@@ -2575,10 +2583,34 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 					// スペースキーで、ロードする（ロードフラグがtrueになる）
 					if (!preKeys[DIK_SPACE] && keys[DIK_SPACE] || Novice::IsTriggerButton(0, kPadButton10))
 					{
+						//ロードフラグをtrueにする
 						if (isLoad == false)
 						{
 							isLoad = true;
 						}
+
+						//ステージ選択に戻る為のフラグをtrueにする
+						if (isStageStop == false)
+						{
+							isStageStop = true;
+						}
+					}
+
+					//Rキーで、リスタートする(ロードフラグがtrueになる）
+					if (!preKeys[DIK_R] && keys[DIK_R])
+					{
+						//ロードフラグをtrueにする
+						if (isLoad == false)
+						{
+							isLoad = true;
+						}
+
+						//ステージをリスタートする為のフラグをtrueにする
+						if (isRestart == false)
+						{
+							isRestart = true;
+						}
+
 					}
 				}
 			}
@@ -2590,8 +2622,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				{
 					Scene::sceneNo_ = SCENE_STAGE;
 					gameFrame = 360;
-
-
+          
 					// Bgmを止める
 					Novice::StopAudio(phADreamOfCat);
 					Novice::StopAudio(phInTheStillnessOfTwilight);
@@ -2676,7 +2707,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			case AREA_1:
 				// エリア1
 
-				Novice::DrawBox(0 , 0 , kScreenWidth , kScreenHeight , 0.0f , 0x000044FF , kFillModeSolid);
+				Novice::DrawBox(0, 0, kScreenWidth, kScreenHeight, 0.0f, 0x000044FF, kFillModeSolid);
 
 				break;
 
@@ -2735,7 +2766,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			/*   クリア画面   */
 			if (Scene::isClear_)
 			{
-				Novice::ScreenPrintf(600, 350, "GAMECLEAR"); 
+				Novice::ScreenPrintf(600, 350, "GAMECLEAR");
 				Novice::ScreenPrintf(580, 390, "Spase to push");
 			}
 
@@ -2743,7 +2774,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			if (Scene::isGameOver_)
 			{
 				Novice::ScreenPrintf(600, 350, "GAMEOVER");
-				Novice::ScreenPrintf(580, 390, "Spase to push");
+				Novice::ScreenPrintf(580, 390, "Spase or R");
 			}
 
 			//デバック表示
