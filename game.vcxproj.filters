@@ -124,6 +124,9 @@
     <ClCompile Include="Function\FullScreen\FullScreen.cpp">
       <Filter>Function\FullScreen</Filter>
     </ClCompile>
+    <ClCompile Include="Class\Texture\SignboardFlag\SignboardFlag.cpp">
+      <Filter>Class\Texture\SignboardFlag</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Constant.h" />
@@ -311,6 +314,9 @@
     <ClInclude Include="Function\FullScreen\FullScreen.h">
       <Filter>Function\FullScreen</Filter>
     </ClInclude>
+    <ClInclude Include="Class\Texture\SignboardFlag\SignboardFlag.h">
+      <Filter>Class\Texture\SignboardFlag</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Class">
@@ -420,6 +426,12 @@
     </Filter>
     <Filter Include="Function\FullScreen">
       <UniqueIdentifier>{1ce73b4d-6223-49b0-9e84-9dc5ebdb1882}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\Texture\SignboardCarry">
+      <UniqueIdentifier>{51eab8f1-f097-4a04-8bed-a97e965db2c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\Texture\SignboardFlag">
+      <UniqueIdentifier>{585d247e-b4ec-4626-8281-0ac6e5028b52}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

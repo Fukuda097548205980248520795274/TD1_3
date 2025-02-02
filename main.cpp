@@ -22,6 +22,7 @@
 #include "./Class/Texture/SignboardWaremono/SignboardWaremono.h"
 #include "./Class/Texture/SignboardKonayuki/SignboardKonayuki.h"
 #include "./Class/Texture/SignboardScaffold/SignboardScaffold.h"
+#include "./class/Texture/SignboardFlag/SignboardFlag.h"
 #include "./Class/Texture/SpaceOrA/SpaceOrA.h"
 
 
@@ -134,7 +135,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	texture[2] = new SignboardKonayuki();
 	texture[3] = new SignboardScaffold();
 	texture[4] = new SpaceOrA();
-	texture[5] = new Transition();
+	texture[5] = new SignboardFlag();
+	texture[6] = new Transition();
 
 
 
@@ -3135,6 +3137,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			texture[1]->Draw(gameFrame);
 			texture[2]->Draw(gameFrame);
 			texture[3]->Draw(gameFrame);
+			texture[5]->Draw(gameFrame);
 
 			// マップ
 			Map::Draw();
