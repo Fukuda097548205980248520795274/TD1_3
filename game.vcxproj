@@ -145,6 +145,7 @@ xcopy C:\KamataEngine\DirectXGame\Resources "$(OutDirFullPath)NoviceResources" /
     <ClCompile Include="Class\Texture\Texture.cpp" />
     <ClCompile Include="Class\Texture\Title\Title.cpp" />
     <ClCompile Include="Class\Texture\Transition\Transition.cpp" />
+    <ClCompile Include="Function\FullScreen\FullScreen.cpp" />
     <ClCompile Include="Function\Matrix\Matrix.cpp" />
     <ClCompile Include="Function\Vector\Vector.cpp" />
     <ClCompile Include="main.cpp" />
@@ -211,6 +212,7 @@ xcopy C:\KamataEngine\DirectXGame\Resources "$(OutDirFullPath)NoviceResources" /
     <ClInclude Include="Class\Texture\Transition\Transition.h" />
     <ClInclude Include="Constant.h" />
     <ClInclude Include="Enumeration.h" />
+    <ClInclude Include="Function\FullScreen\FullScreen.h" />
     <ClInclude Include="Function\Matrix\Matrix.h" />
     <ClInclude Include="Function\Vector\Vector.h" />
     <ClInclude Include="Structure.h" />
