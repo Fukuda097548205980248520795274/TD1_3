@@ -121,6 +121,9 @@
     <ClCompile Include="Class\Texture\SpaceOrA\SpaceOrA.cpp">
       <Filter>Class\Texture\SpaceOrA</Filter>
     </ClCompile>
+    <ClCompile Include="Function\FullScreen\FullScreen.cpp">
+      <Filter>Function\FullScreen</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Constant.h" />
@@ -305,6 +308,9 @@
     <ClInclude Include="Class\Texture\SpaceOrA\SpaceOrA.h">
       <Filter>Class\Texture\SpaceOrA</Filter>
     </ClInclude>
+    <ClInclude Include="Function\FullScreen\FullScreen.h">
+      <Filter>Function\FullScreen</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Class">
@@ -411,6 +417,9 @@
     </Filter>
     <Filter Include="Class\Texture\SpaceOrA">
       <UniqueIdentifier>{f8aee316-a19e-4e6e-a342-55bf7164f960}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Function\FullScreen">
+      <UniqueIdentifier>{1ce73b4d-6223-49b0-9e84-9dc5ebdb1882}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

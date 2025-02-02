@@ -15,6 +15,7 @@
 #include "./Class/Object/Particle/Debris/Debris.h"
 
 #include "Switching.h"
+#include "./Function/FullScreen/FullScreen.h"
 #include "./Class/Texture/Texture.h"
 #include "./Class/Texture/Title/Title.h"
 #include "./Class/Texture/Transition/Transition.h"
@@ -204,6 +205,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	int shWind = Novice::LoadAudio("./Resources/Sounds/Bgm/wind.mp3");
 	int phWind = -1;
 
+
+	// フルスクリーンにする
+	SetFullScreen(GetActiveWindow());
 
 	// ウィンドウの×ボタンが押されるまでループ
 	while (Novice::ProcessMessage() == 0)
@@ -2948,19 +2952,19 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			{
 			case AREA_1:
 
-				Novice::DrawBox(128 + Scene::stageNo_ % 6 * 200, 128 + (Scene::stageNo_ / 6) * 200, 128, 128, 0.0f, 0xFFFFFFFF, kFillModeWireFrame);
+				Novice::DrawBox(114 + Scene::stageNo_ % 6 * 200, 320 + (Scene::stageNo_ / 6) * 200, 128, 128, 0.0f, 0xFFFFFFFF, kFillModeWireFrame);
 
 				break;
 
 			case AREA_2:
 
-				Novice::DrawBox(128 + Scene::stageNo_ % 6 * 200, 128 + (Scene::stageNo_ / 6) * 200, 128, 128, 0.0f, 0xFFFFFFFF, kFillModeWireFrame);
+				Novice::DrawBox(114 + Scene::stageNo_ % 6 * 200, 320 + (Scene::stageNo_ / 6) * 200, 128, 128, 0.0f, 0xFFFFFFFF, kFillModeWireFrame);
 
 				break;
 
 			case AREA_3:
 
-				Novice::DrawBox(128 + Scene::stageNo_ % 6 * 200, 128 + (Scene::stageNo_ / 6) * 200, 128, 128, 0.0f, 0xFFFFFFFF, kFillModeWireFrame);
+				Novice::DrawBox(114 + Scene::stageNo_ % 6 * 200, 320 + (Scene::stageNo_ / 6) * 200, 128, 128, 0.0f, 0xFFFFFFFF, kFillModeWireFrame);
 
 				break;
 			}
