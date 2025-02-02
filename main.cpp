@@ -25,6 +25,9 @@
 #include "./Class/Texture/SignboardScaffold/SignboardScaffold.h"
 #include "./class/Texture/SignboardFlag/SignboardFlag.h"
 #include "./Class/Texture/SpaceOrA/SpaceOrA.h"
+#include "./Class/Texture/TextNextStage/TextNextStage.h"
+#include "./Class/Texture/TextReset/TextReset.h"
+#include "./Class/Texture/TextReturn/TextReturn.h"
 
 
 const char kWindowTitle[] = "LC1C_20_フクダソウワ_ゆきどけ～";
@@ -144,7 +147,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	texture[3] = new SignboardScaffold();
 	texture[4] = new SpaceOrA();
 	texture[5] = new SignboardFlag();
-	texture[6] = new Transition();
+	texture[6] = new TextNextStage();
+	texture[7] = new TextReset();
+	texture[8] = new TextReturn();
+	texture[9] = new Transition();
 
 
 
@@ -520,40 +526,32 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 					{
 						isLoad = true;
 
-						// 切り替え用の雪を放出する
-						for (int i = 0; i < 8; i++)
-						{
-							for (int j = 0; j < kParticleSnowSwitching; j++)
-							{
-								if (snowSwitching[j]->isEmission_ == false)
-								{
-									snowSwitching[j]->Emission
-									({ static_cast<float>(kScreenWidth + 300 + (rand() % (kScreenWidth / 2))) ,static_cast<float>(rand() % kScreenHeight) });
-
-									break;
-								}
-							}
-						}
-
 						// 鈴の音
 						Novice::PlayAudio(shBell2, 0, 0.3f);
 					}
 				}
 			}
 
-			// 241 ~ 259フレームで、スペースキーを押すと、スキップできる
-			if (!preKeys[DIK_SPACE] && keys[DIK_SPACE] || Novice::IsTriggerButton(0, kPadButton10))
+			// 300フレームで、切り替え用の雪を放出する
+			if (gameFrame == 300)
 			{
-				if (gameFrame > 240 && gameFrame < 360)
+				// 切り替え用の雪を放出する
+				for (int i = 0; i < 8; i++)
 				{
-					if (isLoad)
+					for (int j = 0; j < kParticleSnowSwitching; j++)
 					{
-						gameFrame = 359;
+						if (snowSwitching[j]->isEmission_ == false)
+						{
+							snowSwitching[j]->Emission
+							({ static_cast<float>(kScreenWidth + 300 + (rand() % (kScreenWidth / 2))) ,static_cast<float>(rand() % kScreenHeight) });
+
+							break;
+						}
 					}
 				}
 			}
 
-			// 360フレームで、エリアセレクト画面に移る
+			// 360フレームで、ステージセレクト画面に移る
 			if (gameFrame == 360)
 			{
 				if (isLoad)
@@ -2449,21 +2447,24 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 					}
 
 
-					/*   敗北条件   */
-
-					// プレイヤーがやられたら（復活フラグがfalseになったら）ゲームオーバー
-					if (player->respawn_.isRespawn == false)
-					{
-						Scene::isGameOver_ = true;
-					}
-
-
 					/*   クリア条件   */
 
 					// 残りの宝がなくなったらクリア（クリアフラグがtrueになる）
 					if (Map::treasureNum <= 0)
 					{
 						Scene::isClear_ = true;
+					}
+
+
+					/*   敗北条件   */
+
+					// プレイヤーがやられたら（復活フラグがfalseになったら）ゲームオーバー
+					if (Scene::isClear_ == false)
+					{
+						if (player->respawn_.isRespawn == false)
+						{
+							Scene::isGameOver_ = true;
+						}
 					}
 
 
@@ -2521,6 +2522,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 							if (!preKeys[DIK_S] && keys[DIK_S])
 							{
 								Scene::clearNo_ = CLEAR_END_GAME;
+
+								// 効果音
+								Novice::PlayAudio(shPick, 0, 0.3f);
 							}
 
 							isReset = true;
@@ -2533,6 +2537,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 							if (!preKeys[DIK_W] && keys[DIK_W])
 							{
 								Scene::clearNo_ = CLEAR_NEXT_GAME;
+
+								// 効果音
+								Novice::PlayAudio(shPick, 0, 0.3f);
 							}
 
 							isReset = false;
@@ -2552,6 +2559,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 							if (!preKeys[DIK_S] && keys[DIK_S])
 							{
 								Scene::gameoverNo_ = GAMEOVER_END_GAME;
+
+								// 効果音
+								Novice::PlayAudio(shPick, 0, 0.3f);
 							}
 
 							isReset = true;
@@ -2564,6 +2574,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 							if (!preKeys[DIK_W] && keys[DIK_W])
 							{
 								Scene::gameoverNo_ = GAMEOVER_RESET_GAME;
+
+								// 効果音
+								Novice::PlayAudio(shPick, 0, 0.3f);
 							}
 
 							isReset = false;
@@ -2592,6 +2605,11 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 						if (isReset)
 						{
 							Novice::PlayAudio(shFrozen, 0, 0.3f);
+						}
+						else
+						{
+							// 鈴の音
+							Novice::PlayAudio(shBell2, 0, 0.3f);
 						}
 
 						// 切り替え用の雪を放出する
@@ -3269,6 +3287,11 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				Novice::ScreenPrintf(600, 350, "GAMECLEAR");
 				Novice::ScreenPrintf(580, 390, "Spase to push");
 			}
+
+			// メニュー
+			texture[6]->Draw(gameFrame);
+			texture[7]->Draw(gameFrame);
+			texture[8]->Draw(gameFrame);
 
 			/*   ゲームオーバー画面   */
 			if (Scene::isGameOver_)
