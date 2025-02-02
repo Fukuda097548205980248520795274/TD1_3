@@ -133,6 +133,7 @@ xcopy C:\KamataEngine\DirectXGame\Resources "$(OutDirFullPath)NoviceResources" /
     <ClCompile Include="Class\Object\Particle\Particle.cpp" />
     <ClCompile Include="Class\Object\Particle\SnowCarry\SnowCarry.cpp" />
     <ClCompile Include="Class\Object\Particle\SnowShining\SnowShining.cpp" />
+    <ClCompile Include="Class\Object\Particle\SnowSwitching\SnowSwitching.cpp" />
     <ClCompile Include="Class\Object\Particle\Snow\Snow.cpp" />
     <ClCompile Include="Class\Object\Particle\Vapor\Vapor.cpp" />
     <ClCompile Include="Class\Object\Particle\Water\Water.cpp" />
@@ -199,6 +200,7 @@ xcopy C:\KamataEngine\DirectXGame\Resources "$(OutDirFullPath)NoviceResources" /
     <ClInclude Include="Class\Object\Particle\Particle.h" />
     <ClInclude Include="Class\Object\Particle\SnowCarry\SnowCarry.h" />
     <ClInclude Include="Class\Object\Particle\SnowShining\SnowShining.h" />
+    <ClInclude Include="Class\Object\Particle\SnowSwitching\SnowSwitching.h" />
     <ClInclude Include="Class\Object\Particle\Snow\Snow.h" />
     <ClInclude Include="Class\Object\Particle\Vapor\Vapor.h" />
     <ClInclude Include="Class\Object\Particle\Water\Water.h" />

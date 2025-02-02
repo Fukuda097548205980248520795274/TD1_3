@@ -13,6 +13,7 @@
 #include "./Class/Object/Particle/Snow/Snow.h"
 #include "./Class/Object/Particle/Water/Water.h"
 #include "./Class/Object/Particle/Debris/Debris.h"
+#include "./Class/Object/Particle/SnowSwitching/SnowSwitching.h"
 
 #include "Switching.h"
 #include "./Function/FullScreen/FullScreen.h"
@@ -124,6 +125,13 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	for (int i = 0; i < kParticleDebris; i++)
 	{
 		debris[i] = new Debris();
+	}
+
+	// 切り替え用の雪
+	SnowSwitching* snowSwitching[kParticleSnowSwitching];
+	for (int i = 0; i < kParticleSnowSwitching; i++)
+	{
+		snowSwitching[i] = new SnowSwitching();
 	}
 
 
@@ -445,6 +453,12 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			}
 		}
 
+		// 切り替え用の雪
+		for (int i = 0; i < kParticleSnowSwitching; i++)
+		{
+			snowSwitching[i]->Move();
+		}
+
 
 		/*------------------
 			ゲームシステム
@@ -505,6 +519,21 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 					if (isLoad == false)
 					{
 						isLoad = true;
+
+						// 切り替え用の雪を放出する
+						for (int i = 0; i < 8; i++)
+						{
+							for (int j = 0; j < kParticleSnowSwitching; j++)
+							{
+								if (snowSwitching[j]->isEmission_ == false)
+								{
+									snowSwitching[j]->Emission
+									({ static_cast<float>(kScreenWidth + 300 + (rand() % (kScreenWidth / 2))) ,static_cast<float>(rand() % kScreenHeight) });
+
+									break;
+								}
+							}
+						}
 
 						// 鈴の音
 						Novice::PlayAudio(shBell2, 0, 0.3f);
@@ -1643,6 +1672,21 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 					// 凍結の音
 					Novice::PlayAudio(shFrozen, 0, 0.3f);
 
+					// 切り替え用の雪を放出する
+					for (int i = 0; i < 8; i++)
+					{
+						for (int j = 0; j < kParticleSnowSwitching; j++)
+						{
+							if (snowSwitching[j]->isEmission_ == false)
+							{
+								snowSwitching[j]->Emission
+								({ static_cast<float>(kScreenWidth + 300 + (rand() % (kScreenWidth / 2))) ,static_cast<float>(rand() % kScreenHeight) });
+
+								break;
+							}
+						}
+					}
+
 					Scene::isPutPreparation_ = true;
 				}
 
@@ -2543,6 +2587,27 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 						{
 							isStageStop = true;
 						}
+
+						// 再度プレイする場合は、凍結音を流す
+						if (isReset)
+						{
+							Novice::PlayAudio(shFrozen, 0, 0.3f);
+						}
+
+						// 切り替え用の雪を放出する
+						for (int i = 0; i < 8; i++)
+						{
+							for (int j = 0; j < kParticleSnowSwitching; j++)
+							{
+								if (snowSwitching[j]->isEmission_ == false)
+								{
+									snowSwitching[j]->Emission
+									({ static_cast<float>(kScreenWidth + 300 + (rand() % (kScreenWidth / 2))) ,static_cast<float>(rand() % kScreenHeight) });
+
+									break;
+								}
+							}
+						}
 					}
 				}
 			}
@@ -3172,29 +3237,30 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			// プレイヤー
 			player->Draw();
 
-			/*   クリア画面   */
 
-			Novice::DrawSprite(450, 8, ghTreasureText, 0.5f, 0.5f, 0.0f, 0xFFFFFFFF);
+			/*   宝の個数   */
 
-			if (Map::treasureNum == 0)
+			// ゲーム中に表示する
+			if (Scene::isClear_ == false && Scene::isGameOver_ == false)
 			{
-				Novice::DrawSprite(680, 8, ghNumber[0], 0.5f, 0.5f, 0.0f, 0xFFFFFFFF);
-			}
-			else if (Map::treasureNum == 1)
-			{
-				Novice::DrawSprite(680, 8, ghNumber[1], 0.5f, 0.5f, 0.0f, 0xFFFFFFFF);
-			}
-			else if (Map::treasureNum == 2)
-			{
-				Novice::DrawSprite(680, 8, ghNumber[2], 0.5f, 0.5f, 0.0f, 0xFFFFFFFF);
-			}
-			else if (Map::treasureNum == 3)
-			{
-				Novice::DrawSprite(680, 8, ghNumber[3], 0.5f, 0.5f, 0.0f, 0xFFFFFFFF);
-			}
-			else if (Map::treasureNum == 4)
-			{
-				Novice::DrawSprite(680, 8, ghNumber[4], 0.5f, 0.5f, 0.0f, 0xFFFFFFFF);
+				Novice::DrawSprite(450, 8, ghTreasureText, 0.5f, 0.5f, 0.0f, 0xFFFFFFFF);
+
+				if (Map::treasureNum == 0)
+				{
+					Novice::DrawSprite(680, 8, ghNumber[0], 0.5f, 0.5f, 0.0f, 0xFFFFFFFF);
+				} else if (Map::treasureNum == 1)
+				{
+					Novice::DrawSprite(680, 8, ghNumber[1], 0.5f, 0.5f, 0.0f, 0xFFFFFFFF);
+				} else if (Map::treasureNum == 2)
+				{
+					Novice::DrawSprite(680, 8, ghNumber[2], 0.5f, 0.5f, 0.0f, 0xFFFFFFFF);
+				} else if (Map::treasureNum == 3)
+				{
+					Novice::DrawSprite(680, 8, ghNumber[3], 0.5f, 0.5f, 0.0f, 0xFFFFFFFF);
+				} else if (Map::treasureNum == 4)
+				{
+					Novice::DrawSprite(680, 8, ghNumber[4], 0.5f, 0.5f, 0.0f, 0xFFFFFFFF);
+				}
 			}
 
 			/*   クリア画面   */
@@ -3255,6 +3321,12 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 		for (int i = 0; i < kParticleDebris; i++)
 		{
 			debris[i]->Draw();
+		}
+
+		// 切り替え用の雪
+		for (int i = 0; i < kParticleSnowSwitching; i++)
+		{
+			snowSwitching[i]->Draw();
 		}
 
 
@@ -3363,6 +3435,12 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	for (int i = 0; i < kParticleDebris; i++)
 	{
 		delete debris[i];
+	}
+
+	// 切り替え用の雪
+	for (int i = 0; i < kParticleSnowSwitching; i++)
+	{
+		delete snowSwitching[i];
 	}
 
 
