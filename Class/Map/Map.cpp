@@ -113,7 +113,7 @@ void Map::Draw()
 	ghGool[6] = Novice::LoadTexture("./Resources/Images/Map/Gool/gool7.png");
 	ghGool[7] = Novice::LoadTexture("./Resources/Images/Map/Gool/gool8.png");
 
-	int ghIceBlock[7];
+	int ghIceBlock[5];
 	ghIceBlock[0] = Novice::LoadTexture("./Resources/Images/Map/IceBlock/iceBlock.png");
 	ghIceBlock[1] = Novice::LoadTexture("./Resources/Images/Map/IceBlock/iceBlock1.png");
 	ghIceBlock[2] = Novice::LoadTexture("./Resources/Images/Map/IceBlock/iceBlock2.png");
@@ -198,7 +198,7 @@ void Map::Draw()
 						column * kTileSize + kTileSize, row * kTileSize,
 						column * kTileSize, row * kTileSize + kTileSize,
 						column * kTileSize + kTileSize, row * kTileSize + kTileSize,
-						0, 0, 48, 48, ghIceBlock[0], 0xFFFFFFFF
+						0, 0, 48, 48, ghIceBlock[3], 0xFFFFFFFF
 					);
 
 					break;

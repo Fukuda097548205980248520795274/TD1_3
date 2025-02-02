@@ -142,18 +142,27 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	int isActive = true;
 	/*--------
 	   背景
-    --------*/
+	--------*/
 	int ghArea1 = Novice::LoadTexture("./Resources/Images/BackGround/area1_bg.png");
 	int ghArea2 = Novice::LoadTexture("./Resources/Images/BackGround/area2_bg.png");
 	int ghArea3 = Novice::LoadTexture("./Resources/Images/BackGround/area3_bg.png");
 
 	/*----------
-	    画像
+		画像
 	----------*/
 
 	// タイトルの背景
 	int ghTitleBg = Novice::LoadTexture("./Resources/Images/Scene/title_bg.png");
 
+	//残りの宝箱
+	int ghNumber[5];
+	ghNumber[0] = Novice::LoadTexture("./Resources/Images/Scene/Number/0.png");
+	ghNumber[1] = Novice::LoadTexture("./Resources/Images/Scene/Number/1.png");
+	ghNumber[2] = Novice::LoadTexture("./Resources/Images/Scene/Number/2.png");
+	ghNumber[3] = Novice::LoadTexture("./Resources/Images/Scene/Number/3.png");
+	ghNumber[4] = Novice::LoadTexture("./Resources/Images/Scene/Number/4.png");
+
+	int ghTreasureText = Novice::LoadTexture("./Resources/Images/Scene/treasureText.png");
 
 	/*--------
 		SE
@@ -561,7 +570,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 							Scene::stageNo_ = STAGE_2;
 
 							// 効果音
-							Novice::PlayAudio(shPick , 0 , 0.3f);
+							Novice::PlayAudio(shPick, 0, 0.3f);
 						}
 
 						if (!preKeys[DIK_S] && keys[DIK_S])
@@ -900,7 +909,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 					}
 
 					break;
-					
+
 				case AREA_2:
 
 					switch (Scene::stageNo_)
@@ -1630,7 +1639,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				if (!preKeys[DIK_SPACE] && keys[DIK_SPACE])
 				{
 					// 凍結の音
-					Novice::PlayAudio(shFrozen , 0 , 0.3f);
+					Novice::PlayAudio(shFrozen, 0, 0.3f);
 
 					Scene::isPutPreparation_ = true;
 				}
@@ -1880,7 +1889,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 					case AREA_4:
 						// エリア4
-						
+
 						if (!Novice::IsPlayingAudio(phYukikaze) || phYukikaze == -1)
 						{
 							phYukikaze = Novice::PlayAudio(shYukikaze, 0, 0.1f);
@@ -3034,7 +3043,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 			// 背景
 			Novice::DrawBox(0, 0, kScreenWidth, kScreenHeight, 0.0f, 0x000022FF, kFillModeSolid);
-			Novice::DrawSprite(0,-100, ghTitleBg, 0.87f, 0.87f, 0.0f, 0xFFFFFF55);
+			Novice::DrawSprite(0, -100, ghTitleBg, 0.87f, 0.87f, 0.0f, 0xFFFFFF55);
 
 			// タイトル
 			texture[0]->Draw(gameFrame);
@@ -3089,7 +3098,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				Novice::ScreenPrintf(58, 28, "AREA_3");
 			}
 
-			Novice::ScreenPrintf(8, 48, "STAGE:%d", Scene::stageNo_ +1);
+			Novice::ScreenPrintf(8, 48, "STAGE:%d", Scene::stageNo_ + 1);
 
 			break;
 
@@ -3160,6 +3169,30 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			// プレイヤー
 			player->Draw();
 
+			/*   クリア画面   */
+
+			Novice::DrawSprite(450, 8, ghTreasureText, 0.5f, 0.5f, 0.0f, 0xFFFFFFFF);
+
+			if (Map::treasureNum == 0)
+			{
+				Novice::DrawSprite(680, 8, ghNumber[0], 0.5f, 0.5f, 0.0f, 0xFFFFFFFF);
+			}
+			else if (Map::treasureNum == 1)
+			{
+				Novice::DrawSprite(680, 8, ghNumber[1], 0.5f, 0.5f, 0.0f, 0xFFFFFFFF);
+			}
+			else if (Map::treasureNum == 2)
+			{
+				Novice::DrawSprite(680, 8, ghNumber[2], 0.5f, 0.5f, 0.0f, 0xFFFFFFFF);
+			}
+			else if (Map::treasureNum == 3)
+			{
+				Novice::DrawSprite(680, 8, ghNumber[3], 0.5f, 0.5f, 0.0f, 0xFFFFFFFF);
+			}
+			else if (Map::treasureNum == 4)
+			{
+				Novice::DrawSprite(680, 8, ghNumber[4], 0.5f, 0.5f, 0.0f, 0xFFFFFFFF);
+			}
 
 			/*   クリア画面   */
 			if (Scene::isClear_)
@@ -3176,7 +3209,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			}
 
 			//デバック表示
-			Novice::ScreenPrintf(8, 8, "GAME");
+			/*Novice::ScreenPrintf(8, 8, "GAME");
 
 			Novice::ScreenPrintf(500, 8, "Remaining treasure:%d", Map::treasureNum);
 
@@ -3189,7 +3222,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				Novice::ScreenPrintf(8, 88, "JUMP:  J          |      A    ");
 				Novice::ScreenPrintf(8, 108, "Ladder: W         | LeftStick(up)");
 				Novice::ScreenPrintf(8, 128, "CarryBlock:SPASE  |     R2    ");
-			}
+			}*/
 
 
 			break;
