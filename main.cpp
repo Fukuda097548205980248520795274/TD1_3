@@ -144,6 +144,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	   背景
     --------*/
 	int ghArea1 = Novice::LoadTexture("./Resources/Images/BackGround/area1_bg.png");
+	int ghArea2 = Novice::LoadTexture("./Resources/Images/BackGround/area2_bg.png");
+	int ghArea3 = Novice::LoadTexture("./Resources/Images/BackGround/area3_bg.png");
 
 	/*----------
 	    画像
@@ -3100,20 +3102,24 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			case AREA_1:
 				// エリア1
 
-				Novice::DrawSprite(0, 0, ghArea1, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
+				Novice::DrawBox(0, 0, kScreenWidth, kScreenHeight, 0.0f, 0x000022FF, kFillModeSolid);
+				Novice::DrawSprite(0, 0, ghArea1, 1.0f, 1.0f, 0.0f, 0xFFFFFFAA);
+
 				break;
 
 			case AREA_2:
 				// エリア2
 
-				Novice::DrawBox(0, 0, kScreenWidth, kScreenHeight, 0.0f, 0x000044FF, kFillModeSolid);
+				Novice::DrawBox(0, 0, kScreenWidth, kScreenHeight, 0.0f, 0x000022FF, kFillModeSolid);
+				Novice::DrawSprite(0, -70, ghArea2, 0.95f, 0.95f, 0.0f, 0xFFFFFF44);
 
 				break;
 
 			case AREA_3:
 				// エリア3
 
-				Novice::DrawBox(0, 0, kScreenWidth, kScreenHeight, 0.0f, 0x000044FF, kFillModeSolid);
+				Novice::DrawBox(0, 0, kScreenWidth, kScreenHeight, 0.0f, 0x000022FF, kFillModeSolid);
+				Novice::DrawSprite(0, -150, ghArea3, 1.0f, 1.0f, 0.0f, 0xFFFFFFAA);
 
 				break;
 
