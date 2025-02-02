@@ -52,6 +52,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	//ゲームオーバー時、ステージ選択画面に戻る為のフラグ
 	int isStageStop = false;
 
+	// リセットしているかどうか（リセットフラグ）
+	int isReset = false;
+
 
 	/*   ゲームシステム   */
 
@@ -2450,19 +2453,101 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				// 600フレームで、ゲーム後の操作ができる
 				if (gameFrame == 600)
 				{
-					// Rキーでリセットする
-					if (!preKeys[DIK_R] && keys[DIK_R])
+					// クリアしているとき（クリアフラグがtrueであるとき）
+					if (Scene::isClear_)
+					{
+						switch (Scene::clearNo_)
+						{
+						case CLEAR_NEXT_GAME:
+							// 次のステージに進む
+
+							if (!preKeys[DIK_S] && keys[DIK_S])
+							{
+								Scene::clearNo_ = CLEAR_END_GAME;
+							}
+
+							isReset = true;
+
+							break;
+
+						case CLEAR_END_GAME:
+							// ゲームを終了する
+
+							if (!preKeys[DIK_W] && keys[DIK_W])
+							{
+								Scene::clearNo_ = CLEAR_NEXT_GAME;
+							}
+
+							isReset = false;
+
+							break;
+						}
+					}
+					else if (Scene::isGameOver_)
+					{
+						// ゲームオーバーのとき（ゲームオーバーフラグがtrueである）
+
+						switch (Scene::gameoverNo_)
+						{
+						case GAMEOVER_RESET_GAME:
+							// 再挑戦する
+
+							if (!preKeys[DIK_S] && keys[DIK_S])
+							{
+								Scene::gameoverNo_ = GAMEOVER_END_GAME;
+							}
+
+							isReset = true;
+
+							break;
+
+						case GAMEOVER_END_GAME:
+							// ゲームを終了する
+
+							if (!preKeys[DIK_W] && keys[DIK_W])
+							{
+								Scene::gameoverNo_ = GAMEOVER_RESET_GAME;
+							}
+
+							isReset = false;
+
+							break;
+						}
+					}
+
+
+					// スペースキーで、ロードする（ロードフラグがtrueになる）
+					if (!preKeys[DIK_SPACE] && keys[DIK_SPACE] || Novice::IsTriggerButton(0, kPadButton10))
+					{
+						//ロードフラグをtrueにする
+						if (isLoad == false)
+						{
+							isLoad = true;
+						}
+
+						//ステージ選択に戻る為のフラグをtrueにする
+						if (isStageStop == false)
+						{
+							isStageStop = true;
+						}
+					}
+				}
+			}
+
+			// 660フレームで、初期化され、ステージセレクトに移る
+			if (gameFrame == 660)
+			{
+				if (isLoad)
+				{
+					// リセットしているとき（リセットフラグがtrueである）
+					if (isReset)
 					{
 						// フレームを戻す
-						gameFrame = 540;
+						gameFrame = 480;
 
 						// Bgmを止める
 						Novice::StopAudio(phADreamOfCat);
 						Novice::StopAudio(phInTheStillnessOfTwilight);
-
-						// クリアを初期化する（クリアフラグをfalseにする）
-						Scene::isClear_ = false;
-						Scene::isGameOver_ = false;
 
 						// ブロックを初期化する
 						for (int i = 0; i < kBlockNum; i++)
@@ -2484,6 +2569,23 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 						// 宝の数を初期化する
 						Map::treasureNum = 0;
+
+						// クリアしていたら（クリアフラグがtrueだったら）次のステージにする
+						if (Scene::isClear_)
+						{
+							if (Scene::stageNo_ < STAGE_12)
+							{
+								Scene::stageNo_ += 1;
+							}
+							else
+							{
+								if (Scene::areaNo_ < AREA_3)
+								{
+									Scene::stageNo_ = STAGE_1;
+									Scene::areaNo_ += 1;
+								}
+							}
+						}
 
 						// マップの値を初期化する
 						switch (Scene::areaNo_)
@@ -2854,60 +2956,58 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 								}
 							}
 						}
+
+						// 鈴を鳴らす
+						Novice::PlayAudio(shBell, 0, 0.5f);
+
+						// 切り替えを初期化する
+						Scene::clearNo_ = CLEAR_NEXT_GAME;
+						Scene::gameoverNo_ = GAMEOVER_RESET_GAME;
+
+						// クリアを初期化する（クリアフラグをfalseにする）
+						Scene::isClear_ = false;
+						Scene::isGameOver_ = false;
+
+						//	リセット終了（リセットフラグをfalseにする）
+						isReset = false;
 					}
-
-
-					// スペースキーで、ロードする（ロードフラグがtrueになる）
-					if (!preKeys[DIK_SPACE] && keys[DIK_SPACE] || Novice::IsTriggerButton(0, kPadButton10))
+					else
 					{
-						//ロードフラグをtrueにする
-						if (isLoad == false)
+						// リセットしないとき（リセットフラグがfalseであるとき）
+
+						Scene::sceneNo_ = SCENE_STAGE;
+						gameFrame = 360;
+
+						// Bgmを止める
+						Novice::StopAudio(phADreamOfCat);
+						Novice::StopAudio(phInTheStillnessOfTwilight);
+
+						// ブロックを初期化する
+						for (int i = 0; i < kBlockNum; i++)
 						{
-							isLoad = true;
+							block[i]->InitialValue();
 						}
 
-						//ステージ選択に戻る為のフラグをtrueにする
-						if (isStageStop == false)
+						// 敵を初期化する
+						for (int i = 0; i < kEnemyNum; i++)
 						{
-							isStageStop = true;
+							enemy[i]->InitialValue();
 						}
+
+						// パーティクルを初期化する
+						for (int i = 0; i < kParticleWater; i++)
+						{
+							water[i]->isEmission_ = false;
+						}
+
+						// 切り替えを初期化する
+						Scene::clearNo_ = CLEAR_NEXT_GAME;
+						Scene::gameoverNo_ = GAMEOVER_RESET_GAME;
+
+						// クリア、ゲームオーバーを初期化する
+						Scene::isClear_ = false;
+						Scene::isGameOver_ = false;
 					}
-				}
-			}
-
-			// 660フレームで、初期化され、ステージセレクトに移る
-			if (gameFrame == 660)
-			{
-				if (isLoad)
-				{
-					Scene::sceneNo_ = SCENE_STAGE;
-					gameFrame = 360;
-          
-					// Bgmを止める
-					Novice::StopAudio(phADreamOfCat);
-					Novice::StopAudio(phInTheStillnessOfTwilight);
-
-					// ブロックを初期化する
-					for (int i = 0; i < kBlockNum; i++)
-					{
-						block[i]->InitialValue();
-					}
-
-					// 敵を初期化する
-					for (int i = 0; i < kEnemyNum; i++)
-					{
-						enemy[i]->InitialValue();
-					}
-
-					// パーティクルを初期化する
-					for (int i = 0; i < kParticleWater; i++)
-					{
-						water[i]->isEmission_ = false;
-					}
-
-					// クリア、ゲームオーバーを初期化する
-					Scene::isClear_ = false;
-					Scene::isGameOver_ = false;
 				}
 			}
 
