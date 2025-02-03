@@ -127,6 +127,13 @@
     <ClCompile Include="Class\Texture\SignboardFlag\SignboardFlag.cpp">
       <Filter>Class\Texture\SignboardFlag</Filter>
     </ClCompile>
+    <ClCompile Include="Class\Object\Particle\SnowSwitching\SnowSwitching.cpp" />
+    <ClCompile Include="Class\Texture\TextNextStage\TextNextStage.cpp" />
+    <ClCompile Include="Class\Texture\TextReset\TextReset.cpp" />
+    <ClCompile Include="Class\Texture\TextReturn\TextReturn.cpp" />
+    <ClCompile Include="Class\Texture\SignboardCarry\SignboardCarry.cpp">
+      <Filter>Class\Texture\SignboardCarry</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Constant.h" />
@@ -316,6 +323,13 @@
     </ClInclude>
     <ClInclude Include="Class\Texture\SignboardFlag\SignboardFlag.h">
       <Filter>Class\Texture\SignboardFlag</Filter>
+    </ClInclude>
+    <ClInclude Include="Class\Object\Particle\SnowSwitching\SnowSwitching.h" />
+    <ClInclude Include="Class\Texture\TextNextStage\TextNextStage.h" />
+    <ClInclude Include="Class\Texture\TextReset\TextReset.h" />
+    <ClInclude Include="Class\Texture\TextReturn\TextReturn.h" />
+    <ClInclude Include="Class\Texture\SignboardCarry\SignboardCarry.h">
+      <Filter>Class\Texture\SignboardCarry</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
