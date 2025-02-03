@@ -24,6 +24,7 @@
 #include "./Class/Texture/SignboardKonayuki/SignboardKonayuki.h"
 #include "./Class/Texture/SignboardScaffold/SignboardScaffold.h"
 #include "./class/Texture/SignboardFlag/SignboardFlag.h"
+#include "./Class/Texture/SignboardCarry/SignboardCarry.h"
 #include "./Class/Texture/SpaceOrA/SpaceOrA.h"
 #include "./Class/Texture/TextNextStage/TextNextStage.h"
 #include "./Class/Texture/TextReset/TextReset.h"
@@ -150,7 +151,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	texture[6] = new TextNextStage();
 	texture[7] = new TextReset();
 	texture[8] = new TextReturn();
-	texture[9] = new Transition();
+	texture[9] = new SignboardCarry();
+	texture[10] = new Transition();
 
 
 
@@ -179,6 +181,14 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	ghNumber[4] = Novice::LoadTexture("./Resources/Images/Scene/Number/4.png");
 
 	int ghTreasureText = Novice::LoadTexture("./Resources/Images/Scene/treasureText.png");
+
+	// 氷
+	int ghIce[4];
+	ghIce[0] = Novice::LoadTexture("./Resources/Images/Map/IceBlock/iceBlock4.png");
+	ghIce[1] = Novice::LoadTexture("./Resources/Images/Map/IceBlock/iceBlock3.png");
+	ghIce[2] = Novice::LoadTexture("./Resources/Images/Map/IceBlock/iceBlock2.png");
+	ghIce[3] = Novice::LoadTexture("./Resources/Images/Map/IceBlock/iceBlock1.png");
+
 
 	/*--------
 		SE
@@ -237,7 +247,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 
 	// フルスクリーンにする
-	SetFullScreen(GetActiveWindow());
+	//SetFullScreen(GetActiveWindow());
 
 	// ウィンドウの×ボタンが押されるまでループ
 	while (Novice::ProcessMessage() == 0)
@@ -3144,25 +3154,21 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			// 背景
 			Novice::DrawBox(0, 0, kScreenWidth, kScreenHeight, 0.0f, 0x000044FF, kFillModeSolid);
 
-			switch (Scene::areaNo_)
+			if (gameFrame == 420)
 			{
-			case AREA_1:
-
 				Novice::DrawBox(114 + Scene::stageNo_ % 6 * 200, 320 + (Scene::stageNo_ / 6) * 200, 128, 128, 0.0f, 0xFFFFFFFF, kFillModeWireFrame);
+			}
 
-				break;
-
-			case AREA_2:
-
-				Novice::DrawBox(114 + Scene::stageNo_ % 6 * 200, 320 + (Scene::stageNo_ / 6) * 200, 128, 128, 0.0f, 0xFFFFFFFF, kFillModeWireFrame);
-
-				break;
-
-			case AREA_3:
-
-				Novice::DrawBox(114 + Scene::stageNo_ % 6 * 200, 320 + (Scene::stageNo_ / 6) * 200, 128, 128, 0.0f, 0xFFFFFFFF, kFillModeWireFrame);
-
-				break;
+			// セレクトの画像
+			if (gameFrame > 420 && gameFrame < 440)
+			{
+				Novice::DrawSprite(114 + Scene::stageNo_ % 6 * 200, 320 + (Scene::stageNo_ / 6) * 200,
+					ghIce[(gameFrame - 420) / 5], 2.65f, 2.65f, 0.0f, 0xFFFFFFFF);
+			}
+			else if(gameFrame >= 440)
+			{
+				Novice::DrawSprite(114 + Scene::stageNo_ % 6 * 200, 320 + (Scene::stageNo_ / 6) * 200,
+					ghIce[3], 2.65f, 2.65f, 0.0f, 0xFFFFFFFF);
 			}
 
 
@@ -3230,6 +3236,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			texture[2]->Draw(gameFrame);
 			texture[3]->Draw(gameFrame);
 			texture[5]->Draw(gameFrame);
+			texture[9]->Draw(gameFrame);
 
 			// マップ
 			Map::Draw();
@@ -3281,40 +3288,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				}
 			}
 
-			/*   クリア画面   */
-			if (Scene::isClear_)
-			{
-				Novice::ScreenPrintf(600, 350, "GAMECLEAR");
-				Novice::ScreenPrintf(580, 390, "Spase to push");
-			}
-
 			// メニュー
 			texture[6]->Draw(gameFrame);
 			texture[7]->Draw(gameFrame);
 			texture[8]->Draw(gameFrame);
-
-			/*   ゲームオーバー画面   */
-			if (Scene::isGameOver_)
-			{
-				Novice::ScreenPrintf(600, 350, "GAMEOVER");
-				Novice::ScreenPrintf(580, 390, "Spase or R");
-			}
-
-			//デバック表示
-			/*Novice::ScreenPrintf(8, 8, "GAME");
-
-			Novice::ScreenPrintf(500, 8, "Remaining treasure:%d", Map::treasureNum);
-
-			Novice::ScreenPrintf(8, 28, "Debug display:4");
-
-			if (isActive)
-			{
-				Novice::ScreenPrintf(8, 48, "device:keyboard   | Controller");
-				Novice::ScreenPrintf(8, 68, "Move:  AD         | LeftStick");
-				Novice::ScreenPrintf(8, 88, "JUMP:  J          |      A    ");
-				Novice::ScreenPrintf(8, 108, "Ladder: W         | LeftStick(up)");
-				Novice::ScreenPrintf(8, 128, "CarryBlock:SPASE  |     R2    ");
-			}*/
 
 
 			break;
