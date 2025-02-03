@@ -1881,6 +1881,249 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 #pragma region シーン:ゲーム
 			// ゲーム画面
 
+			if (gameFrame == 481)
+			{
+				// マップの値を初期化する
+				switch (Scene::areaNo_)
+				{
+				case AREA_1:
+
+					switch (Scene::stageNo_)
+					{
+					case STAGE_1:
+
+						DrawMap::LoadFile("./TextFiles/Design/area1/stage1.csv");
+
+						break;
+
+					case STAGE_2:
+
+						DrawMap::LoadFile("./TextFiles/Design/area1/stage2.csv");
+
+						break;
+
+					case STAGE_3:
+
+						DrawMap::LoadFile("./TextFiles/Design/area1/stage3.csv");
+
+						break;
+
+					case STAGE_4:
+
+						DrawMap::LoadFile("./TextFiles/Design/area1/stage4.csv");
+
+						break;
+
+					case STAGE_5:
+
+						DrawMap::LoadFile("./TextFiles/Design/area1/stage5.csv");
+
+						break;
+
+					case STAGE_6:
+
+						DrawMap::LoadFile("./TextFiles/Design/area1/stage6.csv");
+
+						break;
+
+					case STAGE_7:
+
+						DrawMap::LoadFile("./TextFiles/Design/area1/stage7.csv");
+
+						break;
+
+					case STAGE_8:
+
+						DrawMap::LoadFile("./TextFiles/Design/area1/stage8.csv");
+
+						break;
+
+					case STAGE_9:
+
+						DrawMap::LoadFile("./TextFiles/Design/area1/stage9.csv");
+
+						break;
+
+					case STAGE_10:
+
+						DrawMap::LoadFile("./TextFiles/Design/area1/stage10.csv");
+
+						break;
+
+					case STAGE_11:
+
+						DrawMap::LoadFile("./TextFiles/Design/area1/stage11.csv");
+
+						break;
+
+					case STAGE_12:
+
+						DrawMap::LoadFile("./TextFiles/Design/area1/stage12.csv");
+
+						break;
+					}
+
+					break;
+
+				case AREA_2:
+
+					switch (Scene::stageNo_)
+					{
+					case STAGE_1:
+
+						DrawMap::LoadFile("./TextFiles/Design/area2/stage1.csv");
+
+						break;
+
+					case STAGE_2:
+
+						DrawMap::LoadFile("./TextFiles/Design/area2/stage2.csv");
+
+						break;
+
+					case STAGE_3:
+
+						DrawMap::LoadFile("./TextFiles/Design/area2/stage3.csv");
+
+						break;
+
+					case STAGE_4:
+
+						DrawMap::LoadFile("./TextFiles/Design/area2/stage4.csv");
+
+						break;
+
+					case STAGE_5:
+
+						DrawMap::LoadFile("./TextFiles/Design/area2/stage5.csv");
+
+						break;
+
+					case STAGE_6:
+
+						DrawMap::LoadFile("./TextFiles/Design/area2/stage6.csv");
+
+						break;
+
+					case STAGE_7:
+
+						DrawMap::LoadFile("./TextFiles/Design/area2/stage7.csv");
+
+						break;
+
+					case STAGE_8:
+
+						DrawMap::LoadFile("./TextFiles/Design/area2/stage8.csv");
+
+						break;
+
+					case STAGE_9:
+
+						DrawMap::LoadFile("./TextFiles/Design/area2/stage9.csv");
+
+						break;
+
+					case STAGE_10:
+
+						DrawMap::LoadFile("./TextFiles/Design/area2/stage10.csv");
+
+						break;
+
+					case STAGE_11:
+
+						DrawMap::LoadFile("./TextFiles/Design/area2/stage11.csv");
+
+						break;
+
+					case STAGE_12:
+
+						DrawMap::LoadFile("./TextFiles/Design/area2/stage12.csv");
+
+						break;
+					}
+
+					break;
+
+				case AREA_3:
+
+					switch (Scene::stageNo_)
+					{
+					case STAGE_1:
+
+						DrawMap::LoadFile("./TextFiles/Design/area3/stage1.csv");
+
+						break;
+
+					case STAGE_2:
+
+						DrawMap::LoadFile("./TextFiles/Design/area3/stage2.csv");
+
+						break;
+
+					case STAGE_3:
+
+						DrawMap::LoadFile("./TextFiles/Design/area3/stage3.csv");
+
+						break;
+
+					case STAGE_4:
+
+						DrawMap::LoadFile("./TextFiles/Design/area3/stage4.csv");
+
+						break;
+
+					case STAGE_5:
+
+						DrawMap::LoadFile("./TextFiles/Design/area3/stage5.csv");
+
+						break;
+
+					case STAGE_6:
+
+						DrawMap::LoadFile("./TextFiles/Design/area3/stage6.csv");
+
+						break;
+
+					case STAGE_7:
+
+						DrawMap::LoadFile("./TextFiles/Design/area3/stage7.csv");
+
+						break;
+
+					case STAGE_8:
+
+						DrawMap::LoadFile("./TextFiles/Design/area3/stage8.csv");
+
+						break;
+
+					case STAGE_9:
+
+						DrawMap::LoadFile("./TextFiles/Design/area3/stage9.csv");
+
+						break;
+
+					case STAGE_10:
+
+						DrawMap::LoadFile("./TextFiles/Design/area3/stage10.csv");
+
+						break;
+
+					case STAGE_11:
+
+						DrawMap::LoadFile("./TextFiles/Design/area3/stage11.csv");
+
+						break;
+
+					case STAGE_12:
+
+						DrawMap::LoadFile("./TextFiles/Design/area3/stage12.csv");
+
+						break;
+					}
+
+					break;
+				}
+			}
 
 			// 540フレームで、ロードを終了し、ゲームを開始する（ロードフラグをfalseにする）
 			if (gameFrame == 540)
@@ -3203,6 +3446,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 						Scene::isClear_ = false;
 						Scene::isGameOver_ = false;
 
+						// 宝の数を初期化する
+						Map::treasureNum = 0;
+
 						isPose = false;
 					}
 				}
@@ -3328,6 +3574,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 			// マップ
 			Map::Draw();
+			DrawMap::Draw();
 
 
 
