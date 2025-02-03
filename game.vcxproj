@@ -145,6 +145,8 @@ xcopy C:\KamataEngine\DirectXGame\Resources "$(OutDirFullPath)NoviceResources" /
     <ClCompile Include="Class\Texture\SignboardScaffold\SignboardScaffold.cpp" />
     <ClCompile Include="Class\Texture\SignboardWaremono\SignboardWaremono.cpp" />
     <ClCompile Include="Class\Texture\SpaceOrA\SpaceOrA.cpp" />
+    <ClCompile Include="Class\Texture\TextGameGiveup\TextGameGiveup.cpp" />
+    <ClCompile Include="Class\Texture\TextGameReturn\TextGameReturn.cpp" />
     <ClCompile Include="Class\Texture\TextNextStage\TextNextStage.cpp" />
     <ClCompile Include="Class\Texture\TextReset\TextReset.cpp" />
     <ClCompile Include="Class\Texture\TextReturn\TextReturn.cpp" />
@@ -216,6 +218,8 @@ xcopy C:\KamataEngine\DirectXGame\Resources "$(OutDirFullPath)NoviceResources" /
     <ClInclude Include="Class\Texture\SignboardScaffold\SignboardScaffold.h" />
     <ClInclude Include="Class\Texture\SignboardWaremono\SignboardWaremono.h" />
     <ClInclude Include="Class\Texture\SpaceOrA\SpaceOrA.h" />
+    <ClInclude Include="Class\Texture\TextGameGiveup\TextGameGiveup.h" />
+    <ClInclude Include="Class\Texture\TextGameReturn\TextGameReturn.h" />
     <ClInclude Include="Class\Texture\TextNextStage\TextNextStage.h" />
     <ClInclude Include="Class\Texture\TextReset\TextReset.h" />
     <ClInclude Include="Class\Texture\TextReturn\TextReturn.h" />

@@ -134,6 +134,12 @@
     <ClCompile Include="Class\Texture\SignboardCarry\SignboardCarry.cpp">
       <Filter>Class\Texture\SignboardCarry</Filter>
     </ClCompile>
+    <ClCompile Include="Class\Texture\TextGameReturn\TextGameReturn.cpp">
+      <Filter>Class\Texture\TextGameReturn</Filter>
+    </ClCompile>
+    <ClCompile Include="Class\Texture\TextGameGiveup\TextGameGiveup.cpp">
+      <Filter>Class\Texture\TextGameGiveup</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Constant.h" />
@@ -331,6 +337,12 @@
     <ClInclude Include="Class\Texture\SignboardCarry\SignboardCarry.h">
       <Filter>Class\Texture\SignboardCarry</Filter>
     </ClInclude>
+    <ClInclude Include="Class\Texture\TextGameReturn\TextGameReturn.h">
+      <Filter>Class\Texture\TextGameReturn</Filter>
+    </ClInclude>
+    <ClInclude Include="Class\Texture\TextGameGiveup\TextGameGiveup.h">
+      <Filter>Class\Texture\TextGameGiveup</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Class">
@@ -446,6 +458,12 @@
     </Filter>
     <Filter Include="Class\Texture\SignboardFlag">
       <UniqueIdentifier>{585d247e-b4ec-4626-8281-0ac6e5028b52}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\Texture\TextGameReturn">
+      <UniqueIdentifier>{76ebc789-00b6-4744-8052-4cf71008c28d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\Texture\TextGameGiveup">
+      <UniqueIdentifier>{25e97c3c-759a-41a2-b0bd-85ade1dc0b1a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
