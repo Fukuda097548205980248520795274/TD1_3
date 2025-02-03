@@ -3236,6 +3236,12 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 			texture[4]->Draw(gameFrame);
 
+			// 雪
+			for (int i = 0; i < kSnowNum; i++)
+			{
+				snow[i]->Draw();
+			}
+
 			break;
 
 
@@ -3244,6 +3250,12 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 			// 背景
 			Novice::DrawBox(0, 0, kScreenWidth, kScreenHeight, 0.0f, 0x000044FF, kFillModeSolid);
+
+			// 雪
+			for (int i = 0; i < kSnowNum; i++)
+			{
+				snow[i]->Draw();
+			}
 
 			for (int i = 0; i <= STAGE_12; i++)
 			{
@@ -3266,26 +3278,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				Novice::DrawSprite(114 + Scene::stageNo_ % 6 * 200, 320 + (Scene::stageNo_ / 6) * 200,
 					ghIce[3], 2.65f, 2.65f, 0.0f, 0xFFFFFFFF);
 			}
-
-
-			//デバック表示
-			Novice::ScreenPrintf(8, 8, "STAGE_SELECT");
-
-			Novice::ScreenPrintf(8, 28, "AREA:");
-			if (Scene::areaNo_ == AREA_1)
-			{
-				Novice::ScreenPrintf(58, 28, "AREA_1");
-			}
-			else if (Scene::areaNo_ == AREA_2)
-			{
-				Novice::ScreenPrintf(58, 28, "AREA_2");
-			}
-			else if (Scene::areaNo_ == AREA_3)
-			{
-				Novice::ScreenPrintf(58, 28, "AREA_3");
-			}
-
-			Novice::ScreenPrintf(8, 48, "STAGE:%d", Scene::stageNo_ + 1);
 
 			break;
 
@@ -3337,11 +3329,30 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			// マップ
 			Map::Draw();
 
+
+
+			/*   ブロック   */
+
 			// ブロック
 			for (int i = 0; i < kBlockNum; i++)
 			{
 				block[i]->Draw();
 			}
+
+			for (int i = 0; i < kBlockNum; i++)
+			{
+				for (int j = 0; j < kParticleLanding; j++)
+				{
+					block[i]->landing_[j]->Draw();
+				}
+
+				// 冷気
+				for (int j = 0; j < kParticleCold; j++)
+				{
+					block[i]->cold_[j]->Draw();
+				}
+			}
+
 
 
 			/*   敵   */
@@ -3352,11 +3363,61 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				enemy[i]->Draw();
 			}
 
+			for (int i = 0; i < kEnemyNum; i++)
+			{
+				// 火の粉
+				for (int j = 0; j < kParticleHinoko; j++)
+				{
+					enemy[i]->hinoko_[j]->Draw();
+				}
+
+				// 蒸気
+				for (int j = 0; j < kParticleVapor; j++)
+				{
+					enemy[i]->vapor[j]->Draw();
+				}
+			}
+
 
 			/*   プレイヤー   */
 
 			// プレイヤー
 			player->Draw();
+
+			for (int i = 0; i < kParticleSnowCarry; i++)
+			{
+				player->snowCarry[i]->Draw();
+			}
+
+			for (int i = 0; i < kParticleLanding; i++)
+			{
+				player->landing[i]->Draw();
+			}
+
+			for (int i = 0; i < kParticleSnowShining; i++)
+			{
+				player->snowShining[i]->Draw();
+			}
+
+
+
+			// 雪
+			for (int i = 0; i < kSnowNum; i++)
+			{
+				snow[i]->Draw();
+			}
+
+			// 水
+			for (int i = 0; i < kParticleWater; i++)
+			{
+				water[i]->Draw();
+			}
+
+			// 欠片
+			for (int i = 0; i < kParticleDebris; i++)
+			{
+				debris[i]->Draw();
+			}
 
 
 			/*   宝の個数   */
@@ -3383,6 +3444,11 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 					Novice::DrawSprite(680, 8, ghNumber[4], 0.5f, 0.5f, 0.0f, 0xFFFFFFFF);
 				}
 			}
+			
+			if (isPose || Scene::isClear_ || Scene::isGameOver_)
+			{
+				Novice::DrawBox(0, 0, kScreenWidth, kScreenHeight, 0.0f, 0x000000EE, kFillModeSolid);
+			}
 
 			// ポーズ中
 			if (isPose)
@@ -3407,81 +3473,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			パーティクルを描画する
 		-------------------------*/
 
-		// 雪
-		for (int i = 0; i < kSnowNum; i++)
-		{
-			snow[i]->Draw();
-		}
-
-		// 水
-		for (int i = 0; i < kParticleWater; i++)
-		{
-			water[i]->Draw();
-		}
-
-		// 欠片
-		for (int i = 0; i < kParticleDebris; i++)
-		{
-			debris[i]->Draw();
-		}
-
 		// 切り替え用の雪
 		for (int i = 0; i < kParticleSnowSwitching; i++)
 		{
 			snowSwitching[i]->Draw();
-		}
-
-
-		/*   プレイヤー   */
-
-		for (int i = 0; i < kParticleSnowCarry; i++)
-		{
-			player->snowCarry[i]->Draw();
-		}
-
-		for (int i = 0; i < kParticleLanding; i++)
-		{
-			player->landing[i]->Draw();
-		}
-
-		for (int i = 0; i < kParticleSnowShining; i++)
-		{
-			player->snowShining[i]->Draw();
-		}
-
-
-		/*   ブロック   */
-
-		for (int i = 0; i < kBlockNum; i++)
-		{
-			for (int j = 0; j < kParticleLanding; j++)
-			{
-				block[i]->landing_[j]->Draw();
-			}
-
-			// 冷気
-			for (int j = 0; j < kParticleCold; j++)
-			{
-				block[i]->cold_[j]->Draw();
-			}
-		}
-
-
-		/*   敵   */
-
-		for (int i = 0; i < kEnemyNum; i++)
-		{
-			// 火の粉
-			for (int j = 0; j < kParticleHinoko; j++)
-			{
-				enemy[i]->hinoko_[j]->Draw();
-			}
-
-			// 蒸気
-			for (int j = 0; j < kParticleVapor; j++)
-			{
-				enemy[i]->vapor[j]->Draw();
-			}
 		}
 
 
