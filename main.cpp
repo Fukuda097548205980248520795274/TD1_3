@@ -184,9 +184,15 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 	//エリアテキスト
 	int ghEreaText = Novice::LoadTexture("./Resources/Images/Scene/StageSelect/erea.png");
+
+	//エリア名前1テキスト
+	int ghEreaName[3];
+	ghEreaName[0] = Novice::LoadTexture("./Resources/Images/Scene/StageSelect/erea1Name.png");
+	ghEreaName[1] = Novice::LoadTexture("./Resources/Images/Scene/StageSelect/erea1Name.png");
+	ghEreaName[2] = Novice::LoadTexture("./Resources/Images/Scene/StageSelect/erea1Name.png");
+
 	//ステージ選択テキスト
 	int ghStageSelectText = Novice::LoadTexture("./Resources/Images/Scene/StageSelect/stageSelect.png");
-
 
 	//残りの宝箱
 	int ghNumber[5];
@@ -3505,14 +3511,60 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 		case SCENE_STAGE:
 			// ステージセレクト画面
 
-			// 背景
-			Novice::DrawBox(0, 0, kScreenWidth, kScreenHeight, 0.0f, 0x000044FF, kFillModeSolid);
+			// エリアごとに背景
+			switch (Scene::areaNo_)
+			{
+			case AREA_1:
+				// エリア1
+
+				Novice::DrawBox(0, 0, kScreenWidth, kScreenHeight, 0.0f, 0x000022FF, kFillModeSolid);
+				Novice::DrawSprite(0, 0, ghArea1, 1.0f, 1.0f, 0.0f, 0xFFFFFFAA);
+
+				for (int i = 0; i < 3; i++)
+				{
+					Novice::DrawSprite(0 + 500 * i, 320, ghTree, 0.5f, 0.5f, 0.0f, 0xFFFFFFFF);
+				}
+
+				for (int i = 0; i < 2; i++)
+				{
+					Novice::DrawSprite(300 + 500 * i, 420, ghTree, 0.4f, 0.4f, 0.0f, 0xFFFFFFFF);
+				}
+
+				break;
+
+			case AREA_2:
+				// エリア2
+
+				Novice::DrawBox(0, 0, kScreenWidth, kScreenHeight, 0.0f, 0x000022FF, kFillModeSolid);
+				Novice::DrawSprite(0, -70, ghArea2, 0.95f, 0.95f, 0.0f, 0xFFFFFF44);
+
+				break;
+
+			case AREA_3:
+				// エリア3
+
+				Novice::DrawBox(0, 0, kScreenWidth, kScreenHeight, 0.0f, 0x000022FF, kFillModeSolid);
+				Novice::DrawSprite(0, -150, ghArea3, 1.0f, 1.0f, 0.0f, 0xFFFFFFAA);
+
+				break;
+
+			case AREA_4:
+				// エリア4
+
+				Novice::DrawBox(0, 0, kScreenWidth, kScreenHeight, 0.0f, 0x000044FF, kFillModeSolid);
+
+				break;
+			}
+
 
 			// 雪
 			for (int i = 0; i < kSnowNum; i++)
 			{
 				snow[i]->Draw();
 			}
+
+			// 背景
+			Novice::DrawBox(0, 0, kScreenWidth, kScreenHeight, 0.0f, 0x0038b0A, kFillModeSolid);
 
 			for (int i = 0; i <= STAGE_12; i++)
 			{
@@ -3521,7 +3573,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 			if (gameFrame >= 420)
 			{
-				Novice::DrawSprite(114 + Scene::stageNo_ % 6 * 200, 320 + (Scene::stageNo_ / 6) * 200 ,ghTreasure , 2.65f, 2.65f, 0.0f, 0xFFFFFFFF);
+				Novice::DrawSprite(114 + Scene::stageNo_ % 6 * 200, 320 + (Scene::stageNo_ / 6) * 200, ghTreasure, 2.65f, 2.65f, 0.0f, 0xFFFFFFFF);
 			}
 
 			// セレクトの画像
@@ -3530,7 +3582,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				Novice::DrawSprite(114 + Scene::stageNo_ % 6 * 200, 320 + (Scene::stageNo_ / 6) * 200,
 					ghIce[(gameFrame - 420) / 5], 2.65f, 2.65f, 0.0f, 0xFFFFFFFF);
 			}
-			else if(gameFrame >= 440)
+			else if (gameFrame >= 440)
 			{
 				Novice::DrawSprite(114 + Scene::stageNo_ % 6 * 200, 320 + (Scene::stageNo_ / 6) * 200,
 					ghIce[3], 2.65f, 2.65f, 0.0f, 0xFFFFFFFF);
@@ -3540,7 +3592,13 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			Novice::DrawSprite(32, 32, ghStageSelectText, 0.5f, 0.5f, 0.0f, 0xFFFFFFFF);
 
 			//エリアテキスト
-			Novice::DrawSprite(450,152, ghEreaText, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
+			Novice::DrawSprite(430, 182, ghEreaText, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
+
+			if (Scene::areaNo_ == AREA_1)
+			{
+				Novice::DrawSprite(635, 180, ghEreaName[0], 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
+			}
+
 
 			break;
 
