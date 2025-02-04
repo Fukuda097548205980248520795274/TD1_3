@@ -3596,6 +3596,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			Novice::DrawSprite(32, 32, ghStageSelectText, 0.5f, 0.5f, 0.0f, 0xFFFFFFFF);
 
 			//エリアテキスト
+			Novice::DrawBox(412,170,482,82,0.0f,0x00000050,kFillModeSolid);
+
 			Novice::DrawSprite(430, 182, ghEreaText, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
 
 			if (Scene::areaNo_ == AREA_1)
