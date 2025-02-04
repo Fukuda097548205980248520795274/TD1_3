@@ -1891,6 +1891,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 #pragma region シーン:ゲーム
 			// ゲーム画面
 
+			// マップの描画を更新する
 			if (gameFrame == 481)
 			{
 				// マップの値を初期化する
