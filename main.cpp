@@ -31,6 +31,8 @@
 #include "./Class/Texture/TextReturn/TextReturn.h"
 #include "./Class/Texture/TextGameReturn/TextGameReturn.h"
 #include "./Class/Texture/TextGameGiveup/TextGameGiveup.h"
+#include "./Class/Texture/TextGameClear/TextGameClear.h"
+#include "./Class/Texture/TextGameOver/TextGameOver.h"
 
 
 const char kWindowTitle[] = "LC1C_20_フクダソウワ_ゆきどけ～";
@@ -159,7 +161,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	texture[9] = new SignboardCarry();
 	texture[10] = new TextGameReturn();
 	texture[11] = new TextGameGiveup();
-	texture[12] = new Transition();
+	texture[12] = new TextGameClear();
+	texture[13] = new TextGameOver();
+	texture[14] = new Transition();
 
 	// 宝箱
 	int ghTreasure = Novice::LoadTexture("./Resources/Images/Map/treasureBox.png");
@@ -3793,6 +3797,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			texture[6]->Draw(gameFrame);
 			texture[7]->Draw(gameFrame);
 			texture[8]->Draw(gameFrame);
+
+			texture[12]->Draw(gameFrame);
+			texture[13]->Draw(gameFrame);
 
 			break;
 
