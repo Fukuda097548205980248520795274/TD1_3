@@ -185,7 +185,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	//エリアテキスト
 	int ghEreaText = Novice::LoadTexture("./Resources/Images/Scene/StageSelect/erea.png");
 
-	//エリア名前1テキスト
+	//エリア名前テキスト
 	int ghEreaName[3];
 	ghEreaName[0] = Novice::LoadTexture("./Resources/Images/Scene/StageSelect/erea1Name.png");
 	ghEreaName[1] = Novice::LoadTexture("./Resources/Images/Scene/StageSelect/erea1Name.png");
