@@ -597,10 +597,25 @@ void Player::Operation(const char* keys, const char* preKeys)
 
 		if (Map::map_[map_.leftBottom.row][map_.leftBottom.column] == TILE_NOTHING &&
 			Map::map_[map_.rightBottom.row][map_.rightBottom.column] == TILE_NOTHING ||
+			Map::map_[map_.leftBottom.row][map_.leftBottom.column] == TILE_NOTHING &&
+			Map::map_[map_.rightBottom.row][map_.rightBottom.column] == TILE_LADDER ||
+			Map::map_[map_.leftBottom.row][map_.leftBottom.column] == TILE_NOTHING &&
+			Map::map_[map_.rightBottom.row][map_.rightBottom.column] == TILE_GOAL ||
+
 			Map::map_[map_.leftBottom.row][map_.leftBottom.column] == TILE_LADDER &&
 			Map::map_[map_.rightBottom.row][map_.rightBottom.column] == TILE_LADDER ||
+			Map::map_[map_.leftBottom.row][map_.leftBottom.column] == TILE_LADDER &&
+			Map::map_[map_.rightBottom.row][map_.rightBottom.column] == TILE_NOTHING ||
+			Map::map_[map_.leftBottom.row][map_.leftBottom.column] == TILE_LADDER &&
+			Map::map_[map_.rightBottom.row][map_.rightBottom.column] == TILE_GOAL ||
+
 			Map::map_[map_.leftBottom.row][map_.leftBottom.column] == TILE_GOAL &&
 			Map::map_[map_.rightBottom.row][map_.rightBottom.column] == TILE_GOAL ||
+			Map::map_[map_.leftBottom.row][map_.leftBottom.column] == TILE_GOAL &&
+			Map::map_[map_.rightBottom.row][map_.rightBottom.column] == TILE_NOTHING ||
+			Map::map_[map_.leftBottom.row][map_.leftBottom.column] == TILE_GOAL &&
+			Map::map_[map_.rightBottom.row][map_.rightBottom.column] == TILE_LADDER ||
+
 			Map::map_[map_.leftBottom.row][map_.leftBottom.column] == TILE_SLOPE_LEFT_BOTTOM ||
 			Map::map_[map_.leftBottom.row][map_.leftBottom.column] == TILE_SLOPE_LEFT_TOP ||
 			Map::map_[map_.rightBottom.row][map_.rightBottom.column] == TILE_SLOPE_RIGHT_BOTTOM ||
@@ -1407,8 +1422,8 @@ void Player::Carry(const char* keys, const char* preKeys, CarryBlock* block1, Ca
 				{
 					// 左から押すとき
 
-					if (shape_.translate.x - shape_.scale.x < block1->shape_.translate.x + block1->shape_.scale.x &&
-						shape_.translate.x - shape_.scale.x > block1->shape_.translate.x - block1->shape_.scale.x)
+					if (shape_.translate.x - shape_.scale.x - 1.0f < block1->shape_.translate.x + block1->shape_.scale.x &&
+						shape_.translate.x - shape_.scale.x + 1.0f > block1->shape_.translate.x - block1->shape_.scale.x)
 					{
 						if (shape_.translate.y + shape_.scale.y - 1.0f > block1->shape_.translate.y - block1->shape_.scale.y &&
 							shape_.translate.y - shape_.scale.y + 1.0f < block1->shape_.translate.y + block1->shape_.scale.y)
