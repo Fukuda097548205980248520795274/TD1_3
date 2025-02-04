@@ -206,6 +206,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	ghIce[2] = Novice::LoadTexture("./Resources/Images/Map/IceBlock/iceBlock2.png");
 	ghIce[3] = Novice::LoadTexture("./Resources/Images/Map/IceBlock/iceBlock1.png");
 
+	// 木
+	int ghTree = Novice::LoadTexture("./Resources/Images/BackGround/snow_tree.png");
+
 
 	/*--------
 		SE
@@ -3551,6 +3554,16 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 				Novice::DrawBox(0, 0, kScreenWidth, kScreenHeight, 0.0f, 0x000022FF, kFillModeSolid);
 				Novice::DrawSprite(0, 0, ghArea1, 1.0f, 1.0f, 0.0f, 0xFFFFFFAA);
+
+				for (int i = 0; i < 3; i++)
+				{
+					Novice::DrawSprite(0 + 500 * i, 320, ghTree, 0.5f, 0.5f, 0.0f, 0xFFFFFFFF);
+				}
+
+				for (int i = 0; i < 2; i++)
+				{
+					Novice::DrawSprite(300 + 500 * i, 420, ghTree, 0.4f, 0.4f, 0.0f, 0xFFFFFFFF);
+				}
 
 				break;
 
