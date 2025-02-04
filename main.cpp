@@ -3572,7 +3572,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				// エリア2
 
 				Novice::DrawBox(0, 0, kScreenWidth, kScreenHeight, 0.0f, 0x000022FF, kFillModeSolid);
-				Novice::DrawSprite(0, -70, ghArea2, 0.95f, 0.95f, 0.0f, 0xFFFFFF44);
+				Novice::DrawSprite(0, -500, ghArea2, 1.0f, 1.0f, 0.0f, 0xFFFFFF44);
 
 				break;
 
