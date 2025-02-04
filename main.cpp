@@ -191,6 +191,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	// タイトルの背景
 	int ghTitleBg = Novice::LoadTexture("./Resources/Images/Scene/title_bg.png");
 
+	/*ステージ画面*/
 	//エリアテキスト
 	int ghEreaText = Novice::LoadTexture("./Resources/Images/Scene/StageSelect/erea.png");
 
@@ -203,6 +204,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	//ステージ選択テキスト
 	int ghStageSelectText = Novice::LoadTexture("./Resources/Images/Scene/StageSelect/stageSelect.png");
 
+	/*ゲーム画面*/
 	//残りの宝箱
 	int ghNumber[5];
 	ghNumber[0] = Novice::LoadTexture("./Resources/Images/Scene/Number/0.png");
@@ -224,6 +226,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	// 木
 	int ghTree = Novice::LoadTexture("./Resources/Images/BackGround/snow_tree.png");
 
+	/*ポーズメニュー*/
+	int ghPauseText = Novice::LoadTexture("./Resources/Images/Scene/Game/pause.png");
+	//操作説明
+	int ghOperationInstructions = Novice::LoadTexture("./Resources/Images/Scene/Game/operationInstructions.png");
 
 	/*--------
 		SE
@@ -2830,6 +2836,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			// 背景
 			Novice::DrawBox(0, 0, kScreenWidth, kScreenHeight, 0.0f, 0x0038b0A, kFillModeSolid);
 
+
 			for (int i = 0; i <= STAGE_12; i++)
 			{
 				Novice::DrawSprite(114 + i % 6 * 200, 320 + (i / 6) * 200, ghTreasure, 2.65f, 2.65f, 0.0f, 0xFFFFFF55);
@@ -3053,6 +3060,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			{
 				texture[10]->Draw(gameFrame);
 				texture[11]->Draw(gameFrame);
+				Novice::DrawSprite(572, 52, ghPauseText, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
+				Novice::DrawSprite(42, 92, ghOperationInstructions, 0.7f, 0.7f, 0.0f, 0xFFFFFFFF);
 			}
 
 			// メニュー
