@@ -182,6 +182,12 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	// タイトルの背景
 	int ghTitleBg = Novice::LoadTexture("./Resources/Images/Scene/title_bg.png");
 
+	//エリアテキスト
+	int ghEreaText = Novice::LoadTexture("./Resources/Images/Scene/StageSelect/erea.png");
+	//ステージ選択テキスト
+	int ghStageSelectText = Novice::LoadTexture("./Resources/Images/Scene/StageSelect/stageSelect.png");
+
+
 	//残りの宝箱
 	int ghNumber[5];
 	ghNumber[0] = Novice::LoadTexture("./Resources/Images/Scene/Number/0.png");
@@ -190,7 +196,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	ghNumber[3] = Novice::LoadTexture("./Resources/Images/Scene/Number/3.png");
 	ghNumber[4] = Novice::LoadTexture("./Resources/Images/Scene/Number/4.png");
 
-	int ghTreasureText = Novice::LoadTexture("./Resources/Images/Scene/treasureText.png");
+	//残りの宝箱のテキストUI
+	int ghTreasureText = Novice::LoadTexture("./Resources/Images/Scene/Game/treasureText.png");
 
 	// 氷
 	int ghIce[4];
@@ -3525,6 +3532,12 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 					ghIce[3], 2.65f, 2.65f, 0.0f, 0xFFFFFFFF);
 			}
 
+			//ステージ選択テキスト
+			Novice::DrawSprite(32, 32, ghStageSelectText, 0.5f, 0.5f, 0.0f, 0xFFFFFFFF);
+
+			//エリアテキスト
+			Novice::DrawSprite(450,152, ghEreaText, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
+
 			break;
 
 		case SCENE_GAME:
@@ -3672,23 +3685,23 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			// ゲーム中に表示する
 			if (Scene::isClear_ == false && Scene::isGameOver_ == false)
 			{
-				Novice::DrawSprite(450, 8, ghTreasureText, 0.5f, 0.5f, 0.0f, 0xFFFFFFFF);
+				Novice::DrawSprite(32, 32, ghTreasureText, 0.5f, 0.5f, 0.0f, 0xFFFFFFFF);
 
 				if (Map::treasureNum == 0)
 				{
-					Novice::DrawSprite(680, 8, ghNumber[0], 0.5f, 0.5f, 0.0f, 0xFFFFFFFF);
+					Novice::DrawSprite(183, 33, ghNumber[0], 0.5f, 0.5f, 0.0f, 0xFFFFFFFF);
 				} else if (Map::treasureNum == 1)
 				{
-					Novice::DrawSprite(680, 8, ghNumber[1], 0.5f, 0.5f, 0.0f, 0xFFFFFFFF);
+					Novice::DrawSprite(183, 33, ghNumber[1], 0.5f, 0.5f, 0.0f, 0xFFFFFFFF);
 				} else if (Map::treasureNum == 2)
 				{
-					Novice::DrawSprite(680, 8, ghNumber[2], 0.5f, 0.5f, 0.0f, 0xFFFFFFFF);
+					Novice::DrawSprite(183, 33, ghNumber[2], 0.5f, 0.5f, 0.0f, 0xFFFFFFFF);
 				} else if (Map::treasureNum == 3)
 				{
-					Novice::DrawSprite(680, 8, ghNumber[3], 0.5f, 0.5f, 0.0f, 0xFFFFFFFF);
+					Novice::DrawSprite(183, 33, ghNumber[3], 0.5f, 0.5f, 0.0f, 0xFFFFFFFF);
 				} else if (Map::treasureNum == 4)
 				{
-					Novice::DrawSprite(680, 8, ghNumber[4], 0.5f, 0.5f, 0.0f, 0xFFFFFFFF);
+					Novice::DrawSprite(183, 33, ghNumber[4], 0.5f, 0.5f, 0.0f, 0xFFFFFFFF);
 				}
 			}
 			
