@@ -101,7 +101,6 @@ void Map::Draw()
 	int ghWhite = Novice::LoadTexture("./NoviceResources/white1x1.png");
 
 	int ghLadder = Novice::LoadTexture("./Resources/Images/Map/ladder.png");
-	int ghDoor = Novice::LoadTexture("./Resources/Images/Map/door.png");
 
 	int ghGool[8];
 	ghGool[0] = Novice::LoadTexture("./Resources/Images/Map/Gool/gool1.png");
@@ -335,86 +334,6 @@ void Map::Draw()
 						0, 0, 48, 48, ghWhite, 0xFFFFFFFF
 					);
 
-					break;
-				case TILE_DOOR_1:
-					Novice::DrawQuad
-					(
-						column * kTileSize, row * kTileSize,
-						column * kTileSize + kTileSize, row * kTileSize,
-						column * kTileSize, row * kTileSize + kTileSize,
-						column * kTileSize + kTileSize, row * kTileSize + kTileSize,
-						0, 0, 48, 48, ghDoor, 0xFFFFFFFF
-					);
-					break;
-				case TILE_DOOR_2:
-					Novice::DrawQuad
-					(
-						column * kTileSize, row * kTileSize,
-						column * kTileSize + kTileSize, row * kTileSize,
-						column * kTileSize, row * kTileSize + kTileSize,
-						column * kTileSize + kTileSize, row * kTileSize + kTileSize,
-						0, 0, 48, 48, ghDoor, 0xFFFFFFFF
-					);
-					break;
-				case TILE_DOOR_3:
-					Novice::DrawQuad
-					(
-						column * kTileSize, row * kTileSize,
-						column * kTileSize + kTileSize, row * kTileSize,
-						column * kTileSize, row * kTileSize + kTileSize,
-						column * kTileSize + kTileSize, row * kTileSize + kTileSize,
-						0, 0, 48, 48, ghDoor, 0xFFFFFFFF
-					);
-					break;
-				case TILE_DOOR_4:
-					Novice::DrawQuad
-					(
-						column * kTileSize, row * kTileSize,
-						column * kTileSize + kTileSize, row * kTileSize,
-						column * kTileSize, row * kTileSize + kTileSize,
-						column * kTileSize + kTileSize, row * kTileSize + kTileSize,
-						0, 0, 48, 48, ghDoor, 0xFFFFFFFF
-					);
-					break;
-				case TILE_DOOR_5:
-					Novice::DrawQuad
-					(
-						column * kTileSize, row * kTileSize,
-						column * kTileSize + kTileSize, row * kTileSize,
-						column * kTileSize, row * kTileSize + kTileSize,
-						column * kTileSize + kTileSize, row * kTileSize + kTileSize,
-						0, 0, 48, 48, ghDoor, 0xFFFFFFFF
-					);
-					break;
-				case TILE_DOOR_6:
-					Novice::DrawQuad
-					(
-						column * kTileSize, row * kTileSize,
-						column * kTileSize + kTileSize, row * kTileSize,
-						column * kTileSize, row * kTileSize + kTileSize,
-						column * kTileSize + kTileSize, row * kTileSize + kTileSize,
-						0, 0, 48, 48, ghDoor, 0xFFFFFFFF
-					);
-					break;
-				case TILE_DOOR_7:
-					Novice::DrawQuad
-					(
-						column * kTileSize, row * kTileSize,
-						column * kTileSize + kTileSize, row * kTileSize,
-						column * kTileSize, row * kTileSize + kTileSize,
-						column * kTileSize + kTileSize, row * kTileSize + kTileSize,
-						0, 0, 48, 48, ghDoor, 0xFFFFFFFF
-					);
-					break;
-				case TILE_DOOR_8:
-					Novice::DrawQuad
-					(
-						column * kTileSize, row * kTileSize,
-						column * kTileSize + kTileSize, row * kTileSize,
-						column * kTileSize, row * kTileSize + kTileSize,
-						column * kTileSize + kTileSize, row * kTileSize + kTileSize,
-						0, 0, 48, 48, ghDoor, 0xFFFFFFFF
-					);
 					break;
 				}
 			}
