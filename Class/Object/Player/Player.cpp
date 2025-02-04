@@ -50,10 +50,6 @@ Player::Player()
 	// 梯子を上る速度
 	ladderVel_ = 0.0f;
 
-	// 左スティック
-	stickLeftX_ = 0;
-	stickLeftY_ = 0;
-
 	// 運ぶときの雪
 	for (int i = 0; i < kParticleSnowCarry; i++)
 	{
@@ -155,7 +151,7 @@ void Player::Puttting(int column, int row)
 /// </summary>
 /// <param name="keys">キー</param>
 /// <param name="preKeys">前のキー</param>
-void Player::Operation(const char* keys, const char* preKeys)
+void Player::Operation(const char* keys, const char* preKeys , int stickX , int stickY)
 {
 	// null を探す
 	if (keys == nullptr || preKeys == nullptr)
@@ -169,9 +165,6 @@ void Player::Operation(const char* keys, const char* preKeys)
 		return;
 	}
 
-	// 左スティックの方向を更新する
-	Novice::GetAnalogInputLeft(0, &stickLeftX_, &stickLeftY_);
-
 
 	/*   横移動   */
 
@@ -179,7 +172,7 @@ void Player::Operation(const char* keys, const char* preKeys)
 	vel_.x = 0.0f;
 
 	// Aキーで、左に歩く（歩きフラグがtrueになる）
-	if (keys[DIK_A] || stickLeftX_ < 0)
+	if (keys[DIK_A] || stickX < -16000)
 	{
 		if (shape_.translate.x - shape_.scale.x > 0.0f)
 		{
@@ -289,7 +282,7 @@ void Player::Operation(const char* keys, const char* preKeys)
 			}
 		}
 	}
-	else if (keys[DIK_D] || stickLeftX_ > 0)
+	else if (keys[DIK_D] || stickX > 16000)
 	{
 		// Dキーで、右に歩く（歩きフラグがtrueになる）
 
@@ -510,7 +503,7 @@ void Player::Operation(const char* keys, const char* preKeys)
 	ladderVel_ = 0.0f;
 
 	// Wキーで、梯子を上る
-	if (keys[DIK_W] || stickLeftY_ < 0)
+	if (keys[DIK_W] || stickY < -16000)
 	{
 		if (Map::map_[map_.leftTop.row][map_.leftTop.column] == TILE_LADDER ||
 			Map::map_[map_.rightTop.row][map_.rightTop.column] == TILE_LADDER ||
