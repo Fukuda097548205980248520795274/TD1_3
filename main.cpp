@@ -167,6 +167,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	// 看板
 	int ghSignboardFlag = Novice::LoadTexture("./Resources/Images/Signboard/Signboard_Flag.png");
 	int ghSignboardCarrySpace = Novice::LoadTexture("./Resources/Images/Signboard/Signboard_Carry_Space.png");
+	int ghSignboardCarryRT = Novice::LoadTexture("./Resources/Images/Signboard/Signboard_CarryRT.png");
 	int ghSignboardScaffold = Novice::LoadTexture("./Resources/Images/Signboard/Signboard_Scaffold.png");
 	int ghSignboardCushion = Novice::LoadTexture("./Resources/Images/Signboard/Signboard_Cushion.png");
 	int ghSignboardWaremono = Novice::LoadTexture("./Resources/Images/Signboard/Signboard_waremono.png");
@@ -1223,6 +1224,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 		case SCENE_GAME:
 #pragma region シーン:ゲーム
 			// ゲーム画面
+
 
 			// マップの描画を更新する
 			if (gameFrame == 481)
@@ -2820,7 +2822,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 					if (iscontrol)
 					{
-
+						Novice::DrawSprite(700, 550, ghSignboardCarryRT, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
 					} else
 					{
 						Novice::DrawSprite(700, 550, ghSignboardCarrySpace, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
