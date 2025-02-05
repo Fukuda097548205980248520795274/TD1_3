@@ -595,6 +595,10 @@ void Player::Operation(const char* keys, const char* preKeys , int stickX , int 
 				jump_.isJump = true;
 				jump_.fallingVel = -0.5f;
 
+				// 着地したときの効果音
+				int shLanding = Novice::LoadAudio("./Resources/Sounds/Se/playerLanding.mp3");
+				Novice::PlayAudio(shLanding, 0, 0.3f);
+
 				// 上方向に上昇する
 				vel_.y = 12.0f;
 			}
@@ -1106,6 +1110,19 @@ void Player::Operation(const char* keys, const char* preKeys , int stickX , int 
 
 	walk_.frame++;
 
+	// 歩く時の音
+	if (walk_.isWalk)
+	{
+		if (jump_.isJump == false)
+		{
+			if (walk_.frame % 20 == 0)
+			{
+				int shWalk = Novice::LoadAudio("./Resources/Sounds/Se/walk.mp3");
+				Novice::PlayAudio(shWalk, 0, 0.2f);
+			}
+		}
+	}
+
 	if (walk_.frame >= 60)
 	{
 		walk_.frame = 0;
@@ -1116,6 +1133,12 @@ void Player::Operation(const char* keys, const char* preKeys , int stickX , int 
 	if (carry_.isCarry)
 	{
 		carry_.frame++;
+
+		if (carry_.frame == 5)
+		{
+			int shCarry = Novice::LoadAudio("./Resources/Sounds/Se/carry.mp3");
+			Novice::PlayAudio(shCarry, 0, 0.2f);
+		}
 
 		if (carry_.frame >= 60)
 		{

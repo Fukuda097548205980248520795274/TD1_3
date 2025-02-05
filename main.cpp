@@ -414,7 +414,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 								{
 									if (water[i]->isEmission_ == false)
 									{
-										Water::coolTime = 60;
+										Water::coolTime = 40;
 
 										water[i]->Emission({ static_cast<float>(column * kTileSize + rand() % kTileSize) ,
 											static_cast<float>(kScreenHeight - (row * kTileSize + rand() % kTileSize)) });
