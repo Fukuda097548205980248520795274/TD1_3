@@ -30,7 +30,7 @@
 #include "./Class/Texture/TextGameOver/TextGameOver.h"
 
 
-const char kWindowTitle[] = "LC1C_20_フクダソウワ_ゆきどけ～";
+const char kWindowTitle[] = "1325_ゆきどけ～";
 
 // Windowsアプリでのエントリーポイント(main関数)
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
