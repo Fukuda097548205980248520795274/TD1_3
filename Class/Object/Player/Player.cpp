@@ -1431,36 +1431,109 @@ void Player::Carry(const char* keys, const char* preKeys, CarryBlock* block1, Ca
 			{
 				// 運びたいブロックに、別のブロックが乗っかているときは、運べない
 
-				// 右から押すとき
-				if (vel_.x > 0.0f)
+				if (vel_.y >= -1.0f)
 				{
-					if (shape_.translate.x + shape_.scale.x > block1->shape_.translate.x - block1->shape_.scale.x &&
-						shape_.translate.x + shape_.scale.x < block1->shape_.translate.x + block1->shape_.scale.x)
+					// 右から押すとき
+					if (vel_.x > 0.0f)
 					{
-						if (shape_.translate.y + shape_.scale.y - 1.0f > block1->shape_.translate.y - block1->shape_.scale.y &&
-							shape_.translate.y - shape_.scale.y + 1.0f < block1->shape_.translate.y + block1->shape_.scale.y)
+						if (shape_.translate.x + shape_.scale.x > block1->shape_.translate.x - block1->shape_.scale.x &&
+							shape_.translate.x + shape_.scale.x < block1->shape_.translate.x + block1->shape_.scale.x)
 						{
-							shape_.translate.x = block1->shape_.translate.x - block1->shape_.scale.x - shape_.scale.x;
-							LocalToScreen();
+							if (shape_.translate.y + shape_.scale.y - 1.0f > block1->shape_.translate.y - block1->shape_.scale.y &&
+								shape_.translate.y - shape_.scale.y + 1.0f < block1->shape_.translate.y + block1->shape_.scale.y)
+							{
+								shape_.translate.x = block1->shape_.translate.x - block1->shape_.scale.x - shape_.scale.x;
+								LocalToScreen();
 
-							vel_.x = 0.0f;
+								vel_.x = 0.0f;
+							}
+						}
+					} else if (vel_.x < 0.0f)
+					{
+						// 左から押すとき
+
+						if (shape_.translate.x - shape_.scale.x - 1.0f < block1->shape_.translate.x + block1->shape_.scale.x &&
+							shape_.translate.x - shape_.scale.x + 1.0f > block1->shape_.translate.x - block1->shape_.scale.x)
+						{
+							if (shape_.translate.y + shape_.scale.y - 1.0f > block1->shape_.translate.y - block1->shape_.scale.y &&
+								shape_.translate.y - shape_.scale.y + 1.0f < block1->shape_.translate.y + block1->shape_.scale.y)
+							{
+								shape_.translate.x = block1->shape_.translate.x + block1->shape_.scale.x + shape_.scale.x;
+								LocalToScreen();
+
+								vel_.x = 0.0f;
+							}
 						}
 					}
-				} 
-				else if (vel_.x < 0.0f)
+				}
+				else
 				{
-					// 左から押すとき
-
-					if (shape_.translate.x - shape_.scale.x < block1->shape_.translate.x + block1->shape_.scale.x &&
-						shape_.translate.x - shape_.scale.x > block1->shape_.translate.x - block1->shape_.scale.x)
+					// 右から押すとき
+					if (vel_.x > 0.0f)
 					{
-						if (shape_.translate.y + shape_.scale.y - 1.0f > block1->shape_.translate.y - block1->shape_.scale.y &&
-							shape_.translate.y - shape_.scale.y + 1.0f < block1->shape_.translate.y + block1->shape_.scale.y)
+						if (shape_.translate.x + shape_.scale.x + 1.0f + vel_.x > block1->shape_.translate.x - block1->shape_.scale.x &&
+							shape_.translate.x + shape_.scale.x + 1.0f + vel_.x < block1->shape_.translate.x + block1->shape_.scale.x)
 						{
-							shape_.translate.x = block1->shape_.translate.x + block1->shape_.scale.x + shape_.scale.x;
-							LocalToScreen();
+							if (shape_.translate.y + shape_.scale.y > block1->shape_.translate.y - block1->shape_.scale.y &&
+								shape_.translate.y - shape_.scale.y < block1->shape_.translate.y + block1->shape_.scale.y)
+							{
+								walk_.isWalk = false;
 
-							vel_.x = 0.0f;
+								shape_.translate.x = block1->shape_.translate.x - block1->shape_.scale.x - shape_.scale.x - 1.0f - vel_.x;
+								LocalToScreen();
+
+								// 壁にぶつかる
+								if (Map::map_[map_.leftTop.row][map_.leftTop.column] == TILE_GROUND ||
+									Map::map_[map_.leftBottom.row][map_.leftBottom.column] == TILE_GROUND ||
+									Map::map_[map_.leftTop.row][map_.leftTop.column] == TILE_BLOCK ||
+									Map::map_[map_.leftBottom.row][map_.leftBottom.column] == TILE_BLOCK ||
+									Map::map_[map_.leftTop.row][map_.leftTop.column] == TILE_ROTTED ||
+									Map::map_[map_.leftBottom.row][map_.leftBottom.column] == TILE_ROTTED ||
+									Map::map_[map_.leftTop.row][map_.leftTop.column] == TILE_WATER ||
+									Map::map_[map_.leftBottom.row][map_.leftBottom.column] == TILE_WATER ||
+									Map::map_[map_.leftTop.row][map_.leftTop.column] < 0 || Map::map_[map_.leftBottom.row][map_.leftBottom.column] < 0)
+								{
+									// 押し込み処理
+									shape_.translate.x = static_cast<float>(map_.leftTop.column * kTileSize + kTileSize) + shape_.scale.x;
+									LocalToScreen();
+								}
+
+								vel_.x = 0.0f;
+							}
+						}
+					} else if (vel_.x < 0.0f)
+					{
+						// 左から押すとき
+
+						if (shape_.translate.x - shape_.scale.x - 1.0f + vel_.x < block1->shape_.translate.x + block1->shape_.scale.x &&
+							shape_.translate.x - shape_.scale.x - 1.0f + vel_.x > block1->shape_.translate.x - block1->shape_.scale.x)
+						{
+							if (shape_.translate.y + shape_.scale.y > block1->shape_.translate.y - block1->shape_.scale.y &&
+								shape_.translate.y - shape_.scale.y < block1->shape_.translate.y + block1->shape_.scale.y)
+							{
+								walk_.isWalk = false;
+
+								shape_.translate.x = block1->shape_.translate.x + block1->shape_.scale.x + shape_.scale.x + 1.0f - vel_.x;
+								LocalToScreen();
+
+								// 壁にぶつかる
+								if (Map::map_[map_.rightTop.row][map_.rightTop.column] == TILE_GROUND ||
+									Map::map_[map_.rightBottom.row][map_.rightBottom.column] == TILE_GROUND ||
+									Map::map_[map_.rightTop.row][map_.rightTop.column] == TILE_BLOCK ||
+									Map::map_[map_.rightBottom.row][map_.rightBottom.column] == TILE_BLOCK ||
+									Map::map_[map_.rightTop.row][map_.rightTop.column] == TILE_ROTTED ||
+									Map::map_[map_.rightBottom.row][map_.rightBottom.column] == TILE_ROTTED ||
+									Map::map_[map_.rightTop.row][map_.rightTop.column] == TILE_WATER ||
+									Map::map_[map_.rightBottom.row][map_.rightBottom.column] == TILE_WATER ||
+									Map::map_[map_.rightTop.row][map_.rightTop.column] < 0 || Map::map_[map_.rightBottom.row][map_.rightBottom.column] < 0)
+								{
+									// 押し込み処理
+									shape_.translate.x = static_cast<float>(map_.rightTop.column * kTileSize) - shape_.scale.x;
+									LocalToScreen();
+								}
+
+								vel_.x = 0.0f;
+							}
 						}
 					}
 				}
@@ -1524,6 +1597,22 @@ void Player::Carry(const char* keys, const char* preKeys, CarryBlock* block1, Ca
 							shape_.translate.x = block1->shape_.translate.x - block1->shape_.scale.x - shape_.scale.x - 1.0f - vel_.x;
 							LocalToScreen();
 
+							// 壁にぶつかる
+							if (Map::map_[map_.leftTop.row][map_.leftTop.column] == TILE_GROUND ||
+								Map::map_[map_.leftBottom.row][map_.leftBottom.column] == TILE_GROUND ||
+								Map::map_[map_.leftTop.row][map_.leftTop.column] == TILE_BLOCK ||
+								Map::map_[map_.leftBottom.row][map_.leftBottom.column] == TILE_BLOCK ||
+								Map::map_[map_.leftTop.row][map_.leftTop.column] == TILE_ROTTED ||
+								Map::map_[map_.leftBottom.row][map_.leftBottom.column] == TILE_ROTTED ||
+								Map::map_[map_.leftTop.row][map_.leftTop.column] == TILE_WATER ||
+								Map::map_[map_.leftBottom.row][map_.leftBottom.column] == TILE_WATER ||
+								Map::map_[map_.leftTop.row][map_.leftTop.column] < 0 || Map::map_[map_.leftBottom.row][map_.leftBottom.column] < 0)
+							{
+								// 押し込み処理
+								shape_.translate.x = static_cast<float>(map_.leftTop.column * kTileSize + kTileSize) + shape_.scale.x;
+								LocalToScreen();
+							}
+
 							vel_.x = 0.0f;
 						}
 					}
@@ -1542,6 +1631,22 @@ void Player::Carry(const char* keys, const char* preKeys, CarryBlock* block1, Ca
 
 							shape_.translate.x = block1->shape_.translate.x + block1->shape_.scale.x + shape_.scale.x + 1.0f - vel_.x;
 							LocalToScreen();
+
+							// 壁にぶつかる
+							if (Map::map_[map_.rightTop.row][map_.rightTop.column] == TILE_GROUND ||
+								Map::map_[map_.rightBottom.row][map_.rightBottom.column] == TILE_GROUND ||
+								Map::map_[map_.rightTop.row][map_.rightTop.column] == TILE_BLOCK ||
+								Map::map_[map_.rightBottom.row][map_.rightBottom.column] == TILE_BLOCK ||
+								Map::map_[map_.rightTop.row][map_.rightTop.column] == TILE_ROTTED ||
+								Map::map_[map_.rightBottom.row][map_.rightBottom.column] == TILE_ROTTED ||
+								Map::map_[map_.rightTop.row][map_.rightTop.column] == TILE_WATER ||
+								Map::map_[map_.rightBottom.row][map_.rightBottom.column] == TILE_WATER ||
+								Map::map_[map_.rightTop.row][map_.rightTop.column] < 0 || Map::map_[map_.rightBottom.row][map_.rightBottom.column] < 0)
+							{
+								// 押し込み処理
+								shape_.translate.x = static_cast<float>(map_.rightTop.column * kTileSize) - shape_.scale.x;
+								LocalToScreen();
+							}
 
 							vel_.x = 0.0f;
 						}
@@ -1612,6 +1717,22 @@ void Player::Carry(const char* keys, const char* preKeys, CarryBlock* block1, Ca
 						shape_.translate.x = block1->shape_.translate.x - block1->shape_.scale.x - shape_.scale.x - 1.0f - vel_.x;
 						LocalToScreen();
 
+						// 壁にぶつかる
+						if (Map::map_[map_.leftTop.row][map_.leftTop.column] == TILE_GROUND ||
+							Map::map_[map_.leftBottom.row][map_.leftBottom.column] == TILE_GROUND ||
+							Map::map_[map_.leftTop.row][map_.leftTop.column] == TILE_BLOCK ||
+							Map::map_[map_.leftBottom.row][map_.leftBottom.column] == TILE_BLOCK ||
+							Map::map_[map_.leftTop.row][map_.leftTop.column] == TILE_ROTTED ||
+							Map::map_[map_.leftBottom.row][map_.leftBottom.column] == TILE_ROTTED ||
+							Map::map_[map_.leftTop.row][map_.leftTop.column] == TILE_WATER ||
+							Map::map_[map_.leftBottom.row][map_.leftBottom.column] == TILE_WATER ||
+							Map::map_[map_.leftTop.row][map_.leftTop.column] < 0 || Map::map_[map_.leftBottom.row][map_.leftBottom.column] < 0)
+						{
+							// 押し込み処理
+							shape_.translate.x = static_cast<float>(map_.leftTop.column * kTileSize + kTileSize) + shape_.scale.x;
+							LocalToScreen();
+						}
+
 						vel_.x = 0.0f;
 					}
 				}
@@ -1630,6 +1751,22 @@ void Player::Carry(const char* keys, const char* preKeys, CarryBlock* block1, Ca
 
 						shape_.translate.x = block1->shape_.translate.x + block1->shape_.scale.x + shape_.scale.x + 1.0f - vel_.x;
 						LocalToScreen();
+
+						// 壁にぶつかる）
+						if (Map::map_[map_.rightTop.row][map_.rightTop.column] == TILE_GROUND ||
+							Map::map_[map_.rightBottom.row][map_.rightBottom.column] == TILE_GROUND ||
+							Map::map_[map_.rightTop.row][map_.rightTop.column] == TILE_BLOCK ||
+							Map::map_[map_.rightBottom.row][map_.rightBottom.column] == TILE_BLOCK ||
+							Map::map_[map_.rightTop.row][map_.rightTop.column] == TILE_ROTTED ||
+							Map::map_[map_.rightBottom.row][map_.rightBottom.column] == TILE_ROTTED ||
+							Map::map_[map_.rightTop.row][map_.rightTop.column] == TILE_WATER ||
+							Map::map_[map_.rightBottom.row][map_.rightBottom.column] == TILE_WATER ||
+							Map::map_[map_.rightTop.row][map_.rightTop.column] < 0 || Map::map_[map_.rightBottom.row][map_.rightBottom.column] < 0)
+						{
+							// 押し込み処理
+							shape_.translate.x = static_cast<float>(map_.rightTop.column * kTileSize) - shape_.scale.x;
+							LocalToScreen();
+						}
 
 						vel_.x = 0.0f;
 					}
