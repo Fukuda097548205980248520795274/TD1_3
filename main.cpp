@@ -1740,7 +1740,100 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 							player->Hit(enemy[i]);
 						}
 
+						// 爆弾とオブジェクト
+						for (int i = 24; i < 32; i++)
+						{
+							if (block[i]->isPut_ == false)
+							{
+								continue;
+							}
 
+							if (block[i]->isExplosion_ == false)
+							{
+								continue;
+							}
+
+							if (block[i]->frame_.current <= block[i]->frame_.end)
+							{
+								continue;
+							}
+
+
+							// プレイヤー
+							if (powf(player->shape_.scale.x + static_cast<float>(kTileSize * 2), 2) >=
+								powf(block[i]->shape_.translate.x - player->shape_.translate.x, 2) + powf(block[i]->shape_.translate.y - player->shape_.translate.y, 2))
+							{
+								player->respawn_.isRespawn = false;
+							}
+
+							// ブロック
+							for (int j = 0; j < kBlockNum; j++)
+							{
+								if (i == j)
+								{
+									continue;
+								}
+
+								if (block[j]->isPut_ == false)
+								{
+									continue;
+								}
+
+								if (powf(block[j]->shape_.scale.x + static_cast<float>(kTileSize * 2), 2) >=
+									powf(block[i]->shape_.translate.x - block[j]->shape_.translate.x, 2) + powf(block[i]->shape_.translate.y - block[j]->shape_.translate.y, 2))
+								{
+									// 爆弾に触れたら、爆発寸前になる
+									if (j >= 24)
+									{
+										if (block[j]->frame_.current < block[j]->frame_.end - 10)
+										{
+											block[j]->isExplosion_ = true;
+											block[j]->frame_.current = block[j]->frame_.end - 10;
+										}
+									}
+									else
+									{
+										block[j]->isPut_ = false;
+
+										// IDを消す
+										block[j]->id_ = 0;
+										CarryBlock::countID--;
+
+										// 宝が壊れたらゲームオーバー
+										if (j >= 16 && j < 24)
+										{
+											Scene::isGameOver_ = true;
+										}
+									}
+								}
+							}
+
+							// 敵
+							for (int j = 0; j < kEnemyNum; j++)
+							{
+								if (enemy[j]->isArrival_ == false)
+								{
+									continue;
+								}
+
+								if (powf(enemy[j]->shape_.scale.x + static_cast<float>(kTileSize * 2), 2) >=
+									powf(block[i]->shape_.translate.x - enemy[j]->shape_.translate.x, 2) + powf(block[i]->shape_.translate.y - enemy[j]->shape_.translate.y, 2))
+								{
+									enemy[j]->isArrival_ = false;
+
+									// IDを消す
+									enemy[j]->id_ = 0;
+									Enemy::countID--;
+								}
+							}
+
+
+							block[i]->isPut_ = false;
+
+							// IDを消す
+							block[i]->id_ = 0;
+							CarryBlock::countID--;
+						}
 
 
 						/*   リセット   */
