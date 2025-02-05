@@ -1732,10 +1732,14 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 								if (powf(block[j]->shape_.scale.x + static_cast<float>(kTileSize * 2), 2) >=
 									powf(block[i]->shape_.translate.x - block[j]->shape_.translate.x, 2) + powf(block[i]->shape_.translate.y - block[j]->shape_.translate.y, 2))
 								{
+									// 爆弾に触れたら、爆発寸前になる
 									if (j >= 24)
 									{
-										block[j]->isExplosion_ = true;
-										block[j]->frame_.current = block[j]->frame_.end - 10;
+										if (block[j]->frame_.current < block[j]->frame_.end - 10)
+										{
+											block[j]->isExplosion_ = true;
+											block[j]->frame_.current = block[j]->frame_.end - 10;
+										}
 									}
 									else
 									{
@@ -1744,6 +1748,12 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 										// IDを消す
 										block[j]->id_ = 0;
 										CarryBlock::countID--;
+
+										// 宝が壊れたらゲームオーバー
+										if (j >= 16 && j < 24)
+										{
+											Scene::isGameOver_ = true;
+										}
 									}
 								}
 							}
