@@ -165,12 +165,17 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 	// 看板
 	int ghSignboardFlag = Novice::LoadTexture("./Resources/Images/Signboard/Signboard_Flag.png");
-	int ghSignboardCarrySpace = Novice::LoadTexture("./Resources/Images/Signboard/Signboard_Carry.png");
+	int ghSignboardCarrySpace = Novice::LoadTexture("./Resources/Images/Signboard/Signboard_Carry_Space.png");
 	int ghSignboardScaffold = Novice::LoadTexture("./Resources/Images/Signboard/Signboard_Scaffold.png");
 	int ghSignboardCushion = Novice::LoadTexture("./Resources/Images/Signboard/Signboard_Cushion.png");
 	int ghSignboardWaremono = Novice::LoadTexture("./Resources/Images/Signboard/Signboard_waremono.png");
 	int ghSignboardBurn = Novice::LoadTexture("./Resources/Images/Signboard/Signboard_Burn.png");
 	int ghSignboardFire = Novice::LoadTexture("./Resources/Images/Signboard/Signboard_Fire.png");
+
+	// 操作方法
+	int ghTextOperation = Novice::LoadTexture("./Resources/Images/Scene/Game/oprationtext.png");
+	int ghOperationKeyboard = Novice::LoadTexture("./Resources/Images/Scene/Game/operationInstruct1.png");
+	int ghOperationControler = Novice::LoadTexture("./Resources/Images/Scene/Game/operationInstruct2.png");
 
 
 
@@ -227,8 +232,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 	/*ポーズメニュー*/
 	int ghPauseText = Novice::LoadTexture("./Resources/Images/Scene/Game/pause.png");
-	//操作説明
-	int ghOperationInstructions = Novice::LoadTexture("./Resources/Images/Scene/Game/operationInstructions.png");
 
 	/*--------
 		SE
@@ -2735,7 +2738,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			
 			if (isPose || Scene::isClear_ || Scene::isGameOver_)
 			{
-				Novice::DrawBox(0, 0, kScreenWidth, kScreenHeight, 0.0f, 0x000000EE, kFillModeSolid);
+				Novice::DrawBox(0, 0, kScreenWidth, kScreenHeight, 0.0f, 0x000000FA, kFillModeSolid);
 			}
 
 			// ポーズ中
@@ -2743,8 +2746,18 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			{
 				texture[5]->Draw(gameFrame);
 				texture[6]->Draw(gameFrame);
-				Novice::DrawSprite(572, 52, ghPauseText, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
-				Novice::DrawSprite(42, 92, ghOperationInstructions, 0.7f, 0.7f, 0.0f, 0xFFFFFFFF);
+				Novice::DrawSprite(972, 252, ghPauseText, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
+				
+				Novice::DrawSprite(144 , 232 , ghTextOperation , 1.0f , 1.0f , 0.0f , 0xFFFFFFFF);
+
+				if (iscontrol)
+				{
+					Novice::DrawSprite(32, 328, ghOperationControler, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
+				}
+				else
+				{
+					Novice::DrawSprite(32, 328, ghOperationKeyboard, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
+				}
 			}
 
 			// メニュー

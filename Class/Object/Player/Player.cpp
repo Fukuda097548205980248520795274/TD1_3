@@ -234,6 +234,7 @@ void Player::Operation(const char* keys, const char* preKeys , int stickX , int 
 				Map::map_[map_.leftTop.row][map_.leftTop.column] == TILE_BLOCK ||
 				Map::map_[map_.leftTop.row][map_.leftTop.column] == TILE_ROTTED ||
 				Map::map_[map_.leftTop.row][map_.leftTop.column] == TILE_WATER ||
+				Map::map_[map_.leftTop.row][map_.leftTop.column] == TILE_CONCRETE ||
 				Map::map_[map_.leftTop.row][map_.leftTop.column] < 0)
 			{
 				// 水があったら凍る
@@ -260,6 +261,8 @@ void Player::Operation(const char* keys, const char* preKeys , int stickX , int 
 					Map::map_[map_.leftBottom.row][map_.leftBottom.column] == TILE_ROTTED ||
 					Map::map_[map_.leftTop.row][map_.leftTop.column] == TILE_WATER ||
 					Map::map_[map_.leftBottom.row][map_.leftBottom.column] == TILE_WATER ||
+					Map::map_[map_.leftTop.row][map_.leftTop.column] == TILE_CONCRETE ||
+					Map::map_[map_.leftBottom.row][map_.leftBottom.column] == TILE_CONCRETE ||
 					Map::map_[map_.leftTop.row][map_.leftTop.column] < 0 || Map::map_[map_.leftBottom.row][map_.leftBottom.column] < 0)
 				{
 					// 水があったら、凍る
@@ -350,6 +353,8 @@ void Player::Operation(const char* keys, const char* preKeys , int stickX , int 
 				Map::map_[map_.rightBottom.row][map_.rightBottom.column] == TILE_ROTTED ||
 				Map::map_[map_.rightTop.row][map_.rightTop.column] == TILE_WATER ||
 				Map::map_[map_.rightBottom.row][map_.rightBottom.column] == TILE_WATER ||
+				Map::map_[map_.rightTop.row][map_.rightTop.column] == TILE_CONCRETE ||
+				Map::map_[map_.rightBottom.row][map_.rightBottom.column] == TILE_CONCRETE ||
 				Map::map_[map_.rightTop.row][map_.rightTop.column] < 0 || Map::map_[map_.rightBottom.row][map_.rightBottom.column] < 0)
 			{
 				// 水があったら凍る
@@ -383,6 +388,7 @@ void Player::Operation(const char* keys, const char* preKeys , int stickX , int 
 				Map::map_[map_.rightTop.row][map_.rightTop.column] == TILE_BLOCK ||
 				Map::map_[map_.rightTop.row][map_.rightTop.column] == TILE_ROTTED ||
 				Map::map_[map_.rightTop.row][map_.rightTop.column] == TILE_WATER ||
+				Map::map_[map_.rightTop.row][map_.rightTop.column] == TILE_CONCRETE ||
 				Map::map_[map_.rightTop.row][map_.rightTop.column] < 0)
 			{
 				// 水があったら凍る
@@ -538,8 +544,21 @@ void Player::Operation(const char* keys, const char* preKeys , int stickX , int 
 				Map::map_[map_.rightTop.row][map_.rightTop.column] == TILE_BLOCK ||
 				Map::map_[map_.leftTop.row][map_.leftTop.column] == TILE_ROTTED ||
 				Map::map_[map_.rightTop.row][map_.rightTop.column] == TILE_ROTTED ||
+				Map::map_[map_.leftTop.row][map_.leftTop.column] == TILE_WATER ||
+				Map::map_[map_.rightTop.row][map_.rightTop.column] == TILE_WATER ||
+				Map::map_[map_.leftTop.row][map_.leftTop.column] == TILE_CONCRETE ||
+				Map::map_[map_.rightTop.row][map_.rightTop.column] == TILE_CONCRETE ||
 				Map::map_[map_.leftTop.row][map_.leftTop.column] < 0 || Map::map_[map_.rightTop.row][map_.rightTop.column] < 0)
 			{
+				// 一時的にマップを更新する
+				MapUpdate(shape_.scale.x, vel_.y);
+
+				// 水に触れたら凍る
+				if (Map::map_[map_.leftTop.row][map_.leftTop.column] == TILE_WATER)
+				{
+					Map::map_[map_.leftTop.row][map_.leftTop.column] = TILE_ROTTED;
+				}
+
 				// 押し込み処理
 				shape_.translate.y = static_cast<float>(kScreenHeight - map_.leftTop.row * kTileSize - kTileSize) - shape_.scale.y;
 				LocalToScreen();
@@ -817,6 +836,8 @@ void Player::Operation(const char* keys, const char* preKeys , int stickX , int 
 				Map::map_[map_.rightTop.row][map_.rightTop.column] == TILE_ROTTED ||
 				Map::map_[map_.leftTop.row][map_.leftTop.column] == TILE_WATER ||
 				Map::map_[map_.rightTop.row][map_.rightTop.column] == TILE_WATER ||
+				Map::map_[map_.leftTop.row][map_.leftTop.column] == TILE_CONCRETE ||
+				Map::map_[map_.rightTop.row][map_.rightTop.column] == TILE_CONCRETE ||
 				Map::map_[map_.leftTop.row][map_.leftTop.column] < 0 || Map::map_[map_.rightTop.row][map_.rightTop.column] < 0)
 			{
 				// 一時的にマップを更新する
@@ -854,6 +875,8 @@ void Player::Operation(const char* keys, const char* preKeys , int stickX , int 
 				Map::map_[map_.rightBottom.row][map_.rightBottom.column] == TILE_ROTTED ||
 				Map::map_[map_.leftBottom.row][map_.leftBottom.column] == TILE_WATER ||
 				Map::map_[map_.rightBottom.row][map_.rightBottom.column] == TILE_WATER ||
+				Map::map_[map_.leftBottom.row][map_.leftBottom.column] == TILE_CONCRETE ||
+				Map::map_[map_.rightBottom.row][map_.rightBottom.column] == TILE_CONCRETE ||
 				Map::map_[map_.leftBottom.row][map_.leftBottom.column] < 0 || Map::map_[map_.rightBottom.row][map_.rightBottom.column] < 0)
 			{
 				// 一時的にマップを更新する
@@ -1276,6 +1299,8 @@ void Player::Carry(const char* keys, const char* preKeys, CarryBlock* block1, Ca
 								Map::map_[block1->map_.rightBottom.row][block1->map_.rightBottom.column] == TILE_ROTTED ||
 								Map::map_[block1->map_.rightTop.row][block1->map_.rightTop.column] == TILE_WATER ||
 								Map::map_[block1->map_.rightBottom.row][block1->map_.rightBottom.column] == TILE_WATER ||
+								Map::map_[block1->map_.rightTop.row][block1->map_.rightTop.column] == TILE_CONCRETE ||
+								Map::map_[block1->map_.rightBottom.row][block1->map_.rightBottom.column] == TILE_CONCRETE ||
 								Map::map_[block1->map_.rightTop.row][block1->map_.rightTop.column] < 0 || Map::map_[block1->map_.rightBottom.row][block1->map_.rightBottom.column] < 0)
 							{
 								block1->vel_.x = 0.0f;
@@ -1330,6 +1355,8 @@ void Player::Carry(const char* keys, const char* preKeys, CarryBlock* block1, Ca
 								Map::map_[block1->map_.leftBottom.row][block1->map_.leftBottom.column] == TILE_ROTTED ||
 								Map::map_[block1->map_.leftTop.row][block1->map_.leftTop.column] == TILE_WATER ||
 								Map::map_[block1->map_.leftBottom.row][block1->map_.leftBottom.column] == TILE_WATER ||
+								Map::map_[block1->map_.leftTop.row][block1->map_.leftTop.column] == TILE_CONCRETE ||
+								Map::map_[block1->map_.leftBottom.row][block1->map_.leftBottom.column] == TILE_CONCRETE ||
 								Map::map_[block1->map_.leftTop.row][block1->map_.leftTop.column] < 0 || Map::map_[block1->map_.leftBottom.row][block1->map_.leftBottom.column] < 0)
 							{
 								block1->vel_.x = 0.0f;
@@ -1491,6 +1518,8 @@ void Player::Carry(const char* keys, const char* preKeys, CarryBlock* block1, Ca
 									Map::map_[map_.leftBottom.row][map_.leftBottom.column] == TILE_ROTTED ||
 									Map::map_[map_.leftTop.row][map_.leftTop.column] == TILE_WATER ||
 									Map::map_[map_.leftBottom.row][map_.leftBottom.column] == TILE_WATER ||
+									Map::map_[map_.leftTop.row][map_.leftTop.column] == TILE_CONCRETE ||
+									Map::map_[map_.leftBottom.row][map_.leftBottom.column] == TILE_CONCRETE ||
 									Map::map_[map_.leftTop.row][map_.leftTop.column] < 0 || Map::map_[map_.leftBottom.row][map_.leftBottom.column] < 0)
 								{
 									// 押し込み処理
@@ -1525,6 +1554,8 @@ void Player::Carry(const char* keys, const char* preKeys, CarryBlock* block1, Ca
 									Map::map_[map_.rightBottom.row][map_.rightBottom.column] == TILE_ROTTED ||
 									Map::map_[map_.rightTop.row][map_.rightTop.column] == TILE_WATER ||
 									Map::map_[map_.rightBottom.row][map_.rightBottom.column] == TILE_WATER ||
+									Map::map_[map_.rightTop.row][map_.rightTop.column] == TILE_CONCRETE ||
+									Map::map_[map_.rightBottom.row][map_.rightBottom.column] == TILE_CONCRETE ||
 									Map::map_[map_.rightTop.row][map_.rightTop.column] < 0 || Map::map_[map_.rightBottom.row][map_.rightBottom.column] < 0)
 								{
 									// 押し込み処理
@@ -1606,6 +1637,8 @@ void Player::Carry(const char* keys, const char* preKeys, CarryBlock* block1, Ca
 								Map::map_[map_.leftBottom.row][map_.leftBottom.column] == TILE_ROTTED ||
 								Map::map_[map_.leftTop.row][map_.leftTop.column] == TILE_WATER ||
 								Map::map_[map_.leftBottom.row][map_.leftBottom.column] == TILE_WATER ||
+								Map::map_[map_.leftTop.row][map_.leftTop.column] == TILE_CONCRETE ||
+								Map::map_[map_.leftBottom.row][map_.leftBottom.column] == TILE_CONCRETE ||
 								Map::map_[map_.leftTop.row][map_.leftTop.column] < 0 || Map::map_[map_.leftBottom.row][map_.leftBottom.column] < 0)
 							{
 								// 押し込み処理
@@ -1641,6 +1674,8 @@ void Player::Carry(const char* keys, const char* preKeys, CarryBlock* block1, Ca
 								Map::map_[map_.rightBottom.row][map_.rightBottom.column] == TILE_ROTTED ||
 								Map::map_[map_.rightTop.row][map_.rightTop.column] == TILE_WATER ||
 								Map::map_[map_.rightBottom.row][map_.rightBottom.column] == TILE_WATER ||
+								Map::map_[map_.rightTop.row][map_.rightTop.column] == TILE_CONCRETE ||
+								Map::map_[map_.rightBottom.row][map_.rightBottom.column] == TILE_CONCRETE ||
 								Map::map_[map_.rightTop.row][map_.rightTop.column] < 0 || Map::map_[map_.rightBottom.row][map_.rightBottom.column] < 0)
 							{
 								// 押し込み処理
@@ -1726,6 +1761,8 @@ void Player::Carry(const char* keys, const char* preKeys, CarryBlock* block1, Ca
 							Map::map_[map_.leftBottom.row][map_.leftBottom.column] == TILE_ROTTED ||
 							Map::map_[map_.leftTop.row][map_.leftTop.column] == TILE_WATER ||
 							Map::map_[map_.leftBottom.row][map_.leftBottom.column] == TILE_WATER ||
+							Map::map_[map_.leftTop.row][map_.leftTop.column] == TILE_CONCRETE ||
+							Map::map_[map_.leftBottom.row][map_.leftBottom.column] == TILE_CONCRETE ||
 							Map::map_[map_.leftTop.row][map_.leftTop.column] < 0 || Map::map_[map_.leftBottom.row][map_.leftBottom.column] < 0)
 						{
 							// 押し込み処理
@@ -1761,6 +1798,8 @@ void Player::Carry(const char* keys, const char* preKeys, CarryBlock* block1, Ca
 							Map::map_[map_.rightBottom.row][map_.rightBottom.column] == TILE_ROTTED ||
 							Map::map_[map_.rightTop.row][map_.rightTop.column] == TILE_WATER ||
 							Map::map_[map_.rightBottom.row][map_.rightBottom.column] == TILE_WATER ||
+							Map::map_[map_.rightTop.row][map_.rightTop.column] == TILE_CONCRETE ||
+							Map::map_[map_.rightBottom.row][map_.rightBottom.column] == TILE_CONCRETE ||
 							Map::map_[map_.rightTop.row][map_.rightTop.column] < 0 || Map::map_[map_.rightBottom.row][map_.rightBottom.column] < 0)
 						{
 							// 押し込み処理
