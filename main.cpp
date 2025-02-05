@@ -210,8 +210,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	//エリア名前テキスト
 	int ghEreaName[3];
 	ghEreaName[0] = Novice::LoadTexture("./Resources/Images/Scene/StageSelect/erea1Name.png");
-	ghEreaName[1] = Novice::LoadTexture("./Resources/Images/Scene/StageSelect/erea1Name.png");
+	ghEreaName[1] = Novice::LoadTexture("./Resources/Images/Scene/StageSelect/erea2Name.png");
 	ghEreaName[2] = Novice::LoadTexture("./Resources/Images/Scene/StageSelect/erea1Name.png");
+
+	int ghTitletext = Novice::LoadTexture("./Resources/Images/Scene/StageSelect/titleText.png");
 
 	//ステージ選択テキスト
 	int ghStageSelectText = Novice::LoadTexture("./Resources/Images/Scene/StageSelect/stageSelect.png");
@@ -284,6 +286,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	int ghTree = Novice::LoadTexture("./Resources/Images/BackGround/snow_tree.png");
 
 	/*ポーズメニュー*/
+	int ghtabText = Novice::LoadTexture("./Resources/Images/Scene/Game/tabText.png");
 	int ghPauseText = Novice::LoadTexture("./Resources/Images/Scene/Game/pause.png");
 
 	/*--------
@@ -2612,7 +2615,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 				Novice::DrawBox(0, 0, kScreenWidth, kScreenHeight, 0.0f, 0x000022FF, kFillModeSolid);
 				Novice::DrawSprite(0, 0, ghArea1, 1.0f, 1.0f, 0.0f, 0xFFFFFFAA);
-
+				Novice::DrawBox(0, 650, 1344, 300, 0.0f, 0x271D28FF, kFillModeSolid);
 				for (int i = 0; i < 3; i++)
 				{
 					Novice::DrawSprite(0 + 500 * i, 320, ghTree, 0.5f, 0.5f, 0.0f, 0xFFFFFFFF);
@@ -2623,6 +2626,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				{
 					Novice::DrawSprite(300 + 500 * i, 420, ghTree, 0.4f, 0.4f, 0.0f, 0xFFFFFFFF);
 				}
+
+
 
 				break;
 
@@ -2800,7 +2805,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			}
 
 			//クリアテキスト
-			//eria
 			for (int i = 0; i <= STAGE_12; i++)
 			{
 				if (Scene::areaNo_ == AREA_1)
@@ -2826,6 +2830,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 			//ステージ選択テキスト
 			Novice::DrawSprite(32, 32, ghStageSelectText, 0.5f, 0.5f, 0.0f, 0xFFFFFFFF);
+			Novice::DrawSprite(32, 92, ghTitletext, 0.5f, 0.5f, 0.0f, 0xFFFFFFFF);
 
 			//エリアテキスト
 			Novice::DrawBox(412, 170, 482, 82, 0.0f, 0x00000050, kFillModeSolid);
@@ -2836,7 +2841,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			{
 				Novice::DrawSprite(635, 180, ghEreaName[0], 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
 			}
-
+			else if (Scene::areaNo_ == AREA_2)
+			{
+				Novice::DrawSprite(635, 180, ghEreaName[1], 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
+			}
 
 			break;
 
@@ -2851,6 +2859,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 				Novice::DrawBox(0, 0, kScreenWidth, kScreenHeight, 0.0f, 0x000022FF, kFillModeSolid);
 				Novice::DrawSprite(0, 0, ghArea1, 1.0f, 1.0f, 0.0f, 0xFFFFFFAA);
+				Novice::DrawBox(0, 650, 1344, 300, 0.0f, 0x271D28FF, kFillModeSolid);
 
 				for (int i = 0; i < 3; i++)
 				{
@@ -3042,6 +3051,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 					Novice::DrawSprite(183, 33, ghNumber[4], 0.5f, 0.5f, 0.0f, 0xFFFFFFFF);
 				}
 			}
+
+			Novice::DrawSprite(32, 92, ghtabText, 0.5f, 0.5f, 0.0f, 0xFFFFFFFF);
 
 			if (isPose || Scene::isClear_ || Scene::isGameOver_)
 			{
