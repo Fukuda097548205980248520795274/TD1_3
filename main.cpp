@@ -2800,6 +2800,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			}
 
 			//クリアテキスト
+			//eria
 			for (int i = 0; i <= STAGE_12; i++)
 			{
 				if (Scene::areaNo_ == AREA_1)
