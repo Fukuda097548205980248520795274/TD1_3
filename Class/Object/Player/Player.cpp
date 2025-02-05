@@ -560,7 +560,7 @@ void Player::Operation(const char* keys, const char* preKeys , int stickX , int 
 				}
 
 				// 押し込み処理
-				shape_.translate.y = static_cast<float>(kScreenHeight - map_.leftTop.row * kTileSize - kTileSize) - shape_.scale.y;
+				shape_.translate.y = static_cast<float>(kScreenHeight - map_.leftTop.row * kTileSize) - shape_.scale.y;
 				LocalToScreen();
 
 				// 梯子を上る速度を消す
