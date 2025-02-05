@@ -1237,7 +1237,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			// ゲーム画面
 
 			// マップの描画を更新する
-			/*if (gameFrame == 481)
+			if (gameFrame == 481)
 			{
 				// マップの値を初期化する
 				switch (Scene::areaNo_)
@@ -1481,7 +1481,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				}
 			}
 
-			*/
 
 			// 540フレームで、ロードを終了し、ゲームを開始する（ロードフラグをfalseにする）
 			if (gameFrame == 540)
