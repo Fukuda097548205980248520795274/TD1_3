@@ -102,7 +102,11 @@ void Map::Draw()
 
 	int ghLadder = Novice::LoadTexture("./Resources/Images/Map/ladder.png");
 
-	int ghwater = Novice::LoadTexture("./Resources/Images/Map/water.png");
+	int ghwater[4];
+	ghwater[0] = Novice::LoadTexture("./Resources/Images/Map/Water/water1.png");
+	ghwater[1] = Novice::LoadTexture("./Resources/Images/Map/Water/water2.png");
+	ghwater[2] = Novice::LoadTexture("./Resources/Images/Map/Water/water3.png");
+	ghwater[3] = Novice::LoadTexture("./Resources/Images/Map/Water/water4.png");
 
 	int ghGool[8];
 	ghGool[0] = Novice::LoadTexture("./Resources/Images/Map/Gool/gool1.png");
@@ -326,15 +330,50 @@ void Map::Draw()
 					break;
 
 				case TILE_WATER:
-
-					Novice::DrawQuad
-					(
-						column * kTileSize, row * kTileSize,
-						column * kTileSize + kTileSize, row * kTileSize,
-						column * kTileSize, row * kTileSize + kTileSize,
-						column * kTileSize + kTileSize, row * kTileSize + kTileSize,
-						0, 0, 48, 48, ghwater, 0xFFFFFFFF
-					);
+					if (Map::frame <= 15)
+					{
+						Novice::DrawQuad
+						(
+							column * kTileSize, row * kTileSize,
+							column * kTileSize + kTileSize, row * kTileSize,
+							column * kTileSize, row * kTileSize + kTileSize,
+							column * kTileSize + kTileSize, row * kTileSize + kTileSize,
+							0, 0, 48, 48, ghwater[0], 0xFFFFFFFF
+						);
+					}
+					else if (Map::frame <=30)
+					{
+						Novice::DrawQuad
+						(
+							column* kTileSize, row* kTileSize,
+							column* kTileSize + kTileSize, row* kTileSize,
+							column* kTileSize, row* kTileSize + kTileSize,
+							column* kTileSize + kTileSize, row* kTileSize + kTileSize,
+							0, 0, 48, 48, ghwater[1], 0xFFFFFFFF
+						);
+					}
+					else if (Map::frame <= 45)
+					{
+						Novice::DrawQuad
+						(
+							column * kTileSize, row * kTileSize,
+							column * kTileSize + kTileSize, row * kTileSize,
+							column * kTileSize, row * kTileSize + kTileSize,
+							column * kTileSize + kTileSize, row * kTileSize + kTileSize,
+							0, 0, 48, 48, ghwater[2], 0xFFFFFFFF
+						);
+					}
+					else if (Map::frame <= 60)
+					{
+						Novice::DrawQuad
+						(
+							column * kTileSize, row * kTileSize,
+							column * kTileSize + kTileSize, row * kTileSize,
+							column * kTileSize, row * kTileSize + kTileSize,
+							column * kTileSize + kTileSize, row * kTileSize + kTileSize,
+							0, 0, 48, 48, ghwater[3], 0xFFFFFFFF
+						);
+					}
 
 					break;
 
