@@ -35,6 +35,7 @@ const char kWindowTitle[] = "LC1C_20_フクダソウワ_ゆきどけ～";
 // Windowsアプリでのエントリーポイント(main関数)
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 {
+
 	// ライブラリの初期化
 	Novice::Initialize(kWindowTitle, kScreenWidth, kScreenHeight);
 
@@ -97,18 +98,15 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 		if (i < 8)
 		{
 			block[i] = new Plastic();
-		}
-		else if (i < 16)
+		} else if (i < 16)
 		{
 			// クッション
 			block[i] = new Cushion();
-		}
-		else if (i < 24)
+		} else if (i < 24)
 		{
 			// 宝
 			block[i] = new Treasure();
-		}
-		else if (i < 32)
+		} else if (i < 32)
 		{
 			// 凍った敵
 			block[i] = new Bomb();
@@ -358,8 +356,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			if (rand() % 2 == 0)
 			{
 				shBard = Novice::LoadAudio("./Resources/Sounds/Bgm/bard1.mp3");
-			}
-			else
+			} else
 			{
 				shBard = Novice::LoadAudio("./Resources/Sounds/Bgm/bard2.mp3");
 			}
@@ -636,8 +633,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 						Novice::PlayAudio(shBell2, 0, 0.3f);
 					}
 				}
-			}
-			else if (Novice::IsTriggerButton(0, kPadButton10))
+			} else if (Novice::IsTriggerButton(0, kPadButton10))
 			{
 				if (gameFrame == 240)
 				{
@@ -712,13 +708,11 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 					{
 						Scene::areaNo_ += 1;
 						Scene::stageNo_ = STAGE_1;
-					}
-					else if (Scene::stageNo_ == STAGE_12)
+					} else if (Scene::stageNo_ == STAGE_12)
 					{
 						Scene::areaNo_ += 1;
 						Scene::stageNo_ = STAGE_7;
-					}
-					else
+					} else
 					{
 						Scene::stageNo_ += 1;
 					}
@@ -727,8 +721,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 					{
 						Scene::stageNo_ = currentStage;
 						Scene::areaNo_ = AREA_3;
-					}
-					else
+					} else
 					{
 						// 効果音
 						Novice::PlayAudio(shPick, 0, 0.3f);
@@ -743,13 +736,11 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 					{
 						Scene::areaNo_ -= 1;
 						Scene::stageNo_ = STAGE_6;
-					}
-					else if (Scene::stageNo_ == STAGE_7)
+					} else if (Scene::stageNo_ == STAGE_7)
 					{
 						Scene::areaNo_ -= 1;
 						Scene::stageNo_ = STAGE_12;
-					}
-					else
+					} else
 					{
 						Scene::stageNo_ -= 1;
 					}
@@ -758,8 +749,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 					{
 						Scene::stageNo_ = currentStage;
 						Scene::areaNo_ = AREA_1;
-					}
-					else
+					} else
 					{
 						// 効果音
 						Novice::PlayAudio(shPick, 0, 0.3f);
@@ -1220,8 +1210,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 					// 鈴を鳴らす
 					Novice::PlayAudio(shBell, 0, 0.5f);
-				}
-				else
+				} else
 				{
 					Scene::sceneNo_ = SCENE_START;
 					gameFrame = 1;
@@ -1588,8 +1577,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 							if (Scene::poseNo_ == POSE_GAME_RETURN)
 							{
 								isPose = false;
-							}
-							else if (Scene::poseNo_ == POSE_GAME_GIVEUP)
+							} else if (Scene::poseNo_ == POSE_GAME_GIVEUP)
 							{
 								// ゲームをやめる
 								if (isLoad == false)
@@ -1626,8 +1614,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 						if (isPose == false)
 						{
 							isPose = true;
-						}
-						else
+						} else
 						{
 							isPose = false;
 						}
@@ -1663,8 +1650,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 							if (!isActive)
 							{
 								isActive = true;
-							}
-							else
+							} else
 							{
 								isActive = false;
 							}
@@ -1788,8 +1774,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 											block[j]->isExplosion_ = true;
 											block[j]->frame_.current = block[j]->frame_.end - 10;
 										}
-									}
-									else
+									} else
 									{
 										block[j]->isPut_ = false;
 
@@ -1832,6 +1817,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 							block[i]->id_ = 0;
 							CarryBlock::countID--;
 						}
+
 
 						/*   リセット   */
 
@@ -1898,9 +1884,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 							}
 						}
 					}
+
 				}
-			}
-			else
+			} else
 			{
 				// Bgmを止める
 				Novice::StopAudio(phYukisora);
@@ -1918,8 +1904,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 					{
 						phADreamOfCat = Novice::PlayAudio(shADreamOfCat, 0, 0.1f);
 					}
-				}
-				else if (Scene::isGameOver_)
+				} else if (Scene::isGameOver_)
 				{
 					// ゲームオーバーの（ゲームオーバーフラグがtrueである）ときのBGM
 
@@ -1968,8 +1953,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 							break;
 						}
-					}
-					else if (Scene::isGameOver_)
+					} else if (Scene::isGameOver_)
 					{
 						// ゲームオーバーのとき（ゲームオーバーフラグがtrueである）
 
@@ -2021,8 +2005,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 						if (isReset)
 						{
 							Novice::PlayAudio(shFrozen, 0, 0.3f);
-						}
-						else
+						} else
 						{
 							// 鈴の音
 							Novice::PlayAudio(shBell2, 0, 0.3f);
@@ -2098,454 +2081,451 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 							if (Scene::stageNo_ < STAGE_12)
 							{
 								Scene::stageNo_ += 1;
-							}
-							else
+							} else
 							{
 								if (Scene::areaNo_ < AREA_3)
 								{
 									Scene::stageNo_ = STAGE_1;
 									Scene::areaNo_ += 1;
-
 								}
 							}
-
-							// マップの値を初期化する
-							switch (Scene::areaNo_)
-							{
-							case AREA_1:
-
-								switch (Scene::stageNo_)
-								{
-								case STAGE_1:
-
-									Map::LoadFile("./TextFiles/Stage/area1/stage1.csv");
-
-									break;
-
-								case STAGE_2:
-
-									Map::LoadFile("./TextFiles/Stage/area1/stage2.csv");
-
-									break;
-
-								case STAGE_3:
-
-									Map::LoadFile("./TextFiles/Stage/area1/stage3.csv");
-
-									break;
-
-								case STAGE_4:
-
-									Map::LoadFile("./TextFiles/Stage/area1/stage4.csv");
-
-									break;
-
-								case STAGE_5:
-
-									Map::LoadFile("./TextFiles/Stage/area1/stage5.csv");
-
-									break;
-
-								case STAGE_6:
-
-									Map::LoadFile("./TextFiles/Stage/area1/stage6.csv");
-
-									break;
-
-								case STAGE_7:
-
-									Map::LoadFile("./TextFiles/Stage/area1/stage7.csv");
-
-									break;
-
-								case STAGE_8:
-
-									Map::LoadFile("./TextFiles/Stage/area1/stage8.csv");
-
-									break;
-
-								case STAGE_9:
-
-									Map::LoadFile("./TextFiles/Stage/area1/stage9.csv");
-
-									break;
-
-								case STAGE_10:
-
-									Map::LoadFile("./TextFiles/Stage/area1/stage10.csv");
-
-									break;
-
-								case STAGE_11:
-
-									Map::LoadFile("./TextFiles/Stage/area1/stage11.csv");
-
-									break;
-
-								case STAGE_12:
-
-									Map::LoadFile("./TextFiles/Stage/area1/stage12.csv");
-
-									break;
-								}
-
-								break;
-
-							case AREA_2:
-
-								switch (Scene::stageNo_)
-								{
-								case STAGE_1:
-
-									Map::LoadFile("./TextFiles/Stage/area2/stage1.csv");
-
-									break;
-
-								case STAGE_2:
-
-									Map::LoadFile("./TextFiles/Stage/area2/stage2.csv");
-
-									break;
-
-								case STAGE_3:
-
-									Map::LoadFile("./TextFiles/Stage/area2/stage3.csv");
-
-									break;
-
-								case STAGE_4:
-
-									Map::LoadFile("./TextFiles/Stage/area2/stage4.csv");
-
-									break;
-
-								case STAGE_5:
-
-									Map::LoadFile("./TextFiles/Stage/area2/stage5.csv");
-
-									break;
-
-								case STAGE_6:
-
-									Map::LoadFile("./TextFiles/Stage/area2/stage6.csv");
-
-									break;
-
-								case STAGE_7:
-
-									Map::LoadFile("./TextFiles/Stage/area2/stage7.csv");
-
-									break;
-
-								case STAGE_8:
-
-									Map::LoadFile("./TextFiles/Stage/area2/stage8.csv");
-
-									break;
-
-								case STAGE_9:
-
-									Map::LoadFile("./TextFiles/Stage/area2/stage9.csv");
-
-									break;
-
-								case STAGE_10:
-
-									Map::LoadFile("./TextFiles/Stage/area2/stage10.csv");
-
-									break;
-
-								case STAGE_11:
-
-									Map::LoadFile("./TextFiles/Stage/area2/stage11.csv");
-
-									break;
-
-								case STAGE_12:
-
-									Map::LoadFile("./TextFiles/Stage/area2/stage12.csv");
-
-									break;
-								}
-
-								break;
-
-							case AREA_3:
-
-								switch (Scene::stageNo_)
-								{
-								case STAGE_1:
-
-									Map::LoadFile("./TextFiles/Stage/area3/stage1.csv");
-
-									break;
-
-								case STAGE_2:
-
-									Map::LoadFile("./TextFiles/Stage/area3/stage2.csv");
-
-									break;
-
-								case STAGE_3:
-
-									Map::LoadFile("./TextFiles/Stage/area3/stage3.csv");
-
-									break;
-
-								case STAGE_4:
-
-									Map::LoadFile("./TextFiles/Stage/area3/stage4.csv");
-
-									break;
-
-								case STAGE_5:
-
-									Map::LoadFile("./TextFiles/Stage/area3/stage5.csv");
-
-									break;
-
-								case STAGE_6:
-
-									Map::LoadFile("./TextFiles/Stage/area3/stage6.csv");
-
-									break;
-
-								case STAGE_7:
-
-									Map::LoadFile("./TextFiles/Stage/area3/stage7.csv");
-
-									break;
-
-								case STAGE_8:
-
-									Map::LoadFile("./TextFiles/Stage/area3/stage8.csv");
-
-									break;
-
-								case STAGE_9:
-
-									Map::LoadFile("./TextFiles/Stage/area3/stage9.csv");
-
-									break;
-
-								case STAGE_10:
-
-									Map::LoadFile("./TextFiles/Stage/area3/stage10.csv");
-
-									break;
-
-								case STAGE_11:
-
-									Map::LoadFile("./TextFiles/Stage/area3/stage11.csv");
-
-									break;
-
-								case STAGE_12:
-
-									Map::LoadFile("./TextFiles/Stage/area3/stage12.csv");
-
-									break;
-								}
-
-								break;
-							}
-
-							// ブロックや敵を配置する
-							for (int row = 0; row < kMapRow; row++)
-							{
-								for (int column = 0; column < kMapColumn; column++)
-								{
-									switch (Map::map_[row][column])
-									{
-									case TILE_PLAYER:
-										// プレイヤー
-
-										player->Puttting(column, row);
-
-										// タイルを消す
-										Map::map_[row][column] = TILE_NOTHING;
-
-										break;
-
-
-									case TILE_PLASTIC:
-										// プラスチック
-
-										for (int i = 0; i < kBlockNum; i++)
-										{
-											if (i < 8)
-											{
-												if (block[i]->id_ == 0)
-												{
-													block[i]->Putting(column, row);
-
-													break;
-												}
-											}
-										}
-
-										// タイルを消す
-										Map::map_[row][column] = TILE_NOTHING;
-
-										break;
-
-									case TILE_CUSHION:
-										// クッション
-
-										for (int i = 0; i < kBlockNum; i++)
-										{
-											if (i >= 8 && i < 16)
-											{
-												if (block[i]->id_ == 0)
-												{
-													block[i]->Putting(column, row);
-
-													break;
-												}
-											}
-										}
-
-										// タイルを消す
-										Map::map_[row][column] = TILE_NOTHING;
-
-										break;
-
-									case TILE_TREASURE:
-										// 宝
-
-										for (int i = 0; i < kBlockNum; i++)
-										{
-											if (i >= 16 && i < 24)
-											{
-												if (block[i]->id_ == 0)
-												{
-													block[i]->Putting(column, row);
-
-													break;
-												}
-											}
-										}
-
-										// タイルを消す
-										Map::map_[row][column] = TILE_NOTHING;
-
-										// 宝の数をカウントする
-										Map::treasureNum++;
-
-										break;
-
-									case TILE_BOMB:
-										// 爆弾
-
-										for (int i = 0; i < kBlockNum; i++)
-										{
-											if (i >= 24 && i < 32)
-											{
-												if (block[i]->id_ == 0)
-												{
-													block[i]->Putting(column, row);
-
-													break;
-												}
-											}
-										}
-
-										// タイルを消す
-										Map::map_[row][column] = TILE_NOTHING;
-
-										break;
-
-									case TILE_GHOST:
-										// 幽霊
-
-										for (int i = 0; i < kEnemyNum; i++)
-										{
-											if (i < 8)
-											{
-												if (enemy[i]->id_ == 0)
-												{
-													enemy[i]->Arrival(column, row);
-
-													break;
-												}
-											}
-										}
-
-										// タイルを消す
-										Map::map_[row][column] = TILE_NOTHING;
-
-										break;
-									}
-								}
-							}
-
-							// 鈴を鳴らす
-							Novice::PlayAudio(shBell, 0, 0.5f);
-
-							// 切り替えを初期化する
-							Scene::clearNo_ = CLEAR_NEXT_GAME;
-							Scene::gameoverNo_ = GAMEOVER_RESET_GAME;
-							Scene::poseNo_ = POSE_GAME_RETURN;
-
-							// クリアを初期化する（クリアフラグをfalseにする）
-							Scene::isClear_ = false;
-							Scene::isGameOver_ = false;
-
-							//	リセット終了（リセットフラグをfalseにする）
-							isReset = false;
-
-							isPose = false;
 						}
-						else
+
+						// マップの値を初期化する
+						switch (Scene::areaNo_)
 						{
-							// リセットしないとき（リセットフラグがfalseであるとき）
+						case AREA_1:
 
-							Scene::sceneNo_ = SCENE_STAGE;
-							gameFrame = 360;
-
-							// Bgmを止める
-							Novice::StopAudio(phADreamOfCat);
-							Novice::StopAudio(phInTheStillnessOfTwilight);
-
-							// ブロックを初期化する
-							for (int i = 0; i < kBlockNum; i++)
+							switch (Scene::stageNo_)
 							{
-								block[i]->InitialValue();
+							case STAGE_1:
+
+								Map::LoadFile("./TextFiles/Stage/area1/stage1.csv");
+
+								break;
+
+							case STAGE_2:
+
+								Map::LoadFile("./TextFiles/Stage/area1/stage2.csv");
+
+								break;
+
+							case STAGE_3:
+
+								Map::LoadFile("./TextFiles/Stage/area1/stage3.csv");
+
+								break;
+
+							case STAGE_4:
+
+								Map::LoadFile("./TextFiles/Stage/area1/stage4.csv");
+
+								break;
+
+							case STAGE_5:
+
+								Map::LoadFile("./TextFiles/Stage/area1/stage5.csv");
+
+								break;
+
+							case STAGE_6:
+
+								Map::LoadFile("./TextFiles/Stage/area1/stage6.csv");
+
+								break;
+
+							case STAGE_7:
+
+								Map::LoadFile("./TextFiles/Stage/area1/stage7.csv");
+
+								break;
+
+							case STAGE_8:
+
+								Map::LoadFile("./TextFiles/Stage/area1/stage8.csv");
+
+								break;
+
+							case STAGE_9:
+
+								Map::LoadFile("./TextFiles/Stage/area1/stage9.csv");
+
+								break;
+
+							case STAGE_10:
+
+								Map::LoadFile("./TextFiles/Stage/area1/stage10.csv");
+
+								break;
+
+							case STAGE_11:
+
+								Map::LoadFile("./TextFiles/Stage/area1/stage11.csv");
+
+								break;
+
+							case STAGE_12:
+
+								Map::LoadFile("./TextFiles/Stage/area1/stage12.csv");
+
+								break;
 							}
 
-							// 敵を初期化する
-							for (int i = 0; i < kEnemyNum; i++)
+							break;
+
+						case AREA_2:
+
+							switch (Scene::stageNo_)
 							{
-								enemy[i]->InitialValue();
+							case STAGE_1:
+
+								Map::LoadFile("./TextFiles/Stage/area2/stage1.csv");
+
+								break;
+
+							case STAGE_2:
+
+								Map::LoadFile("./TextFiles/Stage/area2/stage2.csv");
+
+								break;
+
+							case STAGE_3:
+
+								Map::LoadFile("./TextFiles/Stage/area2/stage3.csv");
+
+								break;
+
+							case STAGE_4:
+
+								Map::LoadFile("./TextFiles/Stage/area2/stage4.csv");
+
+								break;
+
+							case STAGE_5:
+
+								Map::LoadFile("./TextFiles/Stage/area2/stage5.csv");
+
+								break;
+
+							case STAGE_6:
+
+								Map::LoadFile("./TextFiles/Stage/area2/stage6.csv");
+
+								break;
+
+							case STAGE_7:
+
+								Map::LoadFile("./TextFiles/Stage/area2/stage7.csv");
+
+								break;
+
+							case STAGE_8:
+
+								Map::LoadFile("./TextFiles/Stage/area2/stage8.csv");
+
+								break;
+
+							case STAGE_9:
+
+								Map::LoadFile("./TextFiles/Stage/area2/stage9.csv");
+
+								break;
+
+							case STAGE_10:
+
+								Map::LoadFile("./TextFiles/Stage/area2/stage10.csv");
+
+								break;
+
+							case STAGE_11:
+
+								Map::LoadFile("./TextFiles/Stage/area2/stage11.csv");
+
+								break;
+
+							case STAGE_12:
+
+								Map::LoadFile("./TextFiles/Stage/area2/stage12.csv");
+
+								break;
 							}
 
-							// パーティクルを初期化する
-							for (int i = 0; i < kParticleWater; i++)
+							break;
+
+						case AREA_3:
+
+							switch (Scene::stageNo_)
 							{
-								water[i]->isEmission_ = false;
+							case STAGE_1:
+
+								Map::LoadFile("./TextFiles/Stage/area3/stage1.csv");
+
+								break;
+
+							case STAGE_2:
+
+								Map::LoadFile("./TextFiles/Stage/area3/stage2.csv");
+
+								break;
+
+							case STAGE_3:
+
+								Map::LoadFile("./TextFiles/Stage/area3/stage3.csv");
+
+								break;
+
+							case STAGE_4:
+
+								Map::LoadFile("./TextFiles/Stage/area3/stage4.csv");
+
+								break;
+
+							case STAGE_5:
+
+								Map::LoadFile("./TextFiles/Stage/area3/stage5.csv");
+
+								break;
+
+							case STAGE_6:
+
+								Map::LoadFile("./TextFiles/Stage/area3/stage6.csv");
+
+								break;
+
+							case STAGE_7:
+
+								Map::LoadFile("./TextFiles/Stage/area3/stage7.csv");
+
+								break;
+
+							case STAGE_8:
+
+								Map::LoadFile("./TextFiles/Stage/area3/stage8.csv");
+
+								break;
+
+							case STAGE_9:
+
+								Map::LoadFile("./TextFiles/Stage/area3/stage9.csv");
+
+								break;
+
+							case STAGE_10:
+
+								Map::LoadFile("./TextFiles/Stage/area3/stage10.csv");
+
+								break;
+
+							case STAGE_11:
+
+								Map::LoadFile("./TextFiles/Stage/area3/stage11.csv");
+
+								break;
+
+							case STAGE_12:
+
+								Map::LoadFile("./TextFiles/Stage/area3/stage12.csv");
+
+								break;
 							}
 
-							// 切り替えを初期化する
-							Scene::clearNo_ = CLEAR_NEXT_GAME;
-							Scene::gameoverNo_ = GAMEOVER_RESET_GAME;
-							Scene::poseNo_ = POSE_GAME_RETURN;
-
-							// クリア、ゲームオーバーを初期化する
-							Scene::isClear_ = false;
-							Scene::isGameOver_ = false;
-
-							// 宝の数を初期化する
-							Map::treasureNum = 0;
-
-							isPose = false;
+							break;
 						}
+
+						// ブロックや敵を配置する
+						for (int row = 0; row < kMapRow; row++)
+						{
+							for (int column = 0; column < kMapColumn; column++)
+							{
+								switch (Map::map_[row][column])
+								{
+								case TILE_PLAYER:
+									// プレイヤー
+
+									player->Puttting(column, row);
+
+									// タイルを消す
+									Map::map_[row][column] = TILE_NOTHING;
+
+									break;
+
+
+								case TILE_PLASTIC:
+									// プラスチック
+
+									for (int i = 0; i < kBlockNum; i++)
+									{
+										if (i < 8)
+										{
+											if (block[i]->id_ == 0)
+											{
+												block[i]->Putting(column, row);
+
+												break;
+											}
+										}
+									}
+
+									// タイルを消す
+									Map::map_[row][column] = TILE_NOTHING;
+
+									break;
+
+								case TILE_CUSHION:
+									// クッション
+
+									for (int i = 0; i < kBlockNum; i++)
+									{
+										if (i >= 8 && i < 16)
+										{
+											if (block[i]->id_ == 0)
+											{
+												block[i]->Putting(column, row);
+
+												break;
+											}
+										}
+									}
+
+									// タイルを消す
+									Map::map_[row][column] = TILE_NOTHING;
+
+									break;
+
+								case TILE_TREASURE:
+									// 宝
+
+									for (int i = 0; i < kBlockNum; i++)
+									{
+										if (i >= 16 && i < 24)
+										{
+											if (block[i]->id_ == 0)
+											{
+												block[i]->Putting(column, row);
+
+												break;
+											}
+										}
+									}
+
+									// タイルを消す
+									Map::map_[row][column] = TILE_NOTHING;
+
+									// 宝の数をカウントする
+									Map::treasureNum++;
+
+									break;
+
+								case TILE_BOMB:
+									// 爆弾
+
+									for (int i = 0; i < kBlockNum; i++)
+									{
+										if (i >= 24 && i < 32)
+										{
+											if (block[i]->id_ == 0)
+											{
+												block[i]->Putting(column, row);
+
+												break;
+											}
+										}
+									}
+
+									// タイルを消す
+									Map::map_[row][column] = TILE_NOTHING;
+
+									break;
+
+								case TILE_GHOST:
+									// 幽霊
+
+									for (int i = 0; i < kEnemyNum; i++)
+									{
+										if (i < 8)
+										{
+											if (enemy[i]->id_ == 0)
+											{
+												enemy[i]->Arrival(column, row);
+
+												break;
+											}
+										}
+									}
+
+									// タイルを消す
+									Map::map_[row][column] = TILE_NOTHING;
+
+									break;
+								}
+							}
+						}
+
+						// 鈴を鳴らす
+						Novice::PlayAudio(shBell, 0, 0.5f);
+
+						// 切り替えを初期化する
+						Scene::clearNo_ = CLEAR_NEXT_GAME;
+						Scene::gameoverNo_ = GAMEOVER_RESET_GAME;
+						Scene::poseNo_ = POSE_GAME_RETURN;
+
+						// クリアを初期化する（クリアフラグをfalseにする）
+						Scene::isClear_ = false;
+						Scene::isGameOver_ = false;
+
+						//	リセット終了（リセットフラグをfalseにする）
+						isReset = false;
+
+						isPose = false;
+					} else
+					{
+						// リセットしないとき（リセットフラグがfalseであるとき）
+
+						Scene::sceneNo_ = SCENE_STAGE;
+						gameFrame = 360;
+
+						// Bgmを止める
+						Novice::StopAudio(phADreamOfCat);
+						Novice::StopAudio(phInTheStillnessOfTwilight);
+
+						// ブロックを初期化する
+						for (int i = 0; i < kBlockNum; i++)
+						{
+							block[i]->InitialValue();
+						}
+
+						// 敵を初期化する
+						for (int i = 0; i < kEnemyNum; i++)
+						{
+							enemy[i]->InitialValue();
+						}
+
+						// パーティクルを初期化する
+						for (int i = 0; i < kParticleWater; i++)
+						{
+							water[i]->isEmission_ = false;
+						}
+
+						// 切り替えを初期化する
+						Scene::clearNo_ = CLEAR_NEXT_GAME;
+						Scene::gameoverNo_ = GAMEOVER_RESET_GAME;
+						Scene::poseNo_ = POSE_GAME_RETURN;
+
+						// クリア、ゲームオーバーを初期化する
+						Scene::isClear_ = false;
+						Scene::isGameOver_ = false;
+
+						// 宝の数を初期化する
+						Map::treasureNum = 0;
+
+						isPose = false;
 					}
 				}
-
-
-				break;
-#pragma endregion
 			}
+
+
+			break;
+#pragma endregion
 		}
 
 		preStickX = stickX;
@@ -2658,8 +2638,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				{
 					Novice::DrawSprite(114 + i % 6 * 200, 320 + (i / 6) * 200, ghTreasure[2], 2.65f, 2.65f, 0.0f, 0xFFFFFF55);
 				}
-			}
-			else if (Scene::areaNo_ == AREA_2)
+			} else if (Scene::areaNo_ == AREA_2)
 			{
 				for (int i = STAGE_1; i <= STAGE_1; i++)
 				{
@@ -2676,8 +2655,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 					Novice::DrawSprite(114 + i % 6 * 200, 320 + (i / 6) * 200, ghTreasure[2], 2.65f, 2.65f, 0.0f, 0xFFFFFF55);
 				}
 
-			}
-			else if (Scene::areaNo_ == AREA_3)
+			} else if (Scene::areaNo_ == AREA_3)
 			{
 				for (int i = STAGE_1; i <= STAGE_1; i++)
 				{
@@ -2703,42 +2681,34 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 					if (Scene::stageNo_ <= STAGE_4)
 					{
 						Novice::DrawSprite(114 + Scene::stageNo_ % 6 * 200, 320 + (Scene::stageNo_ / 6) * 200, ghTreasure[0], 2.65f, 2.65f, 0.0f, 0xFFFFFFFF);
-					}
-					else if (Scene::stageNo_ <= STAGE_9)
+					} else if (Scene::stageNo_ <= STAGE_9)
 					{
 						Novice::DrawSprite(114 + Scene::stageNo_ % 6 * 200, 320 + (Scene::stageNo_ / 6) * 200, ghTreasure[1], 2.65f, 2.65f, 0.0f, 0xFFFFFFFF);
-					}
-					else if (Scene::stageNo_ <= STAGE_12)
+					} else if (Scene::stageNo_ <= STAGE_12)
 					{
 						Novice::DrawSprite(114 + Scene::stageNo_ % 6 * 200, 320 + (Scene::stageNo_ / 6) * 200, ghTreasure[2], 2.65f, 2.65f, 0.0f, 0xFFFFFFFF);
 					}
-				}
-				else if (Scene::areaNo_ == AREA_2)
+				} else if (Scene::areaNo_ == AREA_2)
 				{
 					if (Scene::stageNo_ <= STAGE_1)
 					{
 						Novice::DrawSprite(114 + Scene::stageNo_ % 6 * 200, 320 + (Scene::stageNo_ / 6) * 200, ghTreasure[0], 2.65f, 2.65f, 0.0f, 0xFFFFFFFF);
-					}
-					else if (Scene::stageNo_ <= STAGE_9)
+					} else if (Scene::stageNo_ <= STAGE_9)
 					{
 						Novice::DrawSprite(114 + Scene::stageNo_ % 6 * 200, 320 + (Scene::stageNo_ / 6) * 200, ghTreasure[1], 2.65f, 2.65f, 0.0f, 0xFFFFFFFF);
-					}
-					else if (Scene::stageNo_ <= STAGE_12)
+					} else if (Scene::stageNo_ <= STAGE_12)
 					{
 						Novice::DrawSprite(114 + Scene::stageNo_ % 6 * 200, 320 + (Scene::stageNo_ / 6) * 200, ghTreasure[2], 2.65f, 2.65f, 0.0f, 0xFFFFFFFF);
 					}
-				}
-				else if (Scene::areaNo_ == AREA_3)
+				} else if (Scene::areaNo_ == AREA_3)
 				{
 					if (Scene::stageNo_ <= STAGE_1)
 					{
 						Novice::DrawSprite(114 + Scene::stageNo_ % 6 * 200, 320 + (Scene::stageNo_ / 6) * 200, ghTreasure[0], 2.65f, 2.65f, 0.0f, 0xFFFFFFFF);
-					}
-					else if (Scene::stageNo_ <= STAGE_9)
+					} else if (Scene::stageNo_ <= STAGE_9)
 					{
 						Novice::DrawSprite(114 + Scene::stageNo_ % 6 * 200, 320 + (Scene::stageNo_ / 6) * 200, ghTreasure[1], 2.65f, 2.65f, 0.0f, 0xFFFFFFFF);
-					}
-					else if (Scene::stageNo_ <= STAGE_12)
+					} else if (Scene::stageNo_ <= STAGE_12)
 					{
 						Novice::DrawSprite(114 + Scene::stageNo_ % 6 * 200, 320 + (Scene::stageNo_ / 6) * 200, ghTreasure[2], 2.65f, 2.65f, 0.0f, 0xFFFFFFFF);
 					}
@@ -2752,12 +2722,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				if (Scene::areaNo_ == AREA_1)
 				{
 					Novice::DrawSprite(114 + i % 6 * 200, 320 + (i / 6) * 200, ghStage1_Number[i], 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
-				}
-				else if (Scene::areaNo_ == AREA_2)
+				} else if (Scene::areaNo_ == AREA_2)
 				{
 					Novice::DrawSprite(114 + i % 6 * 200, 320 + (i / 6) * 200, ghStage2_Number[i], 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
-				}
-				else if (Scene::areaNo_ == AREA_3)
+				} else if (Scene::areaNo_ == AREA_3)
 				{
 					Novice::DrawSprite(114 + i % 6 * 200, 320 + (i / 6) * 200, ghStage3_Number[i], 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
 				}
@@ -2772,8 +2740,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				{
 					Novice::DrawSprite(114 + Scene::stageNo_ % 6 * 200, 320 + (Scene::stageNo_ / 6) * 200,
 						ghIce[(gameFrame - 420) / 5], 2.65f, 2.65f, 0.0f, 0xFFFFFFFF);
-				}
-				else if (gameFrame >= 440)
+				} else if (gameFrame >= 440)
 				{
 					Novice::DrawSprite(114 + Scene::stageNo_ % 6 * 200, 320 + (Scene::stageNo_ / 6) * 200,
 						ghIce[3], 2.65f, 2.65f, 0.0f, 0xFFFFFFFF);
@@ -2854,22 +2821,18 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 					if (iscontrol)
 					{
 
-					}
-					else
+					} else
 					{
 						Novice::DrawSprite(700, 550, ghSignboardCarrySpace, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
 					}
-				}
-				else if (Scene::stageNo_ == STAGE_2)
+				} else if (Scene::stageNo_ == STAGE_2)
 				{
 					Novice::DrawSprite(200, 550, ghSignboardScaffold, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
-				}
-				else if (Scene::stageNo_ == STAGE_3)
+				} else if (Scene::stageNo_ == STAGE_3)
 				{
 					Novice::DrawSprite(400, 550, ghSignboardCushion, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
 					Novice::DrawSprite(500, 210, ghSignboardWaremono, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
-				}
-				else if (Scene::stageNo_ == STAGE_4)
+				} else if (Scene::stageNo_ == STAGE_4)
 				{
 					Novice::DrawSprite(1000, 550, ghSignboardBurn, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
 					Novice::DrawSprite(600, 210, ghSignboardFire, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
@@ -2980,20 +2943,16 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				if (Map::treasureNum == 0)
 				{
 					Novice::DrawSprite(183, 33, ghNumber[0], 0.5f, 0.5f, 0.0f, 0xFFFFFFFF);
-				}
-				else if (Map::treasureNum == 1)
+				} else if (Map::treasureNum == 1)
 				{
 					Novice::DrawSprite(183, 33, ghNumber[1], 0.5f, 0.5f, 0.0f, 0xFFFFFFFF);
-				}
-				else if (Map::treasureNum == 2)
+				} else if (Map::treasureNum == 2)
 				{
 					Novice::DrawSprite(183, 33, ghNumber[2], 0.5f, 0.5f, 0.0f, 0xFFFFFFFF);
-				}
-				else if (Map::treasureNum == 3)
+				} else if (Map::treasureNum == 3)
 				{
 					Novice::DrawSprite(183, 33, ghNumber[3], 0.5f, 0.5f, 0.0f, 0xFFFFFFFF);
-				}
-				else if (Map::treasureNum == 4)
+				} else if (Map::treasureNum == 4)
 				{
 					Novice::DrawSprite(183, 33, ghNumber[4], 0.5f, 0.5f, 0.0f, 0xFFFFFFFF);
 				}
@@ -3016,8 +2975,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				if (iscontrol)
 				{
 					Novice::DrawSprite(32, 328, ghOperationControler, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
-				}
-				else
+				} else
 				{
 					Novice::DrawSprite(32, 328, ghOperationKeyboard, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
 				}
@@ -3062,9 +3020,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 		{
 			break;
 		}
-
-
 	}
+
+
 
 	/*--------------------------
 		インスタンスを削除する
@@ -3115,8 +3073,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	{
 		delete texture[i];
 	}
-
-
 
 	// ライブラリの終了
 	Novice::Finalize();
