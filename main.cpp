@@ -48,6 +48,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 		変数を作る
 	---------------*/
 
+	// コントローラを使っているかどうか（コントローラフラグ）
+	int iscontrol = false;
+
 	// ゲームフレーム
 	int gameFrame = 0;
 
@@ -571,13 +574,30 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			}
 
 			// 240フレームで、スペースキーを押すと、ロードする（ロードフラグがtrueになる）
-			if (!preKeys[DIK_SPACE] && keys[DIK_SPACE] || Novice::IsTriggerButton(0, kPadButton10))
+			if (!preKeys[DIK_SPACE] && keys[DIK_SPACE])
 			{
 				if (gameFrame == 240)
 				{
 					if (isLoad == false)
 					{
 						isLoad = true;
+
+						iscontrol = false;
+
+						// 鈴の音
+						Novice::PlayAudio(shBell2, 0, 0.3f);
+					}
+				}
+			}
+			else if(Novice::IsTriggerButton(0, kPadButton10))
+			{
+				if (gameFrame == 240)
+				{
+					if (isLoad == false)
+					{
+						isLoad = true;
+
+						iscontrol = true;
 
 						// 鈴の音
 						Novice::PlayAudio(shBell2, 0, 0.3f);
@@ -740,6 +760,12 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 					}
 
 					Scene::isPutPreparation_ = true;
+				}
+
+				// tabキーで、タイトルに戻る
+				if (!preKeys[DIK_TAB] && keys[DIK_TAB])
+				{
+					isLoad = true;
 				}
 
 				// 配置準備ができたら、ロードを開始する（ロードフラグをtrueにする）
@@ -1143,6 +1169,11 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 					// 鈴を鳴らす
 					Novice::PlayAudio(shBell, 0, 0.5f);
+				}
+				else
+				{
+					Scene::sceneNo_ = SCENE_START;
+					gameFrame = 1;
 				}
 			}
 
@@ -2475,15 +2506,17 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			}
 
 			// セレクトの画像
-			if (gameFrame > 420 && gameFrame < 440)
+			if (Scene::isPutPreparation_)
 			{
-				Novice::DrawSprite(114 + Scene::stageNo_ % 6 * 200, 320 + (Scene::stageNo_ / 6) * 200,
-					ghIce[(gameFrame - 420) / 5], 2.65f, 2.65f, 0.0f, 0xFFFFFFFF);
-			}
-			else if (gameFrame >= 440)
-			{
-				Novice::DrawSprite(114 + Scene::stageNo_ % 6 * 200, 320 + (Scene::stageNo_ / 6) * 200,
-					ghIce[3], 2.65f, 2.65f, 0.0f, 0xFFFFFFFF);
+				if (gameFrame > 420 && gameFrame < 440)
+				{
+					Novice::DrawSprite(114 + Scene::stageNo_ % 6 * 200, 320 + (Scene::stageNo_ / 6) * 200,
+						ghIce[(gameFrame - 420) / 5], 2.65f, 2.65f, 0.0f, 0xFFFFFFFF);
+				} else if (gameFrame >= 440)
+				{
+					Novice::DrawSprite(114 + Scene::stageNo_ % 6 * 200, 320 + (Scene::stageNo_ / 6) * 200,
+						ghIce[3], 2.65f, 2.65f, 0.0f, 0xFFFFFFFF);
+				}
 			}
 
 			//ステージ選択テキスト
@@ -2556,7 +2589,15 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				if (Scene::stageNo_ == STAGE_1)
 				{
 					Novice::DrawSprite(200, 550, ghSignboardFlag, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
-					Novice::DrawSprite(700, 550, ghSignboardCarrySpace, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
+
+					if (iscontrol)
+					{
+
+					}
+					else
+					{
+						Novice::DrawSprite(700, 550, ghSignboardCarrySpace, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
+					}
 				} else if (Scene::stageNo_ == STAGE_2)
 				{
 					Novice::DrawSprite(200, 550, ghSignboardScaffold, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
