@@ -109,31 +109,16 @@
     <ClCompile Include="Class\Texture\Transition\Transition.cpp">
       <Filter>Class\Texture\Transition</Filter>
     </ClCompile>
-    <ClCompile Include="Class\Texture\SignboardWaremono\SignboardWaremono.cpp">
-      <Filter>Class\Texture\SignboardWaremono</Filter>
-    </ClCompile>
-    <ClCompile Include="Class\Texture\SignboardKonayuki\SignboardKonayuki.cpp">
-      <Filter>Class\Texture\SignboardKonayuki</Filter>
-    </ClCompile>
-    <ClCompile Include="Class\Texture\SignboardScaffold\SignboardScaffold.cpp">
-      <Filter>Class\Texture\SignboardScaffold</Filter>
-    </ClCompile>
     <ClCompile Include="Class\Texture\SpaceOrA\SpaceOrA.cpp">
       <Filter>Class\Texture\SpaceOrA</Filter>
     </ClCompile>
     <ClCompile Include="Function\FullScreen\FullScreen.cpp">
       <Filter>Function\FullScreen</Filter>
     </ClCompile>
-    <ClCompile Include="Class\Texture\SignboardFlag\SignboardFlag.cpp">
-      <Filter>Class\Texture\SignboardFlag</Filter>
-    </ClCompile>
     <ClCompile Include="Class\Object\Particle\SnowSwitching\SnowSwitching.cpp" />
     <ClCompile Include="Class\Texture\TextNextStage\TextNextStage.cpp" />
     <ClCompile Include="Class\Texture\TextReset\TextReset.cpp" />
     <ClCompile Include="Class\Texture\TextReturn\TextReturn.cpp" />
-    <ClCompile Include="Class\Texture\SignboardCarry\SignboardCarry.cpp">
-      <Filter>Class\Texture\SignboardCarry</Filter>
-    </ClCompile>
     <ClCompile Include="Class\Texture\TextGameReturn\TextGameReturn.cpp">
       <Filter>Class\Texture\TextGameReturn</Filter>
     </ClCompile>
@@ -318,31 +303,16 @@
     <ClInclude Include="Class\Texture\Transition\Transition.h">
       <Filter>Class\Texture\Transition</Filter>
     </ClInclude>
-    <ClInclude Include="Class\Texture\SignboardWaremono\SignboardWaremono.h">
-      <Filter>Class\Texture\SignboardWaremono</Filter>
-    </ClInclude>
-    <ClInclude Include="Class\Texture\SignboardKonayuki\SignboardKonayuki.h">
-      <Filter>Class\Texture\SignboardKonayuki</Filter>
-    </ClInclude>
-    <ClInclude Include="Class\Texture\SignboardScaffold\SignboardScaffold.h">
-      <Filter>Class\Texture\SignboardScaffold</Filter>
-    </ClInclude>
     <ClInclude Include="Class\Texture\SpaceOrA\SpaceOrA.h">
       <Filter>Class\Texture\SpaceOrA</Filter>
     </ClInclude>
     <ClInclude Include="Function\FullScreen\FullScreen.h">
       <Filter>Function\FullScreen</Filter>
     </ClInclude>
-    <ClInclude Include="Class\Texture\SignboardFlag\SignboardFlag.h">
-      <Filter>Class\Texture\SignboardFlag</Filter>
-    </ClInclude>
     <ClInclude Include="Class\Object\Particle\SnowSwitching\SnowSwitching.h" />
     <ClInclude Include="Class\Texture\TextNextStage\TextNextStage.h" />
     <ClInclude Include="Class\Texture\TextReset\TextReset.h" />
     <ClInclude Include="Class\Texture\TextReturn\TextReturn.h" />
-    <ClInclude Include="Class\Texture\SignboardCarry\SignboardCarry.h">
-      <Filter>Class\Texture\SignboardCarry</Filter>
-    </ClInclude>
     <ClInclude Include="Class\Texture\TextGameReturn\TextGameReturn.h">
       <Filter>Class\Texture\TextGameReturn</Filter>
     </ClInclude>
@@ -447,15 +417,6 @@
     <Filter Include="Class\Texture\Transition">
       <UniqueIdentifier>{e19b8db0-fe0c-43ea-a626-d2c0fe744370}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Class\Texture\SignboardWaremono">
-      <UniqueIdentifier>{d9c862a3-1c71-45de-bede-2eff4009077f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Class\Texture\SignboardKonayuki">
-      <UniqueIdentifier>{0447b2c6-e3c6-4f85-a122-e035aa1e4068}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Class\Texture\SignboardScaffold">
-      <UniqueIdentifier>{ea8ed47a-51de-4d34-b22d-2738c4dd6132}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Class\Texture\Title">
       <UniqueIdentifier>{b86823d1-b572-48c3-910c-c701b6744254}</UniqueIdentifier>
     </Filter>
@@ -464,12 +425,6 @@
     </Filter>
     <Filter Include="Function\FullScreen">
       <UniqueIdentifier>{1ce73b4d-6223-49b0-9e84-9dc5ebdb1882}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Class\Texture\SignboardCarry">
-      <UniqueIdentifier>{51eab8f1-f097-4a04-8bed-a97e965db2c0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Class\Texture\SignboardFlag">
-      <UniqueIdentifier>{585d247e-b4ec-4626-8281-0ac6e5028b52}</UniqueIdentifier>
     </Filter>
     <Filter Include="Class\Texture\TextGameReturn">
       <UniqueIdentifier>{76ebc789-00b6-4744-8052-4cf71008c28d}</UniqueIdentifier>
