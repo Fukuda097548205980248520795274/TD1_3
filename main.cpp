@@ -66,7 +66,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	// ゲームのスティック
 	int stickX = 0;
 	int stickY = 0;
-	
+
 	int preStickX = 0;
 	int preStickY = 0;
 
@@ -161,7 +161,11 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	texture[9] = new Transition();
 
 	// 宝箱
-	int ghTreasure = Novice::LoadTexture("./Resources/Images/Map/treasureBox.png");
+	int ghTreasure[3];
+	ghTreasure[0] = Novice::LoadTexture("./Resources/Images/Map/tresureEasy.png");
+	ghTreasure[1] = Novice::LoadTexture("./Resources/Images/Map/tresureNomal.png");
+	ghTreasure[2] = Novice::LoadTexture("./Resources/Images/Map/tresureHard.png");
+
 
 	// 看板
 	int ghSignboardFlag = Novice::LoadTexture("./Resources/Images/Signboard/Signboard_Flag.png");
@@ -207,6 +211,48 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 	//ステージ選択テキスト
 	int ghStageSelectText = Novice::LoadTexture("./Resources/Images/Scene/StageSelect/stageSelect.png");
+
+	int ghStage1_Number[12];
+	ghStage1_Number[0] = Novice::LoadTexture("./Resources/Images/Scene/StageSelect/Number/1-1.png");
+	ghStage1_Number[1] = Novice::LoadTexture("./Resources/Images/Scene/StageSelect/Number/1-2.png");
+	ghStage1_Number[2] = Novice::LoadTexture("./Resources/Images/Scene/StageSelect/Number/1-3.png");
+	ghStage1_Number[3] = Novice::LoadTexture("./Resources/Images/Scene/StageSelect/Number/1-4.png");
+	ghStage1_Number[4] = Novice::LoadTexture("./Resources/Images/Scene/StageSelect/Number/1-5.png");
+	ghStage1_Number[5] = Novice::LoadTexture("./Resources/Images/Scene/StageSelect/Number/1-6.png");
+	ghStage1_Number[6] = Novice::LoadTexture("./Resources/Images/Scene/StageSelect/Number/1-7.png");
+	ghStage1_Number[7] = Novice::LoadTexture("./Resources/Images/Scene/StageSelect/Number/1-8.png");
+	ghStage1_Number[8] = Novice::LoadTexture("./Resources/Images/Scene/StageSelect/Number/1-9.png");
+	ghStage1_Number[9] = Novice::LoadTexture("./Resources/Images/Scene/StageSelect/Number/1-10.png");
+	ghStage1_Number[10] = Novice::LoadTexture("./Resources/Images/Scene/StageSelect/Number/1-11.png");
+	ghStage1_Number[11] = Novice::LoadTexture("./Resources/Images/Scene/StageSelect/Number/1-12.png");
+
+	int ghStage2_Number[12];
+	ghStage2_Number[0] = Novice::LoadTexture("./Resources/Images/Scene/StageSelect/Number/2-1.png");
+	ghStage2_Number[1] = Novice::LoadTexture("./Resources/Images/Scene/StageSelect/Number/2-2.png");
+	ghStage2_Number[2] = Novice::LoadTexture("./Resources/Images/Scene/StageSelect/Number/2-3.png");
+	ghStage2_Number[3] = Novice::LoadTexture("./Resources/Images/Scene/StageSelect/Number/2-4.png");
+	ghStage2_Number[4] = Novice::LoadTexture("./Resources/Images/Scene/StageSelect/Number/2-5.png");
+	ghStage2_Number[5] = Novice::LoadTexture("./Resources/Images/Scene/StageSelect/Number/2-6.png");
+	ghStage2_Number[6] = Novice::LoadTexture("./Resources/Images/Scene/StageSelect/Number/2-7.png");
+	ghStage2_Number[7] = Novice::LoadTexture("./Resources/Images/Scene/StageSelect/Number/2-8.png");
+	ghStage2_Number[8] = Novice::LoadTexture("./Resources/Images/Scene/StageSelect/Number/2-9.png");
+	ghStage2_Number[9] = Novice::LoadTexture("./Resources/Images/Scene/StageSelect/Number/2-10.png");
+	ghStage2_Number[10] = Novice::LoadTexture("./Resources/Images/Scene/StageSelect/Number/2-11.png");
+	ghStage2_Number[11] = Novice::LoadTexture("./Resources/Images/Scene/StageSelect/Number/2-12.png");
+
+	int ghStage3_Number[12];
+	ghStage3_Number[0] = Novice::LoadTexture("./Resources/Images/Scene/StageSelect/Number/3-1.png");
+	ghStage3_Number[1] = Novice::LoadTexture("./Resources/Images/Scene/StageSelect/Number/3-2.png");
+	ghStage3_Number[2] = Novice::LoadTexture("./Resources/Images/Scene/StageSelect/Number/3-3.png");
+	ghStage3_Number[3] = Novice::LoadTexture("./Resources/Images/Scene/StageSelect/Number/3-4.png");
+	ghStage3_Number[4] = Novice::LoadTexture("./Resources/Images/Scene/StageSelect/Number/3-5.png");
+	ghStage3_Number[5] = Novice::LoadTexture("./Resources/Images/Scene/StageSelect/Number/3-6.png");
+	ghStage3_Number[6] = Novice::LoadTexture("./Resources/Images/Scene/StageSelect/Number/3-7.png");
+	ghStage3_Number[7] = Novice::LoadTexture("./Resources/Images/Scene/StageSelect/Number/3-8.png");
+	ghStage3_Number[8] = Novice::LoadTexture("./Resources/Images/Scene/StageSelect/Number/3-9.png");
+	ghStage3_Number[9] = Novice::LoadTexture("./Resources/Images/Scene/StageSelect/Number/3-10.png");
+	ghStage3_Number[10] = Novice::LoadTexture("./Resources/Images/Scene/StageSelect/Number/3-11.png");
+	ghStage3_Number[11] = Novice::LoadTexture("./Resources/Images/Scene/StageSelect/Number/3-12.png");
 
 	/*ゲーム画面*/
 	//残りの宝箱
@@ -592,7 +638,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 					}
 				}
 			}
-			else if(Novice::IsTriggerButton(0, kPadButton10))
+			else if (Novice::IsTriggerButton(0, kPadButton10))
 			{
 				if (gameFrame == 240)
 				{
@@ -668,7 +714,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 						Scene::areaNo_ += 1;
 						Scene::stageNo_ = STAGE_1;
 					}
-					else if(Scene::stageNo_ == STAGE_12)
+					else if (Scene::stageNo_ == STAGE_12)
 					{
 						Scene::areaNo_ += 1;
 						Scene::stageNo_ = STAGE_7;
@@ -689,7 +735,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 						Novice::PlayAudio(shPick, 0, 0.3f);
 					}
 				}
-				
+
 				if (!preKeys[DIK_A] && keys[DIK_A] || preStickX > -16000 && stickX < -16000)
 				{
 					int currentStage = Scene::stageNo_;
@@ -698,11 +744,13 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 					{
 						Scene::areaNo_ -= 1;
 						Scene::stageNo_ = STAGE_6;
-					} else if (Scene::stageNo_ == STAGE_7)
+					}
+					else if (Scene::stageNo_ == STAGE_7)
 					{
 						Scene::areaNo_ -= 1;
 						Scene::stageNo_ = STAGE_12;
-					} else
+					}
+					else
 					{
 						Scene::stageNo_ -= 1;
 					}
@@ -711,7 +759,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 					{
 						Scene::stageNo_ = currentStage;
 						Scene::areaNo_ = AREA_1;
-					} else
+					}
+					else
 					{
 						// 効果音
 						Novice::PlayAudio(shPick, 0, 0.3f);
@@ -1616,7 +1665,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 							if (!isActive)
 							{
 								isActive = true;
-							} else
+							}
+							else
 							{
 								isActive = false;
 							}
@@ -2550,6 +2600,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				for (int i = 0; i < 3; i++)
 				{
 					Novice::DrawSprite(0 + 500 * i, 320, ghTree, 0.5f, 0.5f, 0.0f, 0xFFFFFFFF);
+
 				}
 
 				for (int i = 0; i < 2; i++)
@@ -2594,15 +2645,128 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			Novice::DrawBox(0, 0, kScreenWidth, kScreenHeight, 0.0f, 0x0038b0A, kFillModeSolid);
 
 
-			for (int i = 0; i <= STAGE_12; i++)
+			if (Scene::areaNo_ == AREA_1)
 			{
-				Novice::DrawSprite(114 + i % 6 * 200, 320 + (i / 6) * 200, ghTreasure, 2.65f, 2.65f, 0.0f, 0xFFFFFF55);
+				for (int i = STAGE_1; i <= STAGE_4; i++)
+				{
+					Novice::DrawSprite(114 + i % 6 * 200, 320 + (i / 6) * 200, ghTreasure[0], 2.65f, 2.65f, 0.0f, 0xFFFFFF55);
+				}
+
+				for (int i = STAGE_5; i <= STAGE_9; i++)
+				{
+					Novice::DrawSprite(114 + i % 6 * 200, 320 + (i / 6) * 200, ghTreasure[1], 2.65f, 2.65f, 0.0f, 0xFFFFFF55);
+				}
+
+				for (int i = STAGE_10; i <= STAGE_12; i++)
+				{
+					Novice::DrawSprite(114 + i % 6 * 200, 320 + (i / 6) * 200, ghTreasure[2], 2.65f, 2.65f, 0.0f, 0xFFFFFF55);
+				}
 			}
+			else if (Scene::areaNo_ == AREA_2)
+			{
+				for (int i = STAGE_1; i <= STAGE_1; i++)
+				{
+					Novice::DrawSprite(114 + i % 6 * 200, 320 + (i / 6) * 200, ghTreasure[0], 2.65f, 2.65f, 0.0f, 0xFFFFFF55);
+				}
+
+				for (int i = STAGE_2; i <= STAGE_9; i++)
+				{
+					Novice::DrawSprite(114 + i % 6 * 200, 320 + (i / 6) * 200, ghTreasure[1], 2.65f, 2.65f, 0.0f, 0xFFFFFF55);
+				}
+
+				for (int i = STAGE_10; i <= STAGE_12; i++)
+				{
+					Novice::DrawSprite(114 + i % 6 * 200, 320 + (i / 6) * 200, ghTreasure[2], 2.65f, 2.65f, 0.0f, 0xFFFFFF55);
+				}
+
+			}
+			else if (Scene::areaNo_ == AREA_3)
+			{
+				for (int i = STAGE_1; i <= STAGE_1; i++)
+				{
+					Novice::DrawSprite(114 + i % 6 * 200, 320 + (i / 6) * 200, ghTreasure[0], 2.65f, 2.65f, 0.0f, 0xFFFFFF55);
+				}
+
+				for (int i = STAGE_2; i <= STAGE_9; i++)
+				{
+					Novice::DrawSprite(114 + i % 6 * 200, 320 + (i / 6) * 200, ghTreasure[1], 2.65f, 2.65f, 0.0f, 0xFFFFFF55);
+				}
+
+				for (int i = STAGE_10; i <= STAGE_12; i++)
+				{
+					Novice::DrawSprite(114 + i % 6 * 200, 320 + (i / 6) * 200, ghTreasure[2], 2.65f, 2.65f, 0.0f, 0xFFFFFF55);
+				}
+			}
+
 
 			if (gameFrame >= 420)
 			{
-				Novice::DrawSprite(114 + Scene::stageNo_ % 6 * 200, 320 + (Scene::stageNo_ / 6) * 200, ghTreasure, 2.65f, 2.65f, 0.0f, 0xFFFFFFFF);
+				if (Scene::areaNo_ == AREA_1)
+				{
+					if (Scene::stageNo_ <= STAGE_4)
+					{
+						Novice::DrawSprite(114 + Scene::stageNo_ % 6 * 200, 320 + (Scene::stageNo_ / 6) * 200, ghTreasure[0], 2.65f, 2.65f, 0.0f, 0xFFFFFFFF);
+					}
+					else if (Scene::stageNo_ <= STAGE_9)
+					{
+						Novice::DrawSprite(114 + Scene::stageNo_ % 6 * 200, 320 + (Scene::stageNo_ / 6) * 200, ghTreasure[1], 2.65f, 2.65f, 0.0f, 0xFFFFFFFF);
+					}
+					else if (Scene::stageNo_ <= STAGE_12)
+					{
+						Novice::DrawSprite(114 + Scene::stageNo_ % 6 * 200, 320 + (Scene::stageNo_ / 6) * 200, ghTreasure[2], 2.65f, 2.65f, 0.0f, 0xFFFFFFFF);
+					}
+				}
+				else if (Scene::areaNo_ == AREA_2)
+				{
+					if (Scene::stageNo_ <= STAGE_1)
+					{
+						Novice::DrawSprite(114 + Scene::stageNo_ % 6 * 200, 320 + (Scene::stageNo_ / 6) * 200, ghTreasure[0], 2.65f, 2.65f, 0.0f, 0xFFFFFFFF);
+					}
+					else if (Scene::stageNo_ <= STAGE_9)
+					{
+						Novice::DrawSprite(114 + Scene::stageNo_ % 6 * 200, 320 + (Scene::stageNo_ / 6) * 200, ghTreasure[1], 2.65f, 2.65f, 0.0f, 0xFFFFFFFF);
+					}
+					else if (Scene::stageNo_ <= STAGE_12)
+					{
+						Novice::DrawSprite(114 + Scene::stageNo_ % 6 * 200, 320 + (Scene::stageNo_ / 6) * 200, ghTreasure[2], 2.65f, 2.65f, 0.0f, 0xFFFFFFFF);
+					}
+				}
+				else if (Scene::areaNo_ == AREA_3)
+				{
+					if (Scene::stageNo_ <= STAGE_1)
+					{
+						Novice::DrawSprite(114 + Scene::stageNo_ % 6 * 200, 320 + (Scene::stageNo_ / 6) * 200, ghTreasure[0], 2.65f, 2.65f, 0.0f, 0xFFFFFFFF);
+					}
+					else if (Scene::stageNo_ <= STAGE_9)
+					{
+						Novice::DrawSprite(114 + Scene::stageNo_ % 6 * 200, 320 + (Scene::stageNo_ / 6) * 200, ghTreasure[1], 2.65f, 2.65f, 0.0f, 0xFFFFFFFF);
+					}
+					else if (Scene::stageNo_ <= STAGE_12)
+					{
+						Novice::DrawSprite(114 + Scene::stageNo_ % 6 * 200, 320 + (Scene::stageNo_ / 6) * 200, ghTreasure[2], 2.65f, 2.65f, 0.0f, 0xFFFFFFFF);
+					}
+				}
 			}
+
+
+			//ステージの番号
+			for (int i = 0; i <= STAGE_12; i++)
+			{
+				if (Scene::areaNo_ == AREA_1)
+				{
+					Novice::DrawSprite(114 + i % 6 * 200, 320 + (i / 6) * 200, ghStage1_Number[i], 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
+				}
+				else if (Scene::areaNo_ == AREA_2)
+				{
+					Novice::DrawSprite(114 + i % 6 * 200, 320 + (i / 6) * 200, ghStage2_Number[i], 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
+				}
+				else if (Scene::areaNo_ == AREA_3)
+				{
+					Novice::DrawSprite(114 + i % 6 * 200, 320 + (i / 6) * 200, ghStage3_Number[i], 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
+				}
+			}
+
+
 
 			// セレクトの画像
 			if (Scene::isPutPreparation_)
@@ -2611,7 +2775,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				{
 					Novice::DrawSprite(114 + Scene::stageNo_ % 6 * 200, 320 + (Scene::stageNo_ / 6) * 200,
 						ghIce[(gameFrame - 420) / 5], 2.65f, 2.65f, 0.0f, 0xFFFFFFFF);
-				} else if (gameFrame >= 440)
+				}
+				else if (gameFrame >= 440)
 				{
 					Novice::DrawSprite(114 + Scene::stageNo_ % 6 * 200, 320 + (Scene::stageNo_ / 6) * 200,
 						ghIce[3], 2.65f, 2.65f, 0.0f, 0xFFFFFFFF);
@@ -2622,7 +2787,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			Novice::DrawSprite(32, 32, ghStageSelectText, 0.5f, 0.5f, 0.0f, 0xFFFFFFFF);
 
 			//エリアテキスト
-			Novice::DrawBox(412,170,482,82,0.0f,0x00000050,kFillModeSolid);
+			Novice::DrawBox(412, 170, 482, 82, 0.0f, 0x00000050, kFillModeSolid);
 
 			Novice::DrawSprite(430, 182, ghEreaText, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
 
@@ -2697,7 +2862,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 					{
 						Novice::DrawSprite(700, 550, ghSignboardCarrySpace, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
 					}
-				} else if (Scene::stageNo_ == STAGE_2)
+				}
+				else if (Scene::stageNo_ == STAGE_2)
 				{
 					Novice::DrawSprite(200, 550, ghSignboardScaffold, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
 				}
@@ -2817,21 +2983,25 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				if (Map::treasureNum == 0)
 				{
 					Novice::DrawSprite(183, 33, ghNumber[0], 0.5f, 0.5f, 0.0f, 0xFFFFFFFF);
-				} else if (Map::treasureNum == 1)
+				}
+				else if (Map::treasureNum == 1)
 				{
 					Novice::DrawSprite(183, 33, ghNumber[1], 0.5f, 0.5f, 0.0f, 0xFFFFFFFF);
-				} else if (Map::treasureNum == 2)
+				}
+				else if (Map::treasureNum == 2)
 				{
 					Novice::DrawSprite(183, 33, ghNumber[2], 0.5f, 0.5f, 0.0f, 0xFFFFFFFF);
-				} else if (Map::treasureNum == 3)
+				}
+				else if (Map::treasureNum == 3)
 				{
 					Novice::DrawSprite(183, 33, ghNumber[3], 0.5f, 0.5f, 0.0f, 0xFFFFFFFF);
-				} else if (Map::treasureNum == 4)
+				}
+				else if (Map::treasureNum == 4)
 				{
 					Novice::DrawSprite(183, 33, ghNumber[4], 0.5f, 0.5f, 0.0f, 0xFFFFFFFF);
 				}
 			}
-			
+
 			if (isPose || Scene::isClear_ || Scene::isGameOver_)
 			{
 				Novice::DrawBox(0, 0, kScreenWidth, kScreenHeight, 0.0f, 0x000000FA, kFillModeSolid);
@@ -2843,8 +3013,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				texture[5]->Draw(gameFrame);
 				texture[6]->Draw(gameFrame);
 				Novice::DrawSprite(972, 252, ghPauseText, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
-				
-				Novice::DrawSprite(144 , 232 , ghTextOperation , 1.0f , 1.0f , 0.0f , 0xFFFFFFFF);
+
+				Novice::DrawSprite(144, 232, ghTextOperation, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
 
 				if (iscontrol)
 				{
