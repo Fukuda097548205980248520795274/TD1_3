@@ -166,6 +166,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	int ghSignboardScaffold = Novice::LoadTexture("./Resources/Images/Signboard/Signboard_Scaffold.png");
 	int ghSignboardCushion = Novice::LoadTexture("./Resources/Images/Signboard/Signboard_Cushion.png");
 	int ghSignboardWaremono = Novice::LoadTexture("./Resources/Images/Signboard/Signboard_waremono.png");
+	int ghSignboardBurn = Novice::LoadTexture("./Resources/Images/Signboard/Signboard_Burn.png");
+	int ghSignboardFire = Novice::LoadTexture("./Resources/Images/Signboard/Signboard_Fire.png");
 
 
 
@@ -2563,6 +2565,11 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				{
 					Novice::DrawSprite(400, 550, ghSignboardCushion, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
 					Novice::DrawSprite(500, 210, ghSignboardWaremono, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
+				}
+				else if (Scene::stageNo_ == STAGE_4)
+				{
+					Novice::DrawSprite(1000, 550, ghSignboardBurn, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
+					Novice::DrawSprite(600, 210, ghSignboardFire, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
 				}
 			}
 
