@@ -160,6 +160,13 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	// 宝箱
 	int ghTreasure = Novice::LoadTexture("./Resources/Images/Map/treasureBox.png");
 
+	// 看板
+	int ghSignboardFlag = Novice::LoadTexture("./Resources/Images/Signboard/Signboard_Flag.png");
+	int ghSignboardCarrySpace = Novice::LoadTexture("./Resources/Images/Signboard/Signboard_Carry.png");
+	int ghSignboardScaffold = Novice::LoadTexture("./Resources/Images/Signboard/Signboard_Scaffold.png");
+	int ghSignboardCushion = Novice::LoadTexture("./Resources/Images/Signboard/Signboard_Cushion.png");
+	int ghSignboardWaremono = Novice::LoadTexture("./Resources/Images/Signboard/Signboard_waremono.png");
+
 
 
 	/*  　デバック表示　  */
@@ -2541,10 +2548,27 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				break;
 			}
 
+			// 看板
+			if (Scene::areaNo_ == AREA_1)
+			{
+				if (Scene::stageNo_ == STAGE_1)
+				{
+					Novice::DrawSprite(200, 550, ghSignboardFlag, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
+					Novice::DrawSprite(700, 550, ghSignboardCarrySpace, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
+				} else if (Scene::stageNo_ == STAGE_2)
+				{
+					Novice::DrawSprite(200, 550, ghSignboardScaffold, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
+				}
+				else if (Scene::stageNo_ == STAGE_3)
+				{
+					Novice::DrawSprite(400, 550, ghSignboardCushion, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
+					Novice::DrawSprite(500, 210, ghSignboardWaremono, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
+				}
+			}
+
 			// マップ
 			Map::Draw();
 			DrawMap::Draw();
-
 
 
 			/*   ブロック   */
