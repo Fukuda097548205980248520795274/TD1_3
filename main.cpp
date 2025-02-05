@@ -717,10 +717,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 						Scene::stageNo_ += 1;
 					}
 
-					if (Scene::areaNo_ > AREA_3)
+					if (Scene::areaNo_ > AREA_2)
 					{
 						Scene::stageNo_ = currentStage;
-						Scene::areaNo_ = AREA_3;
+						Scene::areaNo_ = AREA_2;
 					} else
 					{
 						// 効果音
@@ -1577,7 +1577,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 							if (Scene::poseNo_ == POSE_GAME_RETURN)
 							{
 								isPose = false;
-							} else if (Scene::poseNo_ == POSE_GAME_GIVEUP)
+							} 
+							else if (Scene::poseNo_ == POSE_GAME_GIVEUP)
 							{
 								// ゲームをやめる
 								if (isLoad == false)
@@ -2083,7 +2084,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 								Scene::stageNo_ += 1;
 							} else
 							{
-								if (Scene::areaNo_ < AREA_3)
+								if (Scene::areaNo_ < AREA_2)
 								{
 									Scene::stageNo_ = STAGE_1;
 									Scene::areaNo_ += 1;

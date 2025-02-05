@@ -131,6 +131,9 @@
     <ClCompile Include="Class\Texture\TextGameOver\TextGameOver.cpp">
       <Filter>Class\Texture\TextGameOver</Filter>
     </ClCompile>
+    <ClCompile Include="Class\Object\Particle\Explosion\Explosion.cpp">
+      <Filter>Class\Object\Particle\Explosion</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Constant.h" />
@@ -325,6 +328,9 @@
     <ClInclude Include="Class\Texture\TextGameOver\TextGameOver.h">
       <Filter>Class\Texture\TextGameOver</Filter>
     </ClInclude>
+    <ClInclude Include="Class\Object\Particle\Explosion\Explosion.h">
+      <Filter>Class\Object\Particle\Explosion</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Class">
@@ -437,6 +443,9 @@
     </Filter>
     <Filter Include="Class\Texture\TextGameClear">
       <UniqueIdentifier>{db7b2f84-4703-4b1f-86b9-381fb37273ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\Object\Particle\Explosion">
+      <UniqueIdentifier>{7251c0cd-f804-4e4a-b1a2-dce3c11bd45f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
