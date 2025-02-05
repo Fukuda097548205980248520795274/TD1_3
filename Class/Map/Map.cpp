@@ -102,6 +102,8 @@ void Map::Draw()
 
 	int ghLadder = Novice::LoadTexture("./Resources/Images/Map/ladder.png");
 
+	int ghwater = Novice::LoadTexture("./Resources/Images/Map/water.png");
+
 	int ghGool[8];
 	ghGool[0] = Novice::LoadTexture("./Resources/Images/Map/Gool/gool1.png");
 	ghGool[1] = Novice::LoadTexture("./Resources/Images/Map/Gool/gool2.png");
@@ -331,7 +333,7 @@ void Map::Draw()
 						column * kTileSize + kTileSize, row * kTileSize,
 						column * kTileSize, row * kTileSize + kTileSize,
 						column * kTileSize + kTileSize, row * kTileSize + kTileSize,
-						0, 0, 48, 48, ghIceBlock[0], 0xFFFFFFFF
+						0, 0, 48, 48, ghwater, 0xFFFFFFFF
 					);
 
 					break;
