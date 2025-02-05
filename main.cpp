@@ -64,8 +64,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	int isPose = false;
 
 	// クリアしたかどうか
-	int isStageClear[12] = { false };
-
+	int isErea1StageClear[12] = { false };
+	int isErea2StageClear[12] = { false };
 	// ゲームのスティック
 	int stickX = 0;
 	int stickY = 0;
@@ -101,15 +101,18 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 		if (i < 8)
 		{
 			block[i] = new Plastic();
-		} else if (i < 16)
+		}
+		else if (i < 16)
 		{
 			// クッション
 			block[i] = new Cushion();
-		} else if (i < 24)
+		}
+		else if (i < 24)
 		{
 			// 宝
 			block[i] = new Treasure();
-		} else if (i < 32)
+		}
+		else if (i < 32)
 		{
 			// 凍った敵
 			block[i] = new Bomb();
@@ -363,7 +366,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			if (rand() % 2 == 0)
 			{
 				shBard = Novice::LoadAudio("./Resources/Sounds/Bgm/bard1.mp3");
-			} else
+			}
+			else
 			{
 				shBard = Novice::LoadAudio("./Resources/Sounds/Bgm/bard2.mp3");
 			}
@@ -640,7 +644,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 						Novice::PlayAudio(shBell2, 0, 0.3f);
 					}
 				}
-			} else if (Novice::IsTriggerButton(0, kPadButton10))
+			}
+			else if (Novice::IsTriggerButton(0, kPadButton10))
 			{
 				if (gameFrame == 240)
 				{
@@ -715,11 +720,13 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 					{
 						Scene::areaNo_ += 1;
 						Scene::stageNo_ = STAGE_1;
-					} else if (Scene::stageNo_ == STAGE_12)
+					}
+					else if (Scene::stageNo_ == STAGE_12)
 					{
 						Scene::areaNo_ += 1;
 						Scene::stageNo_ = STAGE_7;
-					} else
+					}
+					else
 					{
 						Scene::stageNo_ += 1;
 					}
@@ -728,7 +735,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 					{
 						Scene::stageNo_ = currentStage;
 						Scene::areaNo_ = AREA_2;
-					} else
+					}
+					else
 					{
 						// 効果音
 						Novice::PlayAudio(shPick, 0, 0.3f);
@@ -743,11 +751,13 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 					{
 						Scene::areaNo_ -= 1;
 						Scene::stageNo_ = STAGE_6;
-					} else if (Scene::stageNo_ == STAGE_7)
+					}
+					else if (Scene::stageNo_ == STAGE_7)
 					{
 						Scene::areaNo_ -= 1;
 						Scene::stageNo_ = STAGE_12;
-					} else
+					}
+					else
 					{
 						Scene::stageNo_ -= 1;
 					}
@@ -756,7 +766,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 					{
 						Scene::stageNo_ = currentStage;
 						Scene::areaNo_ = AREA_1;
-					} else
+					}
+					else
 					{
 						// 効果音
 						Novice::PlayAudio(shPick, 0, 0.3f);
@@ -1217,7 +1228,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 					// 鈴を鳴らす
 					Novice::PlayAudio(shBell, 0, 0.5f);
-				} else
+				}
+				else
 				{
 					Scene::sceneNo_ = SCENE_START;
 					gameFrame = 1;
@@ -1584,7 +1596,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 							if (Scene::poseNo_ == POSE_GAME_RETURN)
 							{
 								isPose = false;
-							} 
+							}
 							else if (Scene::poseNo_ == POSE_GAME_GIVEUP)
 							{
 								// ゲームをやめる
@@ -1622,7 +1634,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 						if (isPose == false)
 						{
 							isPose = true;
-						} else
+						}
+						else
 						{
 							isPose = false;
 						}
@@ -1658,7 +1671,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 							if (!isActive)
 							{
 								isActive = true;
-							} else
+							}
+							else
 							{
 								isActive = false;
 							}
@@ -1782,7 +1796,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 											block[j]->isExplosion_ = true;
 											block[j]->frame_.current = block[j]->frame_.end - 10;
 										}
-									} else
+									}
+									else
 									{
 										block[j]->isPut_ = false;
 
@@ -1869,7 +1884,15 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 						{
 							Scene::isClear_ = true;
 
-							isStageClear[Scene::stageNo_] = true;
+							if (Scene::areaNo_ == AREA_1)
+							{
+								isErea1StageClear[Scene::stageNo_] = true;
+							}
+							else if (Scene::areaNo_ == AREA_2)
+							{
+								isErea2StageClear[Scene::stageNo_] = true;
+							}
+
 						}
 
 
@@ -1896,7 +1919,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 					}
 
 				}
-			} else
+			}
+			else
 			{
 				// Bgmを止める
 				Novice::StopAudio(phYukisora);
@@ -1914,7 +1938,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 					{
 						phADreamOfCat = Novice::PlayAudio(shADreamOfCat, 0, 0.1f);
 					}
-				} else if (Scene::isGameOver_)
+				}
+				else if (Scene::isGameOver_)
 				{
 					// ゲームオーバーの（ゲームオーバーフラグがtrueである）ときのBGM
 
@@ -1963,7 +1988,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 							break;
 						}
-					} else if (Scene::isGameOver_)
+					}
+					else if (Scene::isGameOver_)
 					{
 						// ゲームオーバーのとき（ゲームオーバーフラグがtrueである）
 
@@ -2015,7 +2041,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 						if (isReset)
 						{
 							Novice::PlayAudio(shFrozen, 0, 0.3f);
-						} else
+						}
+						else
 						{
 							// 鈴の音
 							Novice::PlayAudio(shBell2, 0, 0.3f);
@@ -2091,7 +2118,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 							if (Scene::stageNo_ < STAGE_12)
 							{
 								Scene::stageNo_ += 1;
-							} else
+							}
+							else
 							{
 								if (Scene::areaNo_ < AREA_2)
 								{
@@ -2487,7 +2515,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 						isReset = false;
 
 						isPose = false;
-					} else
+					}
+					else
 					{
 						// リセットしないとき（リセットフラグがfalseであるとき）
 
@@ -2631,7 +2660,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			// 背景
 			Novice::DrawBox(0, 0, kScreenWidth, kScreenHeight, 0.0f, 0x0038b0A, kFillModeSolid);
 
-
+			//ステージの設置
 			if (Scene::areaNo_ == AREA_1)
 			{
 				for (int i = STAGE_1; i <= STAGE_4; i++)
@@ -2648,7 +2677,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				{
 					Novice::DrawSprite(114 + i % 6 * 200, 320 + (i / 6) * 200, ghTreasure[2], 2.65f, 2.65f, 0.0f, 0xFFFFFF55);
 				}
-			} 
+			}
 			else if (Scene::areaNo_ == AREA_2)
 			{
 				for (int i = STAGE_1; i <= STAGE_1; i++)
@@ -2666,7 +2695,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 					Novice::DrawSprite(114 + i % 6 * 200, 320 + (i / 6) * 200, ghTreasure[2], 2.65f, 2.65f, 0.0f, 0xFFFFFF55);
 				}
 
-			} 
+			}
 			else if (Scene::areaNo_ == AREA_3)
 			{
 				for (int i = STAGE_1; i <= STAGE_1; i++)
@@ -2693,34 +2722,42 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 					if (Scene::stageNo_ <= STAGE_4)
 					{
 						Novice::DrawSprite(114 + Scene::stageNo_ % 6 * 200, 320 + (Scene::stageNo_ / 6) * 200, ghTreasure[0], 2.65f, 2.65f, 0.0f, 0xFFFFFFFF);
-					} else if (Scene::stageNo_ <= STAGE_9)
+					}
+					else if (Scene::stageNo_ <= STAGE_9)
 					{
 						Novice::DrawSprite(114 + Scene::stageNo_ % 6 * 200, 320 + (Scene::stageNo_ / 6) * 200, ghTreasure[1], 2.65f, 2.65f, 0.0f, 0xFFFFFFFF);
-					} else if (Scene::stageNo_ <= STAGE_12)
+					}
+					else if (Scene::stageNo_ <= STAGE_12)
 					{
 						Novice::DrawSprite(114 + Scene::stageNo_ % 6 * 200, 320 + (Scene::stageNo_ / 6) * 200, ghTreasure[2], 2.65f, 2.65f, 0.0f, 0xFFFFFFFF);
 					}
-				} else if (Scene::areaNo_ == AREA_2)
+				}
+				else if (Scene::areaNo_ == AREA_2)
 				{
 					if (Scene::stageNo_ <= STAGE_1)
 					{
 						Novice::DrawSprite(114 + Scene::stageNo_ % 6 * 200, 320 + (Scene::stageNo_ / 6) * 200, ghTreasure[0], 2.65f, 2.65f, 0.0f, 0xFFFFFFFF);
-					} else if (Scene::stageNo_ <= STAGE_9)
+					}
+					else if (Scene::stageNo_ <= STAGE_9)
 					{
 						Novice::DrawSprite(114 + Scene::stageNo_ % 6 * 200, 320 + (Scene::stageNo_ / 6) * 200, ghTreasure[1], 2.65f, 2.65f, 0.0f, 0xFFFFFFFF);
-					} else if (Scene::stageNo_ <= STAGE_12)
+					}
+					else if (Scene::stageNo_ <= STAGE_12)
 					{
 						Novice::DrawSprite(114 + Scene::stageNo_ % 6 * 200, 320 + (Scene::stageNo_ / 6) * 200, ghTreasure[2], 2.65f, 2.65f, 0.0f, 0xFFFFFFFF);
 					}
-				} else if (Scene::areaNo_ == AREA_3)
+				}
+				else if (Scene::areaNo_ == AREA_3)
 				{
 					if (Scene::stageNo_ <= STAGE_1)
 					{
 						Novice::DrawSprite(114 + Scene::stageNo_ % 6 * 200, 320 + (Scene::stageNo_ / 6) * 200, ghTreasure[0], 2.65f, 2.65f, 0.0f, 0xFFFFFFFF);
-					} else if (Scene::stageNo_ <= STAGE_9)
+					}
+					else if (Scene::stageNo_ <= STAGE_9)
 					{
 						Novice::DrawSprite(114 + Scene::stageNo_ % 6 * 200, 320 + (Scene::stageNo_ / 6) * 200, ghTreasure[1], 2.65f, 2.65f, 0.0f, 0xFFFFFFFF);
-					} else if (Scene::stageNo_ <= STAGE_12)
+					}
+					else if (Scene::stageNo_ <= STAGE_12)
 					{
 						Novice::DrawSprite(114 + Scene::stageNo_ % 6 * 200, 320 + (Scene::stageNo_ / 6) * 200, ghTreasure[2], 2.65f, 2.65f, 0.0f, 0xFFFFFFFF);
 					}
@@ -2734,10 +2771,12 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				if (Scene::areaNo_ == AREA_1)
 				{
 					Novice::DrawSprite(114 + i % 6 * 200, 320 + (i / 6) * 200, ghStage1_Number[i], 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
-				} else if (Scene::areaNo_ == AREA_2)
+				}
+				else if (Scene::areaNo_ == AREA_2)
 				{
 					Novice::DrawSprite(114 + i % 6 * 200, 320 + (i / 6) * 200, ghStage2_Number[i], 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
-				} else if (Scene::areaNo_ == AREA_3)
+				}
+				else if (Scene::areaNo_ == AREA_3)
 				{
 					Novice::DrawSprite(114 + i % 6 * 200, 320 + (i / 6) * 200, ghStage3_Number[i], 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
 				}
@@ -2752,20 +2791,39 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				{
 					Novice::DrawSprite(114 + Scene::stageNo_ % 6 * 200, 320 + (Scene::stageNo_ / 6) * 200,
 						ghIce[(gameFrame - 420) / 5], 2.65f, 2.65f, 0.0f, 0xFFFFFFFF);
-				} else if (gameFrame >= 440)
+				}
+				else if (gameFrame >= 440)
 				{
 					Novice::DrawSprite(114 + Scene::stageNo_ % 6 * 200, 320 + (Scene::stageNo_ / 6) * 200,
 						ghIce[3], 2.65f, 2.65f, 0.0f, 0xFFFFFFFF);
 				}
 			}
 
+			//クリアテキスト
+
+
+
 			for (int i = 0; i <= STAGE_12; i++)
 			{
-				if (isStageClear[i])
+				if (Scene::areaNo_ == AREA_1)
 				{
-					Novice::DrawSprite(114 + i % 6 * 200, 360 + (i / 6) * 200, ghTextCelar, 0.5f, 0.5f, 0.0f, 0xFFFFFFFF);
+					if (isErea1StageClear[i])
+					{
+						Novice::DrawSprite(114 + i % 6 * 200, 360 + (i / 6) * 200, ghTextCelar, 0.5f, 0.5f, 0.0f, 0xFFFFFFFF);
+					}
+				}
+				else if (Scene::areaNo_ == AREA_2)
+				{
+					if (isErea2StageClear[i])
+					{
+						Novice::DrawSprite(114 + i % 6 * 200, 360 + (i / 6) * 200, ghTextCelar, 0.5f, 0.5f, 0.0f, 0xFFFFFFFF);
+					}
 				}
 			}
+
+
+
+
 
 
 			//ステージ選択テキスト
@@ -2842,18 +2900,22 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 					if (iscontrol)
 					{
 						Novice::DrawSprite(700, 550, ghSignboardCarryRT, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
-					} else
+					}
+					else
 					{
 						Novice::DrawSprite(700, 550, ghSignboardCarrySpace, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
 					}
-				} else if (Scene::stageNo_ == STAGE_2)
+				}
+				else if (Scene::stageNo_ == STAGE_2)
 				{
 					Novice::DrawSprite(200, 550, ghSignboardScaffold, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
-				} else if (Scene::stageNo_ == STAGE_3)
+				}
+				else if (Scene::stageNo_ == STAGE_3)
 				{
 					Novice::DrawSprite(400, 550, ghSignboardCushion, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
 					Novice::DrawSprite(500, 210, ghSignboardWaremono, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
-				} else if (Scene::stageNo_ == STAGE_4)
+				}
+				else if (Scene::stageNo_ == STAGE_4)
 				{
 					Novice::DrawSprite(1000, 550, ghSignboardBurn, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
 					Novice::DrawSprite(600, 210, ghSignboardFire, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
@@ -2964,16 +3026,20 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				if (Map::treasureNum == 0)
 				{
 					Novice::DrawSprite(183, 33, ghNumber[0], 0.5f, 0.5f, 0.0f, 0xFFFFFFFF);
-				} else if (Map::treasureNum == 1)
+				}
+				else if (Map::treasureNum == 1)
 				{
 					Novice::DrawSprite(183, 33, ghNumber[1], 0.5f, 0.5f, 0.0f, 0xFFFFFFFF);
-				} else if (Map::treasureNum == 2)
+				}
+				else if (Map::treasureNum == 2)
 				{
 					Novice::DrawSprite(183, 33, ghNumber[2], 0.5f, 0.5f, 0.0f, 0xFFFFFFFF);
-				} else if (Map::treasureNum == 3)
+				}
+				else if (Map::treasureNum == 3)
 				{
 					Novice::DrawSprite(183, 33, ghNumber[3], 0.5f, 0.5f, 0.0f, 0xFFFFFFFF);
-				} else if (Map::treasureNum == 4)
+				}
+				else if (Map::treasureNum == 4)
 				{
 					Novice::DrawSprite(183, 33, ghNumber[4], 0.5f, 0.5f, 0.0f, 0xFFFFFFFF);
 				}
@@ -2996,7 +3062,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				if (iscontrol)
 				{
 					Novice::DrawSprite(32, 328, ghOperationControler, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
-				} else
+				}
+				else
 				{
 					Novice::DrawSprite(32, 328, ghOperationKeyboard, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
 				}
