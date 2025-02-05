@@ -63,6 +63,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	// ポーズしているかどうか（ポーズフラグ）
 	int isPose = false;
 
+	// クリアしたかどうか
+	int isStageClear[12] = { false };
+
 	// ゲームのスティック
 	int stickX = 0;
 	int stickY = 0;
@@ -209,6 +212,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 	//ステージ選択テキスト
 	int ghStageSelectText = Novice::LoadTexture("./Resources/Images/Scene/StageSelect/stageSelect.png");
+
+	// クリアテキスト
+	int ghTextCelar = Novice::LoadTexture("./Resources/Images/Scene/StageSelect/TextClear.png");
 
 	int ghStage1_Number[12];
 	ghStage1_Number[0] = Novice::LoadTexture("./Resources/Images/Scene/StageSelect/Number/1-1.png");
@@ -1862,6 +1868,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 						if (Map::treasureNum <= 0)
 						{
 							Scene::isClear_ = true;
+
+							isStageClear[Scene::stageNo_] = true;
 						}
 
 
@@ -2640,7 +2648,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				{
 					Novice::DrawSprite(114 + i % 6 * 200, 320 + (i / 6) * 200, ghTreasure[2], 2.65f, 2.65f, 0.0f, 0xFFFFFF55);
 				}
-			} else if (Scene::areaNo_ == AREA_2)
+			} 
+			else if (Scene::areaNo_ == AREA_2)
 			{
 				for (int i = STAGE_1; i <= STAGE_1; i++)
 				{
@@ -2657,7 +2666,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 					Novice::DrawSprite(114 + i % 6 * 200, 320 + (i / 6) * 200, ghTreasure[2], 2.65f, 2.65f, 0.0f, 0xFFFFFF55);
 				}
 
-			} else if (Scene::areaNo_ == AREA_3)
+			} 
+			else if (Scene::areaNo_ == AREA_3)
 			{
 				for (int i = STAGE_1; i <= STAGE_1; i++)
 				{
@@ -2748,6 +2758,15 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 						ghIce[3], 2.65f, 2.65f, 0.0f, 0xFFFFFFFF);
 				}
 			}
+
+			for (int i = 0; i <= STAGE_12; i++)
+			{
+				if (isStageClear[i])
+				{
+					Novice::DrawSprite(114 + i % 6 * 200, 360 + (i / 6) * 200, ghTextCelar, 0.5f, 0.5f, 0.0f, 0xFFFFFFFF);
+				}
+			}
+
 
 			//ステージ選択テキスト
 			Novice::DrawSprite(32, 32, ghStageSelectText, 0.5f, 0.5f, 0.0f, 0xFFFFFFFF);
