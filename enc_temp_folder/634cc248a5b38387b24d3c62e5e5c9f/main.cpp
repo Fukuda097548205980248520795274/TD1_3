@@ -2109,7 +2109,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 								{
 									Scene::stageNo_ = STAGE_1;
 									Scene::areaNo_ += 1;
-								
+								}
 							}
 						}
 
