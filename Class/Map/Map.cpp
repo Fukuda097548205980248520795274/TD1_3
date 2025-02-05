@@ -202,6 +202,20 @@ void Map::Draw()
 
 					break;
 
+				case TILE_CONCRETE:
+					// コンクリート
+
+					Novice::DrawQuad
+					(
+						column * kTileSize, row * kTileSize,
+						column * kTileSize + kTileSize, row * kTileSize,
+						column * kTileSize, row * kTileSize + kTileSize,
+						column * kTileSize + kTileSize, row * kTileSize + kTileSize,
+						0, 0, 48, 48, ghWhite, 0x666666FF
+					);
+
+					break;
+
 				case TILE_GOAL:
 					// ゴール
 
