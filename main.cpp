@@ -1469,7 +1469,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				}
 			}
 
-
 			// 540フレームで、ロードを終了し、ゲームを開始する（ロードフラグをfalseにする）
 			if (gameFrame == 540)
 			{
