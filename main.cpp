@@ -1684,10 +1684,13 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 						/*   当たり判定   */
 
+						// プレイヤーと敵
 						for (int i = 0; i < kEnemyNum; i++)
 						{
 							player->Hit(enemy[i]);
 						}
+
+						
 
 
 						/*   リセット   */
