@@ -346,7 +346,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 
 	// フルスクリーンにする
-	//SetFullScreen(GetActiveWindow());
+	SetFullScreen(GetActiveWindow());
 
 	// ウィンドウの×ボタンが押されるまでループ
 	while (Novice::ProcessMessage() == 0)
