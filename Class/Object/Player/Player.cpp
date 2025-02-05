@@ -594,25 +594,104 @@ void Player::Operation(const char* keys, const char* preKeys , int stickX , int 
 			Map::map_[map_.rightBottom.row][map_.rightBottom.column] == TILE_LADDER ||
 			Map::map_[map_.leftBottom.row][map_.leftBottom.column] == TILE_NOTHING &&
 			Map::map_[map_.rightBottom.row][map_.rightBottom.column] == TILE_GOAL ||
-
-			Map::map_[map_.leftBottom.row][map_.leftBottom.column] == TILE_LADDER &&
-			Map::map_[map_.rightBottom.row][map_.rightBottom.column] == TILE_LADDER ||
-			Map::map_[map_.leftBottom.row][map_.leftBottom.column] == TILE_LADDER &&
-			Map::map_[map_.rightBottom.row][map_.rightBottom.column] == TILE_NOTHING ||
-			Map::map_[map_.leftBottom.row][map_.leftBottom.column] == TILE_LADDER &&
-			Map::map_[map_.rightBottom.row][map_.rightBottom.column] == TILE_GOAL ||
-
-			Map::map_[map_.leftBottom.row][map_.leftBottom.column] == TILE_GOAL &&
-			Map::map_[map_.rightBottom.row][map_.rightBottom.column] == TILE_GOAL ||
-			Map::map_[map_.leftBottom.row][map_.leftBottom.column] == TILE_GOAL &&
-			Map::map_[map_.rightBottom.row][map_.rightBottom.column] == TILE_NOTHING ||
-			Map::map_[map_.leftBottom.row][map_.leftBottom.column] == TILE_GOAL &&
-			Map::map_[map_.rightBottom.row][map_.rightBottom.column] == TILE_LADDER ||
-
-			Map::map_[map_.leftBottom.row][map_.leftBottom.column] == TILE_SLOPE_LEFT_BOTTOM ||
-			Map::map_[map_.leftBottom.row][map_.leftBottom.column] == TILE_SLOPE_LEFT_TOP ||
+			Map::map_[map_.leftBottom.row][map_.leftBottom.column] == TILE_NOTHING &&
+			Map::map_[map_.rightBottom.row][map_.rightBottom.column] == TILE_SLOPE_LEFT_BOTTOM ||
+			Map::map_[map_.leftBottom.row][map_.leftBottom.column] == TILE_NOTHING &&
+			Map::map_[map_.rightBottom.row][map_.rightBottom.column] == TILE_SLOPE_LEFT_TOP ||
+			Map::map_[map_.leftBottom.row][map_.leftBottom.column] == TILE_NOTHING &&
 			Map::map_[map_.rightBottom.row][map_.rightBottom.column] == TILE_SLOPE_RIGHT_BOTTOM ||
-			Map::map_[map_.rightBottom.row][map_.rightBottom.column] == TILE_SLOPE_RIGHT_TOP)
+			Map::map_[map_.leftBottom.row][map_.leftBottom.column] == TILE_NOTHING &&
+			Map::map_[map_.rightBottom.row][map_.rightBottom.column] == TILE_SLOPE_RIGHT_TOP ||
+
+			Map::map_[map_.leftBottom.row][map_.leftBottom.column] == TILE_LADDER &&
+			Map::map_[map_.rightBottom.row][map_.rightBottom.column] == TILE_LADDER ||
+			Map::map_[map_.leftBottom.row][map_.leftBottom.column] == TILE_LADDER &&
+			Map::map_[map_.rightBottom.row][map_.rightBottom.column] == TILE_NOTHING ||
+			Map::map_[map_.leftBottom.row][map_.leftBottom.column] == TILE_LADDER &&
+			Map::map_[map_.rightBottom.row][map_.rightBottom.column] == TILE_GOAL ||
+			Map::map_[map_.leftBottom.row][map_.leftBottom.column] == TILE_LADDER &&
+			Map::map_[map_.rightBottom.row][map_.rightBottom.column] == TILE_SLOPE_LEFT_BOTTOM ||
+			Map::map_[map_.leftBottom.row][map_.leftBottom.column] == TILE_LADDER &&
+			Map::map_[map_.rightBottom.row][map_.rightBottom.column] == TILE_SLOPE_LEFT_TOP ||
+			Map::map_[map_.leftBottom.row][map_.leftBottom.column] == TILE_LADDER &&
+			Map::map_[map_.rightBottom.row][map_.rightBottom.column] == TILE_SLOPE_RIGHT_BOTTOM ||
+			Map::map_[map_.leftBottom.row][map_.leftBottom.column] == TILE_LADDER &&
+			Map::map_[map_.rightBottom.row][map_.rightBottom.column] == TILE_SLOPE_RIGHT_TOP ||
+
+			Map::map_[map_.leftBottom.row][map_.leftBottom.column] == TILE_GOAL &&
+			Map::map_[map_.rightBottom.row][map_.rightBottom.column] == TILE_GOAL ||
+			Map::map_[map_.leftBottom.row][map_.leftBottom.column] == TILE_GOAL &&
+			Map::map_[map_.rightBottom.row][map_.rightBottom.column] == TILE_NOTHING ||
+			Map::map_[map_.leftBottom.row][map_.leftBottom.column] == TILE_GOAL &&
+			Map::map_[map_.rightBottom.row][map_.rightBottom.column] == TILE_LADDER ||
+			Map::map_[map_.leftBottom.row][map_.leftBottom.column] == TILE_GOAL &&
+			Map::map_[map_.rightBottom.row][map_.rightBottom.column] == TILE_SLOPE_LEFT_BOTTOM ||
+			Map::map_[map_.leftBottom.row][map_.leftBottom.column] == TILE_GOAL &&
+			Map::map_[map_.rightBottom.row][map_.rightBottom.column] == TILE_SLOPE_LEFT_TOP ||
+			Map::map_[map_.leftBottom.row][map_.leftBottom.column] == TILE_GOAL &&
+			Map::map_[map_.rightBottom.row][map_.rightBottom.column] == TILE_SLOPE_RIGHT_BOTTOM ||
+			Map::map_[map_.leftBottom.row][map_.leftBottom.column] == TILE_GOAL &&
+			Map::map_[map_.rightBottom.row][map_.rightBottom.column] == TILE_SLOPE_RIGHT_TOP ||
+
+			Map::map_[map_.leftBottom.row][map_.leftBottom.column] == TILE_SLOPE_LEFT_BOTTOM &&
+			Map::map_[map_.rightBottom.row][map_.rightBottom.column] == TILE_SLOPE_LEFT_BOTTOM ||
+			Map::map_[map_.leftBottom.row][map_.leftBottom.column] == TILE_SLOPE_LEFT_BOTTOM &&
+			Map::map_[map_.rightBottom.row][map_.rightBottom.column] == TILE_NOTHING ||
+			Map::map_[map_.leftBottom.row][map_.leftBottom.column] == TILE_SLOPE_LEFT_BOTTOM &&
+			Map::map_[map_.rightBottom.row][map_.rightBottom.column] == TILE_LADDER ||
+			Map::map_[map_.leftBottom.row][map_.leftBottom.column] == TILE_SLOPE_LEFT_BOTTOM &&
+			Map::map_[map_.rightBottom.row][map_.rightBottom.column] == TILE_GOAL ||
+			Map::map_[map_.leftBottom.row][map_.leftBottom.column] == TILE_SLOPE_LEFT_BOTTOM &&
+			Map::map_[map_.rightBottom.row][map_.rightBottom.column] == TILE_SLOPE_LEFT_TOP ||
+			Map::map_[map_.leftBottom.row][map_.leftBottom.column] == TILE_SLOPE_LEFT_BOTTOM &&
+			Map::map_[map_.rightBottom.row][map_.rightBottom.column] == TILE_SLOPE_RIGHT_BOTTOM ||
+			Map::map_[map_.leftBottom.row][map_.leftBottom.column] == TILE_SLOPE_LEFT_BOTTOM &&
+			Map::map_[map_.rightBottom.row][map_.rightBottom.column] == TILE_SLOPE_RIGHT_TOP ||
+
+			Map::map_[map_.leftBottom.row][map_.leftBottom.column] == TILE_SLOPE_LEFT_TOP &&
+			Map::map_[map_.rightBottom.row][map_.rightBottom.column] == TILE_SLOPE_LEFT_TOP ||
+			Map::map_[map_.leftBottom.row][map_.leftBottom.column] == TILE_SLOPE_LEFT_TOP &&
+			Map::map_[map_.rightBottom.row][map_.rightBottom.column] == TILE_NOTHING ||
+			Map::map_[map_.leftBottom.row][map_.leftBottom.column] == TILE_SLOPE_LEFT_TOP &&
+			Map::map_[map_.rightBottom.row][map_.rightBottom.column] == TILE_LADDER ||
+			Map::map_[map_.leftBottom.row][map_.leftBottom.column] == TILE_SLOPE_LEFT_TOP &&
+			Map::map_[map_.rightBottom.row][map_.rightBottom.column] == TILE_GOAL ||
+			Map::map_[map_.leftBottom.row][map_.leftBottom.column] == TILE_SLOPE_LEFT_TOP &&
+			Map::map_[map_.rightBottom.row][map_.rightBottom.column] == TILE_SLOPE_LEFT_BOTTOM ||
+			Map::map_[map_.leftBottom.row][map_.leftBottom.column] == TILE_SLOPE_LEFT_TOP &&
+			Map::map_[map_.rightBottom.row][map_.rightBottom.column] == TILE_SLOPE_RIGHT_BOTTOM ||
+			Map::map_[map_.leftBottom.row][map_.leftBottom.column] == TILE_SLOPE_LEFT_TOP &&
+			Map::map_[map_.rightBottom.row][map_.rightBottom.column] == TILE_SLOPE_RIGHT_TOP ||
+
+			Map::map_[map_.leftBottom.row][map_.leftBottom.column] == TILE_SLOPE_RIGHT_BOTTOM &&
+			Map::map_[map_.rightBottom.row][map_.rightBottom.column] == TILE_SLOPE_RIGHT_BOTTOM ||
+			Map::map_[map_.leftBottom.row][map_.leftBottom.column] == TILE_SLOPE_RIGHT_BOTTOM &&
+			Map::map_[map_.rightBottom.row][map_.rightBottom.column] == TILE_NOTHING ||
+			Map::map_[map_.leftBottom.row][map_.leftBottom.column] == TILE_SLOPE_RIGHT_BOTTOM &&
+			Map::map_[map_.rightBottom.row][map_.rightBottom.column] == TILE_LADDER ||
+			Map::map_[map_.leftBottom.row][map_.leftBottom.column] == TILE_SLOPE_RIGHT_BOTTOM &&
+			Map::map_[map_.rightBottom.row][map_.rightBottom.column] == TILE_GOAL ||
+			Map::map_[map_.leftBottom.row][map_.leftBottom.column] == TILE_SLOPE_RIGHT_BOTTOM &&
+			Map::map_[map_.rightBottom.row][map_.rightBottom.column] == TILE_SLOPE_LEFT_BOTTOM ||
+			Map::map_[map_.leftBottom.row][map_.leftBottom.column] == TILE_SLOPE_RIGHT_BOTTOM &&
+			Map::map_[map_.rightBottom.row][map_.rightBottom.column] == TILE_SLOPE_LEFT_TOP ||
+			Map::map_[map_.leftBottom.row][map_.leftBottom.column] == TILE_SLOPE_RIGHT_BOTTOM &&
+			Map::map_[map_.rightBottom.row][map_.rightBottom.column] == TILE_SLOPE_RIGHT_TOP ||
+
+			Map::map_[map_.leftBottom.row][map_.leftBottom.column] == TILE_SLOPE_RIGHT_TOP &&
+			Map::map_[map_.rightBottom.row][map_.rightBottom.column] == TILE_SLOPE_RIGHT_TOP ||
+			Map::map_[map_.leftBottom.row][map_.leftBottom.column] == TILE_SLOPE_RIGHT_TOP &&
+			Map::map_[map_.rightBottom.row][map_.rightBottom.column] == TILE_NOTHING ||
+			Map::map_[map_.leftBottom.row][map_.leftBottom.column] == TILE_SLOPE_RIGHT_TOP &&
+			Map::map_[map_.rightBottom.row][map_.rightBottom.column] == TILE_LADDER ||
+			Map::map_[map_.leftBottom.row][map_.leftBottom.column] == TILE_SLOPE_RIGHT_TOP &&
+			Map::map_[map_.rightBottom.row][map_.rightBottom.column] == TILE_GOAL ||
+			Map::map_[map_.leftBottom.row][map_.leftBottom.column] == TILE_SLOPE_RIGHT_TOP &&
+			Map::map_[map_.rightBottom.row][map_.rightBottom.column] == TILE_SLOPE_LEFT_BOTTOM ||
+			Map::map_[map_.leftBottom.row][map_.leftBottom.column] == TILE_SLOPE_RIGHT_TOP &&
+			Map::map_[map_.rightBottom.row][map_.rightBottom.column] == TILE_SLOPE_LEFT_TOP ||
+			Map::map_[map_.leftBottom.row][map_.leftBottom.column] == TILE_SLOPE_RIGHT_TOP &&
+			Map::map_[map_.rightBottom.row][map_.rightBottom.column] == TILE_SLOPE_RIGHT_BOTTOM)
 		{
 			// 坂にいる場合
 			if (Map::map_[map_.leftBottom.row][map_.leftBottom.column] == TILE_SLOPE_LEFT_BOTTOM ||
@@ -1347,7 +1426,7 @@ void Player::Carry(const char* keys, const char* preKeys, CarryBlock* block1, Ca
 
 				// 移動速度を初期化する
 				block1->vel_.x = 0.0f;
-			}
+			} 
 			else
 			{
 				// 運びたいブロックに、別のブロックが乗っかているときは、運べない
@@ -1367,7 +1446,7 @@ void Player::Carry(const char* keys, const char* preKeys, CarryBlock* block1, Ca
 							vel_.x = 0.0f;
 						}
 					}
-				}
+				} 
 				else if (vel_.x < 0.0f)
 				{
 					// 左から押すとき
@@ -1386,7 +1465,7 @@ void Player::Carry(const char* keys, const char* preKeys, CarryBlock* block1, Ca
 					}
 				}
 			}
-		}
+		} 
 		else if (jump_.isJump || block1->jump_.isJump)
 		{
 			// ジャンプしている（ジャンプフラグがtrueである）ときは、押すことができない（運びフラグがfalseになる）
@@ -1410,7 +1489,7 @@ void Player::Carry(const char* keys, const char* preKeys, CarryBlock* block1, Ca
 							vel_.x = 0.0f;
 						}
 					}
-				}
+				} 
 				else if (vel_.x < 0.0f)
 				{
 					// 左から押すとき
@@ -1428,14 +1507,14 @@ void Player::Carry(const char* keys, const char* preKeys, CarryBlock* block1, Ca
 						}
 					}
 				}
-			}
+			} 
 			else
 			{
 				// 右から押すとき
 				if (vel_.x > 0.0f)
 				{
 					if (shape_.translate.x + shape_.scale.x + 1.0f + vel_.x > block1->shape_.translate.x - block1->shape_.scale.x &&
-						shape_.translate.x + shape_.scale.x + 1.0f + vel_.y < block1->shape_.translate.x + block1->shape_.scale.x)
+						shape_.translate.x + shape_.scale.x + 1.0f + vel_.x < block1->shape_.translate.x + block1->shape_.scale.x)
 					{
 						if (shape_.translate.y + shape_.scale.y > block1->shape_.translate.y - block1->shape_.scale.y &&
 							shape_.translate.y - shape_.scale.y < block1->shape_.translate.y + block1->shape_.scale.y)
@@ -1448,7 +1527,7 @@ void Player::Carry(const char* keys, const char* preKeys, CarryBlock* block1, Ca
 							vel_.x = 0.0f;
 						}
 					}
-				}
+				} 
 				else if (vel_.x < 0.0f)
 				{
 					// 左から押すとき
@@ -1470,7 +1549,7 @@ void Player::Carry(const char* keys, const char* preKeys, CarryBlock* block1, Ca
 				}
 			}
 		}
-	}
+	} 
 	else
 	{
 		// スペースキーを押してないときは、ブロックにぶつかる（運びフラグがfalseになる）
@@ -1516,14 +1595,14 @@ void Player::Carry(const char* keys, const char* preKeys, CarryBlock* block1, Ca
 					}
 				}
 			}
-		}
+		} 
 		else
 		{
 			// 右から押すとき
 			if (vel_.x > 0.0f)
 			{
 				if (shape_.translate.x + shape_.scale.x + 1.0f + vel_.x > block1->shape_.translate.x - block1->shape_.scale.x &&
-					shape_.translate.x + shape_.scale.x + 1.0f + vel_.y < block1->shape_.translate.x + block1->shape_.scale.x)
+					shape_.translate.x + shape_.scale.x + 1.0f + vel_.x < block1->shape_.translate.x + block1->shape_.scale.x)
 				{
 					if (shape_.translate.y + shape_.scale.y > block1->shape_.translate.y - block1->shape_.scale.y &&
 						shape_.translate.y - shape_.scale.y < block1->shape_.translate.y + block1->shape_.scale.y)
@@ -1536,7 +1615,7 @@ void Player::Carry(const char* keys, const char* preKeys, CarryBlock* block1, Ca
 						vel_.x = 0.0f;
 					}
 				}
-			}
+			} 
 			else if (vel_.x < 0.0f)
 			{
 				// 左から押すとき

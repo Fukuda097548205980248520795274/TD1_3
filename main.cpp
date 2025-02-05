@@ -20,11 +20,6 @@
 #include "./Class/Texture/Texture.h"
 #include "./Class/Texture/Title/Title.h"
 #include "./Class/Texture/Transition/Transition.h"
-#include "./Class/Texture/SignboardWaremono/SignboardWaremono.h"
-#include "./Class/Texture/SignboardKonayuki/SignboardKonayuki.h"
-#include "./Class/Texture/SignboardScaffold/SignboardScaffold.h"
-#include "./class/Texture/SignboardFlag/SignboardFlag.h"
-#include "./Class/Texture/SignboardCarry/SignboardCarry.h"
 #include "./Class/Texture/SpaceOrA/SpaceOrA.h"
 #include "./Class/Texture/TextNextStage/TextNextStage.h"
 #include "./Class/Texture/TextReset/TextReset.h"
@@ -152,20 +147,15 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 	Texture* texture[kTexutreNum];
 	texture[0] = new Title();
-	texture[1] = new SignboardWaremono();
-	texture[2] = new SignboardKonayuki();
-	texture[3] = new SignboardScaffold();
-	texture[4] = new SpaceOrA();
-	texture[5] = new SignboardFlag();
-	texture[6] = new TextNextStage();
-	texture[7] = new TextReset();
-	texture[8] = new TextReturn();
-	texture[9] = new SignboardCarry();
-	texture[10] = new TextGameReturn();
-	texture[11] = new TextGameGiveup();
-	texture[12] = new TextGameClear();
-	texture[13] = new TextGameOver();
-	texture[14] = new Transition();
+	texture[1] = new SpaceOrA();
+	texture[2] = new TextNextStage();
+	texture[3] = new TextReset();
+	texture[4] = new TextReturn();
+	texture[5] = new TextGameReturn();
+	texture[6] = new TextGameGiveup();
+	texture[7] = new TextGameClear();
+	texture[8] = new TextGameOver();
+	texture[9] = new Transition();
 
 	// 宝箱
 	int ghTreasure = Novice::LoadTexture("./Resources/Images/Map/treasureBox.png");
@@ -2393,8 +2383,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 			// タイトル
 			texture[0]->Draw(gameFrame);
-
-			texture[4]->Draw(gameFrame);
+			texture[1]->Draw(gameFrame);
 
 			// 雪
 			for (int i = 0; i < kSnowNum; i++)
@@ -2550,13 +2539,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				break;
 			}
 
-			// 看板
-			texture[1]->Draw(gameFrame);
-			texture[2]->Draw(gameFrame);
-			texture[3]->Draw(gameFrame);
-			texture[5]->Draw(gameFrame);
-			texture[9]->Draw(gameFrame);
-
 			// マップ
 			Map::Draw();
 			DrawMap::Draw();
@@ -2685,19 +2667,19 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			// ポーズ中
 			if (isPose)
 			{
-				texture[10]->Draw(gameFrame);
-				texture[11]->Draw(gameFrame);
+				texture[5]->Draw(gameFrame);
+				texture[6]->Draw(gameFrame);
 				Novice::DrawSprite(572, 52, ghPauseText, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
 				Novice::DrawSprite(42, 92, ghOperationInstructions, 0.7f, 0.7f, 0.0f, 0xFFFFFFFF);
 			}
 
 			// メニュー
-			texture[6]->Draw(gameFrame);
+			texture[2]->Draw(gameFrame);
+			texture[3]->Draw(gameFrame);
+			texture[4]->Draw(gameFrame);
+
 			texture[7]->Draw(gameFrame);
 			texture[8]->Draw(gameFrame);
-
-			texture[12]->Draw(gameFrame);
-			texture[13]->Draw(gameFrame);
 
 			break;
 
