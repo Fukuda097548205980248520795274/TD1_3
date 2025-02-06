@@ -185,6 +185,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	int ghOperationKeyboard = Novice::LoadTexture("./Resources/Images/Scene/Game/operationInstruct1.png");
 	int ghOperationControler = Novice::LoadTexture("./Resources/Images/Scene/Game/operationInstruct2.png");
 
+	// 矢印
+	int ghArrow = Novice::LoadTexture("./Resources/Images/Scene/StageSelect/arrow.png");
 
 
 	/*  　デバック表示　  */
@@ -217,6 +219,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 	//ステージ選択テキスト
 	int ghStageSelectText = Novice::LoadTexture("./Resources/Images/Scene/StageSelect/stageSelect.png");
+
 
 	// クリアテキスト
 	int ghTextCelar = Novice::LoadTexture("./Resources/Images/Scene/StageSelect/TextClear.png");
@@ -2628,6 +2631,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				}
 
 
+				Novice::DrawSprite(1260 , 400 , ghArrow , 0.5f , 0.5f , 0.0f , 0xFFFFFFFF);
+
 
 				break;
 
@@ -2636,6 +2641,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 				Novice::DrawBox(0, 0, kScreenWidth, kScreenHeight, 0.0f, 0x000022FF, kFillModeSolid);
 				Novice::DrawSprite(0, -70, ghArea2, 0.95f, 0.95f, 0.0f, 0xFFFFFF44);
+
+				Novice::DrawSprite(100, 400, ghArrow, -0.5f, 0.5f, 0.0f, 0xFFFFFFFF);
 
 				break;
 
